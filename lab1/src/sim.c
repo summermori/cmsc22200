@@ -3,7 +3,9 @@
 
 void fetch()
 {
-
+    uint32_t word = mem_read_32(CURRENT_STATE.PC);
+    printf("%x\n",word);
+    NEXT_STATE.PC = word;
 }
 
 void decode()
@@ -13,7 +15,8 @@ void decode()
 
 void execute()
 {
-
+    // keep as last line, moving program counter 
+    NEXT_STATE.PC = CURRENT_STATE.PC + 4;
 }
 
 void process_instruction()
