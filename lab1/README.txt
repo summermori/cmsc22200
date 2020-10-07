@@ -1,4 +1,4 @@
-CMSC-22200 Lab 1. 
+CMSC-22200 Lab 1
 
 For this lab, you will be writing a functional simulator of a subset of ARM.
 Please see the lab handout for details.
