@@ -9,10 +9,10 @@ done
 # runs the simulators for each file
 for f in inputs/*.x
 do
-  echo ">> Running ref on $f"
+  printf "\n\n>> Running ref on $f"
   ./sim $f
-  echo ">> Running sim on $f"
+  printf "\n\n>> Running sim on $f"
   ./src/sim $f
-  echo ">> Comparing dump files"
-  diff -s dumpsim src/dumpsim
+  "\n>> Comparing dump files" >> testresults.txt
+  diff -s dumpsim src/dumpsim >> testresults.txt
 done
