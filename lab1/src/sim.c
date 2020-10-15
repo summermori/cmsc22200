@@ -146,6 +146,365 @@ void decode()
   }
 }
 
+// instruction functions
+//helper functions
+//helper function for branching ops
+void Branch(int64_t offset)
+{
+    Decode_State.branching = 1;
+    NEXT_STATE.PC = CURRENT_STATE.PC + (offset * 4);
+    return;
+}
+//instruction set
+void ADD_Extended()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = NEXT_STATE.REGS[Decode_State.n];
+    int64_t m = NEXT_STATE.REGS[Decode_State.m];
+    int64_t res = n + m;
+    NEXT_STATE.REGS[d] = res;
+    return;
+
+}
+void ADD_Immediate()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = NEXT_STATE.REGS[Decode_State.n];
+    int64_t imm = Decode_State.imm;
+    int64_t res = n + imm;
+    NEXT_STATE.REGS[d] = res;
+    return;
+
+}
+void ADDS_Extended()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = NEXT_STATE.REGS[Decode_State.n];
+    int64_t m = NEXT_STATE.REGS[Decode_State.m];
+    int64_t res =  n + m;
+    if (res == 0)
+    {
+        NEXT_STATE.FLAG_Z = 1;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    else if (res < 0)
+    {
+        NEXT_STATE.FLAG_N = 1;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    else
+    {
+        NEXT_STATE.FLAG_Z = 0;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    NEXT_STATE.REGS[d] = res;
+    return;
+}
+void ADDS_Immediate()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = NEXT_STATE.REGS[Decode_State.n];
+    int64_t imm = Decode_State.imm;
+    int64_t res = n + imm;
+    if (res == 0)
+    {
+        NEXT_STATE.FLAG_Z = 1;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    else if (res < 0)
+    {
+        NEXT_STATE.FLAG_N = 1;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    else
+    {
+        NEXT_STATE.FLAG_Z = 0;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    NEXT_STATE.REGS[d] = res;
+    return;
+}
+//register to check
+void CBNZ()
+{
+    int64_t t = Decode_State.t;
+    int64_t offset = Decode_State.imm/32;
+    if (NEXT_STATE.REGS[t] != 0)
+    {
+      Branch(offset);
+    }
+    return;
+}
+void CBZ()
+{
+    int64_t t = Decode_State.t;
+    int64_t offset = Decode_State.imm/32;
+    if (NEXT_STATE.REGS[t] == 0)
+    {
+      Branch(offset);
+    }
+    return;
+}
+void AND()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t m = Decode_State.m;
+    NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] & NEXT_STATE.REGS[m];
+    return;
+}
+void ANDS()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t m = Decode_State.m;
+    int64_t res = NEXT_STATE.REGS[n] & NEXT_STATE.REGS[m];
+    if (res == 0)
+    {
+        NEXT_STATE.FLAG_Z = 1;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    else if (res < 0)
+    {
+        NEXT_STATE.FLAG_N = 1;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    else
+    {
+        NEXT_STATE.FLAG_Z = 0;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    NEXT_STATE.REGS[d] = res;
+    return;
+}
+void EOR()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t m = Decode_State.m;
+    NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] ^ NEXT_STATE.REGS[m];
+    return;
+}
+void ORR()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t m = Decode_State.m;
+    NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] | NEXT_STATE.REGS[m];
+    return;
+}
+void BITSHIFT()
+{
+  int64_t d = Decode_State.d;
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t immr = Decode_State.m;
+  int64_t res;
+  if (Decode_State.imm == 63) { // LSR
+    res = n >> immr;
+  }
+  else { // LSL
+    res = n << (64 - immr);
+  }
+  NEXT_STATE.REGS[d] = res;
+  return;
+}
+int64_t SIGNEXTEND(int64_t offset) {
+  if (offset & 0x0000000000000100) {
+    offset = (offset | 0xffffffffffffff00);
+  }
+  return offset;
+}
+void LDUR() {
+  int64_t t = Decode_State.d;
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t offset = SIGNEXTEND(Decode_State.imm);
+  int64_t load = mem_read_32(n + offset);
+  int64_t load2 = mem_read_32(n + offset + 4);
+  load = load | (load2 << 32);
+  NEXT_STATE.REGS[t] = load;
+}
+void LDUR2() {
+  int64_t t = Decode_State.d;
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t offset = SIGNEXTEND(Decode_State.imm);
+  int64_t load = mem_read_32(n + offset);
+  NEXT_STATE.REGS[t] = load;
+}
+void LDURB() {
+  int64_t t = Decode_State.d;
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t offset = SIGNEXTEND(Decode_State.imm);
+  int load = mem_read_32(n + offset);
+  load = (load & 0x000000ff);
+  NEXT_STATE.REGS[t] = load;
+}
+void STUR() {
+  int64_t t = NEXT_STATE.REGS[Decode_State.d];
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t offset = SIGNEXTEND(Decode_State.imm);
+  mem_write_32(n + offset, (t & 0x00000000ffffffff));
+  mem_write_32(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
+}
+void STUR2() {
+  int64_t t = NEXT_STATE.REGS[Decode_State.d];
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t offset = SIGNEXTEND(Decode_State.imm);
+  mem_write_32(n + offset, t);
+}
+void STURB() {
+  char t = NEXT_STATE.REGS[Decode_State.d];
+  int64_t n = NEXT_STATE.REGS[Decode_State.n];
+  int64_t offset = SIGNEXTEND(Decode_State.imm);
+  int load = mem_read_32(n + offset);
+  load = (load & 0xffffff00) | (int)t;
+  mem_write_32(n + offset, load);
+}
+void SUB_Immediate()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t imm = Decode_State.imm;
+    int64_t res = NEXT_STATE.REGS[n] - imm;
+    NEXT_STATE.REGS[d] = res;
+    return;
+
+}
+void SUB_Extended()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t m = Decode_State.m;
+    int64_t res = NEXT_STATE.REGS[n] - NEXT_STATE.REGS[m];
+    NEXT_STATE.REGS[d] = res;
+    return;
+
+}
+void SUBS_Immediate()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t imm = Decode_State.imm;
+    int64_t res = NEXT_STATE.REGS[n] - imm;
+    if (res == 0)
+    {
+        NEXT_STATE.FLAG_Z = 1;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    else if (res < 0)
+    {
+        NEXT_STATE.FLAG_N = 1;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    else
+    {
+        NEXT_STATE.FLAG_N = 0;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    //for cmp(). discards result if d == 31
+    if (d != 31)
+    {
+        NEXT_STATE.REGS[d] = res;
+    }
+    return;
+}
+void SUBS_Extended()
+{
+    int64_t d = Decode_State.d;
+    int64_t n = Decode_State.n;
+    int64_t m = Decode_State.m;
+    int64_t res = NEXT_STATE.REGS[n] - NEXT_STATE.REGS[m];
+    if (res == 0)
+    {
+        NEXT_STATE.FLAG_Z = 1;
+        NEXT_STATE.FLAG_N = 0;
+    }
+    else if (res < 0)
+    {
+        NEXT_STATE.FLAG_N = 1;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    else
+    {
+        NEXT_STATE.FLAG_N = 0;
+        NEXT_STATE.FLAG_Z = 0;
+    }
+    //for cmp(). discards result if d == 31
+    if (d != 31)
+    {
+        NEXT_STATE.REGS[d] = res;
+    }
+    return;
+}
+void MOVZ()
+{
+    NEXT_STATE.REGS[Decode_State.d] = Decode_State.imm;
+    return;
+}
+void MUL()
+{
+    NEXT_STATE.REGS[Decode_State.d] = NEXT_STATE.REGS[Decode_State.n] * NEXT_STATE.REGS[Decode_State.m];
+    return;
+}
+void HLT()
+{
+    RUN_BIT = FALSE;
+    return;
+}
+void BR()
+{
+    NEXT_STATE.PC = NEXT_STATE.REGS[Decode_State.n];
+    Decode_State.branching = 1;
+    return;
+}
+void B()
+{
+    int64_t target = Decode_State.imm;
+    Branch(target);
+    return;
+}
+//cond is in d. imm is offset.
+void B_Cond()
+{
+    int64_t cond = Decode_State.d;
+    int64_t offset = Decode_State.imm;
+    switch(cond)
+    {
+        //BEQ
+        case(0):
+            if (NEXT_STATE.FLAG_Z == 1)
+            {Branch(offset);}
+            break;
+        //BNE
+        case(1):
+            if (NEXT_STATE.FLAG_Z == 0)
+            {Branch(offset);}
+            break;
+        //BGE
+        case(10):
+            if ((NEXT_STATE.FLAG_Z == 1) || (NEXT_STATE.FLAG_N == 0))
+            {Branch(offset);}
+            break;
+        //BLT
+        case(11):
+            if (NEXT_STATE.FLAG_N == 1)
+            {Branch(offset);}
+            break;
+        //BGT
+        case(12):
+            if ((NEXT_STATE.FLAG_N == 0) && (NEXT_STATE.FLAG_Z == 0))
+            {Branch(offset);}
+            break;
+        //BLE
+        case(13):
+            if ((NEXT_STATE.FLAG_Z == 0) || (NEXT_STATE.FLAG_N == 1))
+            {Branch(offset);}
+            break;
+    }
+    //Branch Helper Function already sets .branching to 1
+    return;
+}
+
+
 void execute()
 {
     // keep as last line, moving program counter
