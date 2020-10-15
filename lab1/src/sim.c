@@ -675,7 +675,7 @@ void execute()
           ORR();
           break;
         // Add/subtract (extended)
-        case 0x8b200000:
+        case 0x8b000000:
           //printf("ADD\n");
           ADD_Extended();
           break;
