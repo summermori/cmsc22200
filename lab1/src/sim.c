@@ -664,6 +664,9 @@ void execute()
     {
         NEXT_STATE.PC = CURRENT_STATE.PC + 4;
     }
+    else {
+        Decode_State.branching = 0;    
+    }
 }
 
 void process_instruction()
