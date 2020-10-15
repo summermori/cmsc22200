@@ -66,9 +66,10 @@ void decode()
     // Conditional branch
     if ((word & 0xfe000000) == 0x54000000) {
       Decode_State.op = (word & 0xff000000);
+      //check d for cond
       Decode_State.d = (word & 0x0000000f);
-      Decode_State.imm = (word & 0x00ffffe0) >> 5;
-      // sam, what should the inverse be? i didn't see it in the specs - victor
+      //Decode_State.imm = (word & 0x00ffffe0) >> 5;
+      Decode_State.imm = ((word & 0x00FFFFE0) | ((word & 800000) ? 0xFFFFFFFFFFF80000 : 0)) >> 5;
       printf("Conditional branch, ");
     }
     // Exception
@@ -86,13 +87,15 @@ void decode()
     // Unconditional branch (immediate)
     else if ((word & 0x60000000) == 0) {
       Decode_State.op = (word & 0xfc000000);
-      Decode_State.imm = (word & 0x03ffffff);
+      //sign extending to 64 bits
+      Decode_State.imm = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
     else if ((word & 0x7e000000) == 0x34000000) {
       Decode_State.op = (word & 0xff000000);
-      Decode_State.branch_to = (word & 0x0000001f);
+      Decode_State.t = (word & 0x0000001f);
+      Decode_State.imm = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       printf("Compare and branch, ");
     }
     else {
