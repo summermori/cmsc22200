@@ -165,7 +165,9 @@ void ADD_Extended()
     int64_t n = NEXT_STATE.REGS[Decode_State.n];
     int64_t m = NEXT_STATE.REGS[Decode_State.m];
     int64_t res = n + m;
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 
 }
@@ -175,7 +177,9 @@ void ADD_Immediate()
     int64_t n = NEXT_STATE.REGS[Decode_State.n];
     int64_t imm = Decode_State.imm;
     int64_t res = n + imm;
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 
 }
@@ -200,7 +204,9 @@ void ADDS_Extended()
         NEXT_STATE.FLAG_Z = 0;
         NEXT_STATE.FLAG_N = 0;
     }
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 }
 void ADDS_Immediate()
@@ -224,7 +230,9 @@ void ADDS_Immediate()
         NEXT_STATE.FLAG_Z = 0;
         NEXT_STATE.FLAG_N = 0;
     }
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 }
 //register to check
@@ -253,7 +261,9 @@ void AND()
     int64_t d = Decode_State.d;
     int64_t n = Decode_State.n;
     int64_t m = Decode_State.m;
-    NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] & NEXT_STATE.REGS[m];
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] & NEXT_STATE.REGS[m];
+    }
     return;
 }
 void ANDS()
@@ -277,7 +287,9 @@ void ANDS()
         NEXT_STATE.FLAG_Z = 0;
         NEXT_STATE.FLAG_N = 0;
     }
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 }
 void EOR()
@@ -285,7 +297,9 @@ void EOR()
     int64_t d = Decode_State.d;
     int64_t n = Decode_State.n;
     int64_t m = Decode_State.m;
-    NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] ^ NEXT_STATE.REGS[m];
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] ^ NEXT_STATE.REGS[m];
+    }
     return;
 }
 void ORR()
@@ -293,7 +307,9 @@ void ORR()
     int64_t d = Decode_State.d;
     int64_t n = Decode_State.n;
     int64_t m = Decode_State.m;
-    NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] | NEXT_STATE.REGS[m];
+    if (d != 31) {
+      NEXT_STATE.REGS[d] = NEXT_STATE.REGS[n] | NEXT_STATE.REGS[m];
+    }
     return;
 }
 void BITSHIFT()
@@ -308,7 +324,9 @@ void BITSHIFT()
   else { // LSL
     res = n << (64 - immr);
   }
-  NEXT_STATE.REGS[d] = res;
+  if (d != 31) {
+    NEXT_STATE.REGS[d] = res;
+  }
   return;
 }
 int64_t SIGNEXTEND(int64_t offset) {
@@ -324,14 +342,18 @@ void LDUR() {
   int64_t load = mem_read_32(n + offset);
   int64_t load2 = mem_read_32(n + offset + 4);
   load = load | (load2 << 32);
-  NEXT_STATE.REGS[t] = load;
+  if (t != 31) {
+    NEXT_STATE.REGS[t] = load;
+  }
 }
 void LDUR2() {
   int64_t t = Decode_State.d;
   int64_t n = NEXT_STATE.REGS[Decode_State.n];
   int64_t offset = SIGNEXTEND(Decode_State.imm);
   int64_t load = mem_read_32(n + offset);
-  NEXT_STATE.REGS[t] = load;
+  if (t != 31) {
+    NEXT_STATE.REGS[t] = load;
+  }
 }
 void LDURB() {
   int64_t t = Decode_State.d;
@@ -339,7 +361,9 @@ void LDURB() {
   int64_t offset = SIGNEXTEND(Decode_State.imm);
   int load = mem_read_32(n + offset);
   load = (load & 0x000000ff);
-  NEXT_STATE.REGS[t] = load;
+  if (t != 31) {
+    NEXT_STATE.REGS[t] = load;
+  }
 }
 void LDURH() {
   int64_t t = Decode_State.d;
@@ -347,7 +371,9 @@ void LDURH() {
   int64_t offset = SIGNEXTEND(Decode_State.imm);
   int load = mem_read_32(n + offset);
   load = (load & 0x0000ffff);
-  NEXT_STATE.REGS[t] = load;
+  if (t != 31) {
+    NEXT_STATE.REGS[t] = load;
+  }
 }
 void STUR() {
   int64_t t = NEXT_STATE.REGS[Decode_State.d];
@@ -384,7 +410,10 @@ void SUB_Immediate()
     int64_t n = Decode_State.n;
     int64_t imm = Decode_State.imm;
     int64_t res = NEXT_STATE.REGS[n] - imm;
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31)
+    {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 
 }
@@ -394,7 +423,10 @@ void SUB_Extended()
     int64_t n = Decode_State.n;
     int64_t m = Decode_State.m;
     int64_t res = NEXT_STATE.REGS[n] - NEXT_STATE.REGS[m];
-    NEXT_STATE.REGS[d] = res;
+    if (d != 31)
+    {
+      NEXT_STATE.REGS[d] = res;
+    }
     return;
 
 }
@@ -456,13 +488,19 @@ void SUBS_Extended()
 }
 void MOVZ()
 {
+  if (Decode_State.d != 31)
+  {
     NEXT_STATE.REGS[Decode_State.d] = Decode_State.imm;
-    return;
+  }
+  return;
 }
 void MUL()
 {
+  if (Decode_State.d != 31)
+  {
     NEXT_STATE.REGS[Decode_State.d] = NEXT_STATE.REGS[Decode_State.n] * NEXT_STATE.REGS[Decode_State.m];
-    return;
+  }
+  return;
 }
 void HLT()
 {
