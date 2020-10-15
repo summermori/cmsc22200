@@ -14,9 +14,9 @@ do
   echo "" > testsim.txt
   echo "" > testref.txt
   printf ">> Running ref on $f\n"
-  ./sim $f >> testref.txt
+  echo "go"; echo "rdum"; echo "mdum 0x10000000 0x10000100" | ./sim $f >> testref.txt
   printf ">> Running sim on $f\n"
-  ./src/sim $f >> testsim.txt
+  echo "go"; echo "rdum"; echo "mdum 0x10000000 0x10000100" | ./src/sim $f >> testsim.txt
   echo ">> $f\n" >> testresults.txt
   diff -s testref.txt testsim.txt >> testresults.txt
 done
