@@ -69,7 +69,7 @@ void decode()
       //check d for cond
       Decode_State.d = (word & 0x0000000f);
       //Decode_State.imm = (word & 0x00ffffe0) >> 5;
-      Decode_State.imm = ((word & 0x00FFFFE0) | ((word & 800000) ? 0xFFFFFFFFFFF80000 : 0));
+      Decode_State.imm = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       //printf("Conditional branch, ");
     }
     // Exception
