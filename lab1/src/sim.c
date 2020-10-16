@@ -543,7 +543,7 @@ void B_Cond()
             break;
         //BLT
         case(11):
-            if (NEXT_STATE.FLAG_N == 1)
+            if ((NEXT_STATE.FLAG_N == 1) && (NEXT_STATE.FLAG_Z == 0))
             {Branch(offset);}
             break;
         //BGT
@@ -553,7 +553,7 @@ void B_Cond()
             break;
         //BLE
         case(13):
-            if ((NEXT_STATE.FLAG_Z == 0) || (NEXT_STATE.FLAG_N == 1))
+            if ((NEXT_STATE.FLAG_Z == 1) || (NEXT_STATE.FLAG_N == 1))
             {Branch(offset);}
             break;
     }
