@@ -3,10 +3,10 @@
 echo "" > testresults.txt
 
 # converts all input files to hex
-# for f in inputs/*.s
-# do
-#   ./inputs/asm2hex $f
-# done
+for f in inputs/*.s
+do
+  ./inputs/asm2hex $f
+done
 
 # runs the simulators for each file
 for f in inputs/*.x

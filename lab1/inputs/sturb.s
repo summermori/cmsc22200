@@ -8,4 +8,3 @@ ldur X13, [X1, 0x0]
 ldur X14, [X1, 0x4]
 ldurb W15, [X1, 0x6]
 HLT 0
-
