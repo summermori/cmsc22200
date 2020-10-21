@@ -20,7 +20,7 @@ typedef struct CPU_State {
 
 	/* program counter in fetch stage */
 	uint64_t PC;
-	
+
 } CPU_State;
 
 int RUN_BIT;
@@ -40,5 +40,34 @@ void pipe_stage_decode();
 void pipe_stage_execute();
 void pipe_stage_mem();
 void pipe_stage_wb();
+
+/* pipeline registers */
+typedef struct IFtoID_t {
+	uint32_t inst;
+} IFtoID_t;
+
+typedef struct IDtoEX_t {
+	int64_t op;
+	int64_t m;
+	int64_t n;
+	int64_t d; // this will probably remain as a 5-bit number
+	int64_t imm1;
+	int64_t imm2;
+	int64_t addr;
+} IDtoEX_t;
+
+typedef struct EXtoMEM_t {
+	int64_t n;
+	int64_t d; // this will probably remain as a 5-bit number
+	int64_t addr;
+	int64_t res;
+} EXtoMEM_t;
+
+typedef struct MEMtoWB_t {
+	int64_t res;
+} MEMtoWB_t;
+
+/* control struct */
+// we will need a control struct for stalling and fowarding signals
 
 #endif

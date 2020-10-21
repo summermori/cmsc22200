@@ -22,6 +22,12 @@ void pipe_init()
     CURRENT_STATE.PC = 0x00400000;
 }
 
+IFtoID_t IFtoID = { .inst = 0};
+IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .d = 0, .imm1 = 0, .imm2 = 0, .addr = 0};
+EXtoMEM_t EXtoMEM = { .n = 0, .d = 0, .addr = 0, .res = 0};
+MEMtoWB_t MEMtoWB = {.res = 0};
+
+
 void pipe_cycle()
 {
 	pipe_stage_wb();
@@ -29,6 +35,7 @@ void pipe_cycle()
 	pipe_stage_execute();
 	pipe_stage_decode();
 	pipe_stage_fetch();
+  RUN_BIT = false;
 }
 
 
@@ -47,8 +54,134 @@ void pipe_stage_execute()
 
 void pipe_stage_decode()
 {
+  uint32_t word = IFtoID.inst;
+  int temp = word & 0x1E000000;
+  // Data Processing - Immediate
+  if ((temp == 0x10000000) || (temp == 0x12000000)) {
+    //printf("Data Processing - Immediate, ");
+    int temp2 = word & 0x03800000;
+    // Add/subtract (immediate)
+    if ((temp2 == 0x01000000) || (temp2 == 0x01800000)) {
+      IDtoEX.op = (word & 0xff000000);
+      IDtoEX.imm1 = (word & 0x003ffc00) >> 10;
+      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.d = (word & 0x0000001f);
+      //printf("Add/subtraction (immediate), ");
+    }
+    // Move wide (immediate)
+    else if (temp2 == 0x02800000) {
+      IDtoEX.op = (word & 0xff800000);
+      IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
+      IDtoEX.d = (word & 0x0000001f);
+      //printf("Move wide (immediate), ");
+    }
+    // Bitfield
+    else if (temp2 == 0x03000000) {
+      // this should be reviewed, since i am unsure what you guys need - victor
+      IDtoEX.op = (word & 0xff800000);
+      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
+      IDtoEX.imm2 = (word & 0x003f0000) >> 16; // using m as another imm
+      //printf("Bitfield, ");
+    }
+    else {
+      //printf("Failure to match subtype");
+    }
+  }
+
+  // Branches and Exceptions
+  else if ((temp == 0x14000000) || (temp == 0x16000000)) {
+    //printf("Branches and Exceptions, ");
+    // Conditional branch
+    if ((word & 0xfe000000) == 0x54000000) {
+      IDtoEX.op = (word & 0xff000000);
+      //check d for cond
+      IDtoEX.d = (word & 0x0000000f);
+      //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
+      IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
+      //printf("Conditional branch, ");
+    }
+    // Exception
+    else if ((word & 0xff000000) == 0xd4000000) {
+      IDtoEX.op = (word & 0xffe00000);
+      IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
+      //printf("Exception, ");
+    }
+    // Unconditional branch (register)
+    else if ((word & 0xfe000000) == 0xd6000000) {
+      IDtoEX.op = (word & 0xfffffc00);
+      IDtoEX.n = (word & 0x000003e0) >> 5;
+      //printf("Unconditional branch (register), ");
+    }
+    // Unconditional branch (immediate)
+    else if ((word & 0x60000000) == 0) {
+      IDtoEX.op = (word & 0xfc000000);
+      //sign extending to 64 bits
+      IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
+      //printf("Unconditional branch (immediate), ");
+    }
+    // Compare and branch
+    else if ((word & 0x7e000000) == 0x34000000) {
+      IDtoEX.op = (word & 0xff000000);
+      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
+      //printf("Compare and branch, ");
+    }
+    else {
+      //printf("Failure to match subtype");
+    }
+  }
+  // Loads and Stores
+  else if ((word & 0x0a000000) == 0x08000000) {
+    IDtoEX.op = (word & 0xffc00000);
+    IDtoEX.n = (word & 0x000003e0) >> 5;
+    IDtoEX.d = (word & 0x0000001f);
+    IDtoEX.imm1 = (word & 0x001ff000) >> 12;
+    IDtoEX.m = word;
+    //printf("Loads and Stores, Load/store (unscaled immediate), ");
+  }
+  // Data Processing - Register
+  else if ((word & 0x0e000000) == 0x0a000000) {
+    //printf("Data Processing - Register, ");
+    // Logical (shifted register)
+    if ((word & 0x1f000000) == 0x0a000000) {
+      IDtoEX.op = (word & 0xff000000);
+      IDtoEX.m = (word & 0x001f0000) >> 16;
+      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
+      //printf("Logical (shifted register), ");
+    }
+    // Add/subtract (extended register)
+    else if ((word & 0x1f200000) == 0x0b000000) {
+      IDtoEX.op = (word & 0xffe00000);
+      IDtoEX.m = (word & 0x001f0000) >> 16;
+      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.d = (word & 0x0000001f);
+      //printf("Add/subtract (extended register), ");
+    }
+    // Data processing (3 source)
+    else if ((word & 0x1f000000) == 0x1b000000) {
+      IDtoEX.op = (word & 0xffe00000);
+      IDtoEX.m = (word & 0x001f0000) >> 16;
+      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.d = (word & 0x0000001f);
+      //printf("Data processing (3 source), ");
+    }
+    else {
+      //printf("Failure to match subtype");
+    }
+  }
+  else {
+    //printf("Failure to match subtype");
+  }
 }
 
 void pipe_stage_fetch()
 {
+  uint32_t word = mem_read_32(CURRENT_STATE.PC);
+  IFtoID.inst = word;
+  printf("%x\n",word);
+  CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
 }
