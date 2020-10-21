@@ -57,14 +57,20 @@ typedef struct IDtoEX_t {
 } IDtoEX_t;
 
 typedef struct EXtoMEM_t {
+	int64_t op;
 	int64_t n;
 	int64_t d; // this will probably remain as a 5-bit number
 	int64_t addr;
 	int64_t res;
+	int fn; // this, along with other data must be propagated down the pipeline
+	int fz;
 } EXtoMEM_t;
 
 typedef struct MEMtoWB_t {
+	int64_t d;
 	int64_t res;
+	int fn;
+	int fz;
 } MEMtoWB_t;
 
 /* control struct */
