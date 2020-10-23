@@ -48,10 +48,52 @@ void pipe_cycle()
 
 void pipe_stage_wb()
 {
+  if (MEMtoWB.d != 31) {
+    CURRENT_STATE.REGS[MEMtoWB.d] = MEMtoWB.res;
+  }
+  CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
+  CURRENT_STATE.FLAG_N = MEMtoWB.fn;
 }
 
 void pipe_stage_mem()
 {
+  if (EXtoMEM.op != 0) {
+    switch (EXtoMEM.op)
+    {
+      //     case 0xf8400000:
+      //       //printf("LDUR\n");
+      //       LDUR();
+      //       break;
+      //     case 0xb8400000:
+      //       //printf("LDUR\n");
+      //       LDUR2();
+      //       break;
+      //     case 0x38400000:
+      //       //printf("LDURB\n");
+      //       LDURB();
+      //       break;
+      //     case 0x78400000:
+      //       //printf("LDURH\n");
+      //       LDURH();
+      //       break;
+      //     case 0xf8000000:
+      //       //printf("STUR\n");
+      //       STUR();
+      //       break;
+      //     case 0xb8000000:
+      //       //printf("STUR\n");
+      //       STUR2();
+      //       break;
+      //     case 0x38000000:
+      //       //printf("STURB\n");
+      //       STURB();
+      //       break;
+      //     case 0x78000000:
+      //       //printf("STURH\n");
+      //       STURH();
+      //       break;
+    }
+  }
   // i'm fairly certain this will just be the implementation of LDURs and STURs
   // we'd know through EXtoMEM.op, it is important to reset it to zero after execution
 }
@@ -117,39 +159,7 @@ void pipe_stage_execute()
   //       //printf("B\n");
   //       B();
   //       break;
-  //     // Loads and Stores
-  //     case 0xf8400000:
-  //       //printf("LDUR\n");
-  //       LDUR();
-  //       break;
-  //     case 0xb8400000:
-  //       //printf("LDUR\n");
-  //       LDUR2();
-  //       break;
-  //     case 0x38400000:
-  //       //printf("LDURB\n");
-  //       LDURB();
-  //       break;
-  //     case 0x78400000:
-  //       //printf("LDURH\n");
-  //       LDURH();
-  //       break;
-  //     case 0xf8000000:
-  //       //printf("STUR\n");
-  //       STUR();
-  //       break;
-  //     case 0xb8000000:
-  //       //printf("STUR\n");
-  //       STUR2();
-  //       break;
-  //     case 0x38000000:
-  //       //printf("STURB\n");
-  //       STURB();
-  //       break;
-  //     case 0x78000000:
-  //       //printf("STURH\n");
-  //       STURH();
-  //       break;
+  //
   //     // Logical (shifted register)
   //     case 0x8a000000:
   //       //printf("AND\n");
