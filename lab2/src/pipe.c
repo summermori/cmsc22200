@@ -101,17 +101,17 @@ void pipe_stage_execute()
 {
   // we have modify implementations to write to EXtoMEM.res
   if (!(IDtoEX.fmem)) {
-    // switch(IDtoEX.op)
-    // {
-    //     // Add/Subtract immediate
-    //     case 0x91000000:
-    //       //printf("ADD\n");
-    //       ADD_Immediate();
-    //       break;
-    //     case 0xb1000000:
-    //       //printf("ADDS\n");
-    //       ADDS_Immediate();
-    //       break;
+    switch(IDtoEX.op)
+    {
+        // Add/Subtract immediate
+        case 0x91000000:
+          //printf("ADD\n");
+          ADD_Immediate();
+          break;
+        case 0xb1000000:
+          //printf("ADDS\n");
+          ADDS_Immediate();
+          break;
     //     case 0xd1000000:
     //       //printf("SUB\n");
     //       SUB_Immediate();
@@ -129,16 +129,16 @@ void pipe_stage_execute()
     //       //printf("CBNZ\n");
     //       CBNZ();
     //       break;
-    //     // Move wide
-    //     case 0xd2800000:
-    //       //printf("MOVZ\n");
-    //       MOVZ();
-    //       break;
-    //     // Bitfield
-    //     case 0xd3000000:
-    //       //printf("LSL or LSR\n"); //execution has to do the distinction
-    //       BITSHIFT();
-    //       break;
+        // Move wide
+        case 0xd2800000:
+          //printf("MOVZ\n");
+          MOVZ();
+          break;
+        // Bitfield
+        case 0xd3000000:
+          //printf("LSL or LSR\n"); //execution has to do the distinction
+          BITSHIFT();
+          break;
     //     // Conditional branch
     //     case 0x54000000:
     //       //printf("B.cond\n");
@@ -160,32 +160,32 @@ void pipe_stage_execute()
     //       B();
     //       break;
     //
-    //     // Logical (shifted register)
-    //     case 0x8a000000:
-    //       //printf("AND\n");
-    //       AND();
-    //       break;
-    //     case 0xea000000:
-    //       //printf("ANDS\n");
-    //       ANDS();
-    //       break;
-    //     case 0xca000000:
-    //       //printf("EOR\n");
-    //       EOR();
-    //       break;
-    //     case 0xaa000000:
-    //       //printf("ORR\n");
-    //       ORR();
-    //       break;
-    //     // Add/subtract (extended)
-    //     case 0x8b000000:
-    //       //printf("ADD\n");
-    //       ADD_Extended();
-    //       break;
-    //     case 0xab000000:
-    //       //printf("ADDS\n");
-    //       ADDS_Extended();
-    //       break;
+        // Logical (shifted register)
+        case 0x8a000000:
+          //printf("AND\n");
+          AND();
+          break;
+        case 0xea000000:
+          //printf("ANDS\n");
+          ANDS();
+          break;
+        case 0xca000000:
+          //printf("EOR\n");
+          EOR();
+          break;
+        case 0xaa000000:
+          //printf("ORR\n");
+          ORR();
+          break;
+        // Add/subtract (extended)
+        case 0x8b000000:
+          //printf("ADD\n");
+          ADD_Extended();
+          break;
+        case 0xab000000:
+          //printf("ADDS\n");
+          ADDS_Extended();
+          break;
     //     case 0xcb000000:
     //       //printf("SUB\n");
     //       SUB_Extended();
@@ -199,10 +199,10 @@ void pipe_stage_execute()
     //       //printf("MUL\n");
     //       MUL();
     //       break;
-    // }
+    }
   } else {
     EXtoMEM.op = IDtoEX.op;
-    EXtoMEM.n = IDtoEX.n;
+    EXtoMEM.n = CURRENT_STATE.REGS[IDtoEX.n];
     EXtoMEM.dnum = IDtoEX.dnum;
     EXtoMEM.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
     EXtoMEM.imm1 = IDtoEX.imm1;
@@ -372,6 +372,7 @@ void LDUR() {
     MEMtoWB.res = load;
   }
   MEMtoWB.fwb = 1;
+
 }
 void LDUR2() {
   int64_t t = EXtoMEM.dnum;
@@ -382,6 +383,7 @@ void LDUR2() {
     MEMtoWB.res = load;
   }
   MEMtoWB.fwb = 1;
+
 }
 void LDURB() {
   int64_t t = EXtoMEM.dnum;
@@ -393,6 +395,7 @@ void LDURB() {
     MEMtoWB.res = load;
   }
   MEMtoWB.fwb = 1;
+
 }
 void LDURH() {
   int64_t t = EXtoMEM.dnum;
@@ -404,6 +407,7 @@ void LDURH() {
     MEMtoWB.res = load;
   }
   MEMtoWB.fwb = 1;
+
 }
 void STUR() {
   int64_t t = EXtoMEM.dval;
@@ -412,6 +416,7 @@ void STUR() {
   mem_write_32(n + offset, (t & 0x00000000ffffffff));
   mem_write_32(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
   MEMtoWB.fwb = 0;
+
 }
 void STUR2() {
   int64_t t = EXtoMEM.dval;
@@ -419,6 +424,7 @@ void STUR2() {
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   mem_write_32(n + offset, t);
   MEMtoWB.fwb = 0;
+
 }
 void STURB() {
   char t = EXtoMEM.dval;
@@ -428,8 +434,9 @@ void STURB() {
   load = (load & 0xffffff00) | (int)t;
   mem_write_32(n + offset, load);
   MEMtoWB.fwb = 0;
+
 }
-void STURH() { // need to revise the size of what is being written
+void STURH() {
   int t = EXtoMEM.dval;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
@@ -437,4 +444,127 @@ void STURH() { // need to revise the size of what is being written
   load = (load & 0xffffff00) | (t & 0x0000ffff);
   mem_write_32(n + offset, load);
   MEMtoWB.fwb = 0;
+
+}
+void ADD_Extended()
+{
+    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+    int64_t m = CURRENT_STATE.REGS[IDtoEX.m];
+    EXtoMEM.res = n + m;
+
+}
+void ADD_Immediate()
+{
+    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+    int64_t imm = IDtoEX.imm1;
+    EXtoMEM.res = n + imm;
+
+}
+void ADDS_Extended()
+{
+    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+    int64_t m = CURRENT_STATE.REGS[IDtoEX.m];
+    int64_t res =  n + m;
+    EXtoMEM.res = res;
+    if (res == 0)
+    {
+        EXtoMEM.fz = 1;
+        EXtoMEM.fn = 0;
+    }
+    else if (res < 0)
+    {
+        EXtoMEM.fn = 1;
+        EXtoMEM.fz = 0;
+    }
+    else
+    {
+        EXtoMEM.fz = 0;
+        EXtoMEM.fn = 0;
+    }
+
+}
+void ADDS_Immediate()
+{
+    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+    int64_t imm = IDtoEX.imm1;
+    int64_t res = n + imm;
+    EXtoMEM.res = res;
+    if (res == 0)
+    {
+        EXtoMEM.fz = 1;
+        EXtoMEM.fn = 0;
+    }
+    else if (res < 0)
+    {
+        EXtoMEM.fn = 1;
+        EXtoMEM.fz = 0;
+    }
+    else
+    {
+        EXtoMEM.fz = 0;
+        EXtoMEM.fn = 0;
+    }
+
+}
+void AND()
+{
+    int64_t n = IDtoEX.n;
+    int64_t m = IDtoEX.m;
+    EXtoMEM.res = CURRENT_STATE.REGS[n] & CURRENT_STATE.REGS[m];
+
+}
+void ANDS()
+{
+    int64_t n = IDtoEX.n;
+    int64_t m = IDtoEX.m;
+    int64_t res = CURRENT_STATE.REGS[n] & CURRENT_STATE.REGS[m];
+    EXtoMEM.res = res;
+    if (res == 0)
+    {
+        EXtoMEM.fz = 1;
+        EXtoMEM.fn = 0;
+    }
+    else if (res < 0)
+    {
+        EXtoMEM.fn = 1;
+        EXtoMEM.fz = 0;
+    }
+    else
+    {
+        EXtoMEM.fz = 0;
+        EXtoMEM.fn = 0;
+    }
+
+}
+void EOR()
+{
+    int64_t n = IDtoEX.n;
+    int64_t m = IDtoEX.m;
+    EXtoMEM.res = CURRENT_STATE.REGS[n] ^ CURRENT_STATE.REGS[m];
+
+}
+void ORR()
+{
+    int64_t n = IDtoEX.n;
+    int64_t m = IDtoEX.m;
+    EXtoMEM.res = CURRENT_STATE.REGS[n] | CURRENT_STATE.REGS[m];
+
+}
+void BITSHIFT()
+{
+  int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+  int64_t immr = IDtoEX.imm2;
+  int64_t res;
+  if (IDtoEX.imm1 == 63) { // LSR
+    res = n >> immr;
+  }
+  else { // LSL
+    res = n << (64 - immr);
+  }
+  EXtoMEM.res = res;
+
+}
+void MOVZ()
+{
+  EXtoMEM.res = IDtoEX.imm1;
 }

@@ -91,5 +91,15 @@ void STUR();
 void STUR2();
 void STURH();
 void STURB();
+void ADDS_Immediate();
+void ADD_Immediate();
+void ADDS_Extended();
+void ADD_Extended();
+void AND();
+void ANDS();
+void EOR();
+void ORR();
+void BITSHIFT();
+void MOVZ();
 
 #endif
