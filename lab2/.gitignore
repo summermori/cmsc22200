@@ -1,0 +1,4 @@
+dumpsim
+src/dumpsim
+src/sim
+inputs/*.x
