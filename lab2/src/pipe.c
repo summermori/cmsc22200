@@ -98,108 +98,108 @@ void pipe_stage_mem()
   // we'd know through EXtoMEM.op, it is important to reset it to zero after execution
 }
 
+
 void pipe_stage_execute()
 {
   // we have modify implementations to write to EXtoMEM.res
-  // switch(IDtoEX.op)
-  // {
-  //     // Add/Subtract immediate
-  //     case 0x91000000:
-  //       //printf("ADD\n");
-  //       ADD_Immediate();
-  //       break;
-  //     case 0xb1000000:
-  //       //printf("ADDS\n");
-  //       ADDS_Immediate();
-  //       break;
-  //     case 0xd1000000:
-  //       //printf("SUB\n");
-  //       SUB_Immediate();
-  //       break;
-  //     case 0xf1000000:
-  //       //printf("SUBS\n");
-  //       SUBS_Immediate();
-  //       break;
-  //     // Compare and branch
-  //     case 0xb4000000:
-  //       //printf("CBZ\n");
-  //       CBZ();
-  //       break;
-  //     case 0xb5000000:
-  //       //printf("CBNZ\n");
-  //       CBNZ();
-  //       break;
-  //     // Move wide
-  //     case 0xd2800000:
-  //       //printf("MOVZ\n");
-  //       MOVZ();
-  //       break;
-  //     // Bitfield
-  //     case 0xd3000000:
-  //       //printf("LSL or LSR\n"); //execution has to do the distinction
-  //       BITSHIFT();
-  //       break;
-  //     // Conditional branch
-  //     case 0x54000000:
-  //       //printf("B.cond\n");
-  //       B_Cond();
-  //       break;
-  //     // Exceptions
-  //     case 0xd4400000:
-  //       //printf("HLT\n");
-  //       HLT();
-  //       break;
-  //     // Unconditional branch (register)
-  //     case 0xd61f0000:
-  //       //printf("BR\n");
-  //       BR();
-  //       break;
-  //     // Unconditional branch (immediate)
-  //     case 0x14000000:
-  //       //printf("B\n");
-  //       B();
-  //       break;
-  //
-  //     // Logical (shifted register)
-  //     case 0x8a000000:
-  //       //printf("AND\n");
-  //       AND();
-  //       break;
-  //     case 0xea000000:
-  //       //printf("ANDS\n");
-  //       ANDS();
-  //       break;
-  //     case 0xca000000:
-  //       //printf("EOR\n");
-  //       EOR();
-  //       break;
-  //     case 0xaa000000:
-  //       //printf("ORR\n");
-  //       ORR();
-  //       break;
-  //     // Add/subtract (extended)
-  //     case 0x8b000000:
-  //       //printf("ADD\n");
-  //       ADD_Extended();
-  //       break;
-  //     case 0xab000000:
-  //       //printf("ADDS\n");
-  //       ADDS_Extended();
-  //       break;
-  //     case 0xcb000000:
-  //       //printf("SUB\n");
-  //       SUB_Extended();
-  //       break;
-  //     case 0xeb000000:
-  //       //printf("SUBS\n");
-  //       SUBS_Extended();
-  //       break;
-  //     // Data Processing (3 source)
-  //     case 0x9b000000:
-  //       //printf("MUL\n");
-  //       MUL();
-  //       break;
-  // }
+  switch(IDtoEX.op)
+  {
+      // Add/Subtract immediate
+      case 0x91000000:
+        //printf("ADD\n");
+        ADD_Immediate();
+        break;
+      case 0xb1000000:
+        //printf("ADDS\n");
+        ADDS_Immediate();
+        break;
+      case 0xd1000000:
+        //printf("SUB\n");
+        SUB_Immediate();
+        break;
+      case 0xf1000000:
+        //printf("SUBS\n");
+        SUBS_Immediate();
+        break;
+      // Compare and branch
+      case 0xb4000000:
+        //printf("CBZ\n");
+        CBZ();
+        break;
+      case 0xb5000000:
+        //printf("CBNZ\n");
+        CBNZ();
+        break;
+      // Move wide
+      case 0xd2800000:
+        //printf("MOVZ\n");
+        MOVZ();
+        break;
+      // Bitfield
+      case 0xd3000000:
+        //printf("LSL or LSR\n"); //execution has to do the distinction
+        BITSHIFT();
+        break;
+      // Conditional branch
+      case 0x54000000:
+        //printf("B.cond\n");
+        B_Cond();
+        break;
+      // Exceptions
+      case 0xd4400000:
+        //printf("HLT\n");
+        HLT();
+        break;
+      // Unconditional branch (register)
+      case 0xd61f0000:
+        //printf("BR\n");
+        BR();
+        break;
+      // Unconditional branch (immediate)
+      case 0x14000000:
+        //printf("B\n");
+        B();
+        break;
+      // Logical (shifted register)
+      case 0x8a000000:
+        //printf("AND\n");
+        AND();
+        break;
+      case 0xea000000:
+        //printf("ANDS\n");
+        ANDS();
+        break;
+      case 0xca000000:
+        //printf("EOR\n");
+        EOR();
+        break;
+      case 0xaa000000:
+        //printf("ORR\n");
+        ORR();
+        break;
+      // Add/subtract (extended)
+      case 0x8b000000:
+        //printf("ADD\n");
+        ADD_Extended();
+        break;
+      case 0xab000000:
+        //printf("ADDS\n");
+        ADDS_Extended();
+        break;
+      case 0xcb000000:
+        //printf("SUB\n");
+        SUB_Extended();
+        break;
+      case 0xeb000000:
+        //printf("SUBS\n");
+        SUBS_Extended();
+        break;
+      // Data Processing (3 source)
+      case 0x9b000000:
+        //printf("MUL\n");
+        MUL();
+        break;
+  }
 }
 
 void pipe_stage_decode()
