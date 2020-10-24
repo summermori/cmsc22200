@@ -97,6 +97,35 @@ void pipe_stage_mem()
   // i'm fairly certain this will just be the implementation of LDURs and STURs
   // we'd know through EXtoMEM.op, it is important to reset it to zero after execution
 }
+void Branch(int64_t offset)
+{
+    //where gonna need a branching field somewhere to tell fetch() not to increment PC by 4. 
+    // Decode_State.branching = 1;
+    uint64_t temp = CURRENT_STATE.PC;
+    //dont think I need to cast here, might be wrong tho
+    CURRENT_STATE.PC = temp + (offset * 4);
+    return;
+}
+void CBNZ()
+{
+    int64_t t = IDtoEX.d;
+    int64_t offset = IDtoEX.addr/32;
+    if (CURRENT_STATE.REGS[t] != 0)
+    {
+      Branch(offset);
+    }
+    return;
+}
+void CBZ()
+{
+    int64_t t = IDtoEX.t;
+    int64_t offset = IDtoEX.addr/32;
+    if (CURRENT_STATE.REGS[t] == 0)
+    {
+      Branch(offset);
+    }
+    return;
+}
 
 
 void pipe_stage_execute()
