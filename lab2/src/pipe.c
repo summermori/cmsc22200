@@ -23,9 +23,9 @@ void pipe_init()
 }
 
 IFtoID_t IFtoID = { .inst = 0};
-IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .d = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0};
-EXtoMEM_t EXtoMEM = { .n = 0, .d = 0, .addr = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
-MEMtoWB_t MEMtoWB = {.d = 0, .res = 0, .fn = 0, .fz = 0};
+IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
+MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
 
 
 void pipe_cycle()
@@ -42,12 +42,12 @@ void pipe_cycle()
 
 void pipe_stage_wb()
 {
-  if (MEMtoWB.d != 31) {
-    CURRENT_STATE.REGS[MEMtoWB.d] = MEMtoWB.res;
+  if (MEMtoWB.dnum != 31) {
+    CURRENT_STATE.REGS[MEMtoWB.dnum] = MEMtoWB.res;
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
-  MEMtoWB = (MEMtoWB_t){.d = 0, .res = 0, .fn = 0, .fz = 0};
+  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0};
 }
 
 void pipe_stage_mem()
@@ -88,13 +88,13 @@ void pipe_stage_mem()
         STURH();
         break;
     }
-    MEMtoWB.d = EXtoMEM.d;
+    MEMtoWB.dnum = EXtoMEM.dnum;
     MEMtoWB.fn = EXtoMEM.fn;
     MEMtoWB.fz = EXtoMEM.fz;
   } else {
-    MEMtoWB = (MEMtoWB_t){ .d = EXtoMEM.d, .res = EXtoMEM.res, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
+    MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
   }
-  EXtoMEM = (EXtoMEM_t){ .n = 0, .d = 0, .addr = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
+  EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
 }
 
 void pipe_stage_execute()
@@ -203,10 +203,12 @@ void pipe_stage_execute()
   } else {
     EXtoMEM.op = IDtoEX.op;
     EXtoMEM.n = IDtoEX.n;
-    EXtoMEM.d = IDtoEX.d;
-    EXtoMEM.addr = IDtoEX.addr;
+    EXtoMEM.dnum = IDtoEX.dnum;
+    EXtoMEM.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
+    EXtoMEM.imm1 = IDtoEX.imm1;
+    EXtoMEM.fwb = IDtoEX.fwb;
   }
-  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .d = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0};
+  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 }
 
 void pipe_stage_decode()
@@ -223,14 +225,16 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xff000000);
       IDtoEX.imm1 = (word & 0x003ffc00) >> 10;
       IDtoEX.n = (word & 0x000003e0) >> 5;
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
+      IDtoEX.fwb = 1;
       printf("Add/subtraction (immediate), ");
     }
     // Move wide (immediate)
     else if (temp2 == 0x02800000) {
       IDtoEX.op = (word & 0xff800000);
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
+      IDtoEX.fwb = 1;
       printf("Move wide (immediate), ");
     }
     // Bitfield
@@ -238,9 +242,10 @@ void pipe_stage_decode()
       // this should be reviewed, since i am unsure what you guys need - victor
       IDtoEX.op = (word & 0xff800000);
       IDtoEX.n = (word & 0x000003e0) >> 5;
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.imm2 = (word & 0x003f0000) >> 16; // using m as another imm
+      IDtoEX.fwb = 1;
       printf("Bitfield, ");
     }
     else {
@@ -255,7 +260,7 @@ void pipe_stage_decode()
     if ((word & 0xfe000000) == 0x54000000) {
       IDtoEX.op = (word & 0xff000000);
       //check d for cond
-      IDtoEX.d = (word & 0x0000000f);
+      IDtoEX.dnum = (word & 0x0000000f);
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       printf("Conditional branch, ");
@@ -282,7 +287,7 @@ void pipe_stage_decode()
     // Compare and branch
     else if ((word & 0x7e000000) == 0x34000000) {
       IDtoEX.op = (word & 0xff000000);
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       printf("Compare and branch, ");
     }
@@ -294,7 +299,7 @@ void pipe_stage_decode()
   else if ((word & 0x0a000000) == 0x08000000) {
     IDtoEX.op = (word & 0xffc00000);
     IDtoEX.n = (word & 0x000003e0) >> 5;
-    IDtoEX.d = (word & 0x0000001f);
+    IDtoEX.dnum = (word & 0x0000001f);
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
     IDtoEX.m = word;
     IDtoEX.fmem = 1;
@@ -308,8 +313,9 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xff000000);
       IDtoEX.m = (word & 0x001f0000) >> 16;
       IDtoEX.n = (word & 0x000003e0) >> 5;
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
+      IDtoEX.fwb = 1;
       printf("Logical (shifted register), ");
     }
     // Add/subtract (extended register)
@@ -317,7 +323,8 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xffe00000);
       IDtoEX.m = (word & 0x001f0000) >> 16;
       IDtoEX.n = (word & 0x000003e0) >> 5;
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
+      IDtoEX.fwb = 1;
       printf("Add/subtract (extended register), ");
     }
     // Data processing (3 source)
@@ -325,7 +332,8 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xffe00000);
       IDtoEX.m = (word & 0x001f0000) >> 16;
       IDtoEX.n = (word & 0x000003e0) >> 5;
-      IDtoEX.d = (word & 0x0000001f);
+      IDtoEX.dnum = (word & 0x0000001f);
+      IDtoEX.fwb = 1;
       printf("Data processing (3 source), ");
     }
     else {
@@ -354,7 +362,7 @@ int64_t SIGNEXTEND(int64_t offset) {
   return offset;
 }
 void LDUR() {
-  int64_t t = EXtoMEM.d;
+  int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int64_t load = mem_read_32(n + offset);
@@ -363,18 +371,20 @@ void LDUR() {
   if (t != 31) {
     MEMtoWB.res = load;
   }
+  MEMtoWB.fwb = 1;
 }
 void LDUR2() {
-  int64_t t = EXtoMEM.d;
+  int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
-  int64_t offset = SIGNEXTEND(EXtoMEM.imm);
+  int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int64_t load = mem_read_32(n + offset);
   if (t != 31) {
     MEMtoWB.res = load;
   }
+  MEMtoWB.fwb = 1;
 }
 void LDURB() {
-  int64_t t = EXtoMEM.d;
+  int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int load = mem_read_32(n + offset);
@@ -382,43 +392,49 @@ void LDURB() {
   if (t != 31) {
     MEMtoWB.res = load;
   }
+  MEMtoWB.fwb = 1;
 }
 void LDURH() {
-  int64_t t = EXtoMEM.d;
+  int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
-  int64_t offset = SIGNEXTEND(EXtoMEM.imm);
+  int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int load = mem_read_32(n + offset);
   load = (load & 0x0000ffff);
   if (t != 31) {
     MEMtoWB.res = load;
   }
+  MEMtoWB.fwb = 1;
 }
 void STUR() {
-  int64_t t = CURRENT_STATE.REGS[EXtoMEM.d];
-  int64_t n = CURRENT_STATE.REGS[EXtoMEM.n];
-  int64_t offset = SIGNEXTEND(EXtoMEM.imm);
+  int64_t t = EXtoMEM.dval;
+  int64_t n = EXtoMEM.n;
+  int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   mem_write_32(n + offset, (t & 0x00000000ffffffff));
   mem_write_32(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
+  MEMtoWB.fwb = 0;
 }
 void STUR2() {
-  int64_t t = CURRENT_STATE.REGS[EXtoMEM.d];
-  int64_t n = CURRENT_STATE.REGS[EXtoMEM.n];
-  int64_t offset = SIGNEXTEND(EXtoMEM.imm);
+  int64_t t = EXtoMEM.dval;
+  int64_t n = EXtoMEM.n;
+  int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   mem_write_32(n + offset, t);
+  MEMtoWB.fwb = 0;
 }
 void STURB() {
-  char t = CURRENT_STATE.REGS[EXtoMEM.d];
-  int64_t n = CURRENT_STATE.REGS[EXtoMEM.n];
-  int64_t offset = SIGNEXTEND(EXtoMEM.imm);
+  char t = EXtoMEM.dval;
+  int64_t n = EXtoMEM.n;
+  int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int load = mem_read_32(n + offset);
   load = (load & 0xffffff00) | (int)t;
   mem_write_32(n + offset, load);
+  MEMtoWB.fwb = 0;
 }
 void STURH() { // need to revise the size of what is being written
-  int t = CURRENT_STATE.REGS[EXtoMEM.d];
-  int64_t n = CURRENT_STATE.REGS[EXtoMEM.n];
-  int64_t offset = SIGNEXTEND(EXtoMEM.imm);
+  int t = EXtoMEM.dval;
+  int64_t n = EXtoMEM.n;
+  int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int load = mem_read_32(n + offset);
   load = (load & 0xffffff00) | (t & 0x0000ffff);
   mem_write_32(n + offset, load);
+  MEMtoWB.fwb = 0;
 }
