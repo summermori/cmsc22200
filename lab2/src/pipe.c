@@ -99,7 +99,7 @@ void pipe_stage_mem()
 }
 void Branch(int64_t offset)
 {
-    //where gonna need a branching field somewhere to tell fetch() not to increment PC by 4. 
+    //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4. 
     // Decode_State.branching = 1;
     uint64_t temp = CURRENT_STATE.PC;
     //dont think I need to cast here, might be wrong tho
@@ -114,121 +114,205 @@ void CBNZ()
     {
       Branch(offset);
     }
+    //set fields to tell MEM and WB there shouldn't do anything cause its a branching op
     return;
 }
 void CBZ()
 {
-    int64_t t = IDtoEX.t;
+    int64_t t = IDtoEX.d;
     int64_t offset = IDtoEX.addr/32;
     if (CURRENT_STATE.REGS[t] == 0)
     {
       Branch(offset);
     }
+    //set fields to tell MEM and WB they shouldn't do anything cause its a branching op
     return;
 }
+void MOVZ()
+{
+  if (IDtoEX.d != 31)
+  {
+    //transfering relevant data to EXtoMEM
+    EXtoMEM.d = IDtoEX.d;
+    EXtoMEM.res = IDtoEX.imm1;
+  }
+  //set fields to tell MEM it shouldn't do anything
+  return;
+}
+void MUL()
+{
+  if (IDtoEX.d != 31)
+  {
+    EXtoMEM.d = IDtoEX.d;
+    EXtoMEM.res = CURRENT_STATE.REGS[IDtoEX.n] * CURRENT_STATE.REGS[IDtoEX.m];
+  }
+  //set fields to tell MEM it shouldn't do anything
+  return;
+}
+void HLT()
+{
+    RUN_BIT = FALSE;
+    return;
+}
+void BR()
+{
+    CURRENT_STATE.PC = CURRENT_STATE.REGS[IDtoEX.n];
+    // Decode_State.branching = 1;
+    //set the branching field and fields for MEM and WB saying we dont need to do anything. 
+    return;
+}
+void B()
+{
+    int64_t target = IDtoEX.addr;
+    Branch(target);
+    return;
+}
+void B_Cond()
+{
+    int64_t cond = IDtoEX.d;
+    int64_t offset = IDtoEX.addr >> 5;
+    switch(cond)
+    {
+        //BEQ
+        case(0):
+            if (CURRENT_STATE.FLAG_Z == 1)
+            {Branch(offset);}
+            break;
+        //BNE
+        case(1):
+            if (CURRENT_STATE.FLAG_Z == 0)
+            {Branch(offset);}
+            break;
+        //BGE
+        case(10):
+            if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 0))
+            {Branch(offset);}
+            break;
+        //BLT
+        case(11):
+            if ((CURRENT_STATE.FLAG_N == 1) && (CURRENT_STATE.FLAG_Z == 0))
+            {Branch(offset);}
+            break;
+        //BGT
+        case(12):
+            if ((CURRENT_STATE.FLAG_N == 0) && (CURRENT_STATE.FLAG_Z == 0))
+            {Branch(offset);}
+            break;
+        //BLE
+        case(13):
+            if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 1))
+            {Branch(offset);}
+            break;
+    }
+    //Branch Helper Function already sets .branching to 1
+    return;
+}
+
+
+
 
 
 void pipe_stage_execute()
 {
   // we have modify implementations to write to EXtoMEM.res
-  switch(IDtoEX.op)
-  {
-      // Add/Subtract immediate
-      case 0x91000000:
-        //printf("ADD\n");
-        ADD_Immediate();
-        break;
-      case 0xb1000000:
-        //printf("ADDS\n");
-        ADDS_Immediate();
-        break;
-      case 0xd1000000:
-        //printf("SUB\n");
-        SUB_Immediate();
-        break;
-      case 0xf1000000:
-        //printf("SUBS\n");
-        SUBS_Immediate();
-        break;
-      // Compare and branch
-      case 0xb4000000:
-        //printf("CBZ\n");
-        CBZ();
-        break;
-      case 0xb5000000:
-        //printf("CBNZ\n");
-        CBNZ();
-        break;
-      // Move wide
-      case 0xd2800000:
-        //printf("MOVZ\n");
-        MOVZ();
-        break;
-      // Bitfield
-      case 0xd3000000:
-        //printf("LSL or LSR\n"); //execution has to do the distinction
-        BITSHIFT();
-        break;
-      // Conditional branch
-      case 0x54000000:
-        //printf("B.cond\n");
-        B_Cond();
-        break;
-      // Exceptions
-      case 0xd4400000:
-        //printf("HLT\n");
-        HLT();
-        break;
-      // Unconditional branch (register)
-      case 0xd61f0000:
-        //printf("BR\n");
-        BR();
-        break;
-      // Unconditional branch (immediate)
-      case 0x14000000:
-        //printf("B\n");
-        B();
-        break;
-      // Logical (shifted register)
-      case 0x8a000000:
-        //printf("AND\n");
-        AND();
-        break;
-      case 0xea000000:
-        //printf("ANDS\n");
-        ANDS();
-        break;
-      case 0xca000000:
-        //printf("EOR\n");
-        EOR();
-        break;
-      case 0xaa000000:
-        //printf("ORR\n");
-        ORR();
-        break;
-      // Add/subtract (extended)
-      case 0x8b000000:
-        //printf("ADD\n");
-        ADD_Extended();
-        break;
-      case 0xab000000:
-        //printf("ADDS\n");
-        ADDS_Extended();
-        break;
-      case 0xcb000000:
-        //printf("SUB\n");
-        SUB_Extended();
-        break;
-      case 0xeb000000:
-        //printf("SUBS\n");
-        SUBS_Extended();
-        break;
-      // Data Processing (3 source)
-      case 0x9b000000:
-        //printf("MUL\n");
-        MUL();
-        break;
-  }
+  // switch(IDtoEX.op)
+  // {
+  //     // Add/Subtract immediate
+  //     case 0x91000000:
+  //       //printf("ADD\n");
+  //       ADD_Immediate();
+  //       break;
+  //     case 0xb1000000:
+  //       //printf("ADDS\n");
+  //       ADDS_Immediate();
+  //       break;
+  //     case 0xd1000000:
+  //       //printf("SUB\n");
+  //       SUB_Immediate();
+  //       break;
+  //     case 0xf1000000:
+  //       //printf("SUBS\n");
+  //       SUBS_Immediate();
+  //       break;
+  //     // Compare and branch
+  //     case 0xb4000000:
+  //       //printf("CBZ\n");
+  //       CBZ();
+  //       break;
+  //     case 0xb5000000:
+  //       //printf("CBNZ\n");
+  //       CBNZ();
+  //       break;
+  //     // Move wide
+  //     case 0xd2800000:
+  //       //printf("MOVZ\n");
+  //       MOVZ();
+  //       break;
+  //     // Bitfield
+  //     case 0xd3000000:
+  //       //printf("LSL or LSR\n"); //execution has to do the distinction
+  //       BITSHIFT();
+  //       break;
+  //     // Conditional branch
+  //     case 0x54000000:
+  //       //printf("B.cond\n");
+  //       B_Cond();
+  //       break;
+  //     // Exceptions
+  //     case 0xd4400000:
+  //       //printf("HLT\n");
+  //       HLT();
+  //       break;
+  //     // Unconditional branch (register)
+  //     case 0xd61f0000:
+  //       //printf("BR\n");
+  //       BR();
+  //       break;
+  //     // Unconditional branch (immediate)
+  //     case 0x14000000:
+  //       //printf("B\n");
+  //       B();
+  //       break;
+  //     // Logical (shifted register)
+  //     case 0x8a000000:
+  //       //printf("AND\n");
+  //       AND();
+  //       break;
+  //     case 0xea000000:
+  //       //printf("ANDS\n");
+  //       ANDS();
+  //       break;
+  //     case 0xca000000:
+  //       //printf("EOR\n");
+  //       EOR();
+  //       break;
+  //     case 0xaa000000:
+  //       //printf("ORR\n");
+  //       ORR();
+  //       break;
+  //     // Add/subtract (extended)
+  //     case 0x8b000000:
+  //       //printf("ADD\n");
+  //       ADD_Extended();
+  //       break;
+  //     case 0xab000000:
+  //       //printf("ADDS\n");
+  //       ADDS_Extended();
+  //       break;
+  //     case 0xcb000000:
+  //       //printf("SUB\n");
+  //       SUB_Extended();
+  //       break;
+  //     case 0xeb000000:
+  //       //printf("SUBS\n");
+  //       SUBS_Extended();
+  //       break;
+  //     // Data Processing (3 source)
+  //     case 0x9b000000:
+  //       //printf("MUL\n");
+  //       MUL();
+  //       break;
+  // }
 }
 
 void pipe_stage_decode()
