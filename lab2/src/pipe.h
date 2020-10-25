@@ -83,6 +83,13 @@ typedef struct MEMtoWB_t {
 // we will need a control struct for stalling and fowarding signals
 
 /* instruction implementations */
+void CBNZ();
+void CBZ();
+void MUL();
+void HLT();
+void BR();
+void B();
+void B_Cond();
 void LDUR();
 void LDUR2();
 void LDURH();
