@@ -50,30 +50,56 @@ typedef struct IDtoEX_t {
 	int64_t op;
 	int64_t m;
 	int64_t n;
-	int64_t d; // this will probably remain as a 5-bit number
+	int64_t dnum;
 	int64_t imm1;
 	int64_t imm2;
 	int64_t addr;
+	int fmem;
+	int fwb;
 } IDtoEX_t;
 
 typedef struct EXtoMEM_t {
 	int64_t op;
 	int64_t n;
-	int64_t d; // this will probably remain as a 5-bit number
-	int64_t addr;
+	int64_t dnum;
+	int64_t dval;
+	int64_t imm1;
 	int64_t res;
+	int fmem;
+	int fwb;
 	int fn; // this, along with other data must be propagated down the pipeline
 	int fz;
 } EXtoMEM_t;
 
 typedef struct MEMtoWB_t {
-	int64_t d;
+	int64_t dnum;
 	int64_t res;
+	int fwb;
 	int fn;
 	int fz;
 } MEMtoWB_t;
 
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
+
+/* instruction implementations */
+void LDUR();
+void LDUR2();
+void LDURH();
+void LDURB();
+void STUR();
+void STUR2();
+void STURH();
+void STURB();
+void ADDS_Immediate();
+void ADD_Immediate();
+void ADDS_Extended();
+void ADD_Extended();
+void AND();
+void ANDS();
+void EOR();
+void ORR();
+void BITSHIFT();
+void MOVZ();
 
 #endif
