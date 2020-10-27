@@ -302,7 +302,7 @@ void pipe_stage_decode()
     IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
     IDtoEX.dnum = (word & 0x0000001f);
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
-    IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum]
+    IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
     IDtoEX.fmem = 1;
     printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
