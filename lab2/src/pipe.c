@@ -224,7 +224,7 @@ void pipe_stage_decode()
     if ((temp2 == 0x01000000) || (temp2 == 0x01800000)) {
       IDtoEX.op = (word & 0xff000000);
       IDtoEX.imm1 = (word & 0x003ffc00) >> 10;
-      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
       printf("Add/subtraction (immediate), ");
@@ -241,7 +241,7 @@ void pipe_stage_decode()
     else if (temp2 == 0x03000000) {
       // this should be reviewed, since i am unsure what you guys need - victor
       IDtoEX.op = (word & 0xff800000);
-      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.imm2 = (word & 0x003f0000) >> 16; // using m as another imm
@@ -274,7 +274,7 @@ void pipe_stage_decode()
     // Unconditional branch (register)
     else if ((word & 0xfe000000) == 0xd6000000) {
       IDtoEX.op = (word & 0xfffffc00);
-      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -298,7 +298,7 @@ void pipe_stage_decode()
   // Loads and Stores
   else if ((word & 0x0a000000) == 0x08000000) {
     IDtoEX.op = (word & 0xffc00000);
-    IDtoEX.n = (word & 0x000003e0) >> 5;
+    IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
     IDtoEX.dnum = (word & 0x0000001f);
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
     IDtoEX.m = word;
@@ -311,8 +311,8 @@ void pipe_stage_decode()
     // Logical (shifted register)
     if ((word & 0x1f000000) == 0x0a000000) {
       IDtoEX.op = (word & 0xff000000);
-      IDtoEX.m = (word & 0x001f0000) >> 16;
-      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.m = CURRENT_STATE.REGS[(word & 0x001f0000) >> 16];
+      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.fwb = 1;
@@ -321,8 +321,8 @@ void pipe_stage_decode()
     // Add/subtract (extended register)
     else if ((word & 0x1f200000) == 0x0b000000) {
       IDtoEX.op = (word & 0xffe00000);
-      IDtoEX.m = (word & 0x001f0000) >> 16;
-      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.m = CURRENT_STATE.REGS[(word & 0x001f0000) >> 16];
+      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
       printf("Add/subtract (extended register), ");
@@ -330,8 +330,8 @@ void pipe_stage_decode()
     // Data processing (3 source)
     else if ((word & 0x1f000000) == 0x1b000000) {
       IDtoEX.op = (word & 0xffe00000);
-      IDtoEX.m = (word & 0x001f0000) >> 16;
-      IDtoEX.n = (word & 0x000003e0) >> 5;
+      IDtoEX.m = CURRENT_STATE.REGS[(word & 0x001f0000) >> 16];
+      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
       printf("Data processing (3 source), ");
