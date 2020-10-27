@@ -42,7 +42,7 @@ void pipe_cycle()
 
 void pipe_stage_wb()
 {
-  if (MEMtoWB.dnum != 31) {
+  if ((MEMtoWB.dnum != 31) && (MEMtoWB.fwb)){
     CURRENT_STATE.REGS[MEMtoWB.dnum] = MEMtoWB.res;
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
@@ -202,12 +202,13 @@ void pipe_stage_execute()
     }
   } else {
     EXtoMEM.op = IDtoEX.op;
-    EXtoMEM.n = CURRENT_STATE.REGS[IDtoEX.n];
-    EXtoMEM.dnum = IDtoEX.dnum;
-    EXtoMEM.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
+    EXtoMEM.n = IDtoEX.n;
+    EXtoMEM.dval = IDtoEX.dval;
     EXtoMEM.imm1 = IDtoEX.imm1;
-    EXtoMEM.fwb = IDtoEX.fwb;
   }
+  EXtoMEM.dnum = IDtoEX.dnum;
+  EXtoMEM.fwb = IDtoEX.fwb;
+  EXtoMEM.fmem = IDtoEX.fmem;
   IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 }
 
@@ -301,7 +302,7 @@ void pipe_stage_decode()
     IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
     IDtoEX.dnum = (word & 0x0000001f);
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
-    IDtoEX.m = word;
+    IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum]
     IDtoEX.fmem = 1;
     printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
@@ -448,22 +449,22 @@ void STURH() {
 }
 void ADD_Extended()
 {
-    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
-    int64_t m = CURRENT_STATE.REGS[IDtoEX.m];
+    int64_t n = IDtoEX.n;
+    int64_t m = IDtoEX.m;
     EXtoMEM.res = n + m;
 
 }
 void ADD_Immediate()
 {
-    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+    int64_t n = IDtoEX.n;
     int64_t imm = IDtoEX.imm1;
     EXtoMEM.res = n + imm;
 
 }
 void ADDS_Extended()
 {
-    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
-    int64_t m = CURRENT_STATE.REGS[IDtoEX.m];
+    int64_t n = IDtoEX.n;
+    int64_t m = IDtoEX.m;
     int64_t res =  n + m;
     EXtoMEM.res = res;
     if (res == 0)
@@ -485,7 +486,7 @@ void ADDS_Extended()
 }
 void ADDS_Immediate()
 {
-    int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+    int64_t n = IDtoEX.n;
     int64_t imm = IDtoEX.imm1;
     int64_t res = n + imm;
     EXtoMEM.res = res;
@@ -510,14 +511,14 @@ void AND()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
-    EXtoMEM.res = CURRENT_STATE.REGS[n] & CURRENT_STATE.REGS[m];
+    EXtoMEM.res = n & m;
 
 }
 void ANDS()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
-    int64_t res = CURRENT_STATE.REGS[n] & CURRENT_STATE.REGS[m];
+    int64_t res = n & m;
     EXtoMEM.res = res;
     if (res == 0)
     {
@@ -540,19 +541,19 @@ void EOR()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
-    EXtoMEM.res = CURRENT_STATE.REGS[n] ^ CURRENT_STATE.REGS[m];
+    EXtoMEM.res = n ^ m;
 
 }
 void ORR()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
-    EXtoMEM.res = CURRENT_STATE.REGS[n] | CURRENT_STATE.REGS[m];
+    EXtoMEM.res = n | m;
 
 }
 void BITSHIFT()
 {
-  int64_t n = CURRENT_STATE.REGS[IDtoEX.n];
+  int64_t n = IDtoEX.n;
   int64_t immr = IDtoEX.imm2;
   int64_t res;
   if (IDtoEX.imm1 == 63) { // LSR
