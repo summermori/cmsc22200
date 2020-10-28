@@ -11,8 +11,6 @@
 #include <stdlib.h>
 #include <assert.h>
 
-
-
 /* global pipeline state */
 CPU_State CURRENT_STATE;
 
@@ -22,12 +20,10 @@ void pipe_init()
     CURRENT_STATE.PC = 0x00400000;
 }
 
-
 IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-
 
 void pipe_cycle()
 {
@@ -37,8 +33,6 @@ void pipe_cycle()
 	pipe_stage_decode();
 	pipe_stage_fetch();
 }
-
-
 
 void pipe_stage_wb()
 {
@@ -359,7 +353,7 @@ void pipe_stage_decode()
   else {
     printf("Failure to match subtype3\n");
   }
-  //commenting out for pc_halt for now
+  //commenting out for pc_halt 
   // IFtoID = (IFtoID_t){ .inst = 0};
 }
 
@@ -569,21 +563,18 @@ void STURH() {
   load = (load & 0xffffff00) | (t & 0x0000ffff);
   mem_write_32(n + offset, load);
   MEMtoWB.fwb = 0;
-
 }
 void ADD_Extended()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
     EXtoMEM.res = n + m;
-
 }
 void ADD_Immediate()
 {
     int64_t n = IDtoEX.n;
     int64_t imm = IDtoEX.imm1;
     EXtoMEM.res = n + imm;
-
 }
 void ADDS_Extended()
 {
@@ -606,7 +597,6 @@ void ADDS_Extended()
         EXtoMEM.fz = 0;
         EXtoMEM.fn = 0;
     }
-
 }
 void ADDS_Immediate()
 {
@@ -629,14 +619,12 @@ void ADDS_Immediate()
         EXtoMEM.fz = 0;
         EXtoMEM.fn = 0;
     }
-
 }
 void AND()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
     EXtoMEM.res = n & m;
-
 }
 void ANDS()
 {
@@ -742,5 +730,4 @@ void SUBS_Extended()
         EXtoMEM.fz = 0;
     }
     EXtoMEM.res = res;
-
 }
