@@ -362,7 +362,6 @@ void pipe_stage_fetch()
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   printf("word:%x\n",word);
-  printf("pc_halt:%d", IFtoID.pc_halt);
   if (word != 0)
   {
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
