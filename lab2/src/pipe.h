@@ -51,6 +51,7 @@ typedef struct IDtoEX_t {
 	int64_t m;
 	int64_t n;
 	int64_t dnum;
+	int64_t dval;
 	int64_t imm1;
 	int64_t imm2;
 	int64_t addr;
@@ -108,5 +109,9 @@ void EOR();
 void ORR();
 void BITSHIFT();
 void MOVZ();
+void SUB_Immediate();
+void SUB_Extended();
+void SUBS_Immediate();
+void SUBS_Extended();
 
 #endif
