@@ -39,15 +39,18 @@ void pipe_stage_wb()
   if (MEMtoWB.halt == 1)
   {
     RUN_BIT = false;
-    stat_inst_retire = stat_inst_retire + 1;
   }
-  else if ((MEMtoWB.dnum != 31) && (MEMtoWB.fwb)){
+  else if (MEMtoWB.dnum != 31){
     CURRENT_STATE.REGS[MEMtoWB.dnum] = MEMtoWB.res;
-    stat_inst_retire = stat_inst_retire + 1;
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
   MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0};
+  //jenk way to update stat_inst_retire, need to get better way lol
+  if (stat_cycles >= 4)
+  {
+    stat_inst_retire = stat_inst_retire + 1;
+  }
 }
 
 void pipe_stage_mem()
@@ -107,6 +110,7 @@ void pipe_stage_mem()
 
 void pipe_stage_execute()
 {
+  //updating in
   // we have modify implementations to write to EXtoMEM.res
   if (!(IDtoEX.fmem)) {
     switch(IDtoEX.op)
@@ -223,6 +227,7 @@ void pipe_stage_execute()
 void pipe_stage_decode()
 {
   uint32_t word = IFtoID.inst;
+  //updating instruction counter
   printf("%d ", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
