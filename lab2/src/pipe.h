@@ -44,6 +44,7 @@ void pipe_stage_wb();
 /* pipeline registers */
 typedef struct IFtoID_t {
 	uint32_t inst;
+	int pc_halt;
 } IFtoID_t;
 
 typedef struct IDtoEX_t {
@@ -70,6 +71,7 @@ typedef struct EXtoMEM_t {
 	int fwb;
 	int fn; // this, along with other data must be propagated down the pipeline
 	int fz;
+	int halt;
 } EXtoMEM_t;
 
 typedef struct MEMtoWB_t {
@@ -78,6 +80,7 @@ typedef struct MEMtoWB_t {
 	int fwb;
 	int fn;
 	int fz;
+	int halt;
 } MEMtoWB_t;
 
 /* control struct */

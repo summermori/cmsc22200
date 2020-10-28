@@ -42,8 +42,14 @@ void pipe_cycle()
 
 void pipe_stage_wb()
 {
-  if ((MEMtoWB.dnum != 31) && (MEMtoWB.fwb)){
+  if (MEMtoWB.halt == 1)
+  {
+    RUN_BIT = false;
+    stat_inst_retire = stat_inst_retire + 1;
+  }
+  else if ((MEMtoWB.dnum != 31) && (MEMtoWB.fwb)){
     CURRENT_STATE.REGS[MEMtoWB.dnum] = MEMtoWB.res;
+    stat_inst_retire = stat_inst_retire + 1;
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
@@ -52,49 +58,57 @@ void pipe_stage_wb()
 
 void pipe_stage_mem()
 {
-  if (EXtoMEM.fmem) {
-    switch (EXtoMEM.op)
-    {
-      case 0xf8400000:
-        //printf("LDUR\n");
-        LDUR();
-        break;
-      case 0xb8400000:
-        //printf("LDUR\n");
-        LDUR2();
-        break;
-      case 0x38400000:
-        //printf("LDURB\n");
-        LDURB();
-        break;
-      case 0x78400000:
-        //printf("LDURH\n");
-        LDURH();
-        break;
-      case 0xf8000000:
-        //printf("STUR\n");
-        STUR();
-        break;
-      case 0xb8000000:
-        //printf("STUR\n");
-        STUR2();
-        break;
-      case 0x38000000:
-        //printf("STURB\n");
-        STURB();
-        break;
-      case 0x78000000:
-        //printf("STURH\n");
-        STURH();
-        break;
-    }
-    MEMtoWB.dnum = EXtoMEM.dnum;
-    MEMtoWB.fn = EXtoMEM.fn;
-    MEMtoWB.fz = EXtoMEM.fz;
-  } else {
-    MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
+  if (EXtoMEM.halt == 1)
+  {
+    MEMtoWB.halt = 1;
+    return;
   }
-  EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
+  else
+  {
+    if (EXtoMEM.fmem) {
+      switch (EXtoMEM.op)
+      {
+        case 0xf8400000:
+          //printf("LDUR\n");
+          LDUR();
+          break;
+        case 0xb8400000:
+          //printf("LDUR\n");
+          LDUR2();
+          break;
+        case 0x38400000:
+          //printf("LDURB\n");
+          LDURB();
+          break;
+        case 0x78400000:
+          //printf("LDURH\n");
+          LDURH();
+          break;
+        case 0xf8000000:
+          //printf("STUR\n");
+          STUR();
+          break;
+        case 0xb8000000:
+          //printf("STUR\n");
+          STUR2();
+          break;
+        case 0x38000000:
+          //printf("STURB\n");
+          STURB();
+          break;
+        case 0x78000000:
+          //printf("STURH\n");
+          STURH();
+          break;
+      }
+      MEMtoWB.dnum = EXtoMEM.dnum;
+      MEMtoWB.fn = EXtoMEM.fn;
+      MEMtoWB.fz = EXtoMEM.fz;
+    } else {
+      MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
+    }
+    EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
+  }
 }
 
 void pipe_stage_execute()
@@ -345,15 +359,25 @@ void pipe_stage_decode()
   else {
     printf("Failure to match subtype3\n");
   }
-  IFtoID = (IFtoID_t){ .inst = 0};
+  //commenting out for pc_halt for now
+  // IFtoID = (IFtoID_t){ .inst = 0};
 }
 
 void pipe_stage_fetch()
 {
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
-  printf("%x\n",word);
-  CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  printf("word:%x\n",word);
+  printf("pc_halt:%d", IFtoID.pc_halt);
+  if (word != 0)
+  {
+    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  }
+  else if(IFtoID.pc_halt != 1)
+  {
+    IFtoID.pc_halt = 1;
+    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  }
 }
 
 /* instruction implementations */
@@ -400,7 +424,7 @@ void MUL()
 }
 void HLT()
 {
-    RUN_BIT = FALSE;
+    EXtoMEM.halt = 1;
     return;
 }
 void BR()
