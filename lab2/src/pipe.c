@@ -46,7 +46,7 @@ void pipe_stage_wb()
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
-  printf("%ld, %d, %d, %d", MEMtoWB.dnum, MEMtoWB.fwb, MEMtoWB.branching, MEMtoWB.fmem);
+  // printf("%ld, %d, %d, %d", MEMtoWB.dnum, MEMtoWB.fwb, MEMtoWB.branching, MEMtoWB.fmem);
   if (MEMtoWB.dnum != 0 || MEMtoWB.fwb != 0 || MEMtoWB.branching != 0 || MEMtoWB.fmem != 0)
   {
     stat_inst_retire = stat_inst_retire + 1;
@@ -231,7 +231,7 @@ void pipe_stage_decode()
 {
   uint32_t word = IFtoID.inst;
   //updating instruction counter
-  printf("%d ", word);
+  // printf("%d ", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
