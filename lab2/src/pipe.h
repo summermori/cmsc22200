@@ -89,6 +89,9 @@ typedef struct MEMtoWB_t {
 
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
+typedef struct Control_t {
+	int bubble_until;
+} Control_t;
 
 /* instruction implementations */
 void CBNZ();

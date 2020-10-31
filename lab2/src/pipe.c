@@ -24,6 +24,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
+Control_t Control = {.bubble_until = 0};
 
 void pipe_cycle()
 {
@@ -224,11 +225,29 @@ void pipe_stage_execute()
   EXtoMEM.fwb = IDtoEX.fwb;
   EXtoMEM.fmem = IDtoEX.fmem;
   EXtoMEM.branching = IDtoEX.branching;
-  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  //dont clear IDtoEX if in bubble
+  if (stat_cycles < Control.bubble_until)
+  {
+    return;
+  }
+  else
+  {
+    IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  }
 }
 
 void pipe_stage_decode()
 {
+  //bubble checking
+  if (stat_cycles != 0  && stat_cycles < Control.bubble_until)
+  {
+    return;
+  }
+  if (stat_cycles == Control.bubble_until)
+  {
+    //continue propagation
+  }
+  //some type of detection to trigger bubbles and forwarding
   uint32_t word = IFtoID.inst;
   //updating instruction counter
   // printf("%d ", word);
@@ -372,6 +391,10 @@ void pipe_stage_decode()
 
 void pipe_stage_fetch()
 {
+  if (stat_cycles < Control.bubble_until)
+  {
+    return;
+  }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   printf("word:%x\n",word);
@@ -385,6 +408,8 @@ void pipe_stage_fetch()
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   }
 }
+/* bubble implementations */
+
 
 /* instruction implementations */
 void Branch(int64_t offset)
