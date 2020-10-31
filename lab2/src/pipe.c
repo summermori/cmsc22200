@@ -22,8 +22,8 @@ void pipe_init()
 
 IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
-MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
+EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
+MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
 
 void pipe_cycle()
 {
@@ -39,18 +39,19 @@ void pipe_stage_wb()
   if (MEMtoWB.halt == 1)
   {
     RUN_BIT = false;
+    stat_inst_retire = stat_inst_retire + 1;
   }
-  else if (MEMtoWB.dnum != 31){
+  else if ((MEMtoWB.dnum != 31) && (MEMtoWB.fwb)){
     CURRENT_STATE.REGS[MEMtoWB.dnum] = MEMtoWB.res;
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
-  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0};
-  //jenk way to update stat_inst_retire, need to get better way lol
-  if (stat_cycles >= 4)
+  printf("%ld, %d, %d, %d", MEMtoWB.dnum, MEMtoWB.fwb, MEMtoWB.branching, MEMtoWB.fmem);
+  if (MEMtoWB.dnum != 0 || MEMtoWB.fwb != 0 || MEMtoWB.branching != 0 || MEMtoWB.fmem != 0)
   {
     stat_inst_retire = stat_inst_retire + 1;
   }
+  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0, .fmem = 0, .branching = 0};
 }
 
 void pipe_stage_mem()
@@ -101,8 +102,9 @@ void pipe_stage_mem()
       MEMtoWB.dnum = EXtoMEM.dnum;
       MEMtoWB.fn = EXtoMEM.fn;
       MEMtoWB.fz = EXtoMEM.fz;
+      MEMtoWB.fmem = EXtoMEM.fmem;
     } else {
-      MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
+      MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
     }
     EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
   }
@@ -221,6 +223,7 @@ void pipe_stage_execute()
   EXtoMEM.dnum = IDtoEX.dnum;
   EXtoMEM.fwb = IDtoEX.fwb;
   EXtoMEM.fmem = IDtoEX.fmem;
+  EXtoMEM.branching = IDtoEX.branching;
   IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 }
 
@@ -277,18 +280,21 @@ void pipe_stage_decode()
       IDtoEX.dnum = (word & 0x0000000f);
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
+      IDtoEX.branching = 1;
       printf("Conditional branch, ");
     }
     // Exception
     else if ((word & 0xff000000) == 0xd4000000) {
       IDtoEX.op = (word & 0xffe00000);
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
+      IDtoEX.branching = 1;
       printf("Exception, ");
     }
     // Unconditional branch (register)
     else if ((word & 0xfe000000) == 0xd6000000) {
       IDtoEX.op = (word & 0xfffffc00);
       IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+      IDtoEX.branching = 1;
       printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -296,6 +302,7 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xfc000000);
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
+      IDtoEX.branching = 1;
       printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
@@ -304,6 +311,7 @@ void pipe_stage_decode()
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
+      IDtoEX.branching = 1;
       printf("Compare and branch, ");
     }
     else {

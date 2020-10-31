@@ -58,6 +58,7 @@ typedef struct IDtoEX_t {
 	int64_t addr;
 	int fmem;
 	int fwb;
+	int branching;
 } IDtoEX_t;
 
 typedef struct EXtoMEM_t {
@@ -72,6 +73,7 @@ typedef struct EXtoMEM_t {
 	int fn; // this, along with other data must be propagated down the pipeline
 	int fz;
 	int halt;
+	int branching;
 } EXtoMEM_t;
 
 typedef struct MEMtoWB_t {
@@ -81,6 +83,8 @@ typedef struct MEMtoWB_t {
 	int fn;
 	int fz;
 	int halt;
+	int branching;
+	int fmem;
 } MEMtoWB_t;
 
 /* control struct */
