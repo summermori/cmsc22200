@@ -11,7 +11,14 @@
 #include <stdlib.h>
 #include <assert.h>
 
-
+/* helper funcs */
+int isSturBranch(int word)
+{
+  if (((word & 0xfc000000) == 0x14000000) || ((word & 0xbfe00000) == 0xb8000000) || ((word & 0xbfe00000) == 0x38000000))
+    return 1;
+  else
+    return 0;
+}
 
 /* global pipeline state */
 CPU_State CURRENT_STATE;
