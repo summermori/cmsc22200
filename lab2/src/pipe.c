@@ -231,6 +231,7 @@ void pipe_stage_execute()
   EXtoMEM.fwb = IDtoEX.fwb;
   EXtoMEM.fmem = IDtoEX.fmem;
   EXtoMEM.branching = IDtoEX.branching;
+
   //dont clear IDtoEX if in bubble
   if ((int) stat_cycles <= Control.bubble_until)
   {
@@ -244,7 +245,6 @@ void pipe_stage_execute()
 
 void pipe_stage_decode()
 {
-  printf("temp dnum: %ld\n", temp_IDtoEX.dnum);
   //some type of detection to trigger bubbles and forwarding
   uint32_t word = IFtoID.inst;
   //updating instruction counter
@@ -386,7 +386,7 @@ void pipe_stage_decode()
   //commenting out for pc_halt 
   // IFtoID = (IFtoID_t){ .inst = 0};
 
-  //bubble checking
+  //checking if we are in bubble, if last cycle of bubble, restore structs
   if ((int)stat_cycles < Control.bubble_until)
   {
     return;
@@ -398,20 +398,13 @@ void pipe_stage_decode()
     //continue propogation by restoring previous structs to pipeline
     IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
     IFtoID = (IFtoID_t){.inst = temp_IFtoID.inst};
-    printf("dnum: %ld\n", IDtoEX.dnum);
-
+    // printf("dnum: %ld\n", IDtoEX.dnum);
   }
 
-  //bubble trigger to test
+  //triggering bubble on cycle 2 to test
   if ((int) stat_cycles == 2)
   {
-    printf("bubble trigger\n");
-    Control.bubble_until = 8;
-    temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
-    IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-    temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
-    IFtoID = (IFtoID_t){ .inst = 0};
-    printf("temp dnum: %ld\n", temp_IDtoEX.dnum);
+    TriggerBubble(8);
   }
 }
 
@@ -427,6 +420,7 @@ void pipe_stage_fetch()
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   printf("word:%x\n",word);
+  // don't move PC if we have hit an HLT();
   if (word != 0)
   {
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
@@ -438,9 +432,18 @@ void pipe_stage_fetch()
   }
 }
 /* bubble implementations */
-
+void TriggerBubble(int bubble_until)
+{
+  Control.bubble_until = bubble_until;
+  temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
+  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+  IFtoID = (IFtoID_t){ .inst = 0};
+  return;
+}
 
 /* instruction implementations */
+// branching helper
 void Branch(int64_t offset)
 {
     //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4.

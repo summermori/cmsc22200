@@ -93,6 +93,10 @@ typedef struct Control_t {
 	int bubble_until;
 } Control_t;
 
+/* Bubble Functions */
+void BubbleTrigger(int bubble_until);
+/* instruction helpers */
+void Branch();
 /* instruction implementations */
 void CBNZ();
 void CBZ();
