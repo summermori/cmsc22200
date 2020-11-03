@@ -24,7 +24,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
-Control_t Control = {.bubble_until = -1};
+Control_t Control = {.baddr = 0, .bubble_untilif = -1, .bubble_until = -1};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 
@@ -383,7 +383,7 @@ void pipe_stage_decode()
   else {
     printf("Failure to match subtype3\n");
   }
-  //commenting out for pc_halt 
+  //commenting out for pc_halt
   // IFtoID = (IFtoID_t){ .inst = 0};
 
   //checking if we are in bubble, if last cycle of bubble, restore structs
