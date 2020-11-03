@@ -33,7 +33,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
-Control_t Control = {.bubble_until = -1};
+Control_t Control = {.baddr = 0, .bubble_until = -1, .bubble_untilif = -1};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 
@@ -299,6 +299,9 @@ void pipe_stage_decode()
   // Branches and Exceptions
   else if ((temp == 0x14000000) || (temp == 0x16000000)) {
     printf("Branches and Exceptions, ");
+    // stalling id
+    TriggerBubbleIF((int) stat_cycles + 3); // might have to revice this
+
     // Conditional branch
     if ((word & 0xfe000000) == 0x54000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -426,9 +429,16 @@ void pipe_stage_fetch()
 {
   //dont move PC if we are bubbling
   // < or <= ?
-  if ((int) stat_cycles <= Control.bubble_until)
+  if (((int) stat_cycles <= Control.bubble_until) || ((int) stat_cycles < Control.bubble_untilif))
   {
     // printf("%d, %d", stat_cycles, Control.bubble_until);
+    return;
+  }
+  if ((int) stat_cycles == Control.bubble_untilif) { // this is where we decide if we squash or continue
+    if (Control.baddr != CURRENT_STATE.PC) {
+      CURRENT_STATE.PC = Control.baddr;
+      stat_inst_retire = stat_inst_retire + 1;
+    }
     return;
   }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
@@ -456,15 +466,23 @@ void TriggerBubble(int bubble_until)
   return;
 }
 
+void TriggerBubbleIF(int bubble_until) // for branching
+{
+  Control.bubble_untilif = bubble_until;
+  temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+  IFtoID = (IFtoID_t){ .inst = 0};
+  return;
+}
+
 /* instruction implementations */
 // branching helper
 void Branch(int64_t offset)
 {
     //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4.
     // Decode_State.branching = 1;
-    uint64_t temp = CURRENT_STATE.PC;
+    uint64_t temp = Control.baddr;
     //dont think I need to cast here, might be wrong tho
-    CURRENT_STATE.PC = temp + (offset * 4);
+    Control.baddr = temp + (offset * 4);
     return;
 }
 void CBNZ()
@@ -506,7 +524,7 @@ void HLT()
 }
 void BR()
 {
-    CURRENT_STATE.PC = IDtoEX.n;
+    Control.baddr = IDtoEX.n;
     // Decode_State.branching = 1;
     //set the branching field and fields for MEM and WB saying we dont need to do anything.
     return;
