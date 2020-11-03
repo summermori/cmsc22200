@@ -245,7 +245,9 @@ void pipe_stage_execute()
 
 void pipe_stage_decode()
 {
-  //some type of detection to trigger bubbles and forwarding
+  if ((int)stat_cycles <= Control.bubble_until) {
+    return;
+  }
   uint32_t word = IFtoID.inst;
   //updating instruction counter
    printf("ID: %d\n", word);
@@ -388,22 +390,22 @@ void pipe_stage_decode()
     //printf("Failure to match subtype3\n");
   }
   //commenting out for pc_halt
-  // IFtoID = (IFtoID_t){ .inst = 0};
+  IFtoID = (IFtoID_t){ .inst = 0};
 
   //checking if we are in bubble, if last cycle of bubble, restore structs
-  if ((int)stat_cycles < Control.bubble_until)
-  {
-    return;
-  }
-  if ((int) stat_cycles == Control.bubble_until)
-  {
-    printf("bubble ended\n");
-    Control.bubble_until = -1;
-    //continue propogation by restoring previous structs to pipeline
-    IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
-    IFtoID = (IFtoID_t){.inst = temp_IFtoID.inst};
-    // printf("dnum: %ld\n", IDtoEX.dnum);
-  }
+  // if ((int)stat_cycles < Control.bubble_until)
+  // {
+  //   return;
+  // }
+  // if ((int) stat_cycles == Control.bubble_until)
+  // {
+  //   printf("bubble ended\n");
+  //   Control.bubble_until = -1;
+  //   //continue propogation by restoring previous structs to pipeline
+  //   IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
+  //   IFtoID = (IFtoID_t){.inst = temp_IFtoID.inst};
+  //   // printf("dnum: %ld\n", IDtoEX.dnum);
+  // }
 
   // //triggering bubble on cycle 2 to test
   // if ((int) stat_cycles == 2)
@@ -421,13 +423,15 @@ void pipe_stage_fetch()
   {
     printf("%d, %d\n---------------\n", stat_cycles, Control.bubble_until);
     return;
-  } //else if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
-  //   printf("Stalled for branching\n");
-  //   CURRENT_STATE.PC = Control.baddr;
-  //   Control.baddr = -1;
-  //   stat_inst_retire = stat_inst_retire + 1;
-  //   return;
-  // }
+  } else if ((int) stat_cycles == Control.bubble_until) {
+    if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
+      printf("Stalled for branching\n");
+      CURRENT_STATE.PC = Control.baddr;
+      Control.baddr = -1;
+      stat_inst_retire = stat_inst_retire + 1;
+    }
+    return;
+  }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   //printf("word:%x\n",word);
@@ -447,10 +451,10 @@ void pipe_stage_fetch()
 void TriggerBubble(int bubble_until)
 {
   Control.bubble_until = bubble_until;
-  temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
-  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-  temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
-  IFtoID = (IFtoID_t){ .inst = 0};
+  // temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
+  // IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  // temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+  // IFtoID = (IFtoID_t){ .inst = 0};
   return;
 }
 
