@@ -298,6 +298,7 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
+      TriggerBubbleIF((int) stat_cycles + 3);
       printf("Conditional branch, ");
     }
     // Exception
@@ -312,6 +313,7 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xfffffc00);
       IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.branching = 1;
+      TriggerBubbleIF((int) stat_cycles + 3);
       printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -320,6 +322,7 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
+      TriggerBubbleIF((int) stat_cycles + 3);
       printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
@@ -329,6 +332,7 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
+      TriggerBubbleIF((int) stat_cycles + 3);
       printf("Compare and branch, ");
     }
     else {
@@ -417,6 +421,17 @@ void pipe_stage_fetch()
     // printf("%d, %d", stat_cycles, Control.bubble_until);
     return;
   }
+  if ((int) stat_cycles < Control.bubble_untilif)
+  {
+    // printf("%d, %d", stat_cycles, Control.bubble_until);
+    return;
+  } else if ((int) stat_cycles == Control.bubble_untilif) {
+    if (Control.baddr != CURRENT_STATE.PC) {
+      CURRENT_STATE.PC = Control.baddr;
+      stat_inst_retire = stat_inst_retire + 1;
+    }
+    return;
+  }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   printf("word:%x\n",word);
@@ -442,6 +457,14 @@ void TriggerBubble(int bubble_until)
   return;
 }
 
+void TriggerBubbleIF(int bubble_until) // for branching
+{
+  Control.bubble_untilif = bubble_until;
+  temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+  IFtoID = (IFtoID_t){ .inst = 0};
+  return;
+}
+
 /* instruction implementations */
 // branching helper
 void Branch(int64_t offset)
@@ -450,7 +473,7 @@ void Branch(int64_t offset)
     // Decode_State.branching = 1;
     uint64_t temp = CURRENT_STATE.PC;
     //dont think I need to cast here, might be wrong tho
-    CURRENT_STATE.PC = temp + (offset * 4);
+    Control.baddr = temp + (offset * 4);
     return;
 }
 void CBNZ()
@@ -492,7 +515,7 @@ void HLT()
 }
 void BR()
 {
-    CURRENT_STATE.PC = IDtoEX.n;
+    Control.baddr = IDtoEX.n;
     // Decode_State.branching = 1;
     //set the branching field and fields for MEM and WB saying we dont need to do anything.
     return;
