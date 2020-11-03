@@ -1,0 +1,86 @@
+
+>> inputs/add_test_1.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/f-test-1.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/f-test-2.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/stall_test_1.x
+21c21
+< X1: 0x1000000
+---
+> X1: 0x0
+54c54
+< No. of Cycles: 10
+---
+> No. of Cycles: 9
+
+>> inputs/step1-a-input.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/step1-b-input.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/step2-a-input.x
+31c31
+< X11: 0x100
+---
+> X11: 0xff
+33c33
+< X13: 0x104
+---
+> X13: 0x103
+54c54
+< No. of Cycles: 12
+---
+> No. of Cycles: 11
+
+>> inputs/step2-b-input.x
+21c21
+< X1: 0x10000000
+---
+> X1: 0x0
+33,35c33,35
+< X13: 0x34000000001234
+< X14: 0x340000
+< X15: 0x34
+---
+> X13: 0x0
+> X14: 0x0
+> X15: 0x0
+62,63c62,63
+<   0x10000000 (268435456) : 0x1234
+<   0x10000004 (268435460) : 0x340000
+---
+>   0x10000000 (268435456) : 0x0
+>   0x10000004 (268435460) : 0x0
+
+>> inputs/step3-input.x
+17c17
+< Instruction Retired : 27
+---
+> Instruction Retired : 21
+33,34c33,34
+< X13: 0x0
+< X14: 0xb
+---
+> X13: 0xa
+> X14: 0x0
+37,39c37,39
+< X17: 0x7
+< X18: 0x7
+< X19: 0xa
+---
+> X17: 0xa
+> X18: 0x1
+> X19: 0x1
+53,54c53,54
+< FLAG_Z: 1
+< No. of Cycles: 40
+---
+> FLAG_Z: 0
+> No. of Cycles: 28
+
