@@ -92,7 +92,6 @@ typedef struct MEMtoWB_t {
 typedef struct Control_t {
 	int baddr;
 	int bubble_until;
-	int bubble_untilif;
 } Control_t;
 
 /* Bubble Functions */

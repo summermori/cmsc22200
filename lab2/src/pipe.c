@@ -24,7 +24,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
-Control_t Control = {.baddr = 0, .bubble_untilif = -1, .bubble_until = -1};
+Control_t Control = {.baddr = -1, .bubble_until = -1};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 
@@ -143,11 +143,11 @@ void pipe_stage_execute()
           break;
         // Compare and branch
         case 0xb4000000:
-          //printf("CBZ\n");
+          printf("CBZ\n");
           CBZ();
           break;
         case 0xb5000000:
-          //printf("CBNZ\n");
+          printf("CBNZ\n");
           CBNZ();
           break;
         // Move wide
@@ -162,7 +162,7 @@ void pipe_stage_execute()
           break;
         // Conditional branch
         case 0x54000000:
-          //printf("B.cond\n");
+          printf("B.cond\n");
           B_Cond();
           break;
         // Exceptions
@@ -172,12 +172,12 @@ void pipe_stage_execute()
           break;
         // Unconditional branch (register)
         case 0xd61f0000:
-          //printf("BR\n");
+          printf("BR\n");
           BR();
           break;
         // Unconditional branch (immediate)
         case 0x14000000:
-          //printf("B\n");
+          printf("B\n");
           B();
           break;
 
@@ -248,11 +248,11 @@ void pipe_stage_decode()
   //some type of detection to trigger bubbles and forwarding
   uint32_t word = IFtoID.inst;
   //updating instruction counter
-  // printf("%d ", word);
+   printf("ID: %d\n", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
-    printf("Data Processing - Immediate, ");
+    //printf("Data Processing - Immediate, ");
     int temp2 = word & 0x03800000;
     // Add/subtract (immediate)
     if ((temp2 == 0x01000000) || (temp2 == 0x01800000)) {
@@ -261,7 +261,7 @@ void pipe_stage_decode()
       IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Add/subtraction (immediate), ");
+      //printf("Add/subtraction (immediate), ");
     }
     // Move wide (immediate)
     else if (temp2 == 0x02800000) {
@@ -269,7 +269,7 @@ void pipe_stage_decode()
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Move wide (immediate), ");
+      //printf("Move wide (immediate), ");
     }
     // Bitfield
     else if (temp2 == 0x03000000) {
@@ -280,16 +280,16 @@ void pipe_stage_decode()
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.imm2 = (word & 0x003f0000) >> 16; // using m as another imm
       IDtoEX.fwb = 1;
-      printf("Bitfield, ");
+      //printf("Bitfield, ");
     }
     else {
-      printf("Failure to match subtype0\n");
+      //printf("Failure to match subtype0\n");
     }
   }
 
   // Branches and Exceptions
   else if ((temp == 0x14000000) || (temp == 0x16000000)) {
-    printf("Branches and Exceptions, ");
+    //printf("Branches and Exceptions, ");
     // Conditional branch
     if ((word & 0xfe000000) == 0x54000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -298,23 +298,23 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      TriggerBubbleIF((int) stat_cycles + 3);
-      printf("Conditional branch, ");
+      TriggerBubble((int) stat_cycles + 3);
+      //printf("Conditional branch, ");
     }
     // Exception
     else if ((word & 0xff000000) == 0xd4000000) {
       IDtoEX.op = (word & 0xffe00000);
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.branching = 1;
-      printf("Exception, ");
+      //printf("Exception, ");
     }
     // Unconditional branch (register)
     else if ((word & 0xfe000000) == 0xd6000000) {
       IDtoEX.op = (word & 0xfffffc00);
       IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.branching = 1;
-      TriggerBubbleIF((int) stat_cycles + 3);
-      printf("Unconditional branch (register), ");
+      TriggerBubble((int) stat_cycles + 3);
+      //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
     else if ((word & 0x60000000) == 0) {
@@ -322,8 +322,8 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubbleIF((int) stat_cycles + 3);
-      printf("Unconditional branch (immediate), ");
+      TriggerBubble((int) stat_cycles + 3);
+      //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
     else if ((word & 0x7e000000) == 0x34000000) {
@@ -332,11 +332,11 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubbleIF((int) stat_cycles + 3);
-      printf("Compare and branch, ");
+      TriggerBubble((int) stat_cycles + 3);
+      //printf("Compare and branch, ");
     }
     else {
-      printf("Failure to match subtype1\n");
+      //printf("Failure to match subtype1\n");
     }
   }
   // Loads and Stores
@@ -347,11 +347,11 @@ void pipe_stage_decode()
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
     IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
     IDtoEX.fmem = 1;
-    printf("Loads and Stores, Load/store (unscaled immediate), ");
+    //printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
   // Data Processing - Register
   else if ((word & 0x0e000000) == 0x0a000000) {
-    printf("Data Processing - Register, ");
+    //printf("Data Processing - Register, ");
     // Logical (shifted register)
     if ((word & 0x1f000000) == 0x0a000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -360,7 +360,7 @@ void pipe_stage_decode()
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.fwb = 1;
-      printf("Logical (shifted register), ");
+      //printf("Logical (shifted register), ");
     }
     // Add/subtract (extended register)
     else if ((word & 0x1f200000) == 0x0b000000) {
@@ -369,7 +369,7 @@ void pipe_stage_decode()
       IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Add/subtract (extended register), ");
+      //printf("Add/subtract (extended register), ");
     }
     // Data processing (3 source)
     else if ((word & 0x1f000000) == 0x1b000000) {
@@ -378,14 +378,14 @@ void pipe_stage_decode()
       IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Data processing (3 source), ");
+      //printf("Data processing (3 source), ");
     }
     else {
-      printf("Failure to match subtype2\n");
+      //printf("Failure to match subtype2\n");
     }
   }
   else {
-    printf("Failure to match subtype3\n");
+    //printf("Failure to match subtype3\n");
   }
   //commenting out for pc_halt
   // IFtoID = (IFtoID_t){ .inst = 0};
@@ -405,36 +405,32 @@ void pipe_stage_decode()
     // printf("dnum: %ld\n", IDtoEX.dnum);
   }
 
-  //triggering bubble on cycle 2 to test
-  if ((int) stat_cycles == 2)
-  {
-    TriggerBubble(8);
-  }
+  // //triggering bubble on cycle 2 to test
+  // if ((int) stat_cycles == 2)
+  // {
+  //   TriggerBubble(8);
+  // }
 }
 
 void pipe_stage_fetch()
 {
+  printf("IF:\n");
   //dont move PC if we are bubbling
   // < or <= ?
-  if ((int) stat_cycles <= Control.bubble_until)
+  if ((int) stat_cycles < Control.bubble_until)
   {
-    // printf("%d, %d", stat_cycles, Control.bubble_until);
+    printf("%d, %d\n---------------\n", stat_cycles, Control.bubble_until);
     return;
-  }
-  if ((int) stat_cycles < Control.bubble_untilif)
-  {
-    // printf("%d, %d", stat_cycles, Control.bubble_until);
-    return;
-  } else if ((int) stat_cycles == Control.bubble_untilif) {
-    if (Control.baddr != CURRENT_STATE.PC) {
-      CURRENT_STATE.PC = Control.baddr;
-      stat_inst_retire = stat_inst_retire + 1;
-    }
-    return;
-  }
+  } //else if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
+  //   printf("Stalled for branching\n");
+  //   CURRENT_STATE.PC = Control.baddr;
+  //   Control.baddr = -1;
+  //   stat_inst_retire = stat_inst_retire + 1;
+  //   return;
+  // }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
-  printf("word:%x\n",word);
+  //printf("word:%x\n",word);
   // don't move PC if we have hit an HLT();
   if (word != 0)
   {
@@ -445,6 +441,7 @@ void pipe_stage_fetch()
     IFtoID.pc_halt = 1;
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   }
+  printf("---------------\n");
 }
 /* bubble implementations */
 void TriggerBubble(int bubble_until)
@@ -452,14 +449,6 @@ void TriggerBubble(int bubble_until)
   Control.bubble_until = bubble_until;
   temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
   IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-  temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
-  IFtoID = (IFtoID_t){ .inst = 0};
-  return;
-}
-
-void TriggerBubbleIF(int bubble_until) // for branching
-{
-  Control.bubble_untilif = bubble_until;
   temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
   IFtoID = (IFtoID_t){ .inst = 0};
   return;
