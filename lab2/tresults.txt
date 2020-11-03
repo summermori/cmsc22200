@@ -1,61 +1,129 @@
 
+>> inputs/addis.x
+53c53
+< FLAG_Z: 1
+---
+> FLAG_Z: 0
+
+>> inputs/addi.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/adds.x
+53c53
+< FLAG_Z: 1
+---
+> FLAG_Z: 0
+
 >> inputs/add_test_1.x
 Files testref.txt and testsim.txt are identical
 
->> inputs/f-test-1.x
+>> inputs/add.x
 Files testref.txt and testsim.txt are identical
 
->> inputs/f-test-2.x
-Files testref.txt and testsim.txt are identical
-
->> inputs/stall_test_1.x
-54c54
-< No. of Cycles: 10
----
-> No. of Cycles: 9
-
->> inputs/step1-a-input.x
-Files testref.txt and testsim.txt are identical
-
->> inputs/step1-b-input.x
-Files testref.txt and testsim.txt are identical
-
->> inputs/step2-a-input.x
-32c32
-< X12: 0x1
----
-> X12: 0x2
-54c54
-< No. of Cycles: 12
----
-> No. of Cycles: 11
-
->> inputs/step2-b-input.x
-Files testref.txt and testsim.txt are identical
-
->> inputs/step3-input.x
-17c17
-< Instruction Retired : 27
----
-> Instruction Retired : 21
-33,34c33,34
-< X13: 0x0
-< X14: 0xb
----
-> X13: 0xa
-> X14: 0x0
-37,39c37,39
-< X17: 0x7
-< X18: 0x7
-< X19: 0xa
----
-> X17: 0xa
-> X18: 0x1
-> X19: 0x1
-53,54c53,54
+>> inputs/ands.x
+53c53
 < FLAG_Z: 1
-< No. of Cycles: 40
 ---
 > FLAG_Z: 0
-> No. of Cycles: 28
+
+>> inputs/and.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/beq.x
+17,18c17,18
+< Instruction Retired : 5
+< PC                : 0x400014
+---
+> Instruction Retired : 3
+> PC                : 0x400018
+22c22
+< X2: 0x0
+---
+> X2: 0xa
+53,54c53,54
+< FLAG_Z: 1
+< No. of Cycles: 13
+---
+> FLAG_Z: 0
+> No. of Cycles: 8
+
+>> inputs/bge.x
+18c18
+< PC                : 0x400014
+---
+> PC                : 0x400024
+22,23c22,23
+< X2: 0x0
+< X3: 0x0
+---
+> X2: 0xa
+> X3: 0xa
+53,54c53,54
+< FLAG_Z: 1
+< No. of Cycles: 13
+---
+> FLAG_Z: 0
+> No. of Cycles: 9
+
+>> inputs/bgt.x
+17,18c17,18
+< Instruction Retired : 4
+< PC                : 0x400014
+---
+> Instruction Retired : 5
+> PC                : 0x400024
+23c23
+< X3: 0x0
+---
+> X3: 0xa
+53c53
+< FLAG_Z: 1
+---
+> FLAG_Z: 0
+
+>> inputs/ble.x
+17,18c17,18
+< Instruction Retired : 5
+< PC                : 0x400014
+---
+> Instruction Retired : 4
+> PC                : 0x400018
+22c22
+< X2: 0x0
+---
+> X2: 0xa
+53,54c53,54
+< FLAG_Z: 1
+< No. of Cycles: 13
+---
+> FLAG_Z: 0
+> No. of Cycles: 8
+
+>> inputs/blt.x
+18c18
+< PC                : 0x400014
+---
+> PC                : 0x400018
+53,54c53,54
+< FLAG_Z: 1
+< No. of Cycles: 9
+---
+> FLAG_Z: 0
+> No. of Cycles: 8
+
+>> inputs/bne.x
+17,18c17,18
+< Instruction Retired : 4
+< PC                : 0x400014
+---
+> Instruction Retired : 5
+> PC                : 0x400024
+23c23
+< X3: 0x0
+---
+> X3: 0xa
+53c53
+< FLAG_Z: 1
+---
+> FLAG_Z: 0
 
