@@ -34,7 +34,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-Control_t Control = {.bubble_until = -1};
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 
@@ -78,11 +78,11 @@ void pipe_stage_wb()
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
-  if (MEMtoWB.dnum != 0 || MEMtoWB.fwb != 0 || MEMtoWB.fmem != 0)
+  if (MEMtoWB.dnum != 0 || MEMtoWB.fwb != 0 || MEMtoWB.fmem != 0 || MEMtoWB.branching != 0)
   {
     stat_inst_retire = stat_inst_retire + 1;
   }
-  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0};
+  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0, .branching = 0};
 }
 
 void pipe_stage_mem()
@@ -133,7 +133,7 @@ void pipe_stage_mem()
     MEMtoWB.fz = EXtoMEM.fz;
     MEMtoWB.fmem = EXtoMEM.fmem;
   } else {
-    MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
+    MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
   }
   EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
 }
@@ -250,11 +250,24 @@ void pipe_stage_execute()
   EXtoMEM.dnum = IDtoEX.dnum;
   EXtoMEM.fwb = IDtoEX.fwb;
   EXtoMEM.fmem = IDtoEX.fmem;
-  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  EXtoMEM.branching = IDtoEX.branching;
+
+  //dont clear IDtoEX if we are in bubble
+  if ((int) stat_cycles <= Control.branch_bubble_until)
+  {
+    return;
+  }
+  else
+  {
+    IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  }
 }
 
 void pipe_stage_decode()
 {
+  if ((int)stat_cycles <= Control.branch_bubble_until) {
+    return;
+  }
   uint32_t word = IFtoID.inst;
   //printf("%d ", word);
   int temp = word & 0x1E000000;
@@ -305,18 +318,24 @@ void pipe_stage_decode()
       IDtoEX.dnum = (word & 0x0000000f);
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
+      IDtoEX.branching = 1;
+      TriggerBubble_Branch((int) stat_cycles + 3);
       //printf("Conditional branch, ");
     }
     // Exception
     else if ((word & 0xff000000) == 0xd4000000) {
       IDtoEX.op = (word & 0xffe00000);
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
+      IDtoEX.branching = 1;
       //printf("Exception, ");
     }
     // Unconditional branch (register)
     else if ((word & 0xfe000000) == 0xd6000000) {
       IDtoEX.op = (word & 0xfffffc00);
-      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
+      IDtoEX.branching = 1;
+      TriggerBubble_Branch((int) stat_cycles + 3);
       //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -324,14 +343,19 @@ void pipe_stage_decode()
       IDtoEX.op = (word & 0xfc000000);
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
+      IDtoEX.branching = 1;
+      TriggerBubble_Branch((int) stat_cycles + 3);
       //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
     else if ((word & 0x7e000000) == 0x34000000) {
       IDtoEX.op = (word & 0xff000000);
       IDtoEX.dnum = (word & 0x0000001f);
-      IDtoEX.dval = reg_call(IDtoEX.dnum);
+      // IDtoEX.dval = reg_call(IDtoEX.dnum);
+      IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
+      IDtoEX.branching = 1;
+      TriggerBubble_Branch((int) stat_cycles + 3);
       //printf("Compare and branch, ");
     }
     else {
@@ -391,6 +415,23 @@ void pipe_stage_decode()
 
 void pipe_stage_fetch()
 {
+  printf("IF:\n");
+  //dont move PC if we are bubbling
+  // < or <= ?
+  if ((int) stat_cycles < Control.branch_bubble_until)
+  {
+    printf("%d, %d\n---------------\n", stat_cycles, Control.branch_bubble_until);
+    return;
+  } else if ((int) stat_cycles == Control.branch_bubble_until) {
+    if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
+      printf("Stalled for branching\n");
+      CURRENT_STATE.PC = Control.baddr;
+      Control.baddr = -1;
+      stat_inst_retire = stat_inst_retire + 1;
+    }
+    return;
+  }
+
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   //printf("%x\n",word);
@@ -399,13 +440,13 @@ void pipe_stage_fetch()
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   }
 }
-void TriggerBubble(int bubble_until)
+void TriggerBubble_Branch(int bubble_until)
 {
-  Control.bubble_until = bubble_until;
-  temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
-  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-  temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
-  IFtoID = (IFtoID_t){ .inst = 0};
+  Control.branch_bubble_until = bubble_until;
+  // temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
+  // IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  // temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+  // IFtoID = (IFtoID_t){ .inst = 0};
   return;
 }
 
@@ -416,7 +457,7 @@ void Branch(int64_t offset)
     // Decode_State.branching = 1;
     uint64_t temp = CURRENT_STATE.PC;
     //dont think I need to cast here, might be wrong tho
-    CURRENT_STATE.PC = temp + (offset * 4);
+    Control.baddr = temp + (offset * 4);
     return;
 }
 void CBNZ()
