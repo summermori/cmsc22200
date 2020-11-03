@@ -41,7 +41,7 @@ IFtoID_t temp_IFtoID;
 int64_t reg_call(int64_t addr) {
         //for the exe struct
         if (addr != 31) {
-		//printf("addr is %ld, x/m d is %ld, x/m fmem is %d, m/w d is %ld, and m/w fwb is %d\n", addr, EXtoMEM.dnum, EXtoMEM.fmem, MEMtoWB.dnum, MEMtoWB.fwb); 
+		//printf("addr is %ld, x/m d is %ld, x/m fmem is %d, m/w d is %ld, and m/w fwb is %d\n", addr, EXtoMEM.dnum, EXtoMEM.fmem, MEMtoWB.dnum, MEMtoWB.fwb);
                 if ((EXtoMEM.dnum == addr) && !(isSturBranch(addr)) && (EXtoMEM.fmem == 0)) {
 			//printf("x/m hit, returning %ld\n", EXtoMEM.res);
                         return EXtoMEM.res;
@@ -415,16 +415,16 @@ void pipe_stage_decode()
 
 void pipe_stage_fetch()
 {
-  printf("IF:\n");
+  //printf("IF:\n");
   //dont move PC if we are bubbling
   // < or <= ?
   if ((int) stat_cycles < Control.branch_bubble_until)
   {
-    printf("%d, %d\n---------------\n", stat_cycles, Control.branch_bubble_until);
+    //printf("%d, %d\n---------------\n", stat_cycles, Control.branch_bubble_until);
     return;
   } else if ((int) stat_cycles == Control.branch_bubble_until) {
     if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
-      printf("Stalled for branching\n");
+      //printf("Stalled for branching\n");
       CURRENT_STATE.PC = Control.baddr;
       Control.baddr = -1;
       stat_inst_retire = stat_inst_retire + 1;
