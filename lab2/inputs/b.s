@@ -1,4 +1,5 @@
 .text
+HLT 0
 b foo
 add X2, X0, 10
 

@@ -1,3 +1,4 @@
+   HLT 0
    mov X10, 10
    mov X1, 2
    mov X2, 3

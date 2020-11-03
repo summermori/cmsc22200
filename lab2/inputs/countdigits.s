@@ -1,4 +1,5 @@
 main:
+HLT 0
 mov     x0, #0x2174          // 4 digits in decimal 
 mov     x28, 0x1000
 lsl     x28, x28, 16

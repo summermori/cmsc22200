@@ -42,9 +42,10 @@ void pipe_stage_mem();
 void pipe_stage_wb();
 
 /* pipeline registers */
+
 typedef struct IFtoID_t {
 	uint32_t inst;
-	int halt;
+	int pc_halt;
 } IFtoID_t;
 
 typedef struct IDtoEX_t {
@@ -58,6 +59,7 @@ typedef struct IDtoEX_t {
 	int64_t addr;
 	int fmem;
 	int fwb;
+	int branching;
 } IDtoEX_t;
 
 typedef struct EXtoMEM_t {
@@ -72,21 +74,36 @@ typedef struct EXtoMEM_t {
 	int fn; // this, along with other data must be propagated down the pipeline
 	int fz;
 	int halt;
+	int branching;
 } EXtoMEM_t;
 
 typedef struct MEMtoWB_t {
 	int64_t dnum;
 	int64_t res;
-	int fmem;
 	int fwb;
 	int fn;
 	int fz;
 	int halt;
+	int branching;
+	int fmem;
 } MEMtoWB_t;
 
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
+typedef struct Control_t {
+	int branch_bubble_until;
+	int loadstore_bubble_until;
+	int loadstore_bubble_start;
+	int baddr;
+	int n;
+	int z;
+} Control_t;
 
+/* Bubble Functions */
+void TriggerBubble_Branch(int bubble_until);
+void TriggerBubble_LoadStore(int bubble_until);
+/* instruction helpers */
+void Branch();
 /* instruction implementations */
 void CBNZ();
 void CBZ();

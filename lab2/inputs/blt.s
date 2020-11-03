@@ -1,4 +1,5 @@
 .text
+HLT 0
 cmp X11, X12
 blt foo
 add X2, X0, 10

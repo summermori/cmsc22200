@@ -1,18 +1,12 @@
 
 >> inputs/addis.x
-53c53
-< FLAG_Z: 1
----
-> FLAG_Z: 0
+Files testref.txt and testsim.txt are identical
 
 >> inputs/addi.x
 Files testref.txt and testsim.txt are identical
 
 >> inputs/adds.x
-53c53
-< FLAG_Z: 1
----
-> FLAG_Z: 0
+Files testref.txt and testsim.txt are identical
 
 >> inputs/add_test_1.x
 Files testref.txt and testsim.txt are identical
@@ -21,109 +15,349 @@ Files testref.txt and testsim.txt are identical
 Files testref.txt and testsim.txt are identical
 
 >> inputs/ands.x
-53c53
-< FLAG_Z: 1
----
-> FLAG_Z: 0
+Files testref.txt and testsim.txt are identical
 
 >> inputs/and.x
 Files testref.txt and testsim.txt are identical
 
 >> inputs/beq.x
-17,18c17,18
-< Instruction Retired : 5
-< PC                : 0x400014
+18c18
+< PC                : 0x400008
 ---
-> Instruction Retired : 3
-> PC                : 0x400018
-22c22
-< X2: 0x0
----
-> X2: 0xa
-53,54c53,54
-< FLAG_Z: 1
-< No. of Cycles: 13
----
-> FLAG_Z: 0
-> No. of Cycles: 8
+> PC                : 0x40000c
 
 >> inputs/bge.x
 18c18
-< PC                : 0x400014
+< PC                : 0x400008
 ---
-> PC                : 0x400024
-22,23c22,23
-< X2: 0x0
-< X3: 0x0
----
-> X2: 0xa
-> X3: 0xa
-53,54c53,54
-< FLAG_Z: 1
-< No. of Cycles: 13
----
-> FLAG_Z: 0
-> No. of Cycles: 9
+> PC                : 0x40000c
 
 >> inputs/bgt.x
-17,18c17,18
-< Instruction Retired : 4
-< PC                : 0x400014
+18c18
+< PC                : 0x400008
 ---
-> Instruction Retired : 5
-> PC                : 0x400024
-23c23
-< X3: 0x0
----
-> X3: 0xa
-53c53
-< FLAG_Z: 1
----
-> FLAG_Z: 0
+> PC                : 0x40000c
 
 >> inputs/ble.x
-17,18c17,18
-< Instruction Retired : 5
-< PC                : 0x400014
+18c18
+< PC                : 0x400008
 ---
-> Instruction Retired : 4
-> PC                : 0x400018
-22c22
-< X2: 0x0
----
-> X2: 0xa
-53,54c53,54
-< FLAG_Z: 1
-< No. of Cycles: 13
----
-> FLAG_Z: 0
-> No. of Cycles: 8
+> PC                : 0x40000c
 
 >> inputs/blt.x
 18c18
-< PC                : 0x400014
+< PC                : 0x400008
 ---
-> PC                : 0x400018
-53,54c53,54
-< FLAG_Z: 1
-< No. of Cycles: 9
----
-> FLAG_Z: 0
-> No. of Cycles: 8
+> PC                : 0x40000c
 
 >> inputs/bne.x
-17,18c17,18
-< Instruction Retired : 4
-< PC                : 0x400014
+18c18
+< PC                : 0x400008
 ---
-> Instruction Retired : 5
-> PC                : 0x400024
-23c23
+> PC                : 0x40000c
+
+>> inputs/br.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/b-test-1.x
+8a9,15
+> 1, 4
+> ---------------
+> 2, 4
+> ---------------
+> 3, 4
+> ---------------
+> Stalled for branching
+17,18c24,25
+< Instruction Retired : 3
+< PC                : 0x400010
+---
+> Instruction Retired : 7
+> PC                : 0x40001c
+23c30
 < X3: 0x0
 ---
 > X3: 0xa
-53c53
-< FLAG_Z: 1
+
+>> inputs/b.x
+8a9,14
+> 2, 5
+> ---------------
+> 3, 5
+> ---------------
+> 4, 5
+> ---------------
+18c24
+< PC                : 0x400008
 ---
-> FLAG_Z: 0
+> PC                : 0x40000c
+
+>> inputs/cbnz.x
+8a9,20
+> 1, 4
+> ---------------
+> 2, 4
+> ---------------
+> 3, 4
+> ---------------
+> 8, 11
+> ---------------
+> 9, 11
+> ---------------
+> 10, 11
+> ---------------
+17,18c29,30
+< Instruction Retired : 3
+< PC                : 0x400010
+---
+> Instruction Retired : 6
+> PC                : 0x400014
+54c66
+< No. of Cycles: 8
+---
+> No. of Cycles: 11
+
+>> inputs/cbz.x
+8a9,15
+> 1, 4
+> ---------------
+> 2, 4
+> ---------------
+> 3, 4
+> ---------------
+> Stalled for branching
+17,18c24,25
+< Instruction Retired : 3
+< PC                : 0x400010
+---
+> Instruction Retired : 7
+> PC                : 0x40001c
+23c30
+< X3: 0x0
+---
+> X3: 0xa
+
+>> inputs/cmp.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/countdigits.x
+18c18
+< PC                : 0x400008
+---
+> PC                : 0x40000c
+
+>> inputs/eor.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/fibonacci.x
+18c18
+< PC                : 0x400008
+---
+> PC                : 0x40000c
+
+>> inputs/f-test-1.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/f-test-2.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/f-test-3.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/f-test-4.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/f-test-5.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/g-test-1.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/g-test-2.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/ldurb.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/ldurh.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/ldur-signed32.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/ldur-signed.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/ldur-with-stur.x
+54c54
+< No. of Cycles: 15
+---
+> No. of Cycles: 14
+
+>> inputs/ldur.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/lsli.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/lsl.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/lsri.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/lsr.x
+21c21
+< X1: 0x1
+---
+> X1: 0xffffffffffffffff
+
+>> inputs/movz.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/mul.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/orr.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/step1-a-input.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/step1-b-input.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/step2-a-input.x
+54c54
+< No. of Cycles: 12
+---
+> No. of Cycles: 13
+
+>> inputs/step2-b-input.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/step3-input.x
+8a9,56
+> 3, 6
+> ---------------
+> 4, 6
+> ---------------
+> 5, 6
+> ---------------
+> Stalled for branching
+> 8, 11
+> ---------------
+> 9, 11
+> ---------------
+> 10, 11
+> ---------------
+> Stalled for branching
+> 14, 17
+> ---------------
+> 15, 17
+> ---------------
+> 16, 17
+> ---------------
+> Stalled for branching
+> 19, 22
+> ---------------
+> 20, 22
+> ---------------
+> 21, 22
+> ---------------
+> 29, 32
+> ---------------
+> 30, 32
+> ---------------
+> 31, 32
+> ---------------
+> Stalled for branching
+> 36, 39
+> ---------------
+> 37, 39
+> ---------------
+> 38, 39
+> ---------------
+> Stalled for branching
+> 43, 46
+> ---------------
+> 44, 46
+> ---------------
+> 45, 46
+> ---------------
+> Stalled for branching
+17c65
+< Instruction Retired : 27
+---
+> Instruction Retired : 48
+34c82
+< X14: 0xb
+---
+> X14: 0x0
+37,39c85,87
+< X17: 0x7
+< X18: 0x7
+< X19: 0xa
+---
+> X17: 0x4
+> X18: 0x4
+> X19: 0x4
+54c102
+< No. of Cycles: 40
+---
+> No. of Cycles: 53
+
+>> inputs/s-test-1.x
+54c54
+< No. of Cycles: 10
+---
+> No. of Cycles: 11
+
+>> inputs/s-test-2.x
+54c54
+< No. of Cycles: 10
+---
+> No. of Cycles: 9
+
+>> inputs/s-test-3.x
+54c54
+< No. of Cycles: 9
+---
+> No. of Cycles: 8
+
+>> inputs/s-test-4.x
+54c54
+< No. of Cycles: 9
+---
+> No. of Cycles: 8
+
+>> inputs/s-test-5.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/sturb-better.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/sturb.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/sturh.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/stur-neg.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/stur.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/subi.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/subsi.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/subs.x
+Files testref.txt and testsim.txt are identical
+
+>> inputs/sub.x
+Files testref.txt and testsim.txt are identical
 
