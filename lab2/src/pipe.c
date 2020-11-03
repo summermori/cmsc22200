@@ -346,12 +346,8 @@ void pipe_stage_decode()
     else {
       printf("Failure to match subtype1\n");
     }
-  } else {
-    EXtoMEM.op = IDtoEX.op;
-    EXtoMEM.n = IDtoEX.n;
-    EXtoMEM.dval = IDtoEX.dval;
-    EXtoMEM.imm1 = IDtoEX.imm1;
   }
+
   // Loads and Stores
   else if ((word & 0x0a000000) == 0x08000000) {
     IDtoEX.op = (word & 0xffc00000);
@@ -432,9 +428,11 @@ void pipe_stage_fetch()
   if (((int) stat_cycles <= Control.bubble_until) || ((int) stat_cycles < Control.bubble_untilif))
   {
     // printf("%d, %d", stat_cycles, Control.bubble_until);
+    printf("Stalling IF branch\n");
     return;
   }
   if ((int) stat_cycles == Control.bubble_untilif) { // this is where we decide if we squash or continue
+    printf("Stalling IF branch\n");
     if (Control.baddr != CURRENT_STATE.PC) {
       CURRENT_STATE.PC = Control.baddr;
       stat_inst_retire = stat_inst_retire + 1;
