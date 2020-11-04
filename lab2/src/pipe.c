@@ -34,11 +34,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-<<<<<<< HEAD
-Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
-=======
-Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .same_cycle = 1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0};
->>>>>>> 6bc7002600f7ab5a2d8a03cccb9d596e77e34125
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .same_cycle = 1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
@@ -628,8 +624,13 @@ void pipe_stage_fetch()
   IFtoID.inst = word;
   //printf("WORD: %x\n",word);
   //printf("PC: %lx\n", CURRENT_STATE.PC);
-  if (word != 0 && EXtoMEM.halt != 1)
+  if (word != 0)
   {
+    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  }
+  else if(Control.halt == 0)
+  {
+    Control.halt = 1;
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   }
   //printf("fetch: %d", IFtoID.inst);
@@ -707,7 +708,7 @@ void MUL()
 void HLT()
 {
     EXtoMEM.halt = 1;
-    Control.halt = 1;
+    // Control.halt = 1;
     // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
 }
