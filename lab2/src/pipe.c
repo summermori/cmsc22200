@@ -347,11 +347,33 @@ void pipe_stage_decode()
     else if (temp2 == 0x03000000) {
       // this should be reviewed, since i am unsure what you guys need - victor
       IDtoEX.op = (word & 0xff800000);
-      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      // IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.imm2 = (word & 0x003f0000) >> 16; // using m as another imm
       IDtoEX.fwb = 1;
+       // loadstore bubbling trigger
+      if (loadstore_dependency == 1)
+      {
+        IDtoEX.n = ((word & 0x000003e0) >> 5);
+        if (IDtoEX.n == EXtoMEM.dnum)
+        {
+          printf("IDtoEX.n: %ld", IDtoEX.n);
+          printf("bubble trigger");
+          TriggerBubble_LoadStore((int) stat_cycles + 1);
+          loadstore_dependency = 0;
+        }
+        else
+        {
+          loadstore_dependency = 0;
+          IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+        }
+        
+      }
+      else
+      {
+        IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+      }
       //printf("Bitfield, ");
     }
     else {
@@ -417,11 +439,33 @@ void pipe_stage_decode()
   // Loads and Stores
   else if ((word & 0x0a000000) == 0x08000000) {
     IDtoEX.op = (word & 0xffc00000);
-    IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+    // IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
     IDtoEX.dnum = (word & 0x0000001f);
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
     IDtoEX.dval = reg_call(IDtoEX.dnum);
     IDtoEX.fmem = 1;
+    // loadstore bubbling trigger
+    if (loadstore_dependency == 1)
+    {
+      IDtoEX.n = ((word & 0x000003e0) >> 5);
+      if (IDtoEX.n == EXtoMEM.dnum)
+      {
+        printf("IDtoEX.n: %ld", IDtoEX.n);
+        printf("bubble trigger");
+        TriggerBubble_LoadStore((int) stat_cycles + 1);
+        loadstore_dependency = 0;
+      }
+      else
+      {
+        loadstore_dependency = 0;
+        IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+      }
+      
+    }
+    else
+    {
+      IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+    }
     //printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
   // Data Processing - Register
