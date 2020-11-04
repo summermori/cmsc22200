@@ -608,6 +608,8 @@ void pipe_stage_fetch()
     }
   }
   Control.same_cycle = 0;
+
+  //loadstore bubbling
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
