@@ -34,7 +34,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-Control_t Control = {.baddr= -1, .branch_bubble_until = -1};
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .same_cycle = 1};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 
@@ -319,7 +319,8 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 3);
+      TriggerBubble_Branch((int) stat_cycles + 2);
+      Control.same_cycle = 1;
       //printf("Conditional branch, ");
     }
     // Exception
@@ -335,7 +336,8 @@ void pipe_stage_decode()
       //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 3);
+      TriggerBubble_Branch((int) stat_cycles + 2);
+      Control.same_cycle = 1;
       //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -344,7 +346,8 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 3);
+      TriggerBubble_Branch((int) stat_cycles + 2);
+      Control.same_cycle = 1;
       //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
@@ -355,7 +358,8 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 3);
+      TriggerBubble_Branch((int) stat_cycles + 2);
+      Control.same_cycle = 1;
       //printf("Compare and branch, ");
     }
     else {
@@ -418,20 +422,20 @@ void pipe_stage_fetch()
   //printf("IF:\n");
   //dont move PC if we are bubbling
   // < or <= ?
-  if ((int) stat_cycles < Control.branch_bubble_until)
-  {
-    //printf("%d, %d\n---------------\n", stat_cycles, Control.branch_bubble_until);
-    return;
-  } else if ((int) stat_cycles == Control.branch_bubble_until) {
-    if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
-      //printf("Stalled for branching\n");
-      CURRENT_STATE.PC = Control.baddr;
-      Control.baddr = -1;
-      stat_inst_retire = stat_inst_retire + 1;
+  if (!Control.same_cycle) {
+    if ((int) stat_cycles < Control.branch_bubble_until) {
+      return;
+    } else if ((int) stat_cycles == Control.branch_bubble_until) {
+      if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
+        //printf("Stalled for branching\n");
+        CURRENT_STATE.PC = Control.baddr;
+        Control.baddr = -1;
+        stat_inst_retire = stat_inst_retire + 1;
+      }
+      return;
     }
-    return;
   }
-
+  Control.same_cycle = 0;
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   //printf("%x\n",word);
