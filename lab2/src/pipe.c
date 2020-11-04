@@ -34,7 +34,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .same_cycle = 1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
@@ -257,8 +257,8 @@ void pipe_stage_execute()
   EXtoMEM.fn = Control.fn;
   EXtoMEM.fz = Control.fz;
 
-  //dont clear IDtoEX if we are in bubble
-  if (((int) stat_cycles <= Control.branch_bubble_until) || ((int) stat_cycles <= Control.loadstore_bubble_until))
+  //dont clear IDtoEX if we are in loadstore_bubble, do clear if we are in branch_bubble
+  if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
     return;
   }
@@ -393,7 +393,8 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 1);
+      printf("BUBBLE TRIGGER CONDITIONAL BRANCH\n");
+      TriggerBubble_Branch((int) stat_cycles + 2);
       //printf("Conditional branch, ");
     }
     // Exception
@@ -410,7 +411,8 @@ void pipe_stage_decode()
       //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 1);
+      printf("BUBBLE TRIGGER UNCONDITIONAL REGISTER\n");
+      TriggerBubble_Branch((int) stat_cycles + 2);
       //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -419,7 +421,8 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 1);
+      printf("BUBBLE TRIGGER UNCONDITIONAL IMMEDIATE\n");
+      TriggerBubble_Branch((int) stat_cycles + 2);
       //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
@@ -430,7 +433,8 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 1);
+      printf("BUBBLE TRIGGER COMPARE AND BRANCH\n");
+      TriggerBubble_Branch((int) stat_cycles + 2);
       //printf("Compare and branch, ");
     }
     else {
@@ -589,25 +593,35 @@ void pipe_stage_decode()
 
 void pipe_stage_fetch()
 {
-  //printf("Until: %d\n", Control.loadstore_bubble_until);
-  // printf("IF:\n");
-  //dont move PC if we are bubbling
-  //branch bubbling
-  if (!Control.same_cycle) {
-    if ((int) stat_cycles < Control.branch_bubble_until) {
-      return;
-    } else if ((int) stat_cycles == Control.branch_bubble_until) {
-      if ((Control.baddr != IFtoID.inst) && (Control.baddr != -1)) {
-        //printf("Stalled for branching\n");
-        IFtoID.inst = Control.baddr;
-        Control.baddr = -1;
-        stat_inst_retire = stat_inst_retire + 1;
-        return;
-      }
-      return;
-    }
+  //bubble branching
+  if ((int) stat_cycles < Control.branch_bubble_until)
+  {
+    return;
   }
-  Control.same_cycle = 0;
+  if ((stat_cycles) == Control.branch_bubble_until)
+  {
+    printf("ENDING BUBBLE\n");
+    if (Control.baddr != -1)
+    {
+      //Control.baddr has non default value, we are branching
+      CURRENT_STATE.PC = Control.baddr;
+      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+      printf("PC: %lx\n", CURRENT_STATE.PC);
+      printf("WORD in if: %x\n",IFtoID.inst);
+      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+    }
+    else
+    {
+      //Control.baddr wasn't set so the conditional did not eval to true so we are not branching
+      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+      printf("PC: %lx\n", CURRENT_STATE.PC);
+      printf("WORD in else: %x\n",IFtoID.inst);
+    }
+    Control.baddr = -1;
+    Control.branch_bubble_until = -1;
+    return;
+  }
 
   //loadstore bubbling
   //loadstore bubbling stop pc
@@ -624,8 +638,8 @@ void pipe_stage_fetch()
   }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
-  //printf("WORD: %x\n",word);
-  //printf("PC: %lx\n", CURRENT_STATE.PC);
+  printf("PC: %lx\n", CURRENT_STATE.PC);
+  printf("WORD in general: %x\n",word);
   if (word != 0)
   {
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
@@ -635,13 +649,13 @@ void pipe_stage_fetch()
     Control.halt = 1;
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   }
-  //printf("fetch: %d", IFtoID.inst);
 }
 
 void TriggerBubble_Branch(int bubble_until)
 {
   Control.branch_bubble_until = bubble_until;
-  Control.same_cycle = 1;
+  IFtoID = (IFtoID_t){ .inst = 0};
+  CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   return;
 }
 void TriggerBubble_LoadStore(int bubble_until)
@@ -670,9 +684,10 @@ void Branch(int64_t offset)
 {
     //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4.
     // Decode_State.branching = 1;
-    uint64_t temp = Control.baddr;
-    //dont think I need to cast here, might be wrong tho
+    uint64_t temp = CURRENT_STATE.PC - 8;
+    printf("Branch Base: %lx\n", temp);
     Control.baddr = temp + (offset * 4);
+    printf("baddr in Branch: %x\n", Control.baddr);
     return;
 }
 void CBNZ()
@@ -716,7 +731,7 @@ void HLT()
 }
 void BR()
 {
-    Control.baddr = IDtoEX.n;
+    Control.baddr = IDtoEX.n - 8;
     // Decode_State.branching = 1;
     //set the branching field and fields for MEM and WB saying we dont need to do anything.
     return;
