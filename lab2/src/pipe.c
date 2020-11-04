@@ -292,6 +292,7 @@ void pipe_stage_decode()
     Control.restoration = 1;
     IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
     IDtoEX.n = reg_call(IDtoEX.n);
+    IDtoEX.m = reg_call(IDtoEX.m);
     IFtoID = (IFtoID_t){.inst = temp_IFtoID.inst};
     printf("temp_IFtoID.inst: %x\n", temp_IFtoID.inst);
     printf("IFtoID.inst: %x\n", IFtoID.inst);
@@ -450,7 +451,7 @@ void pipe_stage_decode()
       IDtoEX.n = ((word & 0x000003e0) >> 5);
       if (IDtoEX.n == EXtoMEM.dnum)
       {
-        printf("IDtoEX.n: %ld", IDtoEX.n);
+        printf("IDtoEX.n: %ld\n", IDtoEX.n);
         printf("bubble trigger");
         TriggerBubble_LoadStore((int) stat_cycles + 1);
         loadstore_dependency = 0;
@@ -474,29 +475,104 @@ void pipe_stage_decode()
     // Logical (shifted register)
     if ((word & 0x1f000000) == 0x0a000000) {
       IDtoEX.op = (word & 0xff000000);
-      IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
-      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      // IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      // IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.fwb = 1;
+      //loadstore bubble detection
+      if (loadstore_dependency == 1)
+      {
+        IDtoEX.n = ((word & 0x000003e0) >> 5);
+        IDtoEX.m = ((word & 0x001f0000) >> 16);
+        if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
+        {
+          printf("IDtoEX.n: %ld", IDtoEX.n);
+          printf("bubble trigger");
+          TriggerBubble_LoadStore((int) stat_cycles + 1);
+          loadstore_dependency = 0;
+        }
+        else
+        {
+          loadstore_dependency = 0;
+          IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+          IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+        }
+        
+      }
+      else
+      {
+        IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+        IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      }
       //printf("Logical (shifted register), ");
     }
     // Add/subtract (extended register)
     else if ((word & 0x1f200000) == 0x0b000000) {
       IDtoEX.op = (word & 0xffe00000);
-      IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
-      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      // IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      // IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
+      //loadstore bubble detection
+      if (loadstore_dependency == 1)
+      {
+        IDtoEX.n = ((word & 0x000003e0) >> 5);
+        IDtoEX.m = ((word & 0x001f0000) >> 16);
+        if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
+        {
+          printf("IDtoEX.n: %ld", IDtoEX.n);
+          printf("bubble trigger");
+          TriggerBubble_LoadStore((int) stat_cycles + 1);
+          loadstore_dependency = 0;
+        }
+        else
+        {
+          loadstore_dependency = 0;
+          IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+          IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+        }
+        
+      }
+      else
+      {
+        IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+        IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      }
       //printf("Add/subtract (extended register), ");
     }
     // Data processing (3 source)
     else if ((word & 0x1f000000) == 0x1b000000) {
       IDtoEX.op = (word & 0xffe00000);
-      IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
-      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      // IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      // IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
+      //loadstore bubble detection
+      if (loadstore_dependency == 1)
+      {
+        IDtoEX.n = ((word & 0x000003e0) >> 5);
+        IDtoEX.m = ((word & 0x001f0000) >> 16);
+        if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
+        {
+          printf("IDtoEX.n: %ld", IDtoEX.n);
+          printf("bubble trigger");
+          TriggerBubble_LoadStore((int) stat_cycles + 1);
+          loadstore_dependency = 0;
+        }
+        else
+        {
+          loadstore_dependency = 0;
+          IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+          IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+        }
+        
+      }
+      else
+      {
+        IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+        IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      }
       //printf("Data processing (3 source), ");
     }
     else {
