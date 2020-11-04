@@ -94,6 +94,7 @@ typedef struct Control_t {
 	int loadstore_bubble_until;
 	int loadstore_bubble_start;
 	int restoration;
+	int halt;
 	int baddr;
 	int fn;
 	int fz;
