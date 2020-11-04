@@ -89,7 +89,21 @@ typedef struct MEMtoWB_t {
 
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
+typedef struct Control_t {
+	int branch_bubble_until;
+	int loadstore_bubble_until;
+	int loadstore_bubble_start;
+	int restoration;
+	int baddr;
+	int fn;
+	int fz;
+} Control_t;
 
+/* Bubble Functions */
+void TriggerBubble_Branch(int bubble_until);
+void TriggerBubble_LoadStore(int bubble_until);
+/* instruction helpers */
+void Branch();
 /* instruction implementations */
 void CBNZ();
 void CBZ();
@@ -122,3 +136,4 @@ void SUBS_Immediate();
 void SUBS_Extended();
 
 #endif
+

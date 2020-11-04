@@ -11,6 +11,15 @@
 #include <stdlib.h>
 #include <assert.h>
 
+/* helper funcs */
+int isSturBranch(int word)
+{
+  if (((word & 0xfc000000) == 0x14000000) || ((word & 0xbfe00000) == 0xb8000000) || ((word & 0xbfe00000) == 0x38000000))
+    return 1;
+  else
+    return 0;
+}
+
 /* global pipeline state */
 CPU_State CURRENT_STATE;
 
@@ -20,10 +29,32 @@ void pipe_init()
     CURRENT_STATE.PC = 0x00400000;
 }
 
+
 IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
-MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0, .branching = 0};
+EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
+MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0};
+IDtoEX_t temp_IDtoEX;
+IFtoID_t temp_IFtoID;
+int loadstore_dependency = 0;
+
+int64_t reg_call(int64_t addr) {
+        //for the exe struct
+        if (addr != 31) {
+		//printf("addr is %ld, x/m d is %ld, x/m fmem is %d, m/w d is %ld, and m/w fwb is %d\n", addr, EXtoMEM.dnum, EXtoMEM.fmem, MEMtoWB.dnum, MEMtoWB.fwb); 
+                if ((EXtoMEM.dnum == addr) && !(isSturBranch(addr)) && (EXtoMEM.fmem == 0)) {
+			//printf("x/m hit, returning %ld\n", EXtoMEM.res);
+                        return EXtoMEM.res;
+                }
+                else if ((MEMtoWB.dnum == addr) && !(isSturBranch(addr)) && (MEMtoWB.fwb == 1)) {
+			//printf("m/w hit, returning %ld\n", MEMtoWB.res);
+                        return MEMtoWB.res;
+                }
+        }
+        return CURRENT_STATE.REGS[addr];
+}
+
 
 void pipe_cycle()
 {
@@ -33,6 +64,8 @@ void pipe_cycle()
 	pipe_stage_decode();
 	pipe_stage_fetch();
 }
+
+
 
 void pipe_stage_wb()
 {
@@ -46,12 +79,11 @@ void pipe_stage_wb()
   }
   CURRENT_STATE.FLAG_Z = MEMtoWB.fz;
   CURRENT_STATE.FLAG_N = MEMtoWB.fn;
-  // printf("%ld, %d, %d, %d", MEMtoWB.dnum, MEMtoWB.fwb, MEMtoWB.branching, MEMtoWB.fmem);
-  if (MEMtoWB.dnum != 0 || MEMtoWB.fwb != 0 || MEMtoWB.branching != 0 || MEMtoWB.fmem != 0)
+  if (MEMtoWB.dnum != 0 || MEMtoWB.fwb != 0 || MEMtoWB.fmem != 0 || MEMtoWB.branching != 0)
   {
     stat_inst_retire = stat_inst_retire + 1;
   }
-  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0, .fmem = 0, .branching = 0};
+  MEMtoWB = (MEMtoWB_t){.dnum = 0, .fwb = 0, .res = 0, .fn = 0, .fz = 0, .branching = 0};
 }
 
 void pipe_stage_mem()
@@ -59,60 +91,58 @@ void pipe_stage_mem()
   if (EXtoMEM.halt == 1)
   {
     MEMtoWB.halt = 1;
+    MEMtoWB.fn = EXtoMEM.fn;
+    MEMtoWB.fz = EXtoMEM.fz;
     return;
   }
-  else
-  {
-    if (EXtoMEM.fmem) {
-      switch (EXtoMEM.op)
-      {
-        case 0xf8400000:
-          //printf("LDUR\n");
-          LDUR();
-          break;
-        case 0xb8400000:
-          //printf("LDUR\n");
-          LDUR2();
-          break;
-        case 0x38400000:
-          //printf("LDURB\n");
-          LDURB();
-          break;
-        case 0x78400000:
-          //printf("LDURH\n");
-          LDURH();
-          break;
-        case 0xf8000000:
-          //printf("STUR\n");
-          STUR();
-          break;
-        case 0xb8000000:
-          //printf("STUR\n");
-          STUR2();
-          break;
-        case 0x38000000:
-          //printf("STURB\n");
-          STURB();
-          break;
-        case 0x78000000:
-          //printf("STURH\n");
-          STURH();
-          break;
-      }
-      MEMtoWB.dnum = EXtoMEM.dnum;
-      MEMtoWB.fn = EXtoMEM.fn;
-      MEMtoWB.fz = EXtoMEM.fz;
-      MEMtoWB.fmem = EXtoMEM.fmem;
-    } else {
-      MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
+  if (EXtoMEM.fmem) {
+    switch (EXtoMEM.op)
+    {
+      case 0xf8400000:
+        //printf("LDUR\n");
+        LDUR();
+        break;
+      case 0xb8400000:
+        //printf("LDUR\n");
+        LDUR2();
+        break;
+      case 0x38400000:
+        //printf("LDURB\n");
+        LDURB();
+        break;
+      case 0x78400000:
+        //printf("LDURH\n");
+        LDURH();
+        break;
+      case 0xf8000000:
+        //printf("STUR\n");
+        STUR();
+        break;
+      case 0xb8000000:
+        //printf("STUR\n");
+        STUR2();
+        break;
+      case 0x38000000:
+        //printf("STURB\n");
+        STURB();
+        break;
+      case 0x78000000:
+        //printf("STURH\n");
+        STURH();
+        break;
     }
-    EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
+    MEMtoWB.dnum = EXtoMEM.dnum;
+    MEMtoWB.fn = EXtoMEM.fn;
+    MEMtoWB.fz = EXtoMEM.fz;
+    MEMtoWB.fmem = EXtoMEM.fmem;
+  } else {
+    MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
   }
+  EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
 }
 
 void pipe_stage_execute()
 {
-  //updating in
   // we have modify implementations to write to EXtoMEM.res
   if (!(IDtoEX.fmem)) {
     switch(IDtoEX.op)
@@ -224,27 +254,86 @@ void pipe_stage_execute()
   EXtoMEM.fwb = IDtoEX.fwb;
   EXtoMEM.fmem = IDtoEX.fmem;
   EXtoMEM.branching = IDtoEX.branching;
-  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  EXtoMEM.fn = Control.fn;
+  EXtoMEM.fz = Control.fz;
+
+  //dont clear IDtoEX if we are in bubble
+  if (((int) stat_cycles <= Control.branch_bubble_until) || ((int) stat_cycles <= Control.loadstore_bubble_until))
+  {
+    return;
+  }
+  else
+  {
+    IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  }
 }
 
 void pipe_stage_decode()
 {
+  //branch bubbling
+  if ((int)stat_cycles <= Control.branch_bubble_until) {
+    return;
+  }
+  //loadstore bubbling detection
+  if (EXtoMEM.op == 0xf8400000)
+  {
+    loadstore_dependency = 1;
+  }
+  //in loadstore bubble rn
+  if ((int)stat_cycles < Control.loadstore_bubble_until)
+  {
+    return;
+  }
+  //loadstore bubbling restore to pipeline
+  if ((int) stat_cycles == Control.loadstore_bubble_until)
+  {
+    printf("restoration\n");
+    Control.loadstore_bubble_until = -1;
+    Control.restoration = 1;
+    IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
+    IDtoEX.n = reg_call(IDtoEX.n);
+    IFtoID = (IFtoID_t){.inst = temp_IFtoID.inst};
+    printf("temp_IFtoID.inst: %x\n", temp_IFtoID.inst);
+    printf("IFtoID.inst: %x\n", IFtoID.inst);
+    return;
+  }
+
   uint32_t word = IFtoID.inst;
-  //updating instruction counter
-  // printf("%d ", word);
+  printf("DECODE WORD: %x ", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
-    printf("Data Processing - Immediate, ");
+    //printf("Data Processing - Immediate, ");
     int temp2 = word & 0x03800000;
     // Add/subtract (immediate)
     if ((temp2 == 0x01000000) || (temp2 == 0x01800000)) {
       IDtoEX.op = (word & 0xff000000);
       IDtoEX.imm1 = (word & 0x003ffc00) >> 10;
-      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Add/subtraction (immediate), ");
+      // loadstore bubbling trigger
+      if (loadstore_dependency == 1)
+      {
+        IDtoEX.n = ((word & 0x000003e0) >> 5);
+        if (IDtoEX.n == EXtoMEM.dnum)
+        {
+          printf("IDtoEX.n: %ld", IDtoEX.n);
+          printf("bubble trigger");
+          TriggerBubble_LoadStore((int) stat_cycles + 1);
+          loadstore_dependency = 0;
+        }
+        else
+        {
+          loadstore_dependency = 0;
+          IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+        }
+        
+      }
+      else
+      {
+        IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
+      }
+      //printf("Add/subtraction (immediate), ");
     }
     // Move wide (immediate)
     else if (temp2 == 0x02800000) {
@@ -252,27 +341,27 @@ void pipe_stage_decode()
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Move wide (immediate), ");
+      //printf("Move wide (immediate), ");
     }
     // Bitfield
     else if (temp2 == 0x03000000) {
       // this should be reviewed, since i am unsure what you guys need - victor
       IDtoEX.op = (word & 0xff800000);
-      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.imm2 = (word & 0x003f0000) >> 16; // using m as another imm
       IDtoEX.fwb = 1;
-      printf("Bitfield, ");
+      //printf("Bitfield, ");
     }
     else {
-      printf("Failure to match subtype0\n");
+      //printf("Failure to match subtype0\n");
     }
   }
 
   // Branches and Exceptions
   else if ((temp == 0x14000000) || (temp == 0x16000000)) {
-    printf("Branches and Exceptions, ");
+    //printf("Branches and Exceptions, ");
     // Conditional branch
     if ((word & 0xfe000000) == 0x54000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -281,21 +370,24 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      printf("Conditional branch, ");
+      TriggerBubble_Branch((int) stat_cycles + 3);
+      //printf("Conditional branch, ");
     }
     // Exception
     else if ((word & 0xff000000) == 0xd4000000) {
       IDtoEX.op = (word & 0xffe00000);
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.branching = 1;
-      printf("Exception, ");
+      //printf("Exception, ");
     }
     // Unconditional branch (register)
     else if ((word & 0xfe000000) == 0xd6000000) {
       IDtoEX.op = (word & 0xfffffc00);
-      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+      //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
+      IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
       IDtoEX.branching = 1;
-      printf("Unconditional branch (register), ");
+      TriggerBubble_Branch((int) stat_cycles + 3);
+      //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
     else if ((word & 0x60000000) == 0) {
@@ -303,97 +395,157 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      printf("Unconditional branch (immediate), ");
+      TriggerBubble_Branch((int) stat_cycles + 3);
+      //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
     else if ((word & 0x7e000000) == 0x34000000) {
       IDtoEX.op = (word & 0xff000000);
       IDtoEX.dnum = (word & 0x0000001f);
-      IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
+      // IDtoEX.dval = reg_call(IDtoEX.dnum);
+      IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      printf("Compare and branch, ");
+      TriggerBubble_Branch((int) stat_cycles + 3);
+      //printf("Compare and branch, ");
     }
     else {
-      printf("Failure to match subtype1\n");
+      //printf("Failure to match subtype1\n");
     }
   }
+
   // Loads and Stores
   else if ((word & 0x0a000000) == 0x08000000) {
     IDtoEX.op = (word & 0xffc00000);
-    IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+    IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
     IDtoEX.dnum = (word & 0x0000001f);
     IDtoEX.imm1 = (word & 0x001ff000) >> 12;
-    IDtoEX.dval = CURRENT_STATE.REGS[IDtoEX.dnum];
+    IDtoEX.dval = reg_call(IDtoEX.dnum);
     IDtoEX.fmem = 1;
-    printf("Loads and Stores, Load/store (unscaled immediate), ");
+    //printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
   // Data Processing - Register
   else if ((word & 0x0e000000) == 0x0a000000) {
-    printf("Data Processing - Register, ");
+    //printf("Data Processing - Register, ");
     // Logical (shifted register)
     if ((word & 0x1f000000) == 0x0a000000) {
       IDtoEX.op = (word & 0xff000000);
-      IDtoEX.m = CURRENT_STATE.REGS[(word & 0x001f0000) >> 16];
-      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+      IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.imm1 = (word & 0x0000fc00) >> 10;
       IDtoEX.fwb = 1;
-      printf("Logical (shifted register), ");
+      //printf("Logical (shifted register), ");
     }
     // Add/subtract (extended register)
     else if ((word & 0x1f200000) == 0x0b000000) {
       IDtoEX.op = (word & 0xffe00000);
-      IDtoEX.m = CURRENT_STATE.REGS[(word & 0x001f0000) >> 16];
-      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+      IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Add/subtract (extended register), ");
+      //printf("Add/subtract (extended register), ");
     }
     // Data processing (3 source)
     else if ((word & 0x1f000000) == 0x1b000000) {
       IDtoEX.op = (word & 0xffe00000);
-      IDtoEX.m = CURRENT_STATE.REGS[(word & 0x001f0000) >> 16];
-      IDtoEX.n = CURRENT_STATE.REGS[(word & 0x000003e0) >> 5];
+      IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+      IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      printf("Data processing (3 source), ");
+      //printf("Data processing (3 source), ");
     }
     else {
-      printf("Failure to match subtype2\n");
+      //printf("Failure to match subtype2\n");
     }
   }
   else {
-    printf("Failure to match subtype3\n");
+    //printf("Failure to match subtype3\n");
   }
-  //commenting out for pc_halt 
   // IFtoID = (IFtoID_t){ .inst = 0};
+
 }
 
 void pipe_stage_fetch()
 {
+  printf("Until: %d\n", Control.loadstore_bubble_until);
+  // printf("IF:\n");
+  //dont move PC if we are bubbling
+  //branch bubbling
+  if ((int) stat_cycles < Control.branch_bubble_until)
+  {
+    printf("%d, %d\n---------------\n", stat_cycles, Control.branch_bubble_until);
+    return;
+  } else if ((int) stat_cycles == Control.branch_bubble_until) {
+    if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
+      printf("Stalled for branching\n");
+      CURRENT_STATE.PC = Control.baddr;
+      Control.baddr = -1;
+      stat_inst_retire = stat_inst_retire + 1;
+    }
+    return;
+  }
+  //loadstore bubbling stop pc
+  if ((int) stat_cycles <= Control.loadstore_bubble_until)
+  {
+    printf("not fetching!\n");
+    return;
+  }
+  if (Control.restoration == 1)
+  {
+    printf("restoring, not grabbing word from mem\n");
+    Control.restoration = 0;
+    return;
+  }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
-  printf("word:%x\n",word);
-  if (word != 0)
+  printf("WORD: %x\n",word);
+  printf("PC: %lx\n", CURRENT_STATE.PC);
+  if (word != 0 && EXtoMEM.halt != 1)
   {
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   }
-  else if(IFtoID.pc_halt != 1)
-  {
-    IFtoID.pc_halt = 1;
-    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
-  }
+  printf("fetch: %d", IFtoID.inst);
 }
+
+void TriggerBubble_Branch(int bubble_until)
+{
+  Control.branch_bubble_until = bubble_until;
+  // temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
+  // IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  // temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+  // IFtoID = (IFtoID_t){ .inst = 0};
+  return;
+}
+void TriggerBubble_LoadStore(int bubble_until)
+{
+  Control.loadstore_bubble_until = bubble_until ;
+  // Control.loadstore_bubble_start = bubble_until - 1;
+  temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
+  IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+  temp_IFtoID = (IFtoID_t){.inst = mem_read_32(CURRENT_STATE.PC)};
+  printf("temp_IFtoTD inst: %x\n", temp_IFtoID.inst);
+  IFtoID = (IFtoID_t){ .inst = 0};
+  CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  return;
+}
+
+// void TriggerBubbleIF(int bubble_until) // for branching
+// {
+//   Control.bubble_untilif = bubble_until;
+//   temp_IFtoID = (IFtoID_t){.inst = IFtoID.inst};
+//   IFtoID = (IFtoID_t){ .inst = 0};
+//   return;
+// }
 
 /* instruction implementations */
 void Branch(int64_t offset)
 {
     //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4.
     // Decode_State.branching = 1;
-    uint64_t temp = CURRENT_STATE.PC;
+    uint64_t temp = Control.baddr;
     //dont think I need to cast here, might be wrong tho
-    CURRENT_STATE.PC = temp + (offset * 4);
+    Control.baddr = temp + (offset * 4);
     return;
 }
 void CBNZ()
@@ -431,11 +583,12 @@ void MUL()
 void HLT()
 {
     EXtoMEM.halt = 1;
+    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
 }
 void BR()
 {
-    CURRENT_STATE.PC = IDtoEX.n;
+    Control.baddr = IDtoEX.n;
     // Decode_State.branching = 1;
     //set the branching field and fields for MEM and WB saying we dont need to do anything.
     return;
@@ -575,18 +728,21 @@ void STURH() {
   load = (load & 0xffffff00) | (t & 0x0000ffff);
   mem_write_32(n + offset, load);
   MEMtoWB.fwb = 0;
+
 }
 void ADD_Extended()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
     EXtoMEM.res = n + m;
+
 }
 void ADD_Immediate()
 {
     int64_t n = IDtoEX.n;
     int64_t imm = IDtoEX.imm1;
     EXtoMEM.res = n + imm;
+
 }
 void ADDS_Extended()
 {
@@ -596,19 +752,20 @@ void ADDS_Extended()
     EXtoMEM.res = res;
     if (res == 0)
     {
-        EXtoMEM.fz = 1;
-        EXtoMEM.fn = 0;
+        Control.fz = 1;
+        Control.fn = 0;
     }
     else if (res < 0)
     {
-        EXtoMEM.fn = 1;
-        EXtoMEM.fz = 0;
+        Control.fn = 1;
+        Control.fz = 0;
     }
     else
     {
-        EXtoMEM.fz = 0;
-        EXtoMEM.fn = 0;
+        Control.fz = 0;
+        Control.fn = 0;
     }
+
 }
 void ADDS_Immediate()
 {
@@ -618,25 +775,27 @@ void ADDS_Immediate()
     EXtoMEM.res = res;
     if (res == 0)
     {
-        EXtoMEM.fz = 1;
-        EXtoMEM.fn = 0;
+        Control.fz = 1;
+        Control.fn = 0;
     }
     else if (res < 0)
     {
-        EXtoMEM.fn = 1;
-        EXtoMEM.fz = 0;
+        Control.fn = 1;
+        Control.fz = 0;
     }
     else
     {
-        EXtoMEM.fz = 0;
-        EXtoMEM.fn = 0;
+        Control.fz = 0;
+        Control.fn = 0;
     }
+
 }
 void AND()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
     EXtoMEM.res = n & m;
+
 }
 void ANDS()
 {
@@ -646,18 +805,18 @@ void ANDS()
     EXtoMEM.res = res;
     if (res == 0)
     {
-        EXtoMEM.fz = 1;
-        EXtoMEM.fn = 0;
+        Control.fz = 1;
+        Control.fn = 0;
     }
     else if (res < 0)
     {
-        EXtoMEM.fn = 1;
-        EXtoMEM.fz = 0;
+        Control.fn = 1;
+        Control.fz = 0;
     }
     else
     {
-        EXtoMEM.fz = 0;
-        EXtoMEM.fn = 0;
+        Control.fz = 0;
+        Control.fn = 0;
     }
 
 }
@@ -708,18 +867,18 @@ void SUBS_Immediate()
     int64_t res = IDtoEX.n - IDtoEX.imm1;
     if (res == 0)
     {
-        EXtoMEM.fz = 1;
-        EXtoMEM.fn = 0;
+        Control.fz = 1;
+        Control.fn = 0;
     }
     else if (res < 0)
     {
-        EXtoMEM.fn = 1;
-        EXtoMEM.fz = 0;
+        Control.fn = 1;
+        Control.fz = 0;
     }
     else
     {
-        EXtoMEM.fn = 0;
-        EXtoMEM.fz = 0;
+        Control.fn = 0;
+        Control.fz = 0;
     }
     EXtoMEM.res = res;
 }
@@ -728,18 +887,18 @@ void SUBS_Extended()
     int64_t res = IDtoEX.n - IDtoEX.m;
     if (res == 0)
     {
-        EXtoMEM.fz = 1;
-        EXtoMEM.fn = 0;
+        Control.fz = 1;
+        Control.fn = 0;
     }
     else if (res < 0)
     {
-        EXtoMEM.fn = 1;
-        EXtoMEM.fz = 0;
+        Control.fn = 1;
+        Control.fz = 0;
     }
     else
     {
-        EXtoMEM.fn = 0;
-        EXtoMEM.fz = 0;
+        Control.fn = 0;
+        Control.fz = 0;
     }
     EXtoMEM.res = res;
 }
