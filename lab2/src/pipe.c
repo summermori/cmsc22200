@@ -319,7 +319,7 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 2);
+      TriggerBubble_Branch((int) stat_cycles + 1);
       Control.same_cycle = 1;
       //printf("Conditional branch, ");
     }
@@ -336,7 +336,7 @@ void pipe_stage_decode()
       //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 2);
+      TriggerBubble_Branch((int) stat_cycles + 1);
       Control.same_cycle = 1;
       //printf("Unconditional branch (register), ");
     }
@@ -346,7 +346,7 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 2);
+      TriggerBubble_Branch((int) stat_cycles + 1);
       Control.same_cycle = 1;
       //printf("Unconditional branch (immediate), ");
     }
@@ -358,7 +358,7 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      TriggerBubble_Branch((int) stat_cycles + 2);
+      TriggerBubble_Branch((int) stat_cycles + 1);
       Control.same_cycle = 1;
       //printf("Compare and branch, ");
     }
@@ -426,11 +426,12 @@ void pipe_stage_fetch()
     if ((int) stat_cycles < Control.branch_bubble_until) {
       return;
     } else if ((int) stat_cycles == Control.branch_bubble_until) {
-      if ((Control.baddr != CURRENT_STATE.PC) && (Control.baddr != -1)) {
+      if ((Control.baddr != IFtoID.inst) && (Control.baddr != -1)) {
         //printf("Stalled for branching\n");
-        CURRENT_STATE.PC = Control.baddr;
+        IFtoID.inst = Control.baddr;
         Control.baddr = -1;
         stat_inst_retire = stat_inst_retire + 1;
+        return;
       }
       return;
     }
