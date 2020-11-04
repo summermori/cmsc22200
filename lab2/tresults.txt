@@ -24,118 +24,86 @@ Files testref.txt and testsim.txt are identical
 18c18
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> PC                : 0x400010
 
 >> inputs/bge.x
-18c18
+17,18c17,18
+< Instruction Retired : 1
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> Instruction Retired : 2
+> PC                : 0x400010
 
 >> inputs/bgt.x
-18c18
+17,18c17,18
+< Instruction Retired : 1
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> Instruction Retired : 2
+> PC                : 0x400010
 
 >> inputs/ble.x
 18c18
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> PC                : 0x400010
 
 >> inputs/blt.x
 18c18
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> PC                : 0x400010
 
 >> inputs/bne.x
-18c18
+17,18c17,18
+< Instruction Retired : 1
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> Instruction Retired : 2
+> PC                : 0x400010
 
 >> inputs/br.x
 Files testref.txt and testsim.txt are identical
 
 >> inputs/b-test-1.x
-8a9,15
-> 1, 4
-> ---------------
-> 2, 4
-> ---------------
-> 3, 4
-> ---------------
-> Stalled for branching
-17,18c24,25
+17,18c17,18
 < Instruction Retired : 3
 < PC                : 0x400010
 ---
-> Instruction Retired : 7
-> PC                : 0x40001c
-23c30
-< X3: 0x0
+> Instruction Retired : 5
+> PC                : 0x400018
+54c54
+< No. of Cycles: 11
 ---
-> X3: 0xa
+> No. of Cycles: 8
 
 >> inputs/b.x
-8a9,14
-> 2, 5
-> ---------------
-> 3, 5
-> ---------------
-> 4, 5
-> ---------------
-18c24
+17,18c17,18
+< Instruction Retired : 1
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> Instruction Retired : 2
+> PC                : 0x400010
 
 >> inputs/cbnz.x
-8a9,20
-> 1, 4
-> ---------------
-> 2, 4
-> ---------------
-> 3, 4
-> ---------------
-> 8, 11
-> ---------------
-> 9, 11
-> ---------------
-> 10, 11
-> ---------------
-17,18c29,30
+17,18c17,18
 < Instruction Retired : 3
 < PC                : 0x400010
 ---
-> Instruction Retired : 6
-> PC                : 0x400014
-54c66
-< No. of Cycles: 8
----
-> No. of Cycles: 11
+> Instruction Retired : 4
+> PC                : 0x400018
 
 >> inputs/cbz.x
-8a9,15
-> 1, 4
-> ---------------
-> 2, 4
-> ---------------
-> 3, 4
-> ---------------
-> Stalled for branching
-17,18c24,25
+17,18c17,18
 < Instruction Retired : 3
 < PC                : 0x400010
 ---
-> Instruction Retired : 7
-> PC                : 0x40001c
-23c30
-< X3: 0x0
+> Instruction Retired : 5
+> PC                : 0x400018
+54c54
+< No. of Cycles: 11
 ---
-> X3: 0xa
+> No. of Cycles: 8
 
 >> inputs/cmp.x
 Files testref.txt and testsim.txt are identical
@@ -144,7 +112,7 @@ Files testref.txt and testsim.txt are identical
 18c18
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> PC                : 0x400014
 
 >> inputs/eor.x
 Files testref.txt and testsim.txt are identical
@@ -153,7 +121,7 @@ Files testref.txt and testsim.txt are identical
 18c18
 < PC                : 0x400008
 ---
-> PC                : 0x40000c
+> PC                : 0x400014
 
 >> inputs/f-test-1.x
 Files testref.txt and testsim.txt are identical
@@ -228,90 +196,33 @@ Files testref.txt and testsim.txt are identical
 Files testref.txt and testsim.txt are identical
 
 >> inputs/step2-a-input.x
-54c54
-< No. of Cycles: 12
----
-> No. of Cycles: 13
+Files testref.txt and testsim.txt are identical
 
 >> inputs/step2-b-input.x
 Files testref.txt and testsim.txt are identical
 
 >> inputs/step3-input.x
-8a9,56
-> 3, 6
-> ---------------
-> 4, 6
-> ---------------
-> 5, 6
-> ---------------
-> Stalled for branching
-> 8, 11
-> ---------------
-> 9, 11
-> ---------------
-> 10, 11
-> ---------------
-> Stalled for branching
-> 14, 17
-> ---------------
-> 15, 17
-> ---------------
-> 16, 17
-> ---------------
-> Stalled for branching
-> 19, 22
-> ---------------
-> 20, 22
-> ---------------
-> 21, 22
-> ---------------
-> 29, 32
-> ---------------
-> 30, 32
-> ---------------
-> 31, 32
-> ---------------
-> Stalled for branching
-> 36, 39
-> ---------------
-> 37, 39
-> ---------------
-> 38, 39
-> ---------------
-> Stalled for branching
-> 43, 46
-> ---------------
-> 44, 46
-> ---------------
-> 45, 46
-> ---------------
-> Stalled for branching
-17c65
+17c17
 < Instruction Retired : 27
 ---
-> Instruction Retired : 48
-34c82
-< X14: 0xb
----
-> X14: 0x0
-37,39c85,87
+> Instruction Retired : 38
+36,39c36,39
+< X16: 0xa
 < X17: 0x7
 < X18: 0x7
 < X19: 0xa
 ---
-> X17: 0x4
-> X18: 0x4
-> X19: 0x4
-54c102
+> X16: 0x9
+> X17: 0xa
+> X18: 0x9
+> X19: 0x9
+54c54
 < No. of Cycles: 40
 ---
-> No. of Cycles: 53
+> No. of Cycles: 42
 
 >> inputs/s-test-1.x
-54c54
-< No. of Cycles: 10
----
-> No. of Cycles: 11
+Files testref.txt and testsim.txt are identical
 
 >> inputs/s-test-2.x
 54c54
@@ -320,16 +231,10 @@ Files testref.txt and testsim.txt are identical
 > No. of Cycles: 9
 
 >> inputs/s-test-3.x
-54c54
-< No. of Cycles: 9
----
-> No. of Cycles: 8
+Files testref.txt and testsim.txt are identical
 
 >> inputs/s-test-4.x
-54c54
-< No. of Cycles: 9
----
-> No. of Cycles: 8
+Files testref.txt and testsim.txt are identical
 
 >> inputs/s-test-5.x
 Files testref.txt and testsim.txt are identical

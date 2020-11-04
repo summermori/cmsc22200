@@ -42,7 +42,6 @@ void pipe_stage_mem();
 void pipe_stage_wb();
 
 /* pipeline registers */
-
 typedef struct IFtoID_t {
 	uint32_t inst;
 	int pc_halt;
@@ -92,11 +91,14 @@ typedef struct MEMtoWB_t {
 // we will need a control struct for stalling and fowarding signals
 typedef struct Control_t {
 	int branch_bubble_until;
+	int same_cycle;
 	int loadstore_bubble_until;
 	int loadstore_bubble_start;
+	int restoration;
+	int halt;
 	int baddr;
-	int n;
-	int z;
+	int fn;
+	int fz;
 } Control_t;
 
 /* Bubble Functions */
