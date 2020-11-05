@@ -34,7 +34,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .branch_grab = 0, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
@@ -271,9 +271,9 @@ void pipe_stage_execute()
 void pipe_stage_decode()
 {
   //branch bubbling
-  if ((int)stat_cycles <= Control.branch_bubble_until) {
-    return;
-  }
+  // if ((int)stat_cycles <= Control.branch_bubble_until) {
+  //   return;
+  // }
   //loadstore bubbling detection
   if (EXtoMEM.op == 0xf8400000)
   {
@@ -300,7 +300,7 @@ void pipe_stage_decode()
   }
 
   uint32_t word = IFtoID.inst;
-  //printf("DECODE WORD: %x ", word);
+  printf("DECODE WORD: %x ", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
@@ -596,7 +596,20 @@ void pipe_stage_fetch()
   //bubble branching
   if ((int) stat_cycles < Control.branch_bubble_until)
   {
-    return;
+    if (Control.branch_grab == 0)
+    {
+      printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
+      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+      printf("Grabbed word in bubble: %x\n", IFtoID.inst);
+      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      Control.branch_grab = 1;
+      return;
+    }
+    else
+    {
+      Control.branch_grab = 0;
+      return;
+    }
   }
   if ((stat_cycles) == Control.branch_bubble_until)
   {
@@ -663,8 +676,7 @@ void pipe_stage_fetch()
 void TriggerBubble_Branch(int bubble_until)
 {
   Control.branch_bubble_until = bubble_until;
-  IFtoID = (IFtoID_t){ .inst = 0};
-  CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   return;
 }
 void TriggerBubble_LoadStore(int bubble_until)
@@ -696,6 +708,13 @@ void Branch(int64_t offset)
     uint64_t temp = CURRENT_STATE.PC - 8;
     printf("Branch Base: %lx\n", temp);
     Control.baddr = temp + (offset * 4);
+    //squash IDtoEX if regular branch
+    printf("SQUASHING: %x\n", IFtoID.inst);
+    // this squashes itself
+    // IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
+    // sqush the IFtoID
+    IFtoID = (IFtoID_t){ .inst = 0};
+    
     printf("baddr in Branch: %x\n", Control.baddr);
     return;
 }
