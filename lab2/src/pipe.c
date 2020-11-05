@@ -603,12 +603,21 @@ void pipe_stage_fetch()
     printf("ENDING BUBBLE\n");
     if (Control.baddr != -1)
     {
-      //Control.baddr has non default value, we are branching
-      CURRENT_STATE.PC = Control.baddr;
-      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("PC: %lx\n", CURRENT_STATE.PC);
-      printf("WORD in if: %x\n",IFtoID.inst);
-      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      if (Control.baddr == CURRENT_STATE.PC - 4)
+      {
+        IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+        printf("WORD in PC + 4 Branch: %x\n", IFtoID.inst);
+        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      }
+      else
+      { 
+        //Control.baddr has non default value, we are branching
+        CURRENT_STATE.PC = Control.baddr;
+        IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+        printf("PC: %lx\n", CURRENT_STATE.PC);
+        printf("WORD in if: %x\n",IFtoID.inst);
+        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      }
     }
     else
     {
