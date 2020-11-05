@@ -300,7 +300,7 @@ void pipe_stage_decode()
   }
 
   uint32_t word = IFtoID.inst;
-  printf("DECODE WORD: %x ", word);
+  printf("DECODE WORD: %x\n", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
@@ -607,10 +607,10 @@ void pipe_stage_fetch()
     }
     else
     {
-      if (Control.baddr == CURRENT_STATE.PC - 4)
+      if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken == 1))
       {
         IFtoID.inst = Control.squashed;
-        printf("+4 Restoration: %x\n", IFtoID.inst);
+        printf("+4 or not_taken Restoration: %x\n", IFtoID.inst);
       }
       Control.branch_grab = 0;
       return;
@@ -619,31 +619,21 @@ void pipe_stage_fetch()
   if ((stat_cycles) == Control.branch_bubble_until)
   {
     printf("ENDING BUBBLE\n");
-    if (Control.baddr != -1)
+    if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken))
     {
-      if (Control.baddr == CURRENT_STATE.PC - 4)
-      {
-        IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-        printf("WORD in PC + 4 Branch: %x\n", IFtoID.inst);
-        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
-      }
-      else
-      { 
-        //Control.baddr has non default value, we are branching
-        CURRENT_STATE.PC = Control.baddr;
-        IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-        printf("PC: %lx\n", CURRENT_STATE.PC);
-        printf("WORD in if: %x\n",IFtoID.inst);
-        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
-      }
+      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+      printf("WORD in PC + 4 Branch or Not_Taken: %x\n", IFtoID.inst);
+      Control.not_taken = 0;
+      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     }
     else
-    {
-      //Control.baddr wasn't set so the conditional did not eval to true so we are not branching
-      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+    { 
+      //Control.baddr has non default value, we are branching
+      CURRENT_STATE.PC = Control.baddr;
       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
       printf("PC: %lx\n", CURRENT_STATE.PC);
-      printf("WORD in else: %x\n",IFtoID.inst);
+      printf("WORD in if: %x\n",IFtoID.inst);
+      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     }
     Control.baddr = -1;
     Control.branch_bubble_until = -1;
@@ -784,37 +774,79 @@ void B_Cond()
         case(0):
             if (CURRENT_STATE.FLAG_Z == 1)
             {Branch(offset);}
-            else{Control.not_taken = 1;}
+            else
+            {
+              Control.not_taken = 1;
+              printf("SQUASHING: %x\n", IFtoID.inst);
+              // grab then squash, will need to restore to pipeline if PC + 4
+              Control.squashed = IFtoID.inst;
+              IFtoID = (IFtoID_t){ .inst = 0};
+            }
             break;
         //BNE
         case(1):
             if (CURRENT_STATE.FLAG_Z == 0)
             {Branch(offset);}
-            else{Control.not_taken = 1;}
+            else
+            {
+              Control.not_taken = 1;
+              printf("SQUASHING: %x\n", IFtoID.inst);
+              // grab then squash, will need to restore to pipeline if PC + 4
+              Control.squashed = IFtoID.inst;
+              IFtoID = (IFtoID_t){ .inst = 0};
+            }
             break;
         //BGE
         case(10):
             if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 0))
             {Branch(offset);}
-            else{Control.not_taken = 1;}
+            else
+            {
+              Control.not_taken = 1;
+              printf("SQUASHING: %x\n", IFtoID.inst);
+              // grab then squash, will need to restore to pipeline if PC + 4
+              Control.squashed = IFtoID.inst;
+              IFtoID = (IFtoID_t){ .inst = 0};
+            }
             break;
         //BLT
         case(11):
             if ((CURRENT_STATE.FLAG_N == 1) && (CURRENT_STATE.FLAG_Z == 0))
             {Branch(offset);}
-            else{Control.not_taken = 1;}
+            else
+            {
+              Control.not_taken = 1;
+              printf("SQUASHING: %x\n", IFtoID.inst);
+              // grab then squash, will need to restore to pipeline if PC + 4
+              Control.squashed = IFtoID.inst;
+              IFtoID = (IFtoID_t){ .inst = 0};
+            }
             break;
         //BGT
         case(12):
             if ((CURRENT_STATE.FLAG_N == 0) && (CURRENT_STATE.FLAG_Z == 0))
             {Branch(offset);}
-            else{Control.not_taken = 1;}
+            else
+            {
+              Control.not_taken = 1;
+              printf("SQUASHING: %x\n", IFtoID.inst);
+              // grab then squash, will need to restore to pipeline if PC + 4
+              Control.squashed = IFtoID.inst;
+              IFtoID = (IFtoID_t){ .inst = 0};
+            }
             break;
         //BLE
         case(13):
             if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 1))
             {Branch(offset);}
-            else{Control.not_taken = 1;}
+            else
+            {
+              Control.not_taken = 1;
+              printf("SQUASHING: %x\n", IFtoID.inst);
+              // grab then squash, will need to restore to pipeline if PC + 4
+              Control.squashed = IFtoID.inst;
+              IFtoID = (IFtoID_t){ .inst = 0};
+            }
             break;
     }
     //Branch Helper Function already sets .branching to 1
