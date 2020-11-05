@@ -607,6 +607,9 @@ void pipe_stage_fetch()
     }
     else
     {
+      // printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
+      // IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+      // printf("Grabbed word in bubble: %x\n", IFtoID.inst);
       Control.branch_grab = 0;
       return;
     }
