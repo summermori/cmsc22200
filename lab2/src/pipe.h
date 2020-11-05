@@ -106,6 +106,7 @@ typedef struct Control_t {
 /* Bubble Functions */
 void TriggerBubble_Branch(int bubble_until);
 void TriggerBubble_LoadStore(int bubble_until);
+void condBubble(int64_t cond);
 /* instruction helpers */
 void Branch();
 /* instruction implementations */

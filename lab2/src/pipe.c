@@ -39,6 +39,43 @@ IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
 
+void condBubble(int64_t cond) // a helper to determine when conditional branching should bubble
+{
+  switch(cond)
+  {
+      //BEQ
+      case(0):
+          if (Control.fz != 1)
+          {TriggerBubble_Branch((int) stat_cycles + 2);}
+          break;
+      //BNE
+      case(1):
+          if (Control.fz != 0)
+          {TriggerBubble_Branch((int) stat_cycles + 2);}
+          break;
+      //BGE
+      case(10):
+          if ((Control.fz != 1) && (Control.fn != 0))
+          {TriggerBubble_Branch((int) stat_cycles + 2);}
+          break;
+      //BLT
+      case(11):
+          if ((Control.fn != 1) || (Control.fz != 0))
+          {TriggerBubble_Branch((int) stat_cycles + 2);}
+          break;
+      //BGT
+      case(12):
+          if ((Control.fn != 0) || (Control.fz != 0))
+          {TriggerBubble_Branch((int) stat_cycles + 2);}
+          break;
+      //BLE
+      case(13):
+          if ((Control.fz != 1) && (Control.fn != 1))
+          {TriggerBubble_Branch((int) stat_cycles + 2);}
+          break;
+    }
+}
+
 int64_t reg_call(int64_t addr) {
         //for the exe struct
         if (addr != 31) {
@@ -304,7 +341,7 @@ void pipe_stage_decode()
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
-    //printf("Data Processing - Immediate, ");
+    printf("Data Processing - Immediate, ");
     int temp2 = word & 0x03800000;
     // Add/subtract (immediate)
     if ((temp2 == 0x01000000) || (temp2 == 0x01800000)) {
@@ -334,7 +371,7 @@ void pipe_stage_decode()
       {
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
       }
-      //printf("Add/subtraction (immediate), ");
+      printf("Add/subtraction (immediate), ");
     }
     // Move wide (immediate)
     else if (temp2 == 0x02800000) {
@@ -342,7 +379,7 @@ void pipe_stage_decode()
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      //printf("Move wide (immediate), ");
+      printf("Move wide (immediate), ");
     }
     // Bitfield
     else if (temp2 == 0x03000000) {
@@ -375,7 +412,7 @@ void pipe_stage_decode()
       {
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
       }
-      //printf("Bitfield, ");
+      printf("Bitfield, ");
     }
     else {
       //printf("Failure to match subtype0\n");
@@ -393,8 +430,9 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      printf("BUBBLE TRIGGER CONDITIONAL BRANCH\n");
-      TriggerBubble_Branch((int) stat_cycles + 2);
+      // printf("BUBBLE TRIGGER CONDITIONAL BRANCH\n");
+      // TriggerBubble_Branch((int) stat_cycles + 2);
+      condBubble(IDtoEX.dnum);
       //printf("Conditional branch, ");
     }
     // Exception
@@ -472,11 +510,11 @@ void pipe_stage_decode()
     {
       IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
     }
-    //printf("Loads and Stores, Load/store (unscaled immediate), ");
+    printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
   // Data Processing - Register
   else if ((word & 0x0e000000) == 0x0a000000) {
-    //printf("Data Processing - Register, ");
+    printf("Data Processing - Register, ");
     // Logical (shifted register)
     if ((word & 0x1f000000) == 0x0a000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -510,7 +548,7 @@ void pipe_stage_decode()
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
       }
-      //printf("Logical (shifted register), ");
+      printf("Logical (shifted register), ");
     }
     // Add/subtract (extended register)
     else if ((word & 0x1f200000) == 0x0b000000) {
@@ -544,7 +582,7 @@ void pipe_stage_decode()
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
       }
-      //printf("Add/subtract (extended register), ");
+      printf("Add/subtract (extended register), ");
     }
     // Data processing (3 source)
     else if ((word & 0x1f000000) == 0x1b000000) {
@@ -578,7 +616,7 @@ void pipe_stage_decode()
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
       }
-      //printf("Data processing (3 source), ");
+      printf("Data processing (3 source), ");
     }
     else {
       //printf("Failure to match subtype2\n");
@@ -772,9 +810,10 @@ void B_Cond()
     {
         //BEQ
         case(0):
+            printf("BEQ\n");
             if (CURRENT_STATE.FLAG_Z == 1)
             {Branch(offset);}
-            else
+            else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
               printf("SQUASHING: %x\n", IFtoID.inst);
@@ -785,9 +824,10 @@ void B_Cond()
             break;
         //BNE
         case(1):
+            printf("BNE\n");
             if (CURRENT_STATE.FLAG_Z == 0)
             {Branch(offset);}
-            else
+            else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
               printf("SQUASHING: %x\n", IFtoID.inst);
@@ -798,9 +838,10 @@ void B_Cond()
             break;
         //BGE
         case(10):
+            printf("BGE\n");
             if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 0))
             {Branch(offset);}
-            else
+            else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
               printf("SQUASHING: %x\n", IFtoID.inst);
@@ -811,9 +852,10 @@ void B_Cond()
             break;
         //BLT
         case(11):
+            printf("BLT\n");
             if ((CURRENT_STATE.FLAG_N == 1) && (CURRENT_STATE.FLAG_Z == 0))
             {Branch(offset);}
-            else
+            else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
               printf("SQUASHING: %x\n", IFtoID.inst);
@@ -824,9 +866,10 @@ void B_Cond()
             break;
         //BGT
         case(12):
+            printf("BGT\n");
             if ((CURRENT_STATE.FLAG_N == 0) && (CURRENT_STATE.FLAG_Z == 0))
             {Branch(offset);}
-            else
+            else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
               printf("SQUASHING: %x\n", IFtoID.inst);
@@ -837,9 +880,10 @@ void B_Cond()
             break;
         //BLE
         case(13):
+            printf("BLE\n");
             if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 1))
             {Branch(offset);}
-            else
+            else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
               printf("SQUASHING: %x\n", IFtoID.inst);
