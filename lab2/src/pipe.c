@@ -607,9 +607,11 @@ void pipe_stage_fetch()
     }
     else
     {
-      // printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
-      // IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      // printf("Grabbed word in bubble: %x\n", IFtoID.inst);
+      if (Control.baddr == CURRENT_STATE.PC - 4)
+      {
+        IFtoID.inst = Control.squashed;
+        printf("+4 Restoration: %x\n", IFtoID.inst);
+      }
       Control.branch_grab = 0;
       return;
     }
@@ -713,9 +715,8 @@ void Branch(int64_t offset)
     Control.baddr = temp + (offset * 4);
     //squash IDtoEX if regular branch
     printf("SQUASHING: %x\n", IFtoID.inst);
-    // this squashes itself
-    // IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
-    // sqush the IFtoID
+    // grab then squash, will need to restore to pipeline if PC + 4
+    Control.squashed = IFtoID.inst;
     IFtoID = (IFtoID_t){ .inst = 0};
     
     printf("baddr in Branch: %x\n", Control.baddr);
@@ -783,31 +784,37 @@ void B_Cond()
         case(0):
             if (CURRENT_STATE.FLAG_Z == 1)
             {Branch(offset);}
+            else{Control.not_taken = 1;}
             break;
         //BNE
         case(1):
             if (CURRENT_STATE.FLAG_Z == 0)
             {Branch(offset);}
+            else{Control.not_taken = 1;}
             break;
         //BGE
         case(10):
             if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 0))
             {Branch(offset);}
+            else{Control.not_taken = 1;}
             break;
         //BLT
         case(11):
             if ((CURRENT_STATE.FLAG_N == 1) && (CURRENT_STATE.FLAG_Z == 0))
             {Branch(offset);}
+            else{Control.not_taken = 1;}
             break;
         //BGT
         case(12):
             if ((CURRENT_STATE.FLAG_N == 0) && (CURRENT_STATE.FLAG_Z == 0))
             {Branch(offset);}
+            else{Control.not_taken = 1;}
             break;
         //BLE
         case(13):
             if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 1))
             {Branch(offset);}
+            else{Control.not_taken = 1;}
             break;
     }
     //Branch Helper Function already sets .branching to 1
