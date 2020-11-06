@@ -90,6 +90,7 @@ typedef struct MEMtoWB_t {
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
 typedef struct Control_t {
+	int cond_branch;
 	uint32_t branch_grab;
 	uint32_t squashed;
 	int not_taken;

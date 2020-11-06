@@ -632,6 +632,23 @@ void pipe_stage_decode()
 void pipe_stage_fetch()
 {
   //bubble branching
+  if (Control.cond_branch == 1)
+  {
+      CURRENT_STATE.PC = Control.baddr;
+      Control.baddr = -1;
+      //IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+      printf("PC: %lx\n", CURRENT_STATE.PC);
+      printf("WORD in cond branch: %x\n",IFtoID.inst);
+      // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      Control.cond_branch = 0;
+      return;
+  }
+  // if (Control.cond_branch == 2)
+  // {
+  //   CURRENT_STATE.PC  = CURRENT_STATE.PC + 4;
+  //   Control.cond_branch = 0;
+  //   return;
+  // }
   if ((int) stat_cycles < Control.branch_bubble_until)
   {
     if (Control.branch_grab == 0)
@@ -811,8 +828,12 @@ void B_Cond()
         //BEQ
         case(0):
             printf("BEQ\n");
-            if (CURRENT_STATE.FLAG_Z == 1)
-            {Branch(offset);}
+            printf("offset: %ld", offset);
+            if (Control.fz == 1)
+            {
+              Branch(offset);
+              Control.cond_branch = 1;
+            }
             else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
@@ -825,8 +846,11 @@ void B_Cond()
         //BNE
         case(1):
             printf("BNE\n");
-            if (CURRENT_STATE.FLAG_Z == 0)
-            {Branch(offset);}
+            if (Control.fz == 0)
+            {
+              Branch(offset);
+              Control.cond_branch = 1;
+            }
             else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
@@ -839,8 +863,11 @@ void B_Cond()
         //BGE
         case(10):
             printf("BGE\n");
-            if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 0))
-            {Branch(offset);}
+            if ((Control.fz == 1) || (Control.fn == 0))
+            {
+              Branch(offset);
+              Control.cond_branch = 1;
+            }
             else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
@@ -853,8 +880,11 @@ void B_Cond()
         //BLT
         case(11):
             printf("BLT\n");
-            if ((CURRENT_STATE.FLAG_N == 1) && (CURRENT_STATE.FLAG_Z == 0))
-            {Branch(offset);}
+            if ((Control.fn == 1) && (Control.fz == 0))
+            {
+              Branch(offset);
+              Control.cond_branch = 1;
+            }
             else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
@@ -867,8 +897,11 @@ void B_Cond()
         //BGT
         case(12):
             printf("BGT\n");
-            if ((CURRENT_STATE.FLAG_N == 0) && (CURRENT_STATE.FLAG_Z == 0))
-            {Branch(offset);}
+            if ((Control.fn == 0) && (Control.fz == 0))
+            {
+              Branch(offset);
+              Control.cond_branch = 1;
+            }
             else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
@@ -881,8 +914,11 @@ void B_Cond()
         //BLE
         case(13):
             printf("BLE\n");
-            if ((CURRENT_STATE.FLAG_Z == 1) || (CURRENT_STATE.FLAG_N == 1))
-            {Branch(offset);}
+            if ((Control.fz == 1) || (Control.fn == 1))
+            {
+              Branch(offset);
+              Control.cond_branch = 1;
+            }
             else if (Control.branch_bubble_until != -1)
             {
               Control.not_taken = 1;
