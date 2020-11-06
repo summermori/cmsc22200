@@ -715,6 +715,10 @@ void pipe_stage_fetch()
   IFtoID.inst = word;
   printf("PC: %lx\n", CURRENT_STATE.PC);
   printf("WORD in general: %x\n",word);
+  if (Control.halt == 1)
+  {
+    return;
+  }
   if (word != 0)
   {
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
@@ -805,7 +809,7 @@ void MUL()
 void HLT()
 {
     EXtoMEM.halt = 1;
-    // Control.halt = 1;
+    Control.halt = 1;
     // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
 }
