@@ -634,6 +634,10 @@ void pipe_stage_decode()
 
 void pipe_stage_fetch()
 {
+  if (Control.halt == 1)
+  {
+    return;
+  }
   //bubble branching
   if (Control.cond_branch == 1)
   {
@@ -715,10 +719,6 @@ void pipe_stage_fetch()
   IFtoID.inst = word;
   printf("PC: %lx\n", CURRENT_STATE.PC);
   printf("WORD in general: %x\n",word);
-  if (Control.halt == 1)
-  {
-    return;
-  }
   if (word != 0)
   {
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
