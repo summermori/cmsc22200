@@ -41,6 +41,8 @@ int loadstore_dependency = 0;
 
 void condBubble(int64_t cond) // a helper to determine when conditional branching should bubble
 {
+  printf("FN: %d\n", Control.fn);
+  printf("FZ: %d\n", Control.fz);
   switch(cond)
   {
       //BEQ
@@ -432,6 +434,7 @@ void pipe_stage_decode()
       IDtoEX.branching = 1;
       // printf("BUBBLE TRIGGER CONDITIONAL BRANCH\n");
       // TriggerBubble_Branch((int) stat_cycles + 2);
+      
       condBubble(IDtoEX.dnum);
       //printf("Conditional branch, ");
     }
