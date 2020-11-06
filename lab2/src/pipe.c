@@ -669,7 +669,7 @@ void pipe_stage_fetch()
     }
     else
     {
-      if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken == 1))
+      if ((Control.baddr == (CURRENT_STATE.PC - 4)) || (Control.not_taken == 1))
       {
         IFtoID.inst = Control.squashed;
         printf("+4 or not_taken Restoration: %x\n", IFtoID.inst);
@@ -691,11 +691,18 @@ void pipe_stage_fetch()
     else
     { 
       //Control.baddr has non default value, we are branching
-      CURRENT_STATE.PC = Control.baddr;
-      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("PC: %lx\n", CURRENT_STATE.PC);
-      printf("WORD in if: %x\n",IFtoID.inst);
-      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      if (Control.baddr == -1)
+      {
+        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      }
+      else
+      {
+        CURRENT_STATE.PC = Control.baddr;
+        IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+        printf("PC: %lx\n", CURRENT_STATE.PC);
+        printf("WORD in if: %x\n",IFtoID.inst);
+        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      }
     }
     Control.baddr = -1;
     Control.branch_bubble_until = -1;
@@ -717,7 +724,6 @@ void pipe_stage_fetch()
   }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
-  printf("PC: %lx\n", CURRENT_STATE.PC);
   printf("WORD in general: %x\n",word);
   if (word != 0)
   {
@@ -782,6 +788,14 @@ void CBNZ()
     {
       Branch(offset);
     }
+    else
+    {
+      printf("SQUASHING: %x\n", IFtoID.inst);
+      // grab then squash, will need to restore to pipeline if PC + 4
+      Control.not_taken = 1;
+      Control.squashed = IFtoID.inst;
+      IFtoID = (IFtoID_t){ .inst = 0};
+    }
     //set fields to tell MEM and WB there shouldn't do anything cause its a branching op
     return;
 }
@@ -792,6 +806,14 @@ void CBZ()
     if (IDtoEX.dval == 0)
     {
       Branch(offset);
+    }
+    else
+    {
+      printf("SQUASHING: %x\n", IFtoID.inst);
+      // grab then squash, will need to restore to pipeline if PC + 4
+      Control.not_taken = 1;
+      Control.squashed = IFtoID.inst;
+      IFtoID = (IFtoID_t){ .inst = 0};
     }
     //set fields to tell MEM and WB they shouldn't do anything cause its a branching op
     return;
