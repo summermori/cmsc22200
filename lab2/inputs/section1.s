@@ -1,6 +1,8 @@
 .text
-add X3, X4, 17
-cbz X2, bar
+
+
+add X2, X4, 17
+cbnz X2, bar
 add X2, X0, 1
 
 foo:
@@ -39,4 +41,5 @@ target2:
 
 mov X9, #3
 mov X10, #8
-HLT 0 
+HLT 0
+
