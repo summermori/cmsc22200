@@ -1,7 +1,8 @@
-/* memory light, computation expensive
+//* memory light, computation expensive
 typedef struct BTB_Entry {
 	uint64_t addr_tag;
-	unsigned char flags;
+	unsigned char valid_bit;
+	unsigned char	cond_bit;
 	uint64_t target;
 
 } btb_entry_t;
@@ -53,7 +54,7 @@ unsigned char pht_check (unsigned char pc_tag) {
 		//if offset is 2, we use bitmask 00001100, and shift_val 2
 		//if offset is 3, we use bitmask 00000011, and shift_val 0
 		//if offset is 4, we go on strike
-	//we then return sub_pht ANDed with bitmask and subsequentially rightshifted by shift_val 
+	//we then return sub_pht ANDed with bitmask and subsequentially rightshifted by shift_val
 
 unsigned char get_counter(unsigned char sub_pht, int char_offset) {
 	unsigned char bitmask = 0xC0 >> (char_offset * 2);
@@ -82,22 +83,66 @@ void change_counter (unsigned char pc_tag, int inc) {
 	}
 }
 
+btb_entry_t get_btb_entry(unsigned char pc_index) {
+	return BP.btb_table[pc_index];
+}
 
+void update_btb_entry(unsigned char pc_index, uint64_t fetch_pc, unsigned char valid_bit, unsigned char cond_bit, uint64_t target) {
+	BP_t entry = BP.btb_table[pc_index];
+	entry.addr_tag = fetch_pc;
+	entry.valid_bit = valid_bit;
+	entry.cond_bit = cond_bit;
+	entry.target =  target;
+	BP.btb_table[pc_index] = entry;
+}
 
+void bp_predict(uint64_t fetch_pc) {
+	unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
+	unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+	unsigned char counter = pht_check(gshare_tag);
+	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
+	if ((indexed_entry.addr_tag != fetch_pc) || (indexed_entry.valid_bit == 0)) {
+		CURRENT_STATE.PC = fetch_pc + 4;
+	}
+	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
+		CURRENT_STATE.PC = indexed_entry.target;
+	}
+	else {
+		CURRENT_STATE.PC = fetch_pc + 4;
+	}
+}
 
-/* memory expensive, computation light
-typedef struct BTB_Entry {
-	uint64_t addr_tag;
-	int valid_bit;
-	int cond_bit;
-	uint64_t target;
+// we still need a way to figure out if we should increment or decrement
+// for now, int inc will indicate that
+void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int inc) {
+	// 1 update pht
+	unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
+	unsigned char counter = pht_check(gshare_tag);
+	if (!(((inc == 1) && (counter == 3)) || ((inc == -1) && (counter == 0)))) {
+		change_counter(gshare_tag, inc);
+	}
+	// 2 update the ghr
+	unsigned char valid_bit;
+	(inc > 0) ? valid_bit = 1 : valid_bit = 0;
+	gshare_set(valid_bit);
+	// 3 update the btb
+	unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+	update_btb_entry(btb_tag, fetch_pc, valid_bit, cond_bit, target);
+}
 
-} btb_entry_t;
-
-typedef struct bp
-{
-    int gshare;
-    int_32_t pht[256];
-    btb_entry_t btb_table[1024];
-
-} bp_t;
+// /* memory expensive, computation light
+// typedef struct BTB_Entry {
+// 	uint64_t addr_tag;
+// 	int valid_bit;
+// 	int cond_bit;
+// 	uint64_t target;
+//
+// } btb_entry_t;
+//
+// typedef struct bp
+// {
+//     int gshare;
+//     int_32_t pht[256];
+//     btb_entry_t btb_table[1024];
+//
+// } bp_t;
