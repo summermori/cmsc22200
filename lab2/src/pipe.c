@@ -317,6 +317,7 @@ void pipe_stage_execute()
   {
     IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
   }
+   printf("EXtoMEM.op: %lx\n", EXtoMEM.op);
 }
 
 void pipe_stage_decode()
@@ -330,6 +331,7 @@ void pipe_stage_decode()
   {
     loadstore_dependency = 1;
   }
+  printf("loadstore_dependency: %d\n", loadstore_dependency);
   //in loadstore bubble rn
   if ((int)stat_cycles < Control.loadstore_bubble_until)
   {
@@ -338,7 +340,7 @@ void pipe_stage_decode()
   //loadstore bubbling restore to pipeline
   if ((int) stat_cycles == Control.loadstore_bubble_until)
   {
-    //printf("restoration\n");
+    printf("restoration\n");
     Control.loadstore_bubble_until = -1;
     Control.restoration = 1;
     IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
@@ -370,7 +372,7 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          //printf("bubble trigger");
+          printf("bubble trigger");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -411,7 +413,7 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          //printf("bubble trigger");
+          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -510,7 +512,7 @@ void pipe_stage_decode()
       if (IDtoEX.n == EXtoMEM.dnum)
       {
         //printf("IDtoEX.n: %ld\n", IDtoEX.n);
-        //printf("bubble trigger");
+        printf("bubble trigger\n");
         TriggerBubble_LoadStore((int) stat_cycles + 1);
         loadstore_dependency = 0;
       }
@@ -546,7 +548,7 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          //printf("bubble trigger");
+          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -580,7 +582,7 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          //printf("bubble trigger");
+          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -614,7 +616,7 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          //printf("bubble trigger");
+          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -641,6 +643,7 @@ void pipe_stage_decode()
     //printf("Failure to match subtype3\n");
   }
   // IFtoID = (IFtoID_t){ .inst = 0};
+  loadstore_dependency = 0;
 
 }
 
@@ -725,12 +728,13 @@ void pipe_stage_fetch()
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
-    //printf("not fetching!\n");
+    printf("in loadstore bubble not fetching!\n");
+    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
   }
   if (Control.restoration == 1)
   {
-    //printf("restoring, not grabbing word from mem\n");
+    printf("load store bubble restoring, not grabbing word from mem\n");
     Control.restoration = 0;
     return;
   }
@@ -763,7 +767,6 @@ void TriggerBubble_LoadStore(int bubble_until)
   temp_IFtoID = (IFtoID_t){.inst = mem_read_32(CURRENT_STATE.PC)};
   //printf("temp_IFtoTD inst: %x\n", temp_IFtoID.inst);
   IFtoID = (IFtoID_t){ .inst = 0};
-  CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
   return;
 }
 
@@ -990,6 +993,7 @@ void LDUR() {
   load = load | (load2 << 32);
   if (t != 31) {
     MEMtoWB.res = load;
+    printf("load: %lx\n", MEMtoWB.res);
   }
   MEMtoWB.fwb = 1;
 
