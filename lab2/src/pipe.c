@@ -410,6 +410,8 @@ void pipe_stage_decode()
       if (loadstore_dependency == 1)
       {
         IDtoEX.n = ((word & 0x000003e0) >> 5);
+        printf("Decode Reg: %lx\n", IDtoEX.n);
+        printf("Execute Reg: %lx\n", EXoMEM.dnum);
         if (IDtoEX.n == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
@@ -988,12 +990,13 @@ void LDUR() {
   int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
+  printf("mem_loc base: %lx\n", n);
+  printf("mem_loc offset: %lx\n", offset);
   int64_t load = mem_read_32(n + offset);
   int64_t load2 = mem_read_32(n + offset + 4);
   load = load | (load2 << 32);
   if (t != 31) {
     MEMtoWB.res = load;
-    printf("load: %lx\n", MEMtoWB.res);
   }
   MEMtoWB.fwb = 1;
 
@@ -1065,7 +1068,12 @@ void STURH() {
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int load = mem_read_32(n + offset);
-  load = (load & 0xffffff00) | (t & 0x0000ffff);
+  // printf("first load: %x\n", (load & 0xffffff00));
+  // printf("second load: %x\n", (t & 0x0000ffff));
+  //original implementation
+  // load = (load & 0xffffff00) | (t & 0x0000ffff);
+  load = t & 0x0000ffff;
+  printf("STURH load: %x\n", load);
   mem_write_32(n + offset, load);
   MEMtoWB.fwb = 0;
 
