@@ -410,8 +410,6 @@ void pipe_stage_decode()
       if (loadstore_dependency == 1)
       {
         IDtoEX.n = ((word & 0x000003e0) >> 5);
-        printf("Decode Reg: %lx\n", IDtoEX.n);
-        printf("Execute Reg: %lx\n", EXoMEM.dnum);
         if (IDtoEX.n == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
@@ -511,6 +509,8 @@ void pipe_stage_decode()
     if (loadstore_dependency == 1)
     {
       IDtoEX.n = ((word & 0x000003e0) >> 5);
+      printf("Decode Reg: %ld\n", IDtoEX.dnum);
+      printf("Execute Reg: %ld\n", EXtoMEM.dnum);
       if (IDtoEX.n == EXtoMEM.dnum)
       {
         //printf("IDtoEX.n: %ld\n", IDtoEX.n);
