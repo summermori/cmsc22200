@@ -11,9 +11,6 @@
 #include <stdio.h>
 
 
-// intitalizing
-bp_t BP;
-
 // helper functions
 void gshare_set (unsigned char x) {
 	unsigned char shift = BP.gshare << 1;

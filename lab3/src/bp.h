@@ -10,6 +10,7 @@
 #include "shell.h"
 #include "pipe.h"
 
+
 typedef struct BTB_Entry {
 	uint64_t addr_tag;
 	unsigned char valid_bit;
@@ -24,7 +25,8 @@ typedef struct
   btb_entry_t btb_table[1024];
 } bp_t;
 
-
+// intitalizing
+bp_t BP;
 
 void bp_predict(uint64_t fetch_pc);
 void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int inc);

@@ -101,6 +101,7 @@ typedef struct Control_t {
 	int restoration;
 	int halt;
 	int baddr;
+	int bpc;
 	int fn;
 	int fz;
 } Control_t;

@@ -6,6 +6,7 @@
 
 #include "pipe.h"
 #include "shell.h"
+#include "bp.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -34,7 +35,7 @@ IFtoID_t IFtoID = { .inst = 0};
 IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
-Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .branch_grab = 0, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
+Control_t Control = {.baddr= -1, .bpc = 0, .branch_bubble_until = -1, .branch_grab = 0, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
@@ -448,7 +449,7 @@ void pipe_stage_decode()
       IDtoEX.branching = 1;
       printf("BUBBLE CONDITIONAL BRANCH\n");
       // TriggerBubble_Branch((int) stat_cycles + 2);
-      
+
       condBubble(IDtoEX.dnum);
       //printf("Conditional branch, ");
     }
@@ -680,7 +681,8 @@ void pipe_stage_fetch()
       printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
       printf("Grabbed word in bubble: %x\n", IFtoID.inst);
-      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      Control.bpc = CURRENT_STATE.PC;
+      bp_predict(CURRENT_STATE.PC);
       Control.branch_grab = 1;
       return;
     }
@@ -703,14 +705,16 @@ void pipe_stage_fetch()
       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
       printf("WORD in PC + 4 Branch or Not_Taken: %x\n", IFtoID.inst);
       Control.not_taken = 0;
-      CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+      Control.bpc = CURRENT_STATE.PC;
+      bp_predict(CURRENT_STATE.PC);
     }
     else
-    { 
+    {
       //Control.baddr has non default value, we are branching
       if (Control.baddr == -1)
       {
-        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+        Control.bpc = CURRENT_STATE.PC;
+        bp_predict(CURRENT_STATE.PC);
       }
       else
       {
@@ -718,7 +722,8 @@ void pipe_stage_fetch()
         IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
         printf("PC: %lx\n", CURRENT_STATE.PC);
         printf("WORD in if: %x\n",IFtoID.inst);
-        CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+        Control.bpc = CURRENT_STATE.PC;
+        bp_predict(CURRENT_STATE.PC);
       }
     }
     Control.baddr = -1;
@@ -731,7 +736,8 @@ void pipe_stage_fetch()
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
     printf("in loadstore bubble not fetching!\n");
-    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+    Control.bpc = CURRENT_STATE.PC;
+    bp_predict(CURRENT_STATE.PC);
     return;
   }
   if (Control.restoration == 1)
@@ -745,12 +751,14 @@ void pipe_stage_fetch()
   printf("WORD in general: %x\n",word);
   if (word != 0)
   {
-    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+    Control.bpc = CURRENT_STATE.PC;
+    bp_predict(CURRENT_STATE.PC);
   }
   else if(Control.halt == 0)
   {
     Control.halt = 1;
-    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+    Control.bpc = CURRENT_STATE.PC;
+    bp_predict(CURRENT_STATE.PC);
   }
 }
 
@@ -781,19 +789,28 @@ void TriggerBubble_LoadStore(int bubble_until)
 // }
 
 /* instruction implementations */
-void Branch(int64_t offset)
+void Branch(int64_t offset, unsigned char cond_bit)
 {
     //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4.
     // Decode_State.branching = 1;
-    uint64_t temp = CURRENT_STATE.PC - 8;
+    uint64_t temp = Control.bpc;
+
     // printf("Branch Base: %lx\n", temp);
     Control.baddr = temp + (offset * 4);
+    int inc;
+    (Control.baddr == CURRENT_STATE.PC - 4) ? (inc = 1) : (inc = -1);
+
+    // !! UPDATE HERE !! //
+    bp_update(temp, cond_bit, Control.baddr, inc);
+    // !! if miss reset pc !! //
+    // !! if miss squash, maybe bubble !! //
+
     //squash IDtoEX if regular branch
     printf("SQUASHING in Branch: %x\n", IFtoID.inst);
     // grab then squash, will need to restore to pipeline if PC + 4
     Control.squashed = IFtoID.inst;
     IFtoID = (IFtoID_t){ .inst = 0};
-    
+
     // printf("baddr in Branch: %x\n", Control.baddr);
     return;
 }
@@ -804,7 +821,7 @@ void CBNZ()
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
     {
       Control.cond_branch = 1;
-      Branch(offset);
+      Branch(offset, 1);
     }
     else
     {
@@ -824,7 +841,7 @@ void CBZ()
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0)))
     {
       Control.cond_branch = 1;
-      Branch(offset);
+      Branch(offset, 1);
     }
     else
     {
@@ -857,6 +874,9 @@ void HLT()
 void BR()
 {
     Control.baddr = IDtoEX.n - 8;
+
+    // !! replicate Branch() here !!
+
     // Decode_State.branching = 1;
     //set the branching field and fields for MEM and WB saying we dont need to do anything.
     return;
@@ -864,7 +884,7 @@ void BR()
 void B()
 {
     int64_t target = IDtoEX.addr;
-    Branch(target);
+    Branch(target, 0);
     return;
 }
 void B_Cond()
@@ -879,7 +899,7 @@ void B_Cond()
             // printf("offset: %ld", offset);
             if (Control.fz == 1)
             {
-              Branch(offset);
+              Branch(offset, 1);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -896,7 +916,7 @@ void B_Cond()
             // printf("BNE\n");
             if (Control.fz == 0)
             {
-              Branch(offset);
+              Branch(offset, 1);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -913,7 +933,7 @@ void B_Cond()
             // printf("BGE\n");
             if ((Control.fz == 1) || (Control.fn == 0))
             {
-              Branch(offset);
+              Branch(offset, 1);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -930,7 +950,7 @@ void B_Cond()
             // printf("BLT\n");
             if ((Control.fn == 1) && (Control.fz == 0))
             {
-              Branch(offset);
+              Branch(offset, 1);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -947,7 +967,7 @@ void B_Cond()
             // printf("BGT\n");
             if ((Control.fn == 0) && (Control.fz == 0))
             {
-              Branch(offset);
+              Branch(offset, 1);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -964,7 +984,7 @@ void B_Cond()
             // printf("BLE\n");
             if ((Control.fz == 1) || (Control.fn == 1))
             {
-              Branch(offset);
+              Branch(offset, 1);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
