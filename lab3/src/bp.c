@@ -72,13 +72,13 @@ void bp_predict(uint64_t fetch_pc) {
 	unsigned char counter = pht_check(gshare_tag);
 	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
 	if ((indexed_entry.addr_tag != fetch_pc) || (indexed_entry.valid_bit == 0)) {
-		// CURRENT_STATE.PC = fetch_pc + 4;
+		CURRENT_STATE.PC = fetch_pc + 4;
 	}
 	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
-		// CURRENT_STATE.PC = indexed_entry.target;
+		CURRENT_STATE.PC = indexed_entry.target;
 	}
 	else {
-		// CURRENT_STATE.PC = fetch_pc + 4;
+		CURRENT_STATE.PC = fetch_pc + 4;
 	}
 }
 

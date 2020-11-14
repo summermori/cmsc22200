@@ -8,6 +8,7 @@
 #define _BP_H_
 
 #include "shell.h"
+#include "pipe.h"
 
 typedef struct BTB_Entry {
 	uint64_t addr_tag;
