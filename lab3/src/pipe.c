@@ -753,6 +753,7 @@ void pipe_stage_fetch()
   {
     Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
+    printf("prediction_taken: %d\n", Control.prediction_taken);
   }
   else if(Control.halt == 0)
   {
@@ -789,28 +790,19 @@ void TriggerBubble_LoadStore(int bubble_until)
 // }
 
 /* instruction implementations */
-void Branch(int64_t offset, unsigned char cond_bit)
+void Branch(int64_t offset)
 {
     //we're gonna need a branching field somewhere to tell fetch() not to increment PC by 4.
     // Decode_State.branching = 1;
-    uint64_t temp = Control.bpc;
-
+    uint64_t temp = CURRENT_STATE.PC - 8;
     // printf("Branch Base: %lx\n", temp);
     Control.baddr = temp + (offset * 4);
-    int inc;
-    (Control.baddr == CURRENT_STATE.PC - 4) ? (inc = 1) : (inc = -1);
-
-    // !! UPDATE HERE !! //
-    bp_update(temp, cond_bit, Control.baddr, inc);
-    // !! if miss reset pc !! //
-    // !! if miss squash, maybe bubble !! //
-
     //squash IDtoEX if regular branch
     printf("SQUASHING in Branch: %x\n", IFtoID.inst);
     // grab then squash, will need to restore to pipeline if PC + 4
     Control.squashed = IFtoID.inst;
     IFtoID = (IFtoID_t){ .inst = 0};
-
+    
     // printf("baddr in Branch: %x\n", Control.baddr);
     return;
 }
@@ -821,7 +813,7 @@ void CBNZ()
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
     {
       Control.cond_branch = 1;
-      Branch(offset, 1);
+      Branch(offset);
     }
     else
     {
@@ -841,7 +833,7 @@ void CBZ()
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0)))
     {
       Control.cond_branch = 1;
-      Branch(offset, 1);
+      Branch(offset);
     }
     else
     {
@@ -884,7 +876,7 @@ void BR()
 void B()
 {
     int64_t target = IDtoEX.addr;
-    Branch(target, 0);
+    Branch(target);
     return;
 }
 void B_Cond()
@@ -899,7 +891,7 @@ void B_Cond()
             // printf("offset: %ld", offset);
             if (Control.fz == 1)
             {
-              Branch(offset, 1);
+              Branch(offset);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -916,7 +908,7 @@ void B_Cond()
             // printf("BNE\n");
             if (Control.fz == 0)
             {
-              Branch(offset, 1);
+              Branch(offset);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -933,7 +925,7 @@ void B_Cond()
             // printf("BGE\n");
             if ((Control.fz == 1) || (Control.fn == 0))
             {
-              Branch(offset, 1);
+              Branch(offset);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -950,7 +942,7 @@ void B_Cond()
             // printf("BLT\n");
             if ((Control.fn == 1) && (Control.fz == 0))
             {
-              Branch(offset, 1);
+              Branch(offset);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -967,7 +959,7 @@ void B_Cond()
             // printf("BGT\n");
             if ((Control.fn == 0) && (Control.fz == 0))
             {
-              Branch(offset, 1);
+              Branch(offset);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)
@@ -984,7 +976,7 @@ void B_Cond()
             // printf("BLE\n");
             if ((Control.fz == 1) || (Control.fn == 1))
             {
-              Branch(offset, 1);
+              Branch(offset);
               Control.cond_branch = 1;
             }
             else if (Control.branch_bubble_until != -1)

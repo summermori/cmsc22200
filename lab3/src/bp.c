@@ -6,6 +6,7 @@
  */
 
 #include "bp.h"
+#include "pipe.h"
 #include "shell.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -72,6 +73,7 @@ void bp_predict(uint64_t fetch_pc) {
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}
 	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
+		// Control.prediction_taken = 1;
 		CURRENT_STATE.PC = indexed_entry.target;
 	}
 	else {
