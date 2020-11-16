@@ -123,7 +123,7 @@ void condBubble(int64_t cond);
 /* instruction helpers */
 void Branch(int64_t offset);
 /* lab3 restore and flush helper*/
-void Restore_Flush(uint32_t real_target, int pred_taken);
+void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken);
 /* instruction implementations */
 void CBNZ();
 void CBZ();
