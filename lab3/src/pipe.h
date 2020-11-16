@@ -90,16 +90,23 @@ typedef struct MEMtoWB_t {
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
 typedef struct Control_t {
+	//lab3 stuff
 	int prediction_taken;
+	uint32_t pc_before_prediction;
+	int lab3_bubble;
+	uint64_t taken_target;
+	//lab2 branch bubble stuff
 	int compare_branch;
 	int cond_branch;
 	uint32_t branch_grab;
 	uint32_t squashed;
 	int not_taken;
 	int branch_bubble_until;
+	//lab2 loadstore bubble stuff
 	int loadstore_bubble_until;
 	int loadstore_bubble_start;
 	int restoration;
+	//halt, flags, and baddr
 	int halt;
 	int baddr;
 	int bpc;
@@ -107,12 +114,16 @@ typedef struct Control_t {
 	int fz;
 } Control_t;
 
+extern Control_t Control;
+
 /* Bubble Functions */
 void TriggerBubble_Branch(int bubble_until);
 void TriggerBubble_LoadStore(int bubble_until);
 void condBubble(int64_t cond);
 /* instruction helpers */
 void Branch(int64_t offset);
+/* lab3 restore and flush helper*/
+void Restore_Flush(uint32_t real_target, int pred_taken);
 /* instruction implementations */
 void CBNZ();
 void CBZ();
