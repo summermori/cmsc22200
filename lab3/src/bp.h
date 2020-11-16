@@ -21,7 +21,7 @@ typedef struct BTB_Entry {
 typedef struct
 {
   unsigned char gshare;
-  unsigned char pht[64];
+  unsigned char pht[256];
   btb_entry_t btb_table[1024];
 } bp_t;
 

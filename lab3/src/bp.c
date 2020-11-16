@@ -12,6 +12,8 @@
 #include <stdio.h>
 
 
+
+
 // helper functions
 void gshare_set (unsigned char x) {
 	unsigned char shift = BP.gshare << 1;
@@ -26,28 +28,15 @@ unsigned char get_counter(unsigned char sub_pht, int char_offset) {
 
 unsigned char pht_check (unsigned char pc_tag) {
 	unsigned char index = (BP.gshare ^ pc_tag);
-	int arr_index = (index / 4);
-	unsigned char sub_pht = BP.pht[arr_index];
-	int char_offset = (index % 4);
-	unsigned char two_bits = get_counter(sub_pht, char_offset);
-	return two_bits;
+	return BP.pht[index];
 }
 
 void change_counter (unsigned char pc_tag, int inc) {
 	unsigned char index = (BP.gshare ^ pc_tag);
-	int arr_index = (index / 4);
-	unsigned char sub_pht = BP.pht[arr_index];
-	int char_offset = (index % 4);
-	int shift_val = 6 - (char_offset * 2);
-	unsigned char op_input = (0x1 << shift_val);
-	if (inc == 1) {
-		BP.pht[arr_index] = (sub_pht + op_input);
-	}
-	else {
-		BP.pht[arr_index] = (sub_pht - op_input);
-	}
-	printf("PHT index: %d\n", arr_index);
-	printf("PHT entry: %d\n", BP.pht[arr_index]);
+	unsigned char temp = BP.pht[index];
+	BP.pht[index] = temp + inc;
+	printf("PHT index: %d\n", index);
+	printf("PHT counter: %d\n", BP.pht[index]);
 }
 
 btb_entry_t get_btb_entry(unsigned char pc_index) {
@@ -109,6 +98,7 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 		gshare_set(valid_bit);
 		// 3 update the btb
 		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+
 		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
 		printf("btb_entry index: %d\n", btb_tag);
 		printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
