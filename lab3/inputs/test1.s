@@ -1,6 +1,6 @@
 .text
 add X2, X4, 17
-cbnz X2, bar
+cbz X3, bar
 add X2, X0, 1
 
 bar:

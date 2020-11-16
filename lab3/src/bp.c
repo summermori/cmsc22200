@@ -122,7 +122,7 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 		unsigned char valid_bit;
 		(inc > 0) ? (valid_bit = 1) : (valid_bit = 0);
 		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
-		update_btb_entry(btb_tag, fetch_pc, valid_bit, cond_bit, target);
+		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
 	}
 	return;
 }
