@@ -318,7 +318,6 @@ void pipe_stage_execute()
   {
     IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
   }
-   printf("EXtoMEM.op: %lx\n", EXtoMEM.op);
 }
 
 void pipe_stage_decode()
@@ -332,7 +331,7 @@ void pipe_stage_decode()
   {
     loadstore_dependency = 1;
   }
-  printf("loadstore_dependency: %d\n", loadstore_dependency);
+  // printf("loadstore_dependency: %d\n", loadstore_dependency);
   //in loadstore bubble rn
   if ((int)stat_cycles < Control.loadstore_bubble_until)
   {
@@ -663,6 +662,7 @@ void pipe_stage_fetch()
   //lab3 bubble: one cycle halt on fetch
   if (Control.lab3_bubble == 1)
   {
+    printf("lab3_bubble\n");
     Control.lab3_bubble = 0;
     return;
   }
@@ -817,16 +817,18 @@ void Restore_Flush(uint32_t real_target, int pred_taken)
     if (real_target == Control.pc_before_prediction + 4)
     {
       //prediction was correct, do nothing to pipeline but remember to reset lab3 control struct fields
+      printf("prediction taken misprediction\n");
       Control.prediction_taken = 0;
 		  Control.pc_before_prediction = 0;
       return;
     }
     else
     {
-      //misprediction, set PC to real target, set bubble for one cycle, then flush IFtoID(this cycle)
-      CURRENT_STATE.PC = real_target;
-      IFtoID = (IFtoID_t){ .inst = 0};
-      Control.lab3_bubble = 1;
+      //misprediction, set PC to real target, flush IFtoID(this cycle), DO NOT FLUSH
+      printf("prediction not taken misprediction\n");
+      // CURRENT_STATE.PC = real_target;
+      // IFtoID = (IFtoID_t){ .inst = 0};
+      // Control.lab3_bubble = 1;
       //reset fields
       Control.prediction_taken = 0;
 		  Control.pc_before_prediction = 0;
@@ -860,30 +862,46 @@ void Restore_Flush(uint32_t real_target, int pred_taken)
 void CBNZ()
 {
     int64_t offset = IDtoEX.addr/32;
+    printf("cond_branch: %d\n", Control.cond_branch);
+    int branch_taken;
+    if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
+    {
+      branch_taken = 1;
+    }
+    else
+    {
+      branch_taken = 0;
+    }
 
     //lab2 behavior
     if (Control.prediction_taken == 0)
     {  
-      if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
+      if (branch_taken == 0)
       {
-        Control.cond_branch = 1;
-        Branch(offset);
+        //don't branch
+        // printf("SQUASHING: %x\n", IFtoID.inst);
+        // // grab then squash, will need to restore to pipeline if PC + 4
+        // Control.not_taken = 1;
+        // Control.squashed = IFtoID.inst;
+        // IFtoID = (IFtoID_t){ .inst = 0};
       }
       else
       {
-        printf("SQUASHING: %x\n", IFtoID.inst);
-        // grab then squash, will need to restore to pipeline if PC + 4
-        Control.not_taken = 1;
-        Control.squashed = IFtoID.inst;
-        IFtoID = (IFtoID_t){ .inst = 0};
+        //branch
+        printf("MEMtoWB.res = %ld\n", MEMtoWB.res);
+        printf("triggering cond_branch\n");
+        Control.cond_branch = 1;
+        Branch(offset);
       }
       //bp_update
       int inc;
-      (Control.baddr == CURRENT_STATE.PC - 4) ? (inc = 1) : (inc = -1);
+      (branch_taken == 1) ? (inc = 1) : (inc = -1);
+      printf("EX func inc: %d\n", inc);
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
       Restore_Flush(temp + (offset * 4), 0);
+      printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
@@ -892,7 +910,7 @@ void CBNZ()
     {
       //1. update
       int inc;
-      (Control.baddr == CURRENT_STATE.PC - 4) ? (inc = 1) : (inc = -1);
+      (branch_taken == 1) ? (inc = 1) : (inc = -1);
       bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
       //2. restore and flush
       Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
@@ -902,23 +920,61 @@ void CBNZ()
 }
 void CBZ()
 {
-    //int64_t t = IDtoEX.dnum;
     int64_t offset = IDtoEX.addr/32;
-    if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0)))
+    printf("cond_branch: %d\n", Control.cond_branch);
+    int branch_taken;
+    if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
     {
-      Control.cond_branch = 1;
-      Branch(offset);
+      branch_taken = 0;
     }
     else
     {
-      printf("SQUASHING: %x\n", IFtoID.inst);
-      // grab then squash, will need to restore to pipeline if PC + 4
-      Control.not_taken = 1;
-      Control.squashed = IFtoID.inst;
-      IFtoID = (IFtoID_t){ .inst = 0};
+      branch_taken = 1;
     }
-    //set fields to tell MEM and WB they shouldn't do anything cause its a branching op
-    return;
+
+    //lab2 behavior
+    if (Control.prediction_taken == 0)
+    {  
+      if (branch_taken == 0)
+      {
+        //don't branch
+        // printf("SQUASHING: %x\n", IFtoID.inst);
+        // // grab then squash, will need to restore to pipeline if PC + 4
+        // Control.not_taken = 1;
+        // Control.squashed = IFtoID.inst;
+        // IFtoID = (IFtoID_t){ .inst = 0};
+      }
+      else
+      {
+        //branch
+        printf("MEMtoWB.res = %ld\n", MEMtoWB.res);
+        printf("triggering cond_branch\n");
+        Control.cond_branch = 1;
+        Branch(offset);
+      }
+      //bp_update
+      int inc;
+      (branch_taken == 1) ? (inc = 1) : (inc = -1);
+      printf("EX func inc: %d\n", inc);
+      uint64_t temp = CURRENT_STATE.PC - 8;
+      //(pc where argument was fetched, cond_bit, target addr, inc)
+      bp_update(temp, 1, (temp + (offset * 4)), inc);
+      Restore_Flush(temp + (offset * 4), 0);
+      printf("cond_branch: %d\n", Control.cond_branch);
+      return;
+    }
+
+    //prediction_taken behavior
+    else if (Control.prediction_taken == 1)
+    {
+      //1. update
+      int inc;
+      (branch_taken == 1) ? (inc = 1) : (inc = -1);
+      bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+      //2. restore and flush
+      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+      return;
+    }
 }
 void MUL()
 {

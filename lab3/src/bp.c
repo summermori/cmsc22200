@@ -46,6 +46,8 @@ void change_counter (unsigned char pc_tag, int inc) {
 	else {
 		BP.pht[arr_index] = (sub_pht - op_input);
 	}
+	// printf("PHT index: %d\n", arr_index);
+	// printf("PHT entry: %d\n", BP.pht[arr_index]);
 }
 
 btb_entry_t get_btb_entry(unsigned char pc_index) {
@@ -69,10 +71,10 @@ void bp_predict(uint64_t fetch_pc) {
 	unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
 	unsigned char counter = pht_check(gshare_tag);
 	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
-	//no hit
+	//no hit BTB miss
 	if ((indexed_entry.addr_tag != fetch_pc) || (indexed_entry.valid_bit == 0)) {
-		Control.prediction_taken = 0;
-		Control.pc_before_prediction = CURRENT_STATE.PC;
+		// Control.prediction_taken = 0;
+		// Control.pc_before_prediction = CURRENT_STATE.PC;
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}
 	//hit 
@@ -103,10 +105,16 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 		// 2 update the ghr
 		unsigned char valid_bit;
 		(inc > 0) ? (valid_bit = 1) : (valid_bit = 0);
+		printf("gshare valid bit: %d\n", valid_bit);
 		gshare_set(valid_bit);
 		// 3 update the btb
 		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
-		update_btb_entry(btb_tag, fetch_pc, valid_bit, cond_bit, target);
+		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
+		printf("btb_entry index: %d\n", btb_tag);
+		printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
+		printf("updated btb_entry dest: %lx\n", BP.btb_table[btb_tag].target);
+		printf("updated btb_entry valid bit: %d\n", BP.btb_table[btb_tag].valid_bit);
+		printf("updated btb_entry cond bit: %d\n", BP.btb_table[btb_tag].cond_bit);
 	}
 	else if (cond_bit == 0)
 	{
