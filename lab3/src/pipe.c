@@ -340,7 +340,6 @@ void pipe_stage_decode()
   //loadstore bubbling restore to pipeline
   if ((int) stat_cycles == Control.loadstore_bubble_until)
   {
-    printf("restoration\n");
     Control.loadstore_bubble_until = -1;
     Control.restoration = 1;
     IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
@@ -353,7 +352,6 @@ void pipe_stage_decode()
   }
 
   uint32_t word = IFtoID.inst;
-  printf("DECODE WORD: %x\n", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
@@ -372,7 +370,6 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          printf("bubble trigger");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -413,7 +410,6 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -446,7 +442,6 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      printf("CONDITIONAL BRANCH\n");
       // TriggerBubble_Branch((int) stat_cycles + 2);
       if (Control.prediction_taken != 1)
       {condBubble(IDtoEX.dnum);}
@@ -466,7 +461,6 @@ void pipe_stage_decode()
       //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
       IDtoEX.branching = 1;
-      printf("UNCONDITIONAL BRANCH REGISTER\n");
       if (Control.prediction_taken != 1)
       {TriggerBubble_Branch((int) stat_cycles + 2);}
       //printf("Unconditional branch (register), ");
@@ -477,7 +471,6 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      printf("UNCONDITIONAL BRANCH IMMEDIATE\n");
       if (Control.prediction_taken != 1)
       {TriggerBubble_Branch((int) stat_cycles + 2);}
       //printf("Unconditional branch (immediate), ");
@@ -490,7 +483,6 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      printf("COMPARE AND BRANCH\n");
       // if (Control.prediction_taken != 1)
       // {compareBubble(IDtoEX.dnum);}
       //printf("Compare and branch, ");
@@ -512,12 +504,9 @@ void pipe_stage_decode()
     if (loadstore_dependency == 1)
     {
       IDtoEX.n = ((word & 0x000003e0) >> 5);
-      printf("Decode Reg: %ld\n", IDtoEX.dnum);
-      printf("Execute Reg: %ld\n", EXtoMEM.dnum);
       if (IDtoEX.n == EXtoMEM.dnum)
       {
         //printf("IDtoEX.n: %ld\n", IDtoEX.n);
-        printf("bubble trigger\n");
         TriggerBubble_LoadStore((int) stat_cycles + 1);
         loadstore_dependency = 0;
       }
@@ -553,7 +542,6 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -587,7 +575,6 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -621,7 +608,6 @@ void pipe_stage_decode()
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
           //printf("IDtoEX.n: %ld", IDtoEX.n);
-          printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -662,7 +648,6 @@ void pipe_stage_fetch()
   //lab3 bubble: one cycle halt on fetch
   if (Control.lab3_bubble == 1)
   {
-    printf("lab3_bubble\n");
     Control.lab3_bubble = 0;
     return;
   }
@@ -673,8 +658,6 @@ void pipe_stage_fetch()
       CURRENT_STATE.PC = Control.baddr;
       Control.baddr = -1;
       //IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("PC: %lx\n", CURRENT_STATE.PC);
-      printf("WORD in cond branch: %x\n",IFtoID.inst);
       // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
       Control.cond_branch = 0;
       return;
@@ -689,9 +672,7 @@ void pipe_stage_fetch()
   {
     if (Control.branch_grab == 0)
     {
-      printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("Grabbed word in bubble: %x\n", IFtoID.inst);
       Control.bpc = CURRENT_STATE.PC;
       bp_predict(CURRENT_STATE.PC);
       Control.branch_grab = 1;
@@ -702,7 +683,6 @@ void pipe_stage_fetch()
       if ((Control.baddr == (CURRENT_STATE.PC - 4)) || (Control.not_taken == 1))
       {
         IFtoID.inst = Control.squashed;
-        printf("+4 or not_taken Restoration: %x\n", IFtoID.inst);
       }
       Control.branch_grab = 0;
       return;
@@ -714,7 +694,6 @@ void pipe_stage_fetch()
     if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken))
     {
       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("WORD in PC + 4 Branch or Not_Taken: %x\n", IFtoID.inst);
       Control.not_taken = 0;
       Control.bpc = CURRENT_STATE.PC;
       bp_predict(CURRENT_STATE.PC);
@@ -731,8 +710,6 @@ void pipe_stage_fetch()
       {
         CURRENT_STATE.PC = Control.baddr;
         IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-        printf("PC: %lx\n", CURRENT_STATE.PC);
-        printf("WORD in if: %x\n",IFtoID.inst);
         Control.bpc = CURRENT_STATE.PC;
         bp_predict(CURRENT_STATE.PC);
       }
@@ -746,25 +723,21 @@ void pipe_stage_fetch()
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
-    printf("in loadstore bubble not fetching!\n");
     Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
     return;
   }
   if (Control.restoration == 1)
   {
-    printf("load store bubble restoring, not grabbing word from mem\n");
     Control.restoration = 0;
     return;
   }
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
-  printf("WORD in general: %x\n",word);
   if (word != 0)
   {
     Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
-    printf("prediction_taken: %d\n", Control.prediction_taken);
   }
   else if(Control.halt == 0)
   {
@@ -802,7 +775,6 @@ void Branch(int64_t offset)
 
 
     // grab then squash, will need to restore to pipeline if PC + 4
-    printf("SQUASHING in Branch: %x\n", IFtoID.inst);
     Control.squashed = IFtoID.inst;
     IFtoID = (IFtoID_t){ .inst = 0};
     
@@ -817,7 +789,6 @@ void Restore_Flush(uint32_t real_target, int pred_taken)
     if (real_target == Control.pc_before_prediction + 4)
     {
       //prediction was correct, do nothing to pipeline but remember to reset lab3 control struct fields
-      printf("prediction taken misprediction\n");
       Control.prediction_taken = 0;
 		  Control.pc_before_prediction = 0;
       return;
@@ -825,7 +796,6 @@ void Restore_Flush(uint32_t real_target, int pred_taken)
     else
     {
       //misprediction, set PC to real target, flush IFtoID(this cycle), DO NOT FLUSH
-      printf("prediction not taken misprediction\n");
       // CURRENT_STATE.PC = real_target;
       // IFtoID = (IFtoID_t){ .inst = 0};
       // Control.lab3_bubble = 1;
@@ -862,7 +832,6 @@ void Restore_Flush(uint32_t real_target, int pred_taken)
 void CBNZ()
 {
     int64_t offset = IDtoEX.addr/32;
-    printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
     {
@@ -888,20 +857,16 @@ void CBNZ()
       else
       {
         //branch
-        printf("MEMtoWB.res = %ld\n", MEMtoWB.res);
-        printf("triggering cond_branch\n");
         Control.cond_branch = 1;
         Branch(offset);
       }
       //bp_update
       int inc;
       (branch_taken == 1) ? (inc = 1) : (inc = -1);
-      printf("EX func inc: %d\n", inc);
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
       Restore_Flush(temp + (offset * 4), 0);
-      printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
@@ -921,7 +886,6 @@ void CBNZ()
 void CBZ()
 {
     int64_t offset = IDtoEX.addr/32;
-    printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
     {
@@ -947,20 +911,16 @@ void CBZ()
       else
       {
         //branch
-        printf("MEMtoWB.res = %ld\n", MEMtoWB.res);
-        printf("triggering cond_branch\n");
         Control.cond_branch = 1;
         Branch(offset);
       }
       //bp_update
       int inc;
       (branch_taken == 1) ? (inc = 1) : (inc = -1);
-      printf("EX func inc: %d\n", inc);
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
       Restore_Flush(temp + (offset * 4), 0);
-      printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
@@ -1067,21 +1027,53 @@ void B_Cond()
             }
         //BNE
         case(1):
-            // printf("BNE\n");
             if (Control.fz == 0)
             {
-              Branch(offset);
-              Control.cond_branch = 1;
+              branch_taken = 1;
             }
-            else if (Control.branch_bubble_until != -1)
+            else
             {
-              Control.not_taken = 1;
-              // printf("SQUASHING: %x\n", IFtoID.inst);
-              // grab then squash, will need to restore to pipeline if PC + 4
-              Control.squashed = IFtoID.inst;
-              IFtoID = (IFtoID_t){ .inst = 0};
+              branch_taken = 0;
             }
-            break;
+
+            if (Control.prediction_taken == 0)
+            {
+	      printf("b_cond: prediction taken\n");
+              //lab2 behavior
+              if (branch_taken == 1)
+              {
+                Branch(offset);
+                Control.cond_branch = 1;
+              }
+              else if (Control.branch_bubble_until != -1)
+              {
+                Control.not_taken = 1;
+                // printf("SQUASHING: %x\n", IFtoID.inst);
+                // grab then squash, will need to restore to pipeline if PC + 4
+                Control.squashed = IFtoID.inst;
+                IFtoID = (IFtoID_t){ .inst = 0};
+              }
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              // printf("EX func inc: %d\n", inc);
+              uint64_t temp = CURRENT_STATE.PC - 8;
+              //(pc where argument was fetched, cond_bit, target addr, inc)
+              bp_update(temp, 1, (temp + (offset * 4)), inc);
+              Restore_Flush(temp + (offset * 4), 0);
+              break;
+            }
+            else if (Control.prediction_taken == 1)
+            {
+	      printf("b_cond: prediction not taken, pc: %x, offset: %lx, total: %lx\n", Control.pc_before_prediction, offset, (Control.pc_before_prediction + (offset * 4)));
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              //2. restore and flush
+              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+              break;
+            }
         //BGE
         case(10):
             // printf("BGE\n");
@@ -1164,8 +1156,6 @@ void LDUR() {
   int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  printf("mem_loc base: %lx\n", n);
-  printf("mem_loc offset: %lx\n", offset);
   int64_t load = mem_read_32(n + offset);
   int64_t load2 = mem_read_32(n + offset + 4);
   load = load | (load2 << 32);
@@ -1214,8 +1204,6 @@ void STUR() {
   int64_t t = EXtoMEM.dval;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  mem_write_32(n + offset, (t & 0x00000000ffffffff));
-  mem_write_32(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
   MEMtoWB.fwb = 0;
 
 }
@@ -1247,7 +1235,6 @@ void STURH() {
   //original implementation
   // load = (load & 0xffffff00) | (t & 0x0000ffff);
   load = t & 0x0000ffff;
-  printf("STURH load: %x\n", load);
   mem_write_32(n + offset, load);
   MEMtoWB.fwb = 0;
 

@@ -1,0 +1,439 @@
+
+>> inputs/test-lab-3.x
+8a9,10
+> gshare: 0, gshare_tag: 0, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400000
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+56a59,60
+> gshare: 0, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+104a109,110
+> gshare: 0, gshare_tag: 4, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400008
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+152a159,160
+> gshare: 0, gshare_tag: 6, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40000c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+200a209
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+248a258,259
+> gshare: 1, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+296a308,309
+> gshare: 1, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+344a358,359
+> gshare: 1, gshare_tag: 18, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400030
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+392a408,409
+> gshare: 1, gshare_tag: 1a, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400034
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+440a458
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+488a507,508
+> gshare: 3, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+536a557,558
+> gshare: 3, gshare_tag: 10, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400020
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+584a607,608
+> gshare: 3, gshare_tag: 12, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400024
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+632a657,658
+> b_cond: prediction taken
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+680a707,708
+> gshare: 7, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+728a757,758
+> gshare: 7, gshare_tag: 4, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+776a807,808
+> gshare: 7, gshare_tag: 6, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40000c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+824a857
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+872a906,907
+> gshare: f, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+920a956,957
+> gshare: f, gshare_tag: 16, predict counter: 1, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+968a1006,1007
+> gshare: f, gshare_tag: 18, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+1016a1056,1057
+> gshare: f, gshare_tag: 1a, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400034
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1064a1106
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+1112a1155,1156
+> gshare: 1f, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1160a1205,1206
+> gshare: 1f, gshare_tag: 10, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+1208a1255,1256
+> gshare: 1f, gshare_tag: 12, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400024
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1256a1305,1306
+> b_cond: prediction taken
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+1304a1355,1356
+> gshare: 3f, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1352a1405,1406
+> gshare: 3f, gshare_tag: 4, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+1400a1455,1456
+> gshare: 3f, gshare_tag: 6, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40000c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1448a1505
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+1496a1554,1555
+> gshare: 7f, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1544a1604,1605
+> gshare: 7f, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1592a1654,1655
+> gshare: 7f, gshare_tag: 18, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+1640a1704,1705
+> gshare: 7f, gshare_tag: 1a, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400034
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1688a1754
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+1736a1803,1804
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1784a1853,1854
+> gshare: ff, gshare_tag: 10, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+1832a1903,1904
+> gshare: ff, gshare_tag: 12, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400024
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1880a1953,1954
+> b_cond: prediction taken
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+1928a2003,2004
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+1976a2053,2054
+> gshare: ff, gshare_tag: 4, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+2024a2103,2104
+> gshare: ff, gshare_tag: 6, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40000c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2072a2153
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+2120a2202,2203
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2168a2252,2253
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2216a2302,2303
+> gshare: ff, gshare_tag: 18, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+2264a2352,2353
+> gshare: ff, gshare_tag: 1a, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400034
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2312a2402
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+2360a2451,2452
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2408a2501,2502
+> gshare: ff, gshare_tag: 10, predict counter: 1, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+2456a2551,2552
+> gshare: ff, gshare_tag: 12, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400024
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2504a2601,2602
+> b_cond: prediction taken
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+2552a2651,2652
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2600a2701,2702
+> gshare: ff, gshare_tag: 4, predict counter: 1, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+2648a2751,2752
+> gshare: ff, gshare_tag: 6, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40000c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2696a2801
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+2744a2850,2851
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2792a2900,2901
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2840a2950,2951
+> gshare: ff, gshare_tag: 18, predict counter: 1, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+2888a3000,3001
+> gshare: ff, gshare_tag: 1a, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400034
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+2936a3050
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+2984a3099,3100
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3032a3149,3150
+> gshare: ff, gshare_tag: 10, predict counter: 2, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3080a3199,3200
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3128a3249,3252
+> b_cond: prediction not taken, pc: 400020, offset: fffffffffffffff9, total: 400004
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+> gshare: ff, gshare_tag: 4, predict counter: 2, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3176a3301,3302
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3224a3351,3353
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3272a3402,3403
+> gshare: ff, gshare_tag: 18, predict counter: 2, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3320a3452,3453
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3368a3502,3504
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+> gshare: ff, gshare_tag: 10, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3416a3553,3554
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3464a3603,3606
+> b_cond: prediction not taken, pc: 400020, offset: fffffffffffffff9, total: 400004
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+> gshare: ff, gshare_tag: 4, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3512a3655,3656
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3560a3705,3707
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3608a3756,3757
+> gshare: ff, gshare_tag: 18, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3656a3806,3807
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3704a3856,3858
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+> gshare: ff, gshare_tag: 10, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3752a3907,3908
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3800a3957,3960
+> b_cond: prediction not taken, pc: 400020, offset: fffffffffffffff9, total: 400004
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+> gshare: ff, gshare_tag: 4, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3848a4009,4010
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3896a4059,4061
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+3944a4110,4111
+> gshare: ff, gshare_tag: 18, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+3992a4160,4161
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4040a4210,4212
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+> gshare: ff, gshare_tag: 10, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4088a4261,4262
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4136a4311,4314
+> b_cond: prediction not taken, pc: 400020, offset: fffffffffffffff9, total: 400004
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+> gshare: ff, gshare_tag: 4, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4184a4363,4364
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4232a4413,4415
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4280a4464,4465
+> gshare: ff, gshare_tag: 18, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4328a4514,4515
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4376a4564,4566
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+> gshare: ff, gshare_tag: 10, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4424a4615,4616
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4472a4665,4668
+> b_cond: prediction not taken, pc: 400020, offset: fffffffffffffff9, total: 400004
+> bp_update: fetch_pc 400020, gshare_tag 10, inc 1
+> gshare: ff, gshare_tag: 4, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4520a4717,4718
+> gshare: ff, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4568a4767,4769
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+> gshare: ff, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4616a4818,4819
+> gshare: ff, gshare_tag: 18, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4664a4868,4869
+> gshare: ff, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4712a4918,4920
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+> gshare: ff, gshare_tag: 10, predict counter: 3, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: TAKEN, cond_bit == 0 OR counter > 1
+4760a4969,4970
+> gshare: ff, gshare_tag: 2, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400004
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4808a5019,5022
+> b_cond: prediction not taken, pc: 400020, offset: fffffffffffffff9, total: 400004
+> bp_update: fetch_pc 400020, gshare_tag 10, inc ffffffff
+> gshare: fe, gshare_tag: 4, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400008, fetch_pc: 400008
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+4816c5030
+< PC                : 0x400024
+---
+> PC                : 0x40000c
+4856a5071,5072
+> gshare: fe, gshare_tag: 6, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40000c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4864c5080
+< PC                : 0x400028
+---
+> PC                : 0x400010
+4904a5121
+> bp_update: fetch_pc 400008, gshare_tag 4, inc 1
+4912c5129
+< PC                : 0x40002c
+---
+> PC                : 0x400028
+4952a5170,5171
+> gshare: fd, gshare_tag: 14, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400028
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+4959c5178
+< Instruction Retired : 71
+---
+> Instruction Retired : 72
+5000a5220,5221
+> gshare: fd, gshare_tag: 16, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40002c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+5007,5008c5228,5229
+< Instruction Retired : 71
+< PC                : 0x40002c
+---
+> Instruction Retired : 73
+> PC                : 0x400030
+5048a5270,5271
+> gshare: fd, gshare_tag: 18, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400030, fetch_pc: 400030
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+5055,5056c5278,5279
+< Instruction Retired : 72
+< PC                : 0x40002c
+---
+> Instruction Retired : 73
+> PC                : 0x400034
+5095c5318
+< Can't simulate, Simulator is halted
+---
+> Simulating for 1 cycles...
+5096a5320,5321
+> gshare: fd, gshare_tag: 1a, predict counter: 3, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 400034
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+5103,5104c5328,5329
+< Instruction Retired : 72
+< PC                : 0x40002c
+---
+> Instruction Retired : 73
+> PC                : 0x400038
+5140c5365
+< No. of Cycles: 106
+---
+> No. of Cycles: 107
+5143c5368
+< Can't simulate, Simulator is halted
+---
+> Simulating for 1 cycles...
+5144a5370
+> bp_update: fetch_pc 400030, gshare_tag 18, inc 1
+5151,5152c5377,5378
+< Instruction Retired : 72
+< PC                : 0x40002c
+---
+> Instruction Retired : 74
+> PC                : 0x40001c
+5164c5390
+< X10: 0xa
+---
+> X10: 0xb
+5188c5414
+< No. of Cycles: 106
+---
+> No. of Cycles: 108
+5191c5417
+< Can't simulate, Simulator is halted
+---
+> Simulating for 1 cycles...
+5192a5419,5420
+> gshare: fb, gshare_tag: e, predict counter: 0, btb_valid: 0, btb_cond: 0, btb_addr: 0, fetch_pc: 40001c
+> prediction: NOT TAKEN, fetch_pc != addr_tag OR valid_bit == 0
+5199,5200c5427,5428
+< Instruction Retired : 72
+< PC                : 0x40002c
+---
+> Instruction Retired : 75
+> PC                : 0x400020
+5212c5440
+< X10: 0xa
+---
+> X10: 0xb
+5236c5464
+< No. of Cycles: 106
+---
+> No. of Cycles: 109
+5239c5467
+< Can't simulate, Simulator is halted
+---
+> Simulating for 1 cycles...
+5240a5469,5470
+> gshare: fb, gshare_tag: 10, predict counter: 0, btb_valid: 1, btb_cond: 1, btb_addr: 400020, fetch_pc: 400020
+> prediction: NOT TAKEN, cond_bit == 0 AND counter <= 1
+5247,5248c5477,5478
+< Instruction Retired : 72
+< PC                : 0x40002c
+---
+> Instruction Retired : 76
+> PC                : 0x400024
+5260c5490
+< X10: 0xa
+---
+> X10: 0xb
+5284c5514
+< No. of Cycles: 106
+---
+> No. of Cycles: 110
+

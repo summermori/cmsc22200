@@ -1,4 +1,15 @@
 
+ARM Simulator
+
+Read 15 words from program into memory.
+
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
+
 Current register/bus values :
 -------------------------------------
 Instruction Retired : 0
@@ -40,6 +51,12 @@ FLAG_N: 0
 FLAG_Z: 0
 No. of Cycles: 1
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -82,6 +99,12 @@ FLAG_N: 0
 FLAG_Z: 0
 No. of Cycles: 2
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -124,6 +147,12 @@ FLAG_N: 0
 FLAG_Z: 0
 No. of Cycles: 3
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -166,6 +195,12 @@ FLAG_N: 0
 FLAG_Z: 0
 No. of Cycles: 4
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -208,6 +243,12 @@ FLAG_N: 0
 FLAG_Z: 0
 No. of Cycles: 5
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -250,6 +291,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 6
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -292,6 +339,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 7
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -334,6 +387,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 8
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -376,6 +435,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 9
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -418,6 +483,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 10
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -460,6 +531,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 11
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -502,6 +579,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 12
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -544,6 +627,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 13
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -586,6 +675,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 14
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -628,6 +723,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 15
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -670,6 +771,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 16
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -712,6 +819,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 17
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -754,6 +867,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 18
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -796,6 +915,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 19
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -838,6 +963,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 20
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -880,6 +1011,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 21
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -922,6 +1059,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 22
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -964,6 +1107,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 23
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1006,6 +1155,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 24
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1048,6 +1203,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 25
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1090,6 +1251,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 26
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1132,6 +1299,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 27
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1174,6 +1347,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 28
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1216,6 +1395,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 29
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1258,6 +1443,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 30
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1300,6 +1491,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 31
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1342,6 +1539,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 32
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1384,6 +1587,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 33
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1426,6 +1635,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 34
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1468,6 +1683,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 35
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1510,6 +1731,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 36
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1552,6 +1779,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 37
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1594,6 +1827,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 38
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1636,6 +1875,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 39
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1678,6 +1923,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 40
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1720,6 +1971,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 41
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1762,6 +2019,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 42
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1804,6 +2067,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 43
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1846,6 +2115,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 44
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1888,6 +2163,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 45
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1930,6 +2211,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 46
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -1972,6 +2259,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 47
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2014,6 +2307,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 48
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2056,6 +2355,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 49
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2098,6 +2403,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 50
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2140,6 +2451,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 51
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2182,6 +2499,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 52
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2224,6 +2547,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 53
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2266,6 +2595,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 54
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2308,6 +2643,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 55
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2350,6 +2691,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 56
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2392,6 +2739,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 57
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2434,6 +2787,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 58
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2476,6 +2835,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 59
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2518,6 +2883,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 60
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2560,6 +2931,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 61
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2602,6 +2979,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 62
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2644,6 +3027,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 63
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2686,6 +3075,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 64
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2728,6 +3123,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 65
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2770,6 +3171,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 66
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2812,6 +3219,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 67
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2854,6 +3267,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 68
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2896,6 +3315,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 69
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2938,6 +3363,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 70
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -2980,6 +3411,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 71
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3022,6 +3459,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 72
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3064,6 +3507,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 73
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3106,6 +3555,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 74
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3148,6 +3603,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 75
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3190,6 +3651,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 76
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3232,6 +3699,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 77
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3274,6 +3747,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 78
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3316,6 +3795,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 79
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3358,6 +3843,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 80
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3400,6 +3891,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 81
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3442,6 +3939,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 82
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3484,6 +3987,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 83
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3526,6 +4035,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 84
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3568,6 +4083,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 85
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3610,6 +4131,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 86
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3652,6 +4179,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 87
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3694,6 +4227,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 88
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3736,6 +4275,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 89
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3778,6 +4323,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 90
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3820,6 +4371,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 91
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3862,6 +4419,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 92
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3904,6 +4467,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 93
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3946,6 +4515,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 94
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -3988,6 +4563,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 95
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -4030,6 +4611,12 @@ FLAG_N: 1
 FLAG_Z: 0
 No. of Cycles: 96
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -4072,6 +4659,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 97
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -4114,6 +4707,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 98
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -4156,6 +4755,12 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 99
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -4198,11 +4803,17 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 100
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
 Instruction Retired : 69
-PC                : 0x40000c
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4240,11 +4851,17 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 101
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
 Instruction Retired : 70
-PC                : 0x400010
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4282,11 +4899,17 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 102
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
 Instruction Retired : 71
-PC                : 0x400028
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4324,6 +4947,108 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 103
 
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
+
+Current register/bus values :
+-------------------------------------
+Instruction Retired : 71
+PC                : 0x40002c
+Registers:
+X0: 0x0
+X1: 0x0
+X2: 0x0
+X3: 0x0
+X4: 0x0
+X5: 0x0
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0xa
+X10: 0xa
+X11: 0x0
+X12: 0x0
+X13: 0x0
+X14: 0x0
+X15: 0x0
+X16: 0x0
+X17: 0x0
+X18: 0x0
+X19: 0x0
+X20: 0x0
+X21: 0x0
+X22: 0x0
+X23: 0x0
+X24: 0x0
+X25: 0x0
+X26: 0x0
+X27: 0x0
+X28: 0x0
+X29: 0x0
+X30: 0x0
+X31: 0x0
+FLAG_N: 0
+FLAG_Z: 1
+No. of Cycles: 104
+
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
+
+Current register/bus values :
+-------------------------------------
+Instruction Retired : 71
+PC                : 0x40002c
+Registers:
+X0: 0x0
+X1: 0x0
+X2: 0x0
+X3: 0x0
+X4: 0x0
+X5: 0x0
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0xa
+X10: 0xa
+X11: 0x0
+X12: 0x0
+X13: 0x0
+X14: 0x0
+X15: 0x0
+X16: 0x0
+X17: 0x0
+X18: 0x0
+X19: 0x0
+X20: 0x0
+X21: 0x0
+X22: 0x0
+X23: 0x0
+X24: 0x0
+X25: 0x0
+X26: 0x0
+X27: 0x0
+X28: 0x0
+X29: 0x0
+X30: 0x0
+X31: 0x0
+FLAG_N: 0
+FLAG_Z: 1
+No. of Cycles: 105
+
+ARM-SIM> 
+Simulating for 1 cycles...
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -4364,55 +5089,19 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 1
-No. of Cycles: 104
+No. of Cycles: 106
 
+ARM-SIM> 
+Can't simulate, Simulator is halted
 
-Current register/bus values :
--------------------------------------
-Instruction Retired : 73
-PC                : 0x400030
-Registers:
-X0: 0x0
-X1: 0x0
-X2: 0x0
-X3: 0x0
-X4: 0x0
-X5: 0x0
-X6: 0x0
-X7: 0x0
-X8: 0x0
-X9: 0xa
-X10: 0xa
-X11: 0x0
-X12: 0x0
-X13: 0x0
-X14: 0x0
-X15: 0x0
-X16: 0x0
-X17: 0x0
-X18: 0x0
-X19: 0x0
-X20: 0x0
-X21: 0x0
-X22: 0x0
-X23: 0x0
-X24: 0x0
-X25: 0x0
-X26: 0x0
-X27: 0x0
-X28: 0x0
-X29: 0x0
-X30: 0x0
-X31: 0x0
-FLAG_N: 0
-FLAG_Z: 1
-No. of Cycles: 105
-
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 73
-PC                : 0x400034
+Instruction Retired : 72
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4450,11 +5139,17 @@ FLAG_N: 0
 FLAG_Z: 1
 No. of Cycles: 106
 
+ARM-SIM> 
+Can't simulate, Simulator is halted
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 73
-PC                : 0x400038
+Instruction Retired : 72
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4490,13 +5185,19 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 1
-No. of Cycles: 107
+No. of Cycles: 106
 
+ARM-SIM> 
+Can't simulate, Simulator is halted
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 74
-PC                : 0x40001c
+Instruction Retired : 72
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4508,7 +5209,7 @@ X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0xa
-X10: 0xb
+X10: 0xa
 X11: 0x0
 X12: 0x0
 X13: 0x0
@@ -4532,13 +5233,19 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 1
-No. of Cycles: 108
+No. of Cycles: 106
 
+ARM-SIM> 
+Can't simulate, Simulator is halted
+
+ARM-SIM> 
+Invalid Command
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 75
-PC                : 0x400020
+Instruction Retired : 72
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x0
@@ -4550,7 +5257,7 @@ X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0xa
-X10: 0xb
+X10: 0xa
 X11: 0x0
 X12: 0x0
 X13: 0x0
@@ -4574,47 +5281,6 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 1
-No. of Cycles: 109
+No. of Cycles: 106
 
-
-Current register/bus values :
--------------------------------------
-Instruction Retired : 76
-PC                : 0x400024
-Registers:
-X0: 0x0
-X1: 0x0
-X2: 0x0
-X3: 0x0
-X4: 0x0
-X5: 0x0
-X6: 0x0
-X7: 0x0
-X8: 0x0
-X9: 0xa
-X10: 0xb
-X11: 0x0
-X12: 0x0
-X13: 0x0
-X14: 0x0
-X15: 0x0
-X16: 0x0
-X17: 0x0
-X18: 0x0
-X19: 0x0
-X20: 0x0
-X21: 0x0
-X22: 0x0
-X23: 0x0
-X24: 0x0
-X25: 0x0
-X26: 0x0
-X27: 0x0
-X28: 0x0
-X29: 0x0
-X30: 0x0
-X31: 0x0
-FLAG_N: 0
-FLAG_Z: 1
-No. of Cycles: 110
-
+ARM-SIM> 
