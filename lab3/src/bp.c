@@ -70,7 +70,7 @@ void bp_predict(uint64_t fetch_pc) {
 	}
 	//hit 
 	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
-		printf("prediction hit!");
+		printf("prediction hit!\n");
 		Control.prediction_taken = 1;
 		Control.pc_before_prediction = CURRENT_STATE.PC;
 		//no bubble on hit rn;
@@ -115,10 +115,14 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 	else if (cond_bit == 0)
 	{
 		// 3 update the btb
-		unsigned char valid_bit;
-		(inc > 0) ? (valid_bit = 1) : (valid_bit = 0);
-		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 2;
 		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
+
+		printf("btb_entry index: %d\n", btb_tag);
+		printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
+		printf("updated btb_entry dest: %lx\n", BP.btb_table[btb_tag].target);
+		printf("updated btb_entry valid bit: %d\n", BP.btb_table[btb_tag].valid_bit);
+		printf("updated btb_entry cond bit: %d\n", BP.btb_table[btb_tag].cond_bit);
 	}
 	return;
 }

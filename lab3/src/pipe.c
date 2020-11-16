@@ -478,8 +478,8 @@ void pipe_stage_decode()
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
       printf("UNCONDITIONAL BRANCH IMMEDIATE\n");
-      if (Control.prediction_taken != 1)
-      {TriggerBubble_Branch((int) stat_cycles + 2);}
+      // if (Control.prediction_taken != 1)
+      // {TriggerBubble_Branch((int) stat_cycles + 2);}
       //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
@@ -1008,9 +1008,26 @@ void BR()
 }
 void B()
 {
-    int64_t target = IDtoEX.addr;
-    Branch(target);
-    return;
+    int64_t offset = IDtoEX.addr;
+    if (Control.prediction_taken == 0)
+    {
+      Control.cond_branch = 1;
+      Branch(offset);
+      uint64_t temp = CURRENT_STATE.PC - 8;
+      //(pc where argument was fetched, cond_bit, target addr, inc)
+      printf("branch target: %lx\n", temp + (offset * 4));
+      bp_update(temp, 0, (temp + (offset * 4)), 1);
+      // real target, pred_taken, branch_taken
+      Restore_Flush(temp + (offset * 4), 0, 1);
+      return;
+    }
+    else if (Control.prediction_taken == 1)
+    {
+      //bp update and flush
+      bp_update(Control.pc_before_prediction, 0, Control.pc_before_prediction + (offset * 4), 1);
+      //2. restore and flush
+      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, 1);
+    }
 }
 void B_Cond()
 {
