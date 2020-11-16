@@ -448,8 +448,8 @@ void pipe_stage_decode()
       IDtoEX.branching = 1;
       printf("CONDITIONAL BRANCH\n");
       // TriggerBubble_Branch((int) stat_cycles + 2);
-      if (Control.prediction_taken != 1)
-      {condBubble(IDtoEX.dnum);}
+      // if (Control.prediction_taken != 1)
+      // {condBubble(IDtoEX.dnum);}
       //printf("Conditional branch, ");
     }
     // Exception
@@ -685,62 +685,62 @@ void pipe_stage_fetch()
   //   Control.cond_branch = 0;
   //   return;
   // }
-  if ((int) stat_cycles < Control.branch_bubble_until)
-  {
-    if (Control.branch_grab == 0)
-    {
-      printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
-      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("Grabbed word in bubble: %x\n", IFtoID.inst);
-      Control.bpc = CURRENT_STATE.PC;
-      bp_predict(CURRENT_STATE.PC);
-      Control.branch_grab = 1;
-      return;
-    }
-    else
-    {
-      if ((Control.baddr == (CURRENT_STATE.PC - 4)) || (Control.not_taken == 1))
-      {
-        IFtoID.inst = Control.squashed;
-        printf("+4 or not_taken Restoration: %x\n", IFtoID.inst);
-      }
-      Control.branch_grab = 0;
-      return;
-    }
-  }
-  if ((stat_cycles) == Control.branch_bubble_until)
-  {
-    // printf("ENDING BUBBLE\n");
-    if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken))
-    {
-      IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("WORD in PC + 4 Branch or Not_Taken: %x\n", IFtoID.inst);
-      Control.not_taken = 0;
-      Control.bpc = CURRENT_STATE.PC;
-      bp_predict(CURRENT_STATE.PC);
-    }
-    else
-    {
-      //Control.baddr has non default value, we are branching
-      if (Control.baddr == -1)
-      {
-        Control.bpc = CURRENT_STATE.PC;
-        bp_predict(CURRENT_STATE.PC);
-      }
-      else
-      {
-        CURRENT_STATE.PC = Control.baddr;
-        IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-        printf("PC: %lx\n", CURRENT_STATE.PC);
-        printf("WORD in if: %x\n",IFtoID.inst);
-        Control.bpc = CURRENT_STATE.PC;
-        bp_predict(CURRENT_STATE.PC);
-      }
-    }
-    Control.baddr = -1;
-    Control.branch_bubble_until = -1;
-    return;
-  }
+  // if ((int) stat_cycles < Control.branch_bubble_until)
+  // {
+  //   if (Control.branch_grab == 0)
+  //   {
+  //     printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
+  //     IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+  //     printf("Grabbed word in bubble: %x\n", IFtoID.inst);
+  //     Control.bpc = CURRENT_STATE.PC;
+  //     bp_predict(CURRENT_STATE.PC);
+  //     Control.branch_grab = 1;
+  //     return;
+  //   }
+  //   else
+  //   {
+  //     if ((Control.baddr == (CURRENT_STATE.PC - 4)) || (Control.not_taken == 1))
+  //     {
+  //       IFtoID.inst = Control.squashed;
+  //       printf("+4 or not_taken Restoration: %x\n", IFtoID.inst);
+  //     }
+  //     Control.branch_grab = 0;
+  //     return;
+  //   }
+  // }
+  // if ((stat_cycles) == Control.branch_bubble_until)
+  // {
+  //   // printf("ENDING BUBBLE\n");
+  //   if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken))
+  //   {
+  //     IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+  //     printf("WORD in PC + 4 Branch or Not_Taken: %x\n", IFtoID.inst);
+  //     Control.not_taken = 0;
+  //     Control.bpc = CURRENT_STATE.PC;
+  //     bp_predict(CURRENT_STATE.PC);
+  //   }
+  //   else
+  //   {
+  //     //Control.baddr has non default value, we are branching
+  //     if (Control.baddr == -1)
+  //     {
+  //       Control.bpc = CURRENT_STATE.PC;
+  //       bp_predict(CURRENT_STATE.PC);
+  //     }
+  //     else
+  //     {
+  //       CURRENT_STATE.PC = Control.baddr;
+  //       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
+  //       printf("PC: %lx\n", CURRENT_STATE.PC);
+  //       printf("WORD in if: %x\n",IFtoID.inst);
+  //       Control.bpc = CURRENT_STATE.PC;
+  //       bp_predict(CURRENT_STATE.PC);
+  //     }
+  //   }
+  //   Control.baddr = -1;
+  //   Control.branch_bubble_until = -1;
+  //   return;
+  // }
 
   //lab2 loadstore bubbling
   //loadstore bubbling stop pc
