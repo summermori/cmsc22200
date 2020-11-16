@@ -46,8 +46,8 @@ void change_counter (unsigned char pc_tag, int inc) {
 	else {
 		BP.pht[arr_index] = (sub_pht - op_input);
 	}
-	// printf("PHT index: %d\n", arr_index);
-	// printf("PHT entry: %d\n", BP.pht[arr_index]);
+	printf("PHT index: %d\n", arr_index);
+	printf("PHT entry: %d\n", BP.pht[arr_index]);
 }
 
 btb_entry_t get_btb_entry(unsigned char pc_index) {
