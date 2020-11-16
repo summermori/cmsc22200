@@ -56,8 +56,10 @@ void update_btb_entry(unsigned char pc_index, uint64_t fetch_pc, unsigned char v
 // important functions
 // we will have to make CURRENT_STATE a pointer to avoid undeclared variable issues
 void bp_predict(uint64_t fetch_pc) {
-	unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
-	unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+	// unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
+	// unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+	unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 2;
+	unsigned char btb_tag = (0x000007fe & fetch_pc) >> 2;
 	unsigned char counter = pht_check(gshare_tag);
 	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
 	//no hit BTB miss
@@ -68,8 +70,10 @@ void bp_predict(uint64_t fetch_pc) {
 	}
 	//hit 
 	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
+		printf("prediction hit!");
 		Control.prediction_taken = 1;
 		Control.pc_before_prediction = CURRENT_STATE.PC;
+		//no bubble on hit rn;
 		CURRENT_STATE.PC = indexed_entry.target;
 		Control.taken_target = indexed_entry.target;
 	}
@@ -86,7 +90,8 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 	if (cond_bit == 1)
 	{
 		// 1 update pht
-		unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
+		// unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
+		unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 2;
 		unsigned char counter = pht_check(gshare_tag);
 		if (!(((inc == 1) && (counter == 3)) || ((inc == -1) && (counter == 0)))) {
 			change_counter(gshare_tag, inc);
@@ -94,10 +99,11 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 		// 2 update the ghr
 		unsigned char valid_bit;
 		(inc > 0) ? (valid_bit = 1) : (valid_bit = 0);
-		printf("gshare valid bit: %d\n", valid_bit);
 		gshare_set(valid_bit);
+		printf("gshare: %x\n", BP.gshare);
 		// 3 update the btb
-		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+		// unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
+		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 2;
 
 		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
 		printf("btb_entry index: %d\n", btb_tag);

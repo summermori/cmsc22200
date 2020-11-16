@@ -1067,89 +1067,242 @@ void B_Cond()
             }
         //BNE
         case(1):
-            // printf("BNE\n");
             if (Control.fz == 0)
             {
-              Branch(offset);
-              Control.cond_branch = 1;
+              branch_taken = 1;
             }
-            else if (Control.branch_bubble_until != -1)
+            else
             {
-              Control.not_taken = 1;
-              // printf("SQUASHING: %x\n", IFtoID.inst);
-              // grab then squash, will need to restore to pipeline if PC + 4
-              Control.squashed = IFtoID.inst;
-              IFtoID = (IFtoID_t){ .inst = 0};
+              branch_taken = 0;
             }
-            break;
+            // printf("BNE\n");
+
+            if (Control.prediction_taken == 0)
+            {
+              //lab2 behavior
+              if (branch_taken == 1)
+              {
+                Branch(offset);
+                Control.cond_branch = 1;
+              }
+              else if (Control.branch_bubble_until != -1)
+              {
+                Control.not_taken = 1;
+                // printf("SQUASHING: %x\n", IFtoID.inst);
+                // grab then squash, will need to restore to pipeline if PC + 4
+                Control.squashed = IFtoID.inst;
+                IFtoID = (IFtoID_t){ .inst = 0};
+              }
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              // printf("EX func inc: %d\n", inc);
+              uint64_t temp = CURRENT_STATE.PC - 8;
+              //(pc where argument was fetched, cond_bit, target addr, inc)
+              bp_update(temp, 1, (temp + (offset * 4)), inc);
+              Restore_Flush(temp + (offset * 4), 0);
+              break;
+            }
+            else if (Control.prediction_taken == 1)
+            {
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              //2. restore and flush
+              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+              break;
+            }
+
+
         //BGE
         case(10):
-            // printf("BGE\n");
             if ((Control.fz == 1) || (Control.fn == 0))
             {
-              Branch(offset);
-              Control.cond_branch = 1;
+              branch_taken = 1;
             }
-            else if (Control.branch_bubble_until != -1)
+            else
             {
-              Control.not_taken = 1;
-              // printf("SQUASHING: %x\n", IFtoID.inst);
-              // grab then squash, will need to restore to pipeline if PC + 4
-              Control.squashed = IFtoID.inst;
-              IFtoID = (IFtoID_t){ .inst = 0};
+              branch_taken = 0;
             }
-            break;
+            // printf("BGE\n");
+            if (Control.prediction_taken == 0)
+            {
+              //lab2 behavior
+              if (branch_taken == 1)
+              {
+                Branch(offset);
+                Control.cond_branch = 1;
+              }
+              else if (Control.branch_bubble_until != -1)
+              {
+                Control.not_taken = 1;
+                // printf("SQUASHING: %x\n", IFtoID.inst);
+                // grab then squash, will need to restore to pipeline if PC + 4
+                Control.squashed = IFtoID.inst;
+                IFtoID = (IFtoID_t){ .inst = 0};
+              }
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              // printf("EX func inc: %d\n", inc);
+              uint64_t temp = CURRENT_STATE.PC - 8;
+              //(pc where argument was fetched, cond_bit, target addr, inc)
+              bp_update(temp, 1, (temp + (offset * 4)), inc);
+              Restore_Flush(temp + (offset * 4), 0);
+              break;
+            }
+            else if (Control.prediction_taken == 1)
+            {
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              //2. restore and flush
+              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+              break;
+            }
         //BLT
         case(11):
-            // printf("BLT\n");
             if ((Control.fn == 1) && (Control.fz == 0))
             {
-              Branch(offset);
-              Control.cond_branch = 1;
+              branch_taken = 1;
             }
-            else if (Control.branch_bubble_until != -1)
+            else
             {
-              Control.not_taken = 1;
-              // printf("SQUASHING: %x\n", IFtoID.inst);
-              // grab then squash, will need to restore to pipeline if PC + 4
-              Control.squashed = IFtoID.inst;
-              IFtoID = (IFtoID_t){ .inst = 0};
+              branch_taken = 0;
             }
-            break;
+            // printf("BLT\n");
+            if (Control.prediction_taken == 0)
+            {
+              //lab2 behavior
+              if (branch_taken == 1)
+              {
+                Branch(offset);
+                Control.cond_branch = 1;
+              }
+              else if (Control.branch_bubble_until != -1)
+              {
+                Control.not_taken = 1;
+                // printf("SQUASHING: %x\n", IFtoID.inst);
+                // grab then squash, will need to restore to pipeline if PC + 4
+                Control.squashed = IFtoID.inst;
+                IFtoID = (IFtoID_t){ .inst = 0};
+              }
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              // printf("EX func inc: %d\n", inc);
+              uint64_t temp = CURRENT_STATE.PC - 8;
+              //(pc where argument was fetched, cond_bit, target addr, inc)
+              bp_update(temp, 1, (temp + (offset * 4)), inc);
+              Restore_Flush(temp + (offset * 4), 0);
+              break;
+            }
+            else if (Control.prediction_taken == 1)
+            {
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              //2. restore and flush
+              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+              break;
+            }
         //BGT
         case(12):
-            // printf("BGT\n");
             if ((Control.fn == 0) && (Control.fz == 0))
             {
-              Branch(offset);
-              Control.cond_branch = 1;
+              branch_taken = 1;
             }
-            else if (Control.branch_bubble_until != -1)
+            else
             {
-              Control.not_taken = 1;
-              // printf("SQUASHING: %x\n", IFtoID.inst);
-              // grab then squash, will need to restore to pipeline if PC + 4
-              Control.squashed = IFtoID.inst;
-              IFtoID = (IFtoID_t){ .inst = 0};
+              branch_taken = 0;
             }
-            break;
+            // printf("BGT\n");
+            if (Control.prediction_taken == 0)
+            {
+              //lab2 behavior
+              if (branch_taken == 1)
+              {
+                Branch(offset);
+                Control.cond_branch = 1;
+              }
+              else if (Control.branch_bubble_until != -1)
+              {
+                Control.not_taken = 1;
+                // printf("SQUASHING: %x\n", IFtoID.inst);
+                // grab then squash, will need to restore to pipeline if PC + 4
+                Control.squashed = IFtoID.inst;
+                IFtoID = (IFtoID_t){ .inst = 0};
+              }
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              // printf("EX func inc: %d\n", inc);
+              uint64_t temp = CURRENT_STATE.PC - 8;
+              //(pc where argument was fetched, cond_bit, target addr, inc)
+              bp_update(temp, 1, (temp + (offset * 4)), inc);
+              Restore_Flush(temp + (offset * 4), 0);
+              break;
+            }
+            else if (Control.prediction_taken == 1)
+            {
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              //2. restore and flush
+              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+              break;
+            }
         //BLE
         case(13):
-            // printf("BLE\n");
             if ((Control.fz == 1) || (Control.fn == 1))
             {
-              Branch(offset);
-              Control.cond_branch = 1;
+              branch_taken = 1;
             }
-            else if (Control.branch_bubble_until != -1)
+            else
             {
-              Control.not_taken = 1;
-              // printf("SQUASHING: %x\n", IFtoID.inst);
-              // grab then squash, will need to restore to pipeline if PC + 4
-              Control.squashed = IFtoID.inst;
-              IFtoID = (IFtoID_t){ .inst = 0};
+              branch_taken = 0;
             }
-            break;
+            // printf("BLE\n");
+            if (Control.prediction_taken == 0)
+            {
+              //lab2 behavior
+              if (branch_taken == 1)
+              {
+                Branch(offset);
+                Control.cond_branch = 1;
+              }
+              else if (Control.branch_bubble_until != -1)
+              {
+                Control.not_taken = 1;
+                // printf("SQUASHING: %x\n", IFtoID.inst);
+                // grab then squash, will need to restore to pipeline if PC + 4
+                Control.squashed = IFtoID.inst;
+                IFtoID = (IFtoID_t){ .inst = 0};
+              }
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              // printf("EX func inc: %d\n", inc);
+              uint64_t temp = CURRENT_STATE.PC - 8;
+              //(pc where argument was fetched, cond_bit, target addr, inc)
+              bp_update(temp, 1, (temp + (offset * 4)), inc);
+              Restore_Flush(temp + (offset * 4), 0);
+              break;
+            }
+            else if (Control.prediction_taken == 1)
+            {
+              //bp update and flush
+              int inc;
+              (branch_taken == 1) ? (inc = 1) : (inc = -1);
+              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              //2. restore and flush
+              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1);
+              break;
+            }
     }
     //Branch Helper Function already sets .branching to 1
     return;
