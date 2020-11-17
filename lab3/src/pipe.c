@@ -303,6 +303,7 @@ void pipe_stage_execute()
     EXtoMEM.dval = IDtoEX.dval;
     EXtoMEM.imm1 = IDtoEX.imm1;
   }
+  EXtoMEM.op = IDtoEX.op;
   EXtoMEM.dnum = IDtoEX.dnum;
   EXtoMEM.fwb = IDtoEX.fwb;
   EXtoMEM.fmem = IDtoEX.fmem;
@@ -1091,6 +1092,7 @@ void CBZ()
     struct entry* temp_entry = dequeue(&q);
     int branch_taken;
     int reg_load_ahead = 0;
+    printf("MEMtoWB.op: %lx\n", MEMtoWB.op);
     switch(MEMtoWB.op)
     {
       // Add/Subtract immediate
@@ -1103,11 +1105,11 @@ void CBZ()
           reg_load_ahead = 1;
           break;
         case 0xd1000000:
-          //printf("SUB\n");
+          printf("SUB\n");
           reg_load_ahead = 1;
           break;
         case 0xf1000000:
-          //printf("SUBS\n");
+          printf("SUBS\n");
           reg_load_ahead = 1;
           break;
         // Compare and branch
@@ -1183,14 +1185,30 @@ void CBZ()
           reg_load_ahead = 1;
           break;
     }
+    printf("MEMtoWB.dnum: %ld\n", MEMtoWB.dnum);
+    printf("MEMtoWB.res: %ld\n", MEMtoWB.res);
+    printf("IDtoEX: %ld\n", IDtoEX.dnum);
+    printf("reg_load_ahead: %d\n", reg_load_ahead);
 
-    if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
+    if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0) && (reg_load_ahead == 1)))
     {
+      printf("1\n");
+      branch_taken = 1;
+    }
+    else if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0) && (reg_load_ahead == 1)))
+    {
+      printf("2\n");
       branch_taken = 0;
+    }
+    else if (CURRENT_STATE.REGS[IDtoEX.dnum] == 0)
+    {
+      printf("3\n");
+      branch_taken = 1;
     }
     else
     {
-      branch_taken = 1;
+      printf("4\n");
+      branch_taken = 0;
     }
     printf("branch_taken: %d\n", branch_taken);
 
