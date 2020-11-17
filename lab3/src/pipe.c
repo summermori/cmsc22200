@@ -464,11 +464,11 @@ void pipe_stage_decode()
     else if ((word & 0xfe000000) == 0xd6000000) {
       IDtoEX.op = (word & 0xfffffc00);
       //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
-      IDtoEX.n = CURRENT_STATE.REGS[((word & 0x000003e0) >> 5)];
+      IDtoEX.n = (word & 0x000003e0) >> 5;
       IDtoEX.branching = 1;
       printf("UNCONDITIONAL BRANCH REGISTER\n");
-      if (Control.prediction_taken != 1)
-      {TriggerBubble_Branch((int) stat_cycles + 2);}
+      // if (Control.prediction_taken != 1)
+      // {TriggerBubble_Branch((int) stat_cycles + 2);}
       //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
@@ -679,12 +679,8 @@ void pipe_stage_fetch()
       Control.cond_branch = 0;
       return;
   }
-  // if (Control.cond_branch == 2)
-  // {
-  //   CURRENT_STATE.PC  = CURRENT_STATE.PC + 4;
-  //   Control.cond_branch = 0;
-  //   return;
-  // }
+  //doesn't seem like we need the lab2 bubbling behavior anymore
+
   // if ((int) stat_cycles < Control.branch_bubble_until)
   // {
   //   if (Control.branch_grab == 0)
@@ -998,12 +994,40 @@ void HLT()
 }
 void BR()
 {
-    Control.baddr = IDtoEX.n - 8;
+    //IDtoEX.n is Reg Number, not Reg content
+    int64_t direct_target;
+    // instruction ahead of us is storing in the same Reg that we want to read from but it hasn't written back yet, so we use it's value when its at the MEM stage
+    if (MEMtoWB.dnum == IDtoEX.n)
+    {
+      direct_target = MEMtoWB.res;
+    }
+    else
+    {
+      direct_target = CURRENT_STATE.REGS[IDtoEX.n];
+    }
 
-    // !! replicate Branch() here !!
+    if (Control.prediction_taken == 0)
+    {
+      Control.cond_branch = 1;
 
-    // Decode_State.branching = 1;
-    //set the branching field and fields for MEM and WB saying we dont need to do anything.
+      // this is the branch part, can't use Branch() tho cause that one assumes input is an offset
+      Control.baddr = direct_target;
+      // grab then squash, will need to restore to pipeline if PC + 4
+      printf("SQUASHING in Branch: %x\n", IFtoID.inst);
+      Control.squashed = IFtoID.inst;
+      IFtoID = (IFtoID_t){ .inst = 0};
+
+      //bp_update part
+      uint64_t temp = CURRENT_STATE.PC - 8;
+      //(pc where argument was fetched, cond_bit, target addr, inc)
+      bp_update(temp, 0, direct_target, 1);
+      Restore_Flush(direct_target, 0, 1);
+    }
+    else if (Control.prediction_taken == 1)
+    {
+      bp_update(Control.pc_before_prediction, 0, direct_target, 1);
+      Restore_Flush(direct_target, 1, 1);
+    }
     return;
 }
 void B()
