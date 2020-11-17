@@ -863,14 +863,18 @@ void CBNZ()
     int64_t offset = IDtoEX.addr/32;
     printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
-    if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
-    {
-      branch_taken = 1;
-    }
-    else
+    printf("MEMtoWB.dnum: %ld\n", MEMtoWB.dnum);
+    printf("MEMtoWB.res: %ld\n", MEMtoWB.res);
+    printf("Reg value: %ld\n", CURRENT_STATE.REGS[IDtoEX.dnum]);
+    if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0)))
     {
       branch_taken = 0;
     }
+    else
+    {
+      branch_taken = 1;
+    }
+    printf("branch_taken: %d\n", branch_taken);
 
     //lab2 behavior
     if (Control.prediction_taken == 0)

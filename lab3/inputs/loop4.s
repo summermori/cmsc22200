@@ -6,10 +6,8 @@ foo:
 mov X3, 1
 mov X3, 1
 mov X3, 1
-add X2, X2, 1
-cmp X1, X2
-bgt foo
-
+sub X1, X1, 1
+cbnz X1, foo
 
 mov X1, 4
 mov X2, 0
