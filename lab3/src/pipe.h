@@ -77,6 +77,7 @@ typedef struct EXtoMEM_t {
 } EXtoMEM_t;
 
 typedef struct MEMtoWB_t {
+	int64_t op;
 	int64_t dnum;
 	int64_t res;
 	int fwb;

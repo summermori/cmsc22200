@@ -189,7 +189,7 @@ void pipe_stage_mem()
     MEMtoWB.fz = EXtoMEM.fz;
     MEMtoWB.fmem = EXtoMEM.fmem;
   } else {
-    MEMtoWB = (MEMtoWB_t){ .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
+    MEMtoWB = (MEMtoWB_t){ .op = EXtoMEM.op, .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
   }
   EXtoMEM = (EXtoMEM_t){ .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fn = 0, .fz = 0};
 }
@@ -932,12 +932,106 @@ void CBNZ()
 {
     int64_t offset = IDtoEX.addr/32;
     struct entry* temp_entry = dequeue(&q);
-    printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
     printf("MEMtoWB.dnum: %ld\n", MEMtoWB.dnum);
     printf("MEMtoWB.res: %ld\n", MEMtoWB.res);
     printf("Reg value: %ld\n", CURRENT_STATE.REGS[IDtoEX.dnum]);
-    if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0)))
+    int reg_load_ahead = 0;
+    //seeing if function ahead is a reg load
+    switch(MEMtoWB.op)
+    {
+      // Add/Subtract immediate
+        case 0x91000000:
+          //printf("ADD\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xb1000000:
+          //printf("ADDS\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xd1000000:
+          //printf("SUB\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xf1000000:
+          //printf("SUBS\n");
+          reg_load_ahead = 1;
+          break;
+        // Compare and branch
+        case 0xb4000000:
+          //printf("CBZ\n");
+          break;
+        case 0xb5000000:
+          //printf("CBNZ\n");
+          break;
+        // Move wide
+        case 0xd2800000:
+          //printf("MOVZ\n");
+          reg_load_ahead = 1;
+          break;
+        // Bitfield
+        case 0xd3000000:
+          //printf("LSL or LSR\n"); //execution has to do the distinction
+          break;
+        // Conditional branch
+        case 0x54000000:
+          //printf("B.cond\n");
+          break;
+        // Exceptions
+        case 0xd4400000:
+          //printf("HLT\n");
+          break;
+        // Unconditional branch (register)
+        case 0xd61f0000:
+          //printf("BR\n");
+          break;
+        // Unconditional branch (immediate)
+        case 0x14000000:
+          //printf("B\n");
+          break;
+
+        // Logical (shifted register)
+        case 0x8a000000:
+          //printf("AND\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xea000000:
+          //printf("ANDS\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xca000000:
+          //printf("EOR\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xaa000000:
+          //printf("ORR\n");
+          reg_load_ahead = 1;
+          break;
+        // Add/subtract (extended)
+        case 0x8b000000:
+          //printf("ADD\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xab000000:
+          //printf("ADDS\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xcb000000:
+          //printf("SUB\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xeb000000:
+          //printf("SUBS\n");
+          reg_load_ahead = 1;
+          break;
+        // Data Processing (3 source)
+        case 0x9b000000:
+          //printf("MUL\n");
+          reg_load_ahead = 1;
+          break;
+    }
+
+    if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0) && (reg_load_ahead == 1)))
     {
       branch_taken = 0;
     }
@@ -975,7 +1069,6 @@ void CBNZ()
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
       Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
-      printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
@@ -996,8 +1089,101 @@ void CBZ()
 {
     int64_t offset = IDtoEX.addr/32;
     struct entry* temp_entry = dequeue(&q);
-    printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
+    int reg_load_ahead = 0;
+    switch(MEMtoWB.op)
+    {
+      // Add/Subtract immediate
+        case 0x91000000:
+          //printf("ADD\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xb1000000:
+          //printf("ADDS\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xd1000000:
+          //printf("SUB\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xf1000000:
+          //printf("SUBS\n");
+          reg_load_ahead = 1;
+          break;
+        // Compare and branch
+        case 0xb4000000:
+          //printf("CBZ\n");
+          break;
+        case 0xb5000000:
+          //printf("CBNZ\n");
+          break;
+        // Move wide
+        case 0xd2800000:
+          //printf("MOVZ\n");
+          reg_load_ahead = 1;
+          break;
+        // Bitfield
+        case 0xd3000000:
+          //printf("LSL or LSR\n"); //execution has to do the distinction
+          break;
+        // Conditional branch
+        case 0x54000000:
+          //printf("B.cond\n");
+          break;
+        // Exceptions
+        case 0xd4400000:
+          //printf("HLT\n");
+          break;
+        // Unconditional branch (register)
+        case 0xd61f0000:
+          //printf("BR\n");
+          break;
+        // Unconditional branch (immediate)
+        case 0x14000000:
+          //printf("B\n");
+          break;
+
+        // Logical (shifted register)
+        case 0x8a000000:
+          //printf("AND\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xea000000:
+          //printf("ANDS\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xca000000:
+          //printf("EOR\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xaa000000:
+          //printf("ORR\n");
+          reg_load_ahead = 1;
+          break;
+        // Add/subtract (extended)
+        case 0x8b000000:
+          //printf("ADD\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xab000000:
+          //printf("ADDS\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xcb000000:
+          //printf("SUB\n");
+          reg_load_ahead = 1;
+          break;
+        case 0xeb000000:
+          //printf("SUBS\n");
+          reg_load_ahead = 1;
+          break;
+        // Data Processing (3 source)
+        case 0x9b000000:
+          //printf("MUL\n");
+          reg_load_ahead = 1;
+          break;
+    }
+
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
     {
       branch_taken = 0;
@@ -1006,6 +1192,7 @@ void CBZ()
     {
       branch_taken = 1;
     }
+    printf("branch_taken: %d\n", branch_taken);
 
     //lab2 behavior
     if (temp_entry->pred.prediction_taken == 0)
@@ -1035,7 +1222,6 @@ void CBZ()
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
       Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
-      printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
