@@ -2,7 +2,8 @@
 mov X1, 1000
 mov X4, 1000
 mov X2, 0
-
+ldur X12, [X10, #0x68]
+stur X12, [X10, #0x70]
 
 foo:
 mov X3, 1
