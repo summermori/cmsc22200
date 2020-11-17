@@ -792,23 +792,30 @@ struct entry* newentry(struct Prediction pred)
 { 
     struct entry* temp = (struct entry*)malloc(sizeof(struct entry)); 
     temp->pred = pred; 
-    temp->next = NULL; 
     return temp; 
 } 
 
 struct entry* dequeue(struct queue* q) 
 {  
+    //empty q
     if (q->head == NULL) 
         return NULL; 
    
-    struct entry* temp = q->head; 
-  
-    q->head = q->head->next; 
-   
-    if (q->head == NULL) 
-        q->tail = NULL; 
-  
-    return temp; 
+    //just head
+    else if ((q->head != NULL) && (q->tail == NULL))
+    {
+      struct entry* temp = q->head;
+      q->head = NULL;
+      return temp;
+    }
+    //head and tail
+    else
+    {
+      struct entry* temp = q->head;
+      q->head = q->tail;
+      q->tail = NULL;
+      return temp;
+    }
 }
 
 void decaptiate(struct queue* q)
@@ -830,17 +837,26 @@ struct queue* createqueue(int maxlen)
 void enqueue(struct queue* q, struct Prediction pred) 
 {  
     struct entry* temp = newentry(pred); 
-    if (q->tail == NULL) { 
-        q->head = temp;
-        q->tail = temp; 
-        return; 
-    } 
-   
-    q->tail->next = temp; 
-    q->tail = temp;
-    q->currlen++;
-    if (q->currlen > q->maxlen)
-        decaptiate(q); 
+    //empty
+    if (q->head == NULL)
+    {
+      q->head = temp;
+      return;
+    }
+    //just head
+    else if ((q->head != NULL) && (q->tail == NULL))
+    {
+      q->tail = temp;
+      return;
+    }
+    //full, head and tail
+    else
+    {
+      q->head = q->tail;
+      q->tail = temp;
+      return;
+    }
+
 } 
 
 void freequeue(struct queue* q)
@@ -1326,6 +1342,7 @@ void B_Cond()
             {
               branch_taken = 0;
             }
+            printf("temp_entry->pred.prediction_taken: %d\n", temp_entry->pred.prediction_taken);
             // printf("BGT\n");
             if (temp_entry->pred.prediction_taken == 0)
             {

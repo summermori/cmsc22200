@@ -64,6 +64,10 @@ void bp_predict(uint64_t fetch_pc) {
 	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
 	//no hit BTB miss
 	if ((indexed_entry.addr_tag != fetch_pc) || (indexed_entry.valid_bit == 0)) {
+		struct Prediction temp;
+		temp.prediction_taken = 0;
+		temp.pc_before_prediction = CURRENT_STATE.PC;
+		enqueue(&q, temp);
 		// Control.prediction_taken = 0;
 		// Control.pc_before_prediction = CURRENT_STATE.PC;
 		CURRENT_STATE.PC = fetch_pc + 4;
@@ -76,6 +80,8 @@ void bp_predict(uint64_t fetch_pc) {
 		temp.pc_before_prediction = CURRENT_STATE.PC;
 		temp.taken_target = indexed_entry.target;
 		enqueue(&q, temp);
+		printf("pointer in bp_predict head: %p\n", q.head);
+		printf("pointer in bp_predict tail: %p\n", q.tail);
 		//no bubble on hit rn;
 		CURRENT_STATE.PC = indexed_entry.target;
 	}

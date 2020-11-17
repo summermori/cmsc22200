@@ -96,7 +96,6 @@ typedef struct Prediction {
 
 typedef struct entry { 
     struct Prediction pred; 
-    struct entry* next; 
 }entry; 
   
 typedef struct queue { 
