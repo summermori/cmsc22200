@@ -87,6 +87,25 @@ typedef struct MEMtoWB_t {
 	int fmem;
 } MEMtoWB_t;
 
+/*structs for the queue */
+typedef struct Prediction {
+	int prediction_taken;
+	uint32_t pc_before_prediction;
+	uint64_t taken_target;
+}Prediction;
+
+typedef struct entry { 
+    struct Prediction pred; 
+    struct entry* next; 
+}entry; 
+  
+typedef struct queue { 
+    int maxlen;
+    int currlen;
+    struct entry *head;
+    struct entry *tail; 
+}queue; 
+
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
 typedef struct Control_t {
@@ -115,6 +134,15 @@ typedef struct Control_t {
 } Control_t;
 
 extern Control_t Control;
+extern queue q;
+
+/*Queue Functions*/
+struct entry* newentry(struct Prediction pred);
+struct entry* dequeue(struct queue* q);
+void decaptiate(struct queue* q);
+struct queue* createqueue(int maxlen);
+void enqueue(struct queue* q, struct Prediction pred);
+void freequeue(struct queue* q);
 
 /* Bubble Functions */
 void TriggerBubble_Branch(int bubble_until);
@@ -123,7 +151,7 @@ void condBubble(int64_t cond);
 /* instruction helpers */
 void Branch(int64_t offset);
 /* lab3 restore and flush helper*/
-void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken);
+void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint32_t pc_before_prediction, uint64_t taken_target);
 /* instruction implementations */
 void CBNZ();
 void CBZ();

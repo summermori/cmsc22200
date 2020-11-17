@@ -71,15 +71,19 @@ void bp_predict(uint64_t fetch_pc) {
 	//hit 
 	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
 		printf("prediction hit!\n");
-		Control.prediction_taken = 1;
-		Control.pc_before_prediction = CURRENT_STATE.PC;
+		struct Prediction temp;
+		temp.prediction_taken = 1;
+		temp.pc_before_prediction = CURRENT_STATE.PC;
+		temp.taken_target = indexed_entry.target;
+		enqueue(&q, temp);
 		//no bubble on hit rn;
 		CURRENT_STATE.PC = indexed_entry.target;
-		Control.taken_target = indexed_entry.target;
 	}
 	else {
-		Control.prediction_taken = 0;
-		Control.pc_before_prediction = CURRENT_STATE.PC;
+		struct Prediction temp;
+		temp.prediction_taken = 0;
+		temp.pc_before_prediction = CURRENT_STATE.PC;
+		enqueue(&q, temp);
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}
 }

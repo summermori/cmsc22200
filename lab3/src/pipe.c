@@ -41,6 +41,7 @@ Control_t Control = {.baddr= -1, .bpc = 0, .branch_bubble_until = -1, .branch_gr
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
+queue q = {.maxlen = 2, .currlen = 0, .head = NULL, .tail = NULL};
 
 
 void compareBubble(int64_t reg_val)
@@ -760,7 +761,6 @@ void pipe_stage_fetch()
   {
     Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
-    printf("prediction_taken: %d\n", Control.prediction_taken);
   }
   else if(Control.halt == 0)
   {
@@ -787,6 +787,70 @@ void TriggerBubble_LoadStore(int bubble_until)
   IFtoID = (IFtoID_t){ .inst = 0};
   return;
 }
+/* Queue functions*/
+struct entry* newentry(struct Prediction pred) 
+{ 
+    struct entry* temp = (struct entry*)malloc(sizeof(struct entry)); 
+    temp->pred = pred; 
+    temp->next = NULL; 
+    return temp; 
+} 
+
+struct entry* dequeue(struct queue* q) 
+{  
+    if (q->head == NULL) 
+        return NULL; 
+   
+    struct entry* temp = q->head; 
+  
+    q->head = q->head->next; 
+   
+    if (q->head == NULL) 
+        q->tail = NULL; 
+  
+    return temp; 
+}
+
+void decaptiate(struct queue* q)
+{
+    struct entry* temp = dequeue(q);
+    free(temp);
+}
+
+struct queue* createqueue(int maxlen) 
+{ 
+    struct queue* q = (struct queue*)malloc(sizeof(struct queue));
+    q->maxlen = maxlen;
+    q->currlen = 0; 
+    q->head = NULL;
+    q->tail = NULL; 
+    return q; 
+} 
+  
+void enqueue(struct queue* q, struct Prediction pred) 
+{  
+    struct entry* temp = newentry(pred); 
+    if (q->tail == NULL) { 
+        q->head = temp;
+        q->tail = temp; 
+        return; 
+    } 
+   
+    q->tail->next = temp; 
+    q->tail = temp;
+    q->currlen++;
+    if (q->currlen > q->maxlen)
+        decaptiate(q); 
+} 
+
+void freequeue(struct queue* q)
+{
+    for (int i = 0; i < q->currlen; i++) {
+        decaptiate(q);
+    }
+
+    free(q);
+}
 
 /* instruction implementations */
 void Branch(int64_t offset)
@@ -806,17 +870,15 @@ void Branch(int64_t offset)
     return;
 }
 /*restore and flush function for lab3 */
-void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken)
+void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint32_t pc_before_prediction, uint64_t taken_target)
 {
   printf("pred_taken: %d\n", pred_taken);
   if (pred_taken == 0)
   {
-    if ((real_target == Control.pc_before_prediction + 4) && (branch_taken == 1))
+    if ((real_target == pc_before_prediction + 4) && (branch_taken == 1))
     {
       //prediction was correct, do nothing to pipeline but remember to reset lab3 control struct fields
       printf("prediction taken misprediction\n");
-      Control.prediction_taken = 0;
-		  Control.pc_before_prediction = 0;
       return;
     }
     else
@@ -827,32 +889,24 @@ void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken)
       // IFtoID = (IFtoID_t){ .inst = 0};
       // Control.lab3_bubble = 1;
       //reset fields
-      Control.prediction_taken = 0;
-		  Control.pc_before_prediction = 0;
       return;
     }
   }
   else if (pred_taken == 1)
   {
     // branch prediction success, don't do anything
-    if ((real_target == Control.taken_target) && (branch_taken == 1))
+    if ((real_target == taken_target) && (branch_taken == 1))
     {
-      Control.prediction_taken = 0;
-		  Control.pc_before_prediction = 0;
-      Control.taken_target = 0;
       return;
     }
     else
     {
       //misprediction, reset pc to pc before prediction, flush, and bubble
-      printf("misprediciton resolution: %x\n", Control.pc_before_prediction);
-      CURRENT_STATE.PC = Control.pc_before_prediction + 4;
+      printf("misprediciton resolution: %x\n", pc_before_prediction);
+      CURRENT_STATE.PC = pc_before_prediction + 4;
       IFtoID = (IFtoID_t){ .inst = 0};
       Control.lab3_bubble = 1;
       //reset fields
-      Control.prediction_taken = 0;
-		  Control.pc_before_prediction = 0;
-      Control.taken_target = 0;
       return;
     }
   }
@@ -861,6 +915,7 @@ void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken)
 void CBNZ()
 {
     int64_t offset = IDtoEX.addr/32;
+    struct entry* temp_entry = dequeue(&q);
     printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
     printf("MEMtoWB.dnum: %ld\n", MEMtoWB.dnum);
@@ -877,7 +932,7 @@ void CBNZ()
     printf("branch_taken: %d\n", branch_taken);
 
     //lab2 behavior
-    if (Control.prediction_taken == 0)
+    if (temp_entry->pred.prediction_taken == 0)
     {  
       if (branch_taken == 0)
       {
@@ -903,20 +958,20 @@ void CBNZ()
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
-      Restore_Flush(temp + (offset * 4), 0, branch_taken);
+      Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
       printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
     //prediction_taken behavior
-    else if (Control.prediction_taken == 1)
+    else if (temp_entry->pred.prediction_taken == 1)
     {
       //1. update
       int inc;
       (branch_taken == 1) ? (inc = 1) : (inc = -1);
-      bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+      bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
       //2. restore and flush
-      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+      Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
       return;
     }
 
@@ -924,6 +979,7 @@ void CBNZ()
 void CBZ()
 {
     int64_t offset = IDtoEX.addr/32;
+    struct entry* temp_entry = dequeue(&q);
     printf("cond_branch: %d\n", Control.cond_branch);
     int branch_taken;
     if ((CURRENT_STATE.REGS[IDtoEX.dnum] != 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0)))
@@ -936,7 +992,7 @@ void CBZ()
     }
 
     //lab2 behavior
-    if (Control.prediction_taken == 0)
+    if (temp_entry->pred.prediction_taken == 0)
     {  
       if (branch_taken == 0)
       {
@@ -962,20 +1018,20 @@ void CBZ()
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 1, (temp + (offset * 4)), inc);
-      Restore_Flush(temp + (offset * 4), 0, branch_taken);
+      Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
       printf("cond_branch: %d\n", Control.cond_branch);
       return;
     }
 
     //prediction_taken behavior
-    else if (Control.prediction_taken == 1)
+    else if (temp_entry->pred.prediction_taken == 1)
     {
       //1. update
       int inc;
       (branch_taken == 1) ? (inc = 1) : (inc = -1);
-      bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+      bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
       //2. restore and flush
-      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+      Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
       return;
     }
 }
@@ -1000,6 +1056,7 @@ void BR()
 {
     //IDtoEX.n is Reg Number, not Reg content
     int64_t direct_target;
+    struct entry* temp_entry = dequeue(&q);
     // instruction ahead of us is storing in the same Reg that we want to read from but it hasn't written back yet, so we use it's value when its at the MEM stage
     if (MEMtoWB.dnum == IDtoEX.n)
     {
@@ -1010,7 +1067,7 @@ void BR()
       direct_target = CURRENT_STATE.REGS[IDtoEX.n];
     }
 
-    if (Control.prediction_taken == 0)
+    if (temp_entry->pred.prediction_taken == 0)
     {
       Control.cond_branch = 1;
 
@@ -1025,19 +1082,20 @@ void BR()
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp, 0, direct_target, 1);
-      Restore_Flush(direct_target, 0, 1);
+      Restore_Flush(direct_target, 0, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
     }
-    else if (Control.prediction_taken == 1)
+    else if (temp_entry->pred.prediction_taken == 1)
     {
-      bp_update(Control.pc_before_prediction, 0, direct_target, 1);
-      Restore_Flush(direct_target, 1, 1);
+      bp_update(temp_entry->pred.pc_before_prediction, 0, direct_target, 1);
+      Restore_Flush(direct_target, 1, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
     }
     return;
 }
 void B()
 {
     int64_t offset = IDtoEX.addr;
-    if (Control.prediction_taken == 0)
+    struct entry* temp_entry = dequeue(&q);
+    if (temp_entry->pred.prediction_taken == 0)
     {
       Control.cond_branch = 1;
       Branch(offset);
@@ -1046,15 +1104,15 @@ void B()
       printf("branch target: %lx\n", temp + (offset * 4));
       bp_update(temp, 0, (temp + (offset * 4)), 1);
       // real target, pred_taken, branch_taken
-      Restore_Flush(temp + (offset * 4), 0, 1);
+      Restore_Flush(temp + (offset * 4), 0, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
       return;
     }
-    else if (Control.prediction_taken == 1)
+    else if (temp_entry->pred.prediction_taken == 1)
     {
       //bp update and flush
-      bp_update(Control.pc_before_prediction, 0, Control.pc_before_prediction + (offset * 4), 1);
+      bp_update(temp_entry->pred.pc_before_prediction, 0, temp_entry->pred.pc_before_prediction + (offset * 4), 1);
       //2. restore and flush
-      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, 1);
+      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
     }
 }
 void B_Cond()
@@ -1062,6 +1120,7 @@ void B_Cond()
     int64_t cond = IDtoEX.dnum;
     int64_t offset = IDtoEX.addr >> 5;
     int branch_taken;
+    struct entry* temp_entry = dequeue(&q);
     switch(cond)
     {
         //BEQ
@@ -1077,7 +1136,7 @@ void B_Cond()
               branch_taken = 0;
             }
 
-            if (Control.prediction_taken == 0)
+            if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
               if (branch_taken == 1)
@@ -1100,17 +1159,17 @@ void B_Cond()
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp, 1, (temp + (offset * 4)), inc);
-              Restore_Flush(temp + (offset * 4), 0, branch_taken);
+              Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
-            else if (Control.prediction_taken == 1)
+            else if (temp_entry->pred.prediction_taken == 1)
             {
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
               //2. restore and flush
-              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+              Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
         //BNE
@@ -1125,7 +1184,7 @@ void B_Cond()
             }
             // printf("BNE\n");
 
-            if (Control.prediction_taken == 0)
+            if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
               if (branch_taken == 1)
@@ -1148,17 +1207,17 @@ void B_Cond()
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp, 1, (temp + (offset * 4)), inc);
-              Restore_Flush(temp + (offset * 4), 0, branch_taken);
+              Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
-            else if (Control.prediction_taken == 1)
+            else if (temp_entry->pred.prediction_taken == 1)
             {
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
               //2. restore and flush
-              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+              Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
 
@@ -1174,7 +1233,7 @@ void B_Cond()
               branch_taken = 0;
             }
             // printf("BGE\n");
-            if (Control.prediction_taken == 0)
+            if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
               if (branch_taken == 1)
@@ -1197,17 +1256,17 @@ void B_Cond()
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp, 1, (temp + (offset * 4)), inc);
-              Restore_Flush(temp + (offset * 4), 0, branch_taken);
+              Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
-            else if (Control.prediction_taken == 1)
+            else if (temp_entry->pred.prediction_taken == 1)
             {
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
               //2. restore and flush
-              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+              Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
         //BLT
@@ -1221,7 +1280,7 @@ void B_Cond()
               branch_taken = 0;
             }
             // printf("BLT\n");
-            if (Control.prediction_taken == 0)
+            if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
               if (branch_taken == 1)
@@ -1244,17 +1303,17 @@ void B_Cond()
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp, 1, (temp + (offset * 4)), inc);
-              Restore_Flush(temp + (offset * 4), 0, branch_taken);
+              Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
-            else if (Control.prediction_taken == 1)
+            else if (temp_entry->pred.prediction_taken == 1)
             {
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
               //2. restore and flush
-              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+              Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
         //BGT
@@ -1268,7 +1327,7 @@ void B_Cond()
               branch_taken = 0;
             }
             // printf("BGT\n");
-            if (Control.prediction_taken == 0)
+            if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
               if (branch_taken == 1)
@@ -1291,17 +1350,17 @@ void B_Cond()
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp, 1, (temp + (offset * 4)), inc);
-              Restore_Flush(branch_taken, 0, branch_taken);
+              Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
-            else if (Control.prediction_taken == 1)
+            else if (temp_entry->pred.prediction_taken == 1)
             {
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
               //2. restore and flush
-              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+              Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
         //BLE
@@ -1315,7 +1374,7 @@ void B_Cond()
               branch_taken = 0;
             }
             // printf("BLE\n");
-            if (Control.prediction_taken == 0)
+            if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
               if (branch_taken == 1)
@@ -1338,17 +1397,17 @@ void B_Cond()
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp, 1, (temp + (offset * 4)), inc);
-              Restore_Flush(temp + (offset * 4), 0, branch_taken);
+              Restore_Flush(temp + (offset * 4), 0, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
-            else if (Control.prediction_taken == 1)
+            else if (temp_entry->pred.prediction_taken == 1)
             {
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              bp_update(Control.pc_before_prediction, 1, Control.pc_before_prediction + (offset * 4), inc);
+              bp_update(temp_entry->pred.pc_before_prediction, 1, temp_entry->pred.pc_before_prediction + (offset * 4), inc);
               //2. restore and flush
-              Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, branch_taken);
+              Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, branch_taken, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
               break;
             }
     }
