@@ -333,7 +333,7 @@ void pipe_stage_decode()
   {
     loadstore_dependency = 1;
   }
-  // printf("loadstore_dependency: %d\n", loadstore_dependency);
+  printf("loadstore_dependency: %d\n", loadstore_dependency);
   //in loadstore bubble rn
   if ((int)stat_cycles < Control.loadstore_bubble_until)
   {
@@ -515,10 +515,11 @@ void pipe_stage_decode()
     {
       IDtoEX.n = ((word & 0x000003e0) >> 5);
       printf("Decode Reg: %ld\n", IDtoEX.dnum);
+      printf("IDtoEX.n: %ld\n", IDtoEX.n);
       printf("Execute Reg: %ld\n", EXtoMEM.dnum);
-      if (IDtoEX.n == EXtoMEM.dnum)
+      if (IDtoEX.dnum == EXtoMEM.dnum)
       {
-        //printf("IDtoEX.n: %ld\n", IDtoEX.n);
+        printf("IDtoEX.n: %ld\n", IDtoEX.n);
         printf("bubble trigger\n");
         TriggerBubble_LoadStore((int) stat_cycles + 1);
         loadstore_dependency = 0;
