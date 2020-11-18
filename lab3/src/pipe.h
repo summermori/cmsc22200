@@ -110,10 +110,7 @@ typedef struct queue {
 // we will need a control struct for stalling and fowarding signals
 typedef struct Control_t {
 	//lab3 stuff
-	int prediction_taken;
-	uint32_t pc_before_prediction;
 	int lab3_bubble;
-	uint64_t taken_target;
 	//lab2 branch bubble stuff
 	int compare_branch;
 	int cond_branch;
