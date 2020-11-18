@@ -1341,10 +1341,12 @@ void B()
 }
 void B_Cond()
 {
+    //b_cond
+    printf("B_Cond\n");
     int64_t cond = IDtoEX.dnum;
     int64_t offset = IDtoEX.addr >> 5;
-    int branch_taken;
     struct entry* temp_entry = dequeue(&q);
+    int branch_taken;
     switch(cond)
     {
         //BEQ
