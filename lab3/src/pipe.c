@@ -665,7 +665,7 @@ void pipe_stage_fetch()
   //lab3 bubble: one cycle halt on fetch
   if (Control.lab3_bubble == 1)
   {
-    printf("lab3_bubble\n");
+     printf("lab3_bubble\n");
     Control.lab3_bubble = 0;
     return;
   }
@@ -912,6 +912,9 @@ void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint3
   }
   else if (pred_taken == 1)
   {
+    printf("real target: %x\n", real_target);
+    printf("taken target: %lx\n", taken_target);
+    printf("branch_taken: %d\n", branch_taken);
     // branch prediction success, don't do anything
     if ((real_target == taken_target) && (branch_taken == 1))
     {
@@ -919,12 +922,12 @@ void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint3
     }
     else
     {
+      // this aint working
       //misprediction, reset pc to pc before prediction, flush, and bubble
       printf("misprediciton resolution: %x\n", pc_before_prediction);
       CURRENT_STATE.PC = pc_before_prediction + 4;
       IFtoID = (IFtoID_t){ .inst = 0};
       Control.lab3_bubble = 1;
-      //reset fields
       return;
     }
   }
@@ -1333,7 +1336,7 @@ void B()
       //bp update and flush
       bp_update(temp_entry->pred.pc_before_prediction, 0, temp_entry->pred.pc_before_prediction + (offset * 4), 1);
       //2. restore and flush
-      Restore_Flush(Control.pc_before_prediction + (offset * 4), 1, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
+      Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 1, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
     }
 }
 void B_Cond()
