@@ -494,7 +494,7 @@ void pipe_stage_decode()
       IDtoEX.branching = 1;
       // printf("COMPARE AND BRANCH\n");
       // if (Control.prediction_taken != 1)
-      // {compareBubble(IDtoEX.dnum);}
+      // compareBubble(IDtoEX.dnum);
       //printf("Compare and branch, ");
     }
     else {
