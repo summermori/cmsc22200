@@ -56,6 +56,7 @@ void update_btb_entry(unsigned char pc_index, uint64_t fetch_pc, unsigned char v
 // important functions
 // we will have to make CURRENT_STATE a pointer to avoid undeclared variable issues
 void bp_predict(uint64_t fetch_pc) {
+	printf("fetch_pc in bp_predict: %lx\n", fetch_pc);
 	// unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
 	// unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
 	unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 2;
@@ -67,7 +68,24 @@ void bp_predict(uint64_t fetch_pc) {
 		struct Prediction temp;
 		temp.prediction_taken = 0;
 		temp.pc_before_prediction = CURRENT_STATE.PC;
+		printf("loaded_pc in bp_predict BTB miss: %x\n", temp.pc_before_prediction);
 		enqueue(&q, temp);
+		if (q.head == NULL)
+		{
+			printf("predict head is null\n");
+		}
+		else
+		{
+			printf("predict pc_before_prediction in bp_predict head: %x\n", q.head->pred.pc_before_prediction);
+		}
+		if (q.tail == NULL)
+		{
+			printf("predict tail is null\n");
+		}
+		else
+		{
+			printf("predict pc_before_prediction in bp_predict tail: %x\n", q.tail->pred.pc_before_prediction);
+		}
 		// Control.prediction_taken = 0;
 		// Control.pc_before_prediction = CURRENT_STATE.PC;
 		CURRENT_STATE.PC = fetch_pc + 4;
@@ -80,8 +98,7 @@ void bp_predict(uint64_t fetch_pc) {
 		temp.pc_before_prediction = CURRENT_STATE.PC;
 		temp.taken_target = indexed_entry.target;
 		enqueue(&q, temp);
-		printf("pointer in bp_predict head: %p\n", q.head);
-		printf("pointer in bp_predict tail: %p\n", q.tail);
+		
 		//no bubble on hit rn;
 		CURRENT_STATE.PC = indexed_entry.target;
 	}
@@ -89,6 +106,7 @@ void bp_predict(uint64_t fetch_pc) {
 		struct Prediction temp;
 		temp.prediction_taken = 0;
 		temp.pc_before_prediction = CURRENT_STATE.PC;
+		printf("loaded_pc in bp_predict BTB hit but cond miss: %x\n", temp.pc_before_prediction);
 		enqueue(&q, temp);
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}

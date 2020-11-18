@@ -147,7 +147,7 @@ void TriggerBubble_Branch(int bubble_until);
 void TriggerBubble_LoadStore(int bubble_until);
 void condBubble(int64_t cond);
 /* instruction helpers */
-void Branch(int64_t offset);
+void Branch(int64_t offset, int64_t base);
 /* lab3 restore and flush helper*/
 void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint32_t pc_before_prediction, uint64_t taken_target);
 /* instruction implementations */
