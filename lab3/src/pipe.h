@@ -110,6 +110,7 @@ typedef struct queue {
 // we will need a control struct for stalling and fowarding signals
 typedef struct Control_t {
 	//lab3 stuff
+	int pre_halt;
 	int lab3_bubble;
 	//lab2 branch bubble stuff
 	int compare_branch;

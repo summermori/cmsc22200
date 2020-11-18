@@ -756,6 +756,13 @@ void pipe_stage_fetch()
     Control.restoration = 0;
     return;
   }
+  //handling branch after HLT
+  if (IDtoEX.op == 0xd4400000)
+  {
+    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+    return;
+  }
+
   uint32_t word = mem_read_32(CURRENT_STATE.PC);
   IFtoID.inst = word;
   printf("WORD in general: %x\n",word);
