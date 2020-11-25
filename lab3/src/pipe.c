@@ -1043,14 +1043,27 @@ void CBNZ()
           break;
     }
 
-    if ((CURRENT_STATE.REGS[IDtoEX.dnum] == 0) || ((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0) && (reg_load_ahead == 1)))
+    if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0) && (reg_load_ahead == 1)))
     {
+      // printf("1\n");
+      branch_taken = 1;
+    }
+    else if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0) && (reg_load_ahead == 1)))
+    {
+      // printf("2\n");
       branch_taken = 0;
+    }
+    else if (CURRENT_STATE.REGS[IDtoEX.dnum] != 0)
+    {
+      // printf("3\n");
+      branch_taken = 1;
     }
     else
     {
-      branch_taken = 1;
+      // printf("4\n");
+      branch_taken = 0;
     }
+
     // printf("branch_taken: %d\n", branch_taken);
 
     //lab2 behavior
