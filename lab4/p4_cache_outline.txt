@@ -1,0 +1,213 @@
+Overview:
+
+
+	cache_read(addr, n) //cache_read takes the read location and the associativity, and returns a uint_32 from either memory or the cache
+
+		if (n == 4) { //condition to establish we are in the instruction cache
+			tag = {addr bits 31-11}		//the tag used for matching instruction blocks
+			index = {addr bits 10-5}		//the specific set for the instruction
+			cache = {global var for i_cache}
+		}
+		else {
+			tag = {addr bits 31-13}		//the tag used for matching data blocks
+			index = {addr bits 12-5}		//the specific set for the data
+			cache = {global var for d_cache}
+		}
+
+		offset = {addr bits 4-0}		//the specific segment of the matching block
+
+		head = (index * n)
+		tail = (head + n)
+
+		//declaring variables ahead of time to track the lru mins during the for loop
+		min_i = 0
+		min_val = MAX_INT
+
+		empty = -1
+		
+		//go through each of the blocks of the set. If you find a match, update the lru and return
+		for (int i = head; i < tail; i++) {
+			spec_block = cache[i]
+
+			//prepare data for loading into an empty block or eviction
+			if (spec_block.empty) {
+				empty = i
+			}
+			elif (spec_block.lru < min_val) {
+				min_i = i
+				min_val = spec_block.lru
+			}
+
+			if (spec_block.valid && spec_block.tag == tag) {
+				spec_block.lru = {global cycle count var}
+				return spec_block.data[offset]
+			}
+		}
+
+		//a miss has occured - different steps here for different caches:
+
+		//if this is the instruction cache AND there is an upcoming branch AND that branch is not to this addr:
+		if (n == 4 && {there is an upcoming branch && branch_target != addr}) {
+			//return garbage? It shouldn't matter what we return here, it'll never go through after flush
+		}
+
+		//we are now guaranteed to be doing a read, and so we can signal the stall
+		{stall_signal for 50 cycles}
+
+		//check if there's an empty block. If so, we load into there
+		if (empty != -1) {
+			new_block = cache[empty]
+
+			//load in all the variables
+			new_block.tag = tag
+			new_block.valid = 1
+			new_block.lru = {global cycle count var}
+
+			//calculate the "offset-less" addr value, then grab all valid blocks with that head - see note
+			addr_head = (addr / 32) * 32
+			for (int i = 0; i < 8; i++) {
+				new_block.data[i] = mem_read_32(addr_head + (4 * i))
+			}
+
+			//return the newly-read address
+			return new_block.data[offset]
+		}
+		//if there isn't, we must evict, which is handled differently if the dirty bit is 1 AND n == 8
+		else {
+			lru_block = cache[min_i]
+			if (lru_block.dirty && (n == 8)) {
+				write_base = {the offset-less head, assembled with bitstuff as {tag ^ index ^ 00000}}
+				for (int i = 0; i < 8; i++) {
+					mem_write_32((write_base + (i * 4)), lru_block.data[i])
+				}
+				lru_block.dirty = 0
+			}
+
+			lru_block.tag = tag
+			lru_block.lru = {global cycle count var}
+
+			addr_head = (addr / 32) * 32
+			for (int i = 0; i < 8; i++) {
+				lru_block.data[i] = mem_read_32(addr_head + (4 * i))
+			}
+
+			//return the newly-read address
+			return lru_block.data[offset];
+
+		}
+
+
+
+
+NOTE 1 - "Offset-less head"
+
+	The system is set up so that you read the ENTIRE 32-byte section signified by the first 27 bits, then use the 5-bit offset to pull the specific 4-byte section out
+
+	This is how matching works - if you have a matching tag and index, you MUST have the data in the block, meaning that the block logically must contain ALL possible data that begins with the prefix {tag + index}.
+
+	For example, if you have the hypothetical address 0x8FC, let us assume that "1000111" is the {tag + index} and therefore "11100" is the offset. Inside of the "1000111" block, you must have all the possible permutations of the offset (which is simplified for us because we know that the system is byte-addressable by 4, and thus the offset must be a multiple of 4 - this is why the PC increments by 4). 
+	
+	In order to ensure that the block has all the valid segments, we thus must do 8 reads - one for each of the 4-word reads that could be made with the prefix "1000111". The suffixes for these reads are listed below:
+
+	00000
+	00100
+	01000
+	01100
+	10000
+	10100
+	11000
+	11100
+
+	As a corollary, we must also repeat this process when writing back
+
+NOTE 2 - Integration
+	
+	The code described above is very neatly encapsulated in one function, which in turn only needs to be called in two places: 
+		-Once in the Fetch stage, replacing the "mem_read_32" call we currently use
+		-In the Memory stage, replacing the "mem_read_32" calls as appropriate
+
+	The two main hiccups to full integration are as follows:
+		-Getting the stall functionality working correctly after a "cache_read" call miss
+		-Writing a separate "cache_write" function to be used for Memory operations attempting to write to an address.
+
+NOTE 3 - "cache_write"
+
+	cache_write (addr, val) {
+
+		tag = {addr bits 31-13}		//the tag used for matching data blocks
+		index = {addr bits 12-5}		//the specific set for the data
+		offset = {addr bits 4-0}		//the specific segment of the matching block
+
+		head = (index * n)
+		tail = (head + n)
+
+		//declaring variables ahead of time to track the lru mins during the for loop
+		min_i = 0
+		min_val = MAX_INT
+
+		empty = -1
+		
+		//go through each of the blocks of the set. If you find a match, update the lru and return
+		for (int i = head; i < tail; i++) {
+			spec_block = cache[i]
+
+			//prepare data for loading into an empty block or eviction
+			if (spec_block.empty) {
+				empty = i
+			}
+			elif (spec_block.lru < min_val) {
+				min_i = i
+				min_val = spec_block.lru
+			}
+
+			if (spec_block.valid && spec_block.tag == tag) {
+				spec_block.lru = {global cycle count var}
+				spec_block.dirty = 1
+				spec_block.data[offset] = val
+			}
+		}
+
+		//a miss has occured, and as such we have to read in the correct block.
+		{stall_signal for 50 cycles}
+
+		//check if there's an empty block. If so, we load into there
+		if (empty != -1) {
+			new_block = cache[empty]
+
+			//load in all the variables
+			new_block.tag = tag
+			new_block.valid = 1
+			new_block.lru = {global cycle count var}
+
+			//calculate the "offset-less" addr value, then grab all valid blocks with that head - see note
+			addr_head = (addr / 32) * 32
+			for (int i = 0; i < 8; i++) {
+				new_block.data[i] = mem_read_32(addr_head + (4 * i))
+			}
+
+			//write in the value to the correct segment
+			new_block.data[offset] = val
+		}
+		//if there isn't, we must evict, which is handled differently if the dirty bit is 1
+		else {
+			lru_block = cache[min_i]
+			if (lru_block.dirty) {
+				write_base = {the offset-less head, assembled with bitstuff as {tag ^ index ^ 00000}}
+				for (int i = 0; i < 8; i++) {
+					mem_write_32((write_base + (i * 4)), lru_block.data[i])
+				}
+			}
+
+			lru_block.tag = tag
+			lru_block.lru = {global cycle count var}
+
+			addr_head = (addr / 32) * 32
+			for (int i = 0; i < 8; i++) {
+				lru_block.data[i] = mem_read_32(addr_head + (4 * i))
+			}
+
+			//write in the value to the correct segment
+			lru_block.dirty = 1
+			lru_block.data[offset] = val;
+		}
+	}
