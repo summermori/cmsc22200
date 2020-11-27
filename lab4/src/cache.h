@@ -21,7 +21,7 @@ typedef struct
 
 //typedef block_t[] cache_t;
 
-extern block_t INST_CACH[];
+extern block_t INST_CACHE[];
 extern block_t DATA_CACHE[];
 
 // IGNORE THESE FOR NOW
