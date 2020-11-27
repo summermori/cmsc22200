@@ -16,12 +16,12 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   if (n == 4) { //condition to establish we are in the instruction cache
     uint64_t tag = (addr & 0xfffff800) >> 11; //the tag used for matching instruction blocks
     uint64_t index = (addr & 0x000007e0) >> 5;		//the specific set for the instruction
-    cache_t cache = INST_CACHE;
+    cache_t cache = &INST_CACHE;
   }
   else {
     uint64_t tag = (addr & 0xffffe000) >> 13;		//the tag used for matching data blocks
     uint64_t index = (addr & 0x00001fe0) >> 5;		//the specific set for the data
-    cache_t cache = DATA_CACHE;
+    cache_t cache = &DATA_CACHE;
   }
 
   uint64_t offset = addr & 0x1f;		//the specific segment of the matching block
@@ -57,7 +57,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   //a miss has occured - different steps here for different caches:
 
   //if this is the instruction cache AND there is an upcoming branch AND that branch is not to this addr:
-  if (n == 4 && check_branch_ahead(addr) == 1) 
+  if (n == 4 && check_branch_ahead(addr) == 1)
   {
 	return 0;
   }
@@ -72,7 +72,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     Control.data_cache_bubble = 51;
   }
 
-  
+
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {
     block_t new_block = cache[empty];
@@ -120,7 +120,7 @@ void cache_write (uint64_t addr, uint64_t val) {
   uint64_t tag = (addr & 0xffffe000) >> 13;		//the tag used for matching data blocks
   uint64_t index = (addr & 0x00001fe0) >> 5;		//the specific set for the data
   uint64_t offset = addr & 0x1f;		//the specific segment of the matching block
-  cache_t cache = DATA_CACHE;
+  cache_t cache = &DATA_CACHE;
 
   uint64_t head = (index * n);
   uint64_t tail = (head + n);
@@ -295,7 +295,7 @@ int check_branch_ahead(uint64_t addr)
                 {
                     return 0;
                 }
-            //BLE 
+            //BLE
             case(13):
                 if ((Control.fz == 1) || (Control.fn == 1))
                 {
@@ -315,7 +315,7 @@ int check_branch_ahead(uint64_t addr)
         }
 
     }
-    //uncond reg 
+    //uncond reg
     if (IDtoEX.op == 0xd61f0000)
     {
         int64_t target;

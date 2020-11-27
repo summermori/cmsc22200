@@ -11,13 +11,15 @@
 
 typedef struct
 {
-
-} cache_t;
-
-typedef struct
-{
-
+  uint64_t tag;
+  unsigned char valid;
+  unsigned char dirty;
+  int empty;
+  uint32_t lru;
+  uint32_t data[8];
 } block_t;
+
+typedef block_t[] cache_t;
 
 extern cache_t INST_CACHE;
 extern cache_t DATA_CACHE;
