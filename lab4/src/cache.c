@@ -23,6 +23,6 @@ void cache_destroy(cache_t *c)
 
 int cache_update(cache_t *c, uint64_t addr)
 {
-
+    
 }
 
