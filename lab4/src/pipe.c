@@ -37,7 +37,7 @@ IDtoEX_t IDtoEX = { .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .a
 EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem = 0, .fwb = 0, .fn = 0, .fz = 0};
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
 //declaration in pipe.h so bp.c can access Control struct
-Control_t Control = {.baddr= -1, .bpc = 0, .branch_bubble_until = -1, .branch_grab = 0, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
+Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .branch_grab = 0, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
 IDtoEX_t temp_IDtoEX;
 IFtoID_t temp_IFtoID;
 int loadstore_dependency = 0;
@@ -682,71 +682,12 @@ void pipe_stage_fetch()
       Control.cond_branch = 0;
       return;
   }
-  //doesn't seem like we need the lab2 bubbling behavior anymore
-
-  // if ((int) stat_cycles < Control.branch_bubble_until)
-  // {
-  //   if (Control.branch_grab == 0)
-  //   {
-  //     printf("PC in bubble: %lx\n", CURRENT_STATE.PC);
-  //     IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-  //     printf("Grabbed word in bubble: %x\n", IFtoID.inst);
-  //     Control.bpc = CURRENT_STATE.PC;
-  //     bp_predict(CURRENT_STATE.PC);
-  //     Control.branch_grab = 1;
-  //     return;
-  //   }
-  //   else
-  //   {
-  //     if ((Control.baddr == (CURRENT_STATE.PC - 4)) || (Control.not_taken == 1))
-  //     {
-  //       IFtoID.inst = Control.squashed;
-  //       printf("+4 or not_taken Restoration: %x\n", IFtoID.inst);
-  //     }
-  //     Control.branch_grab = 0;
-  //     return;
-  //   }
-  // }
-  // if ((stat_cycles) == Control.branch_bubble_until)
-  // {
-  //   // printf("ENDING BUBBLE\n");
-  //   if ((Control.baddr == CURRENT_STATE.PC - 4) || (Control.not_taken))
-  //   {
-  //     IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-  //     printf("WORD in PC + 4 Branch or Not_Taken: %x\n", IFtoID.inst);
-  //     Control.not_taken = 0;
-  //     Control.bpc = CURRENT_STATE.PC;
-  //     bp_predict(CURRENT_STATE.PC);
-  //   }
-  //   else
-  //   {
-  //     //Control.baddr has non default value, we are branching
-  //     if (Control.baddr == -1)
-  //     {
-  //       Control.bpc = CURRENT_STATE.PC;
-  //       bp_predict(CURRENT_STATE.PC);
-  //     }
-  //     else
-  //     {
-  //       CURRENT_STATE.PC = Control.baddr;
-  //       IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-  //       printf("PC: %lx\n", CURRENT_STATE.PC);
-  //       printf("WORD in if: %x\n",IFtoID.inst);
-  //       Control.bpc = CURRENT_STATE.PC;
-  //       bp_predict(CURRENT_STATE.PC);
-  //     }
-  //   }
-  //   Control.baddr = -1;
-  //   Control.branch_bubble_until = -1;
-  //   return;
-  // }
 
   //lab2 loadstore bubbling
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
     // printf("in loadstore bubble not fetching!\n");
-    Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
     return;
   }
@@ -768,13 +709,11 @@ void pipe_stage_fetch()
   // printf("WORD in general: %x\n",word);
   if (word != 0)
   {
-    Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
   }
   else if(Control.halt == 0)
   {
     Control.halt = 1;
-    Control.bpc = CURRENT_STATE.PC;
     bp_predict(CURRENT_STATE.PC);
   }
 }
@@ -1337,22 +1276,7 @@ void BR()
 }
 void B()
 {
-    if (q.head == NULL)
-		{
-			// printf("EX head is null\n");
-		}
-		else
-		{
-			// printf("EX pc_before_prediction in bp_predict head: %x\n", q.head->pred.pc_before_prediction);
-		}
-		if (q.tail == NULL)
-		{
-			// printf("EX tail is null\n");
-		}
-		else
-		{
-			// printf("EX pc_before_prediction in bp_predict tail: %x\n", q.tail->pred.pc_before_prediction);
-		}
+    
     int64_t offset = IDtoEX.addr;
     struct entry* temp_entry = dequeue(&q);
     // printf("EX temp_entry pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);

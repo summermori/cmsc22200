@@ -126,7 +126,6 @@ typedef struct Control_t {
 	//halt, flags, and baddr
 	int halt;
 	int baddr;
-	int bpc;
 	int fn;
 	int fz;
 } Control_t;
