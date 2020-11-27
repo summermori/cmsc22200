@@ -19,6 +19,9 @@ typedef struct
 
 } block_t;
 
+extern cache_t INST_CACHE;
+extern cache_t DATA_CACHE;
+
 // IGNORE THESE FOR NOW
 
 // void cache_destroy(cache_t *c); // dealocates
