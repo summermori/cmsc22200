@@ -57,14 +57,22 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   //a miss has occured - different steps here for different caches:
 
   //if this is the instruction cache AND there is an upcoming branch AND that branch is not to this addr:
-  if ((n == 4) && (IDtoEX.branching) && ((IDtoEX)!= addr)) {
-    //return garbage? It shouldn't matter what we return here, it'll never go through after flush
-    return 0;
+  if (n == 4 && check_branch_ahead(addr) == 1) 
+  {
+	return 0;
   }
 
-  //we are now guaranteed to be doing a read, and so we can signal the stall
-  //{stall_signal for 50 cycles}
+  //we are now guaranteed to be doing a read, and so we can signal the stall dependent on the type of miss
+  if (n == 4)
+  {
+    Control.inst_cache_bubble = 51;
+  }
+  else
+  {
+    Control.data_cache_bubble = 51;
+  }
 
+  
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {
     block_t new_block = cache[empty];
