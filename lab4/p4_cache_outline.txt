@@ -416,7 +416,7 @@ Overview:
 	}
 
 
-	cache_read(addr, n) //cache_read takes the read location and the associativity, and returns a uint_32 from either memory or the cache
+	cache_read(addr, n) //cache_read takes the read location and the associativity, and returns a uint64_t from either memory or the cache
 
 		if (n == 4) { //condition to establish we are in the instruction cache
 			tag = {addr bits 31-11}		//the tag used for matching instruction blocks

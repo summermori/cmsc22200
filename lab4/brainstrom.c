@@ -10,18 +10,18 @@
   
  // Structs
  struct instruction_block {
-   uint_32 tag;
+   uint64_t tag;
    unsigned char valid;
    unsigned char dirty;
-   uint_32 order; // check what the PC global variable type is
-   uint_32 data[4];
+   uint64_t order; // check what the PC global variable type is
+   uint64_t data[4];
 } inst_block;
 
 struct data_block {
-   uint_32 tag;
+   uint64_t tag;
    unsigned char valid;
    unsigned char dirty;
-   uint_32 order;
-   uint_32 data[8];
+   uint64_t order;
+   uint64_t data[8];
 } data_block;
 
