@@ -19,10 +19,10 @@ typedef struct
   uint32_t data[8];
 } block_t;
 
-typedef block_t[] cache_t;
+//typedef block_t[] cache_t;
 
-extern cache_t INST_CACHE;
-extern cache_t DATA_CACHE;
+extern block_t INST_CACH[];
+extern block_t DATA_CACHE[];
 
 // IGNORE THESE FOR NOW
 

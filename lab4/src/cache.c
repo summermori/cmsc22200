@@ -13,15 +13,16 @@
 
 uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location and the associativity, and returns a uint64_t from either memory or the cache
 {
+  block_t cache;
   if (n == 4) { //condition to establish we are in the instruction cache
     uint64_t tag = (addr & 0xfffff800) >> 11; //the tag used for matching instruction blocks
     uint64_t index = (addr & 0x000007e0) >> 5;		//the specific set for the instruction
-    cache_t cache = &INST_CACHE;
+    cache = INST_CACHE;
   }
   else {
     uint64_t tag = (addr & 0xffffe000) >> 13;		//the tag used for matching data blocks
     uint64_t index = (addr & 0x00001fe0) >> 5;		//the specific set for the data
-    cache_t cache = &DATA_CACHE;
+    cache = DATA_CACHE;
   }
 
   uint64_t offset = addr & 0x1f;		//the specific segment of the matching block
