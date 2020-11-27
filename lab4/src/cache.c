@@ -14,14 +14,16 @@
 uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location and the associativity, and returns a uint64_t from either memory or the cache
 {
   block_t *cache;
+  uint64_t tag;
+  uint64_t index;
   if (n == 4) { //condition to establish we are in the instruction cache
-    uint64_t tag = (addr & 0xfffff800) >> 11; //the tag used for matching instruction blocks
-    uint64_t index = (addr & 0x000007e0) >> 5;		//the specific set for the instruction
+    tag = (addr & 0xfffff800) >> 11; //the tag used for matching instruction blocks
+    index = (addr & 0x000007e0) >> 5;		//the specific set for the instruction
     cache = INST_CACHE;
   }
   else {
-    uint64_t tag = (addr & 0xffffe000) >> 13;		//the tag used for matching data blocks
-    uint64_t index = (addr & 0x00001fe0) >> 5;		//the specific set for the data
+    tag = (addr & 0xffffe000) >> 13;		//the tag used for matching data blocks
+    index = (addr & 0x00001fe0) >> 5;		//the specific set for the data
     cache = DATA_CACHE;
   }
 
@@ -32,7 +34,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
 
   //declaring variables ahead of time to track the lru mins during the for loop
   uint64_t min_i = 0;
-  uint64_t min_val = MAX_INT;
+  uint64_t min_val = INT_MAX;
 
   int empty = -1;
 
@@ -44,7 +46,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     if (spec_block.empty) {
       empty = i;
     }
-    elif (spec_block.lru < min_val) {
+    else if (spec_block.lru < min_val) {
       min_i = i;
       min_val = spec_block.lru;
     }
@@ -123,24 +125,24 @@ void cache_write (uint64_t addr, uint64_t val) {
   uint64_t offset = addr & 0x1f;		//the specific segment of the matching block
   block_t *cache = DATA_CACHE;
 
-  uint64_t head = (index * n);
-  uint64_t tail = (head + n);
+  uint64_t head = (index * 8);
+  uint64_t tail = (head + 8);
 
   //declaring variables ahead of time to track the lru mins during the for loop
   uint64_t min_i = 0;
-  uint64_t min_val = MAX_INT;
+  uint64_t min_val = INT_MAX;
 
   int empty = -1;
 
   //go through each of the blocks of the set. If you find a match, update the lru and return
   for (int i = head; i < tail; i++) {
-    bloack_t spec_block = cache[i];
+    block_t spec_block = cache[i];
 
     //prepare data for loading into an empty block or eviction
     if (spec_block.empty) {
       empty = i;
     }
-    elif (spec_block.lru < min_val) {
+    else if (spec_block.lru < min_val) {
       min_i = i;
       min_val = spec_block.lru;
     }
@@ -157,7 +159,7 @@ void cache_write (uint64_t addr, uint64_t val) {
 
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {
-    block_t new_block = cache[empty]
+    block_t new_block = cache[empty];
 
     //load in all the variables
     new_block.tag = tag;
@@ -177,7 +179,7 @@ void cache_write (uint64_t addr, uint64_t val) {
   else {
     block_t lru_block = cache[min_i];
     if (lru_block.dirty) {
-      write_base = (tag << 13) ^ (index << 5);
+      uint64_t write_base = (tag << 13) ^ (index << 5);
       for (int i = 0; i < 8; i++) {
         mem_write_32((write_base + (i * 4)), lru_block.data[i]);
       }

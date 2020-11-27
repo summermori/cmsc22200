@@ -28,11 +28,10 @@ extern block_t DATA_CACHE[];
 
 // void cache_destroy(cache_t *c); // dealocates
 // int cache_update(cache_t *c, uint64_t addr);
-
-cache_t cache_new(int sets, int ways, int block); // allocates
+//cache_t cache_new(int sets, int ways, int block); // allocates
 
 uint32_t cache_read(uint64_t addr, int n);
 
-void cache_write (uint64_t addr, uint32_t val);
+void cache_write (uint64_t addr, uint64_t val);
 
 #endif
