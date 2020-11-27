@@ -27,7 +27,7 @@ extern cache_t DATA_CACHE;
 // void cache_destroy(cache_t *c); // dealocates
 // int cache_update(cache_t *c, uint64_t addr);
 
-cache_t *cache_new(int sets, int ways, int block); // allocates
+cache_t cache_new(int sets, int ways, int block); // allocates
 
 uint_32 cache_read(uint_32 addr, uint_32int n);
 
