@@ -29,8 +29,8 @@ extern cache_t DATA_CACHE;
 
 cache_t cache_new(int sets, int ways, int block); // allocates
 
-uint_32 cache_read(uint_32 addr, uint_32int n);
+uint32_t cache_read(uint64_t addr, int n);
 
-void cache_write (uint_32 addr, uint_32 val);
+void cache_write (uint64_t addr, uint32_t val);
 
 #endif
