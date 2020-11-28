@@ -95,16 +95,16 @@ typedef struct Prediction {
 	uint64_t taken_target;
 }Prediction;
 
-typedef struct entry { 
-    struct Prediction pred; 
-}entry; 
-  
-typedef struct queue { 
+typedef struct entry {
+    struct Prediction pred;
+}entry;
+
+typedef struct queue {
     int maxlen;
     int currlen;
     struct entry *head;
-    struct entry *tail; 
-}queue; 
+    struct entry *tail;
+}queue;
 
 /* control struct */
 // we will need a control struct for stalling and fowarding signals
@@ -123,6 +123,9 @@ typedef struct Control_t {
 	int loadstore_bubble_until;
 	int loadstore_bubble_start;
 	int restoration;
+	//lab4 cache bubbling
+	int inst_cache_bubble;
+	int data_cache_bubble;
 	//halt, flags, and baddr
 	int halt;
 	int baddr;
@@ -131,6 +134,10 @@ typedef struct Control_t {
 } Control_t;
 
 extern Control_t Control;
+extern IFtoID_t IFtoID;
+extern IDtoEX_t IDtoEX;
+extern EXtoMEM_t EXtoMEM;
+extern MEMtoWB_t MEMtoWB;
 extern queue q;
 
 /*Queue Functions*/

@@ -360,7 +360,7 @@ int check_branch_ahead(uint64_t addr)
     {
         offset = IDtoEX.addr/32;
         int reg_load_ahead = 0;
-        switch(ExtoMEM.op)
+        switch(EXtoMEM.op)
         {
             // Add/Subtract immediate
             case 0x91000000:
@@ -490,7 +490,7 @@ int check_branch_ahead(uint64_t addr)
     {
         offset = IDtoEX.addr/32;
         int reg_load_ahead = 0;
-        switch(ExtoMEM.op)
+        switch(EXtoMEM.op)
         {
             // Add/Subtract immediate
             case 0x91000000:

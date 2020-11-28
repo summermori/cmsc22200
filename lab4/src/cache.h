@@ -34,4 +34,6 @@ uint32_t cache_read(uint64_t addr, int n);
 
 void cache_write (uint64_t addr, uint64_t val);
 
+int check_branch_ahead(uint64_t addr);
+
 #endif

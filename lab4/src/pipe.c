@@ -6,6 +6,7 @@
 
 #include "pipe.h"
 #include "shell.h"
+#include "cache.h"
 #include "bp.h"
 #include <stdio.h>
 #include <string.h>
@@ -736,19 +737,19 @@ void TriggerBubble_LoadStore(int bubble_until)
   return;
 }
 /* Queue functions*/
-struct entry* newentry(struct Prediction pred) 
-{ 
-    struct entry* temp = (struct entry*)malloc(sizeof(struct entry)); 
-    temp->pred = pred; 
-    return temp; 
-} 
+struct entry* newentry(struct Prediction pred)
+{
+    struct entry* temp = (struct entry*)malloc(sizeof(struct entry));
+    temp->pred = pred;
+    return temp;
+}
 
-struct entry* dequeue(struct queue* q) 
-{  
+struct entry* dequeue(struct queue* q)
+{
     //empty q
-    if (q->head == NULL) 
-        return NULL; 
-   
+    if (q->head == NULL)
+        return NULL;
+
     //just head
     else if ((q->head != NULL) && (q->tail == NULL))
     {
@@ -772,19 +773,19 @@ void decaptiate(struct queue* q)
     free(temp);
 }
 
-struct queue* createqueue(int maxlen) 
-{ 
+struct queue* createqueue(int maxlen)
+{
     struct queue* q = (struct queue*)malloc(sizeof(struct queue));
     q->maxlen = maxlen;
-    q->currlen = 0; 
+    q->currlen = 0;
     q->head = NULL;
-    q->tail = NULL; 
-    return q; 
-} 
-  
-void enqueue(struct queue* q, struct Prediction pred) 
-{  
-    struct entry* temp = newentry(pred); 
+    q->tail = NULL;
+    return q;
+}
+
+void enqueue(struct queue* q, struct Prediction pred)
+{
+    struct entry* temp = newentry(pred);
     //empty
     if (q->head == NULL)
     {
@@ -805,7 +806,7 @@ void enqueue(struct queue* q, struct Prediction pred)
       return;
     }
 
-} 
+}
 
 void freequeue(struct queue* q)
 {
@@ -819,7 +820,7 @@ void freequeue(struct queue* q)
 /* instruction implementations */
 void Branch(int64_t offset, int64_t base)
 {
-    
+
     // uint64_t temp = CURRENT_STATE.PC - 8;
     // printf("Branch Base: %lx\n", temp);
     Control.baddr = base + (offset * 4);
@@ -829,7 +830,7 @@ void Branch(int64_t offset, int64_t base)
     // printf("SQUASHING in Branch: %x\n", IFtoID.inst);
     Control.squashed = IFtoID.inst;
     IFtoID = (IFtoID_t){ .inst = 0};
-    
+
     // printf("baddr in Branch: %x\n", Control.baddr);
     return;
 }
@@ -1007,7 +1008,7 @@ void CBNZ()
 
     //lab2 behavior
     if (temp_entry->pred.prediction_taken == 0)
-    {  
+    {
       if (branch_taken == 0)
       {
         //don't branch
@@ -1177,7 +1178,7 @@ void CBZ()
 
     //lab2 behavior
     if (temp_entry->pred.prediction_taken == 0)
-    {  
+    {
       if (branch_taken == 0)
       {
         //don't branch
@@ -1276,7 +1277,7 @@ void BR()
 }
 void B()
 {
-    
+
     int64_t offset = IDtoEX.addr;
     struct entry* temp_entry = dequeue(&q);
     // printf("EX temp_entry pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);
