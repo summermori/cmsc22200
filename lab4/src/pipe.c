@@ -749,20 +749,18 @@ void pipe_stage_fetch()
   //inst cache bubble
   if (Control.inst_cache_bubble > 0)
   {
-    printf("icache bubble\n");
     //not last cycle of bubble
     if (Control.inst_cache_bubble > 1)
     {
+      printf("icache bubble\n");
       Control.inst_cache_bubble -= 1;
       return;
     }
     //last cycle, restore to pipeline
     else
     {
-      IFtoID.inst = Control.inst_store_word;
-      Control.inst_store_word = 0;
+      printf("icache bubble dismount\n");
       Control.inst_cache_bubble = 0;
-      bp_predict(CURRENT_STATE.PC);
       return;
     }
   }
@@ -771,7 +769,6 @@ void pipe_stage_fetch()
   //same cycle do nothing for bubble
   if (Control.inst_cache_bubble == 50)
   {
-    Control.inst_store_word = word;
     Control.inst_cache_bubble -= 1;
     return;
   }

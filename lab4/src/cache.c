@@ -75,7 +75,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   }
   else
   {
-    Control.data_cache_bubble = 49;
+    Control.data_cache_bubble = 50;
     printf("dcache read miss at (%lx", CURRENT_STATE.PC);
     printf(") at cycle %d\n", stat_cycles + 1);
   }
@@ -160,7 +160,7 @@ void cache_write (uint64_t addr, uint64_t val) {
   }
 
   //a miss has occured, and as such we have to read in the correct block.
-  Control.data_cache_bubble = 49;
+  Control.data_cache_bubble = 50;
 
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {
