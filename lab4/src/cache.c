@@ -27,7 +27,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     cache = DATA_CACHE;
   }
 
-  uint64_t offset = addr & 0x1f;		//the specific segment of the matching block
+  uint64_t offset = (addr & 0x1f) / 4;		//the specific segment of the matching block
 
   uint64_t head = (index * n);
   uint64_t tail = (head + n);
@@ -43,7 +43,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     block_t spec_block = cache[i]; // NOTE: figure out the relationship between block_t and cache_t
 
     //prepare data for loading into an empty block or eviction
-    if (spec_block.empty) {
+    if (!spec_block.empty) {
       empty = i;
     }
     else if (spec_block.lru < min_val) {
@@ -52,7 +52,13 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     }
 
     if (spec_block.valid && spec_block.tag == tag) {
-      printf("cache hit at cycle %d\n", stat_cycles + 1);
+      printf("icache hit (%lx) at cycle %d\n", CURRENT_STATE.PC, stat_cycles + 1);
+      printf("cache hit idx: %d\n", i);
+    //   for (int j = 0; j < 8; j++)
+    //   {
+    //       printf("block data: %x - ",spec_block.data[j]);
+    //   }
+      printf("offset: %ld\n", offset);
       spec_block.lru = stat_cycles;
       return spec_block.data[offset];
     }

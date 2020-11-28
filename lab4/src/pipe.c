@@ -775,6 +775,7 @@ void pipe_stage_fetch()
   //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
   else
   {
+    printf("word: %x\n", word);
     IFtoID.inst = word;
     //cache_read returns 0 if there is a branch in ID, so we don't do anything, sending a zero to IFtoID.inst is equivalent to a flush.
     if (word == 0)
