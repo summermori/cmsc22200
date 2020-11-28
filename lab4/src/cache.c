@@ -155,7 +155,7 @@ void cache_write (uint64_t addr, uint64_t val) {
   }
 
   //a miss has occured, and as such we have to read in the correct block.
-  Control.data_cache_bubble = 51;
+  Control.data_cache_bubble = 50;
 
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {
