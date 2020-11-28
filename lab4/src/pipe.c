@@ -702,7 +702,6 @@ void pipe_stage_fetch()
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
   }
-  uint32_t word;
   // cache bubbling
   //inst cache bubble
   if (Control.inst_cache_bubble > 0)
