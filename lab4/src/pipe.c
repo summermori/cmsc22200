@@ -1646,8 +1646,8 @@ void LDUR() {
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   // printf("mem_loc base: %lx\n", n);
   // printf("mem_loc offset: %lx\n", offset);
-  int64_t load = mem_read_32(n + offset);
-  int64_t load2 = mem_read_32(n + offset + 4);
+  int64_t load = cache_read(n + offset, 8);
+  int64_t load2 = cache_read(n + offset + 4, 8);
   load = load | (load2 << 32);
   if (t != 31) {
     MEMtoWB.res = load;
@@ -1659,7 +1659,7 @@ void LDUR2() {
   int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  int64_t load = mem_read_32(n + offset);
+  int64_t load = cache_read(n + offset, 8);
   if (t != 31) {
     MEMtoWB.res = load;
   }
@@ -1670,7 +1670,7 @@ void LDURB() {
   int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  int load = mem_read_32(n + offset);
+  int load = cache_read(n + offset, 8);
   load = (load & 0x000000ff);
   if (t != 31) {
     MEMtoWB.res = load;
@@ -1682,7 +1682,7 @@ void LDURH() {
   int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  int load = mem_read_32(n + offset);
+  int load = cache_read(n + offset, 8);
   load = (load & 0x0000ffff);
   if (t != 31) {
     MEMtoWB.res = load;
@@ -1694,8 +1694,8 @@ void STUR() {
   int64_t t = EXtoMEM.dval;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  mem_write_32(n + offset, (t & 0x00000000ffffffff));
-  mem_write_32(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
+  cache_write(n + offset, (t & 0x00000000ffffffff));
+  cache_write(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
   MEMtoWB.fwb = 0;
 
 }
@@ -1703,7 +1703,7 @@ void STUR2() {
   int64_t t = EXtoMEM.dval;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  mem_write_32(n + offset, t);
+  cache_write(n + offset, t);
   MEMtoWB.fwb = 0;
 
 }
@@ -1711,9 +1711,9 @@ void STURB() {
   char t = EXtoMEM.dval;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  int load = mem_read_32(n + offset);
+  int load = cache_read(n + offset, 8);
   load = (load & 0xffffff00) | (int)t;
-  mem_write_32(n + offset, load);
+  cache_write(n + offset, load);
   MEMtoWB.fwb = 0;
 
 }
@@ -1721,14 +1721,14 @@ void STURH() {
   int t = EXtoMEM.dval;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  int load = mem_read_32(n + offset);
+  int load = cache_read(n + offset, 8);
   // printf("first load: %x\n", (load & 0xffffff00));
   // printf("second load: %x\n", (t & 0x0000ffff));
   //original implementation
   // load = (load & 0xffffff00) | (t & 0x0000ffff);
   load = t & 0x0000ffff;
   // printf("STURH load: %x\n", load);
-  mem_write_32(n + offset, load);
+  cache_write(n + offset, load);
   MEMtoWB.fwb = 0;
 
 }
