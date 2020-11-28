@@ -3,7 +3,12 @@ echo "" > tresults.txt
 # converts all input files to hex
 for f in inputs/*.s
 do
-  ./inputs/asm2hex $f
+  ../lab3/inputs/asm2hex $f
+done
+
+for g in ../lab3/inputs/*-lab4.s
+do
+  cp $g inputs
 done
 
 # runs the simulators for each file
