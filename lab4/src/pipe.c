@@ -670,8 +670,7 @@ void pipe_stage_fetch()
     Control.lab3_bubble = 0;
     return;
   }
-
-  //lab2 bubble branching
+  //branching bubble
   if (Control.cond_branch == 1)
   {
       CURRENT_STATE.PC = Control.baddr;
@@ -683,7 +682,6 @@ void pipe_stage_fetch()
       Control.cond_branch = 0;
       return;
   }
-
   //lab2 loadstore bubbling
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
@@ -704,9 +702,49 @@ void pipe_stage_fetch()
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
   }
+  uint32_t word;
+  // cache bubbling
+  //inst cache bubble
+  if (Control.inst_cache_bubble > 0)
+  {
+    //not last cycle of bubble
+    if (Control.inst_cache_bubble > 1)
+    {
+      Control.inst_cache_bubble -= 1;
+      return;
+    }
+    //last cycle, restore to pipeline
+    else
+    {
+      IFtoID.inst = Control.inst_store_word;
+      Control.inst_store_word = 0;
+      Control.inst_cache_bubble = 0;
+      if (IFtoID.inst != 0)
+      {
+        bp_predict(CURRENT_STATE.PC);
+      }
+      else if(Control.halt == 0)
+      {
+        Control.halt = 1;
+        bp_predict(CURRENT_STATE.PC);
+      }
+      return;
+    }
+  }
 
-  uint32_t word = mem_read_32(CURRENT_STATE.PC);
-  IFtoID.inst = word;
+  uint32_t word = cache_read(CURRENT_STATE.PC, 4);
+  //same cycle do nothing for bubble
+  if (Control.inst_cache_bubble == 51)
+  {
+    Control.inst_store_word = word;
+    Control.inst_cache_bubble -= 1;
+    return;
+  }
+  //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
+  else
+  {
+    IFtoID.inst = word;
+  }
   // printf("WORD in general: %x\n",word);
   if (word != 0)
   {

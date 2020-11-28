@@ -125,6 +125,7 @@ typedef struct Control_t {
 	int restoration;
 	//lab4 cache bubbling
 	int inst_cache_bubble;
+	uint32_t inst_store_word;
 	int data_cache_bubble;
 	//halt, flags, and baddr
 	int halt;
