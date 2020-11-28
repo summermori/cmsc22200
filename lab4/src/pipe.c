@@ -123,6 +123,13 @@ void pipe_cycle()
 
 void pipe_stage_wb()
 {
+  //WB stall on data_cache_bubble
+  if (Control.data_cache_bubble > 0)
+  {
+    return;
+  }
+
+  //exception
   if (MEMtoWB.halt == 1)
   {
     RUN_BIT = false;
@@ -142,6 +149,24 @@ void pipe_stage_wb()
 
 void pipe_stage_mem()
 {
+  //middle or last cycle of bubble
+  if (Control.data_cache_bubble > 0)
+  {
+    //middle of cycle
+    if (Control.data_cache_bubble > 1)
+    {
+      Control.data_cache_bubble -= 1;
+      return;
+    }
+    //last cycle of bubble, data_cache_bubble == 1
+    else
+    {
+      //last cycle do nothing, MEMtoWB already loaded from first cycle of bubble
+      Control.data_cache_bubble = 0;
+      return;
+    }
+    
+  }
   if (EXtoMEM.halt == 1)
   {
     MEMtoWB.halt = 1;
@@ -189,6 +214,7 @@ void pipe_stage_mem()
     MEMtoWB.fn = EXtoMEM.fn;
     MEMtoWB.fz = EXtoMEM.fz;
     MEMtoWB.fmem = EXtoMEM.fmem;
+    //same cycle bubble_trigger do nothing
   } else {
     MEMtoWB = (MEMtoWB_t){ .op = EXtoMEM.op, .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
   }
@@ -197,6 +223,12 @@ void pipe_stage_mem()
 
 void pipe_stage_execute()
 {
+  //first and middle cycles of data_cache bubble do nothing
+  if (Control.data_cache_bubble > 0)
+  {
+    return;
+  }
+
   // we have modify implementations to write to EXtoMEM.res
   if (!(IDtoEX.fmem)) {
     switch(IDtoEX.op)
@@ -325,10 +357,12 @@ void pipe_stage_execute()
 
 void pipe_stage_decode()
 {
-  //branch bubbling
-  // if ((int)stat_cycles <= Control.branch_bubble_until) {
-  //   return;
-  // }
+  //first and middle cycles of data_cache bubble do nothing
+  if (Control.data_cache_bubble > 0)
+  {
+    return;
+  }
+
   //loadstore bubbling detection
   if (EXtoMEM.op == 0xf8400000)
   {
@@ -658,6 +692,13 @@ void pipe_stage_decode()
 
 void pipe_stage_fetch()
 {
+  //data_cache bubbling
+  //first and middle cycles of data_cache bubble do nothing
+  if (Control.data_cache_bubble > 0)
+  {
+    return;
+  }
+
   //exception control
   if (Control.halt == 1)
   {
@@ -705,7 +746,6 @@ void pipe_stage_fetch()
     return;
   }
 
-  // cache bubbling
   //inst cache bubble
   if (Control.inst_cache_bubble > 0)
   {

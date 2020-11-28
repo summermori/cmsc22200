@@ -72,7 +72,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   }
   else
   {
-    Control.data_cache_bubble = 51;
+    Control.data_cache_bubble = 50;
   }
 
 
