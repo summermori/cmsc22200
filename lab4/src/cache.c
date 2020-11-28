@@ -95,7 +95,10 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     for (int i = 0; i < 8; i++) {
       new_block.data[i] = mem_read_32(addr_head + (4 * i));
     }
-
+    //storing in cache
+    cache[empty] = new_block;
+    printf("cache fill idx: %d\n", empty);
+    printf("cache fill valid: %d\n", cache[empty].valid);
     //return the newly-read address
     return new_block.data[offset];
   }
@@ -117,7 +120,8 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     for (int i = 0; i < 8; i++) {
       lru_block.data[i] = mem_read_32(addr_head + (4 * i));
     }
-
+    //storing in cache
+    cache[min_i] = lru_block;
     //return the newly-read address
     return lru_block.data[offset];
   }
