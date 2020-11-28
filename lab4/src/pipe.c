@@ -719,15 +719,7 @@ void pipe_stage_fetch()
       IFtoID.inst = Control.inst_store_word;
       Control.inst_store_word = 0;
       Control.inst_cache_bubble = 0;
-      if (IFtoID.inst != 0)
-      {
-        bp_predict(CURRENT_STATE.PC);
-      }
-      else if(Control.halt == 0)
-      {
-        Control.halt = 1;
-        bp_predict(CURRENT_STATE.PC);
-      }
+      bp_predict(CURRENT_STATE.PC);
       return;
     }
   }
@@ -744,17 +736,15 @@ void pipe_stage_fetch()
   else
   {
     IFtoID.inst = word;
+    //cache_read returns 0 if there is a branch in ID, so we don't do anything, sending a zero to IFtoID.inst is equivalent to a flush.
+    if (word == 0)
+    {
+      return;
+    }
+    //normal behavior
+    bp_predict(CURRENT_STATE.PC);
   }
   // printf("WORD in general: %x\n",word);
-  if (word != 0)
-  {
-    bp_predict(CURRENT_STATE.PC);
-  }
-  else if(Control.halt == 0)
-  {
-    Control.halt = 1;
-    bp_predict(CURRENT_STATE.PC);
-  }
 }
 
 void TriggerBubble_Branch(int bubble_until)
