@@ -52,6 +52,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     }
 
     if (spec_block.valid && spec_block.tag == tag) {
+      printf("cache hit at cycle %d\n", stat_cycles + 1);
       spec_block.lru = stat_cycles;
       return spec_block.data[offset];
     }
@@ -64,15 +65,19 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   {
 	return 0;
   }
-
+  
   //we are now guaranteed to be doing a read, and so we can signal the stall dependent on the type of miss
   if (n == 4)
   {
-    Control.inst_cache_bubble = 51;
+    Control.inst_cache_bubble = 50;
+    printf("icache miss at (%lx", CURRENT_STATE.PC);
+    printf(") at cycle %d\n", stat_cycles + 1);
   }
   else
   {
-    Control.data_cache_bubble = 50;
+    Control.data_cache_bubble = 49;
+    printf("dcache read miss at (%lx", CURRENT_STATE.PC);
+    printf(") at cycle %d\n", stat_cycles + 1);
   }
 
 
@@ -155,7 +160,7 @@ void cache_write (uint64_t addr, uint64_t val) {
   }
 
   //a miss has occured, and as such we have to read in the correct block.
-  Control.data_cache_bubble = 50;
+  Control.data_cache_bubble = 49;
 
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {

@@ -749,6 +749,7 @@ void pipe_stage_fetch()
   //inst cache bubble
   if (Control.inst_cache_bubble > 0)
   {
+    printf("icache bubble\n");
     //not last cycle of bubble
     if (Control.inst_cache_bubble > 1)
     {
@@ -768,7 +769,7 @@ void pipe_stage_fetch()
 
   uint32_t word = cache_read(CURRENT_STATE.PC, 4);
   //same cycle do nothing for bubble
-  if (Control.inst_cache_bubble == 51)
+  if (Control.inst_cache_bubble == 50)
   {
     Control.inst_store_word = word;
     Control.inst_cache_bubble -= 1;
