@@ -663,6 +663,7 @@ void pipe_stage_fetch()
   {
     return;
   }
+  //branch bubbling
   //lab3 bubble: one cycle halt on fetch
   if (Control.lab3_bubble == 1)
   {
@@ -682,6 +683,7 @@ void pipe_stage_fetch()
       Control.cond_branch = 0;
       return;
   }
+
   //lab2 loadstore bubbling
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
@@ -702,6 +704,7 @@ void pipe_stage_fetch()
     CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
     return;
   }
+
   // cache bubbling
   //inst cache bubble
   if (Control.inst_cache_bubble > 0)
