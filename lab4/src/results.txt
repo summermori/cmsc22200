@@ -1,0 +1,3104 @@
+
+
+##########  TESTING FILE ../inputs/bigloop.x  ##########
+Files simout.txt and refout.txt are identical
+
+##########  TESTING FILE ../inputs/br_same.x  ##########
+5170c5170
+< X3: 0x1
+---
+> X3: 0x2
+
+##########  TESTING FILE ../inputs/cancel_req.x  ##########
+2773c2773
+< PC                : 0x400014
+---
+> PC                : 0x400018
+2819c2819
+< PC                : 0x400014
+---
+> PC                : 0x40001c
+2865c2865
+< PC                : 0x400014
+---
+> PC                : 0x400020
+2911c2911
+< PC                : 0x400014
+---
+> PC                : 0x400020
+2956c2956
+< Instruction Retired : 8
+---
+> Instruction Retired : 9
+2961c2961
+< X2: 0x1
+---
+> X2: 0x2
+3002,3003c3002,3003
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 10
+> PC                : 0x400018
+3007c3007
+< X2: 0x1
+---
+> X2: 0x2
+3048,3049c3048,3049
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 11
+> PC                : 0x40001c
+3053c3053
+< X2: 0x1
+---
+> X2: 0x2
+3094,3095c3094,3095
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 11
+> PC                : 0x400020
+3099c3099
+< X2: 0x1
+---
+> X2: 0x2
+3140,3141c3140,3141
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 11
+> PC                : 0x400020
+3145c3145
+< X2: 0x1
+---
+> X2: 0x2
+3186c3186
+< Instruction Retired : 8
+---
+> Instruction Retired : 12
+3191c3191
+< X2: 0x1
+---
+> X2: 0x3
+3232,3233c3232,3233
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 13
+> PC                : 0x400018
+3237c3237
+< X2: 0x1
+---
+> X2: 0x3
+3278,3279c3278,3279
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 14
+> PC                : 0x40001c
+3283c3283
+< X2: 0x1
+---
+> X2: 0x3
+3324,3325c3324,3325
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 14
+> PC                : 0x400020
+3329c3329
+< X2: 0x1
+---
+> X2: 0x3
+3370,3371c3370,3371
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 14
+> PC                : 0x400020
+3375c3375
+< X2: 0x1
+---
+> X2: 0x3
+3416c3416
+< Instruction Retired : 8
+---
+> Instruction Retired : 15
+3421c3421
+< X2: 0x1
+---
+> X2: 0x4
+3462,3463c3462,3463
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 16
+> PC                : 0x400018
+3467c3467
+< X2: 0x1
+---
+> X2: 0x4
+3508,3509c3508,3509
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 17
+> PC                : 0x40001c
+3513c3513
+< X2: 0x1
+---
+> X2: 0x4
+3554,3555c3554,3555
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 17
+> PC                : 0x400020
+3559c3559
+< X2: 0x1
+---
+> X2: 0x4
+3600,3601c3600,3601
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 17
+> PC                : 0x400020
+3605c3605
+< X2: 0x1
+---
+> X2: 0x4
+3646c3646
+< Instruction Retired : 8
+---
+> Instruction Retired : 18
+3651c3651
+< X2: 0x1
+---
+> X2: 0x5
+3692,3693c3692,3693
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 19
+> PC                : 0x400018
+3697c3697
+< X2: 0x1
+---
+> X2: 0x5
+3738,3739c3738,3739
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 20
+> PC                : 0x40001c
+3743c3743
+< X2: 0x1
+---
+> X2: 0x5
+3784,3785c3784,3785
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 20
+> PC                : 0x400020
+3789c3789
+< X2: 0x1
+---
+> X2: 0x5
+3830,3831c3830,3831
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 20
+> PC                : 0x400020
+3835c3835
+< X2: 0x1
+---
+> X2: 0x5
+3876c3876
+< Instruction Retired : 8
+---
+> Instruction Retired : 21
+3881c3881
+< X2: 0x1
+---
+> X2: 0x6
+3922,3923c3922,3923
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 22
+> PC                : 0x400018
+3927c3927
+< X2: 0x1
+---
+> X2: 0x6
+3968,3969c3968,3969
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 23
+> PC                : 0x40001c
+3973c3973
+< X2: 0x1
+---
+> X2: 0x6
+4014,4015c4014,4015
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 23
+> PC                : 0x400020
+4019c4019
+< X2: 0x1
+---
+> X2: 0x6
+4060,4061c4060,4061
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 23
+> PC                : 0x400020
+4065c4065
+< X2: 0x1
+---
+> X2: 0x6
+4106c4106
+< Instruction Retired : 8
+---
+> Instruction Retired : 24
+4111c4111
+< X2: 0x1
+---
+> X2: 0x7
+4152,4153c4152,4153
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 25
+> PC                : 0x400018
+4157c4157
+< X2: 0x1
+---
+> X2: 0x7
+4198,4199c4198,4199
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 26
+> PC                : 0x40001c
+4203c4203
+< X2: 0x1
+---
+> X2: 0x7
+4244,4245c4244,4245
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 26
+> PC                : 0x400020
+4249c4249
+< X2: 0x1
+---
+> X2: 0x7
+4290,4291c4290,4291
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 26
+> PC                : 0x400020
+4295c4295
+< X2: 0x1
+---
+> X2: 0x7
+4336c4336
+< Instruction Retired : 8
+---
+> Instruction Retired : 27
+4341c4341
+< X2: 0x1
+---
+> X2: 0x8
+4382,4383c4382,4383
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 28
+> PC                : 0x400018
+4387c4387
+< X2: 0x1
+---
+> X2: 0x8
+4428,4429c4428,4429
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 29
+> PC                : 0x40001c
+4433c4433
+< X2: 0x1
+---
+> X2: 0x8
+4474,4475c4474,4475
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 29
+> PC                : 0x400020
+4479c4479
+< X2: 0x1
+---
+> X2: 0x8
+4520,4521c4520,4521
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 29
+> PC                : 0x400020
+4525c4525
+< X2: 0x1
+---
+> X2: 0x8
+4566c4566
+< Instruction Retired : 8
+---
+> Instruction Retired : 30
+4571c4571
+< X2: 0x1
+---
+> X2: 0x9
+4612,4613c4612,4613
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 31
+> PC                : 0x400018
+4617c4617
+< X2: 0x1
+---
+> X2: 0x9
+4658,4659c4658,4659
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 32
+> PC                : 0x40001c
+4663c4663
+< X2: 0x1
+---
+> X2: 0x9
+4704,4705c4704,4705
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 32
+> PC                : 0x400020
+4709c4709
+< X2: 0x1
+---
+> X2: 0x9
+4750,4751c4750,4751
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 32
+> PC                : 0x400020
+4755c4755
+< X2: 0x1
+---
+> X2: 0x9
+4796c4796
+< Instruction Retired : 8
+---
+> Instruction Retired : 33
+4801c4801
+< X2: 0x1
+---
+> X2: 0xa
+4842,4843c4842,4843
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 34
+> PC                : 0x400018
+4847c4847
+< X2: 0x1
+---
+> X2: 0xa
+4888,4889c4888,4889
+< Instruction Retired : 8
+< PC                : 0x400014
+---
+> Instruction Retired : 35
+> PC                : 0x40001c
+4893c4893
+< X2: 0x1
+---
+> X2: 0xa
+4934c4934
+< Instruction Retired : 8
+---
+> Instruction Retired : 35
+4939c4939
+< X2: 0x1
+---
+> X2: 0xa
+4980c4980
+< Instruction Retired : 8
+---
+> Instruction Retired : 35
+4985c4985
+< X2: 0x1
+---
+> X2: 0xa
+5026c5026
+< Instruction Retired : 8
+---
+> Instruction Retired : 36
+5031c5031
+< X2: 0x1
+---
+> X2: 0xb
+5072,5073c5072,5073
+< Instruction Retired : 8
+< PC                : 0x400020
+---
+> Instruction Retired : 37
+> PC                : 0x400014
+5077c5077
+< X2: 0x1
+---
+> X2: 0xb
+5118,5119c5118,5119
+< Instruction Retired : 8
+< PC                : 0x400024
+---
+> Instruction Retired : 38
+> PC                : 0x400018
+5123c5123
+< X2: 0x1
+---
+> X2: 0xb
+5164,5165c5164,5165
+< Instruction Retired : 9
+< PC                : 0x400014
+---
+> Instruction Retired : 39
+> PC                : 0x40001c
+5169c5169
+< X2: 0x2
+---
+> X2: 0xc
+5210,5211c5210,5211
+< Instruction Retired : 10
+< PC                : 0x400018
+---
+> Instruction Retired : 40
+> PC                : 0x400014
+5215c5215
+< X2: 0x2
+---
+> X2: 0xc
+5256,5257c5256,5257
+< Instruction Retired : 11
+< PC                : 0x40001c
+---
+> Instruction Retired : 41
+> PC                : 0x400018
+5261c5261
+< X2: 0x2
+---
+> X2: 0xc
+5302,5303c5302,5303
+< Instruction Retired : 11
+< PC                : 0x400020
+---
+> Instruction Retired : 42
+> PC                : 0x40001c
+5307c5307
+< X2: 0x2
+---
+> X2: 0xd
+5348,5349c5348,5349
+< Instruction Retired : 11
+< PC                : 0x400024
+---
+> Instruction Retired : 43
+> PC                : 0x400014
+5353c5353
+< X2: 0x2
+---
+> X2: 0xd
+5394,5395c5394,5395
+< Instruction Retired : 12
+< PC                : 0x400014
+---
+> Instruction Retired : 44
+> PC                : 0x400018
+5399c5399
+< X2: 0x3
+---
+> X2: 0xd
+5440,5441c5440,5441
+< Instruction Retired : 13
+< PC                : 0x400018
+---
+> Instruction Retired : 45
+> PC                : 0x40001c
+5445c5445
+< X2: 0x3
+---
+> X2: 0xe
+5486,5487c5486,5487
+< Instruction Retired : 14
+< PC                : 0x40001c
+---
+> Instruction Retired : 46
+> PC                : 0x400014
+5491c5491
+< X2: 0x3
+---
+> X2: 0xe
+5532,5533c5532,5533
+< Instruction Retired : 14
+< PC                : 0x400020
+---
+> Instruction Retired : 47
+> PC                : 0x400018
+5537c5537
+< X2: 0x3
+---
+> X2: 0xe
+5578,5579c5578,5579
+< Instruction Retired : 14
+< PC                : 0x400024
+---
+> Instruction Retired : 48
+> PC                : 0x40001c
+5583c5583
+< X2: 0x3
+---
+> X2: 0xf
+5624c5624
+< Instruction Retired : 15
+---
+> Instruction Retired : 49
+5629c5629
+< X2: 0x4
+---
+> X2: 0xf
+5670c5670
+< Instruction Retired : 16
+---
+> Instruction Retired : 50
+5675c5675
+< X2: 0x4
+---
+> X2: 0xf
+5716c5716
+< Instruction Retired : 17
+---
+> Instruction Retired : 51
+5721c5721
+< X2: 0x4
+---
+> X2: 0x10
+5762,5763c5762,5763
+< Instruction Retired : 17
+< PC                : 0x400020
+---
+> Instruction Retired : 52
+> PC                : 0x400014
+5767c5767
+< X2: 0x4
+---
+> X2: 0x10
+5808,5809c5808,5809
+< Instruction Retired : 17
+< PC                : 0x400024
+---
+> Instruction Retired : 53
+> PC                : 0x400018
+5813c5813
+< X2: 0x4
+---
+> X2: 0x10
+5854,5855c5854,5855
+< Instruction Retired : 18
+< PC                : 0x400014
+---
+> Instruction Retired : 54
+> PC                : 0x40001c
+5859c5859
+< X2: 0x5
+---
+> X2: 0x11
+5900,5901c5900,5901
+< Instruction Retired : 19
+< PC                : 0x400018
+---
+> Instruction Retired : 55
+> PC                : 0x400014
+5905c5905
+< X2: 0x5
+---
+> X2: 0x11
+5946,5947c5946,5947
+< Instruction Retired : 20
+< PC                : 0x40001c
+---
+> Instruction Retired : 56
+> PC                : 0x400018
+5951c5951
+< X2: 0x5
+---
+> X2: 0x11
+5992,5993c5992,5993
+< Instruction Retired : 20
+< PC                : 0x400020
+---
+> Instruction Retired : 57
+> PC                : 0x40001c
+5997c5997
+< X2: 0x5
+---
+> X2: 0x12
+6038,6039c6038,6039
+< Instruction Retired : 20
+< PC                : 0x400024
+---
+> Instruction Retired : 58
+> PC                : 0x400014
+6043c6043
+< X2: 0x5
+---
+> X2: 0x12
+6084,6085c6084,6085
+< Instruction Retired : 21
+< PC                : 0x400014
+---
+> Instruction Retired : 59
+> PC                : 0x400018
+6089c6089
+< X2: 0x6
+---
+> X2: 0x12
+6130,6131c6130,6131
+< Instruction Retired : 22
+< PC                : 0x400018
+---
+> Instruction Retired : 60
+> PC                : 0x40001c
+6135c6135
+< X2: 0x6
+---
+> X2: 0x13
+6176,6177c6176,6177
+< Instruction Retired : 23
+< PC                : 0x40001c
+---
+> Instruction Retired : 61
+> PC                : 0x400014
+6181c6181
+< X2: 0x6
+---
+> X2: 0x13
+6222,6223c6222,6223
+< Instruction Retired : 23
+< PC                : 0x400020
+---
+> Instruction Retired : 62
+> PC                : 0x400018
+6227c6227
+< X2: 0x6
+---
+> X2: 0x13
+6268,6269c6268,6269
+< Instruction Retired : 23
+< PC                : 0x400024
+---
+> Instruction Retired : 63
+> PC                : 0x40001c
+6273c6273
+< X2: 0x6
+---
+> X2: 0x14
+6314c6314
+< Instruction Retired : 24
+---
+> Instruction Retired : 64
+6319c6319
+< X2: 0x7
+---
+> X2: 0x14
+6360c6360
+< Instruction Retired : 25
+---
+> Instruction Retired : 65
+6365c6365
+< X2: 0x7
+---
+> X2: 0x14
+6406c6406
+< Instruction Retired : 26
+---
+> Instruction Retired : 66
+6411c6411
+< X2: 0x7
+---
+> X2: 0x15
+6452,6453c6452,6453
+< Instruction Retired : 26
+< PC                : 0x400020
+---
+> Instruction Retired : 67
+> PC                : 0x400014
+6457c6457
+< X2: 0x7
+---
+> X2: 0x15
+6498,6499c6498,6499
+< Instruction Retired : 26
+< PC                : 0x400024
+---
+> Instruction Retired : 68
+> PC                : 0x400018
+6503c6503
+< X2: 0x7
+---
+> X2: 0x15
+6544,6545c6544,6545
+< Instruction Retired : 27
+< PC                : 0x400014
+---
+> Instruction Retired : 69
+> PC                : 0x40001c
+6549c6549
+< X2: 0x8
+---
+> X2: 0x16
+6590,6591c6590,6591
+< Instruction Retired : 28
+< PC                : 0x400018
+---
+> Instruction Retired : 70
+> PC                : 0x400014
+6595c6595
+< X2: 0x8
+---
+> X2: 0x16
+6636,6637c6636,6637
+< Instruction Retired : 29
+< PC                : 0x40001c
+---
+> Instruction Retired : 71
+> PC                : 0x400018
+6641c6641
+< X2: 0x8
+---
+> X2: 0x16
+6682,6683c6682,6683
+< Instruction Retired : 29
+< PC                : 0x400020
+---
+> Instruction Retired : 72
+> PC                : 0x40001c
+6687c6687
+< X2: 0x8
+---
+> X2: 0x17
+6728,6729c6728,6729
+< Instruction Retired : 29
+< PC                : 0x400024
+---
+> Instruction Retired : 73
+> PC                : 0x400014
+6733c6733
+< X2: 0x8
+---
+> X2: 0x17
+6774,6775c6774,6775
+< Instruction Retired : 30
+< PC                : 0x400014
+---
+> Instruction Retired : 74
+> PC                : 0x400018
+6779c6779
+< X2: 0x9
+---
+> X2: 0x17
+6820,6821c6820,6821
+< Instruction Retired : 31
+< PC                : 0x400018
+---
+> Instruction Retired : 75
+> PC                : 0x40001c
+6825c6825
+< X2: 0x9
+---
+> X2: 0x18
+6866,6867c6866,6867
+< Instruction Retired : 32
+< PC                : 0x40001c
+---
+> Instruction Retired : 76
+> PC                : 0x400014
+6871c6871
+< X2: 0x9
+---
+> X2: 0x18
+6912,6913c6912,6913
+< Instruction Retired : 32
+< PC                : 0x400020
+---
+> Instruction Retired : 77
+> PC                : 0x400018
+6917c6917
+< X2: 0x9
+---
+> X2: 0x18
+6958,6959c6958,6959
+< Instruction Retired : 32
+< PC                : 0x400024
+---
+> Instruction Retired : 78
+> PC                : 0x40001c
+6963c6963
+< X2: 0x9
+---
+> X2: 0x19
+7004c7004
+< Instruction Retired : 33
+---
+> Instruction Retired : 79
+7009c7009
+< X2: 0xa
+---
+> X2: 0x19
+7050c7050
+< Instruction Retired : 34
+---
+> Instruction Retired : 80
+7055c7055
+< X2: 0xa
+---
+> X2: 0x19
+7096c7096
+< Instruction Retired : 35
+---
+> Instruction Retired : 81
+7101c7101
+< X2: 0xa
+---
+> X2: 0x1a
+7142c7142
+< Instruction Retired : 35
+---
+> Instruction Retired : 82
+7147c7147
+< X2: 0xa
+---
+> X2: 0x1a
+7188c7188
+< Instruction Retired : 35
+---
+> Instruction Retired : 83
+7193c7193
+< X2: 0xa
+---
+> X2: 0x1a
+7234c7234
+< Instruction Retired : 36
+---
+> Instruction Retired : 84
+7239c7239
+< X2: 0xb
+---
+> X2: 0x1b
+7280c7280
+< Instruction Retired : 37
+---
+> Instruction Retired : 85
+7285c7285
+< X2: 0xb
+---
+> X2: 0x1b
+7326c7326
+< Instruction Retired : 38
+---
+> Instruction Retired : 86
+7331c7331
+< X2: 0xb
+---
+> X2: 0x1b
+7372c7372
+< Instruction Retired : 39
+---
+> Instruction Retired : 87
+7377c7377
+< X2: 0xc
+---
+> X2: 0x1c
+7418c7418
+< Instruction Retired : 40
+---
+> Instruction Retired : 88
+7423c7423
+< X2: 0xc
+---
+> X2: 0x1c
+7464c7464
+< Instruction Retired : 41
+---
+> Instruction Retired : 89
+7469c7469
+< X2: 0xc
+---
+> X2: 0x1c
+7510c7510
+< Instruction Retired : 42
+---
+> Instruction Retired : 90
+7515c7515
+< X2: 0xd
+---
+> X2: 0x1d
+7556c7556
+< Instruction Retired : 43
+---
+> Instruction Retired : 91
+7561c7561
+< X2: 0xd
+---
+> X2: 0x1d
+7602c7602
+< Instruction Retired : 44
+---
+> Instruction Retired : 92
+7607c7607
+< X2: 0xd
+---
+> X2: 0x1d
+7648c7648
+< Instruction Retired : 45
+---
+> Instruction Retired : 93
+7653c7653
+< X2: 0xe
+---
+> X2: 0x1e
+7694c7694
+< Instruction Retired : 46
+---
+> Instruction Retired : 94
+7699c7699
+< X2: 0xe
+---
+> X2: 0x1e
+7740c7740
+< Instruction Retired : 47
+---
+> Instruction Retired : 95
+7745c7745
+< X2: 0xe
+---
+> X2: 0x1e
+7786c7786
+< Instruction Retired : 48
+---
+> Instruction Retired : 96
+7791c7791
+< X2: 0xf
+---
+> X2: 0x1f
+7832c7832
+< Instruction Retired : 49
+---
+> Instruction Retired : 97
+7837c7837
+< X2: 0xf
+---
+> X2: 0x1f
+7878c7878
+< Instruction Retired : 50
+---
+> Instruction Retired : 98
+7883c7883
+< X2: 0xf
+---
+> X2: 0x1f
+7924c7924
+< Instruction Retired : 51
+---
+> Instruction Retired : 99
+7929c7929
+< X2: 0x10
+---
+> X2: 0x20
+7970c7970
+< Instruction Retired : 52
+---
+> Instruction Retired : 100
+7975c7975
+< X2: 0x10
+---
+> X2: 0x20
+8016c8016
+< Instruction Retired : 53
+---
+> Instruction Retired : 101
+8021c8021
+< X2: 0x10
+---
+> X2: 0x20
+8062c8062
+< Instruction Retired : 54
+---
+> Instruction Retired : 102
+8067c8067
+< X2: 0x11
+---
+> X2: 0x21
+8108c8108
+< Instruction Retired : 55
+---
+> Instruction Retired : 103
+8113c8113
+< X2: 0x11
+---
+> X2: 0x21
+8154c8154
+< Instruction Retired : 56
+---
+> Instruction Retired : 104
+8159c8159
+< X2: 0x11
+---
+> X2: 0x21
+8200c8200
+< Instruction Retired : 57
+---
+> Instruction Retired : 105
+8205c8205
+< X2: 0x12
+---
+> X2: 0x22
+8246c8246
+< Instruction Retired : 58
+---
+> Instruction Retired : 106
+8251c8251
+< X2: 0x12
+---
+> X2: 0x22
+8292c8292
+< Instruction Retired : 59
+---
+> Instruction Retired : 107
+8297c8297
+< X2: 0x12
+---
+> X2: 0x22
+8338c8338
+< Instruction Retired : 60
+---
+> Instruction Retired : 108
+8343c8343
+< X2: 0x13
+---
+> X2: 0x23
+8384c8384
+< Instruction Retired : 61
+---
+> Instruction Retired : 109
+8389c8389
+< X2: 0x13
+---
+> X2: 0x23
+8430c8430
+< Instruction Retired : 62
+---
+> Instruction Retired : 110
+8435c8435
+< X2: 0x13
+---
+> X2: 0x23
+8476c8476
+< Instruction Retired : 63
+---
+> Instruction Retired : 111
+8481c8481
+< X2: 0x14
+---
+> X2: 0x24
+8522c8522
+< Instruction Retired : 64
+---
+> Instruction Retired : 112
+8527c8527
+< X2: 0x14
+---
+> X2: 0x24
+8568c8568
+< Instruction Retired : 65
+---
+> Instruction Retired : 113
+8573c8573
+< X2: 0x14
+---
+> X2: 0x24
+8614c8614
+< Instruction Retired : 66
+---
+> Instruction Retired : 114
+8619c8619
+< X2: 0x15
+---
+> X2: 0x25
+8660c8660
+< Instruction Retired : 67
+---
+> Instruction Retired : 115
+8665c8665
+< X2: 0x15
+---
+> X2: 0x25
+8706c8706
+< Instruction Retired : 68
+---
+> Instruction Retired : 116
+8711c8711
+< X2: 0x15
+---
+> X2: 0x25
+8752c8752
+< Instruction Retired : 69
+---
+> Instruction Retired : 117
+8757c8757
+< X2: 0x16
+---
+> X2: 0x26
+8798c8798
+< Instruction Retired : 70
+---
+> Instruction Retired : 118
+8803c8803
+< X2: 0x16
+---
+> X2: 0x26
+8844c8844
+< Instruction Retired : 71
+---
+> Instruction Retired : 119
+8849c8849
+< X2: 0x16
+---
+> X2: 0x26
+8890c8890
+< Instruction Retired : 72
+---
+> Instruction Retired : 120
+8895c8895
+< X2: 0x17
+---
+> X2: 0x27
+8936c8936
+< Instruction Retired : 73
+---
+> Instruction Retired : 121
+8941c8941
+< X2: 0x17
+---
+> X2: 0x27
+8982c8982
+< Instruction Retired : 74
+---
+> Instruction Retired : 122
+8987c8987
+< X2: 0x17
+---
+> X2: 0x27
+9028c9028
+< Instruction Retired : 75
+---
+> Instruction Retired : 123
+9033c9033
+< X2: 0x18
+---
+> X2: 0x28
+9074c9074
+< Instruction Retired : 76
+---
+> Instruction Retired : 124
+9079c9079
+< X2: 0x18
+---
+> X2: 0x28
+9120c9120
+< Instruction Retired : 77
+---
+> Instruction Retired : 125
+9125c9125
+< X2: 0x18
+---
+> X2: 0x28
+9166c9166
+< Instruction Retired : 78
+---
+> Instruction Retired : 126
+9171c9171
+< X2: 0x19
+---
+> X2: 0x29
+
+##########  TESTING FILE ../inputs/ld.x  ##########
+2635c2635
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2681c2681
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2727c2727
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2773c2773
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2819c2819
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2865c2865
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2911c2911
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+2957c2957
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3003c3003
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3049c3049
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3095c3095
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3141c3141
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3187c3187
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3233c3233
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3279c3279
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3325c3325
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3371c3371
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3417c3417
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3463c3463
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3509c3509
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3555c3555
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3601c3601
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3647c3647
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3693c3693
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3739c3739
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3785c3785
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3831c3831
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3877c3877
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3923c3923
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+3969c3969
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4015c4015
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4061c4061
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4107c4107
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4153c4153
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4199c4199
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4245c4245
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4291c4291
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4337c4337
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4383c4383
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4429c4429
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4475c4475
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4521c4521
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4567c4567
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4613c4613
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4659c4659
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4705c4705
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4751c4751
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4797c4797
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4843c4843
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+4889c4889
+< PC                : 0x40001c
+---
+> PC                : 0x400020
+7281c7281
+< PC                : 0x400020
+---
+> PC                : 0x400024
+7327c7327
+< PC                : 0x400020
+---
+> PC                : 0x400028
+7373c7373
+< PC                : 0x400020
+---
+> PC                : 0x40002c
+7419c7419
+< PC                : 0x400020
+---
+> PC                : 0x400030
+7465c7465
+< PC                : 0x400020
+---
+> PC                : 0x400030
+7474c7474
+< X7: 0x0
+---
+> X7: 0x400000003
+7511c7511
+< PC                : 0x400020
+---
+> PC                : 0x400034
+7520,7521c7520,7521
+< X7: 0x0
+< X8: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+7556,7557c7556,7557
+< Instruction Retired : 11
+< PC                : 0x400020
+---
+> Instruction Retired : 10
+> PC                : 0x400034
+7566,7567c7566,7567
+< X7: 0x0
+< X8: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+7602,7603c7602,7603
+< Instruction Retired : 12
+< PC                : 0x400020
+---
+> Instruction Retired : 11
+> PC                : 0x400034
+7612,7614c7612,7614
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7648,7649c7648,7649
+< Instruction Retired : 13
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7658,7660c7658,7660
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7688c7688
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7694,7695c7694,7695
+< Instruction Retired : 14
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7704,7706c7704,7706
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7731c7731
+< No. of Cycles: 168
+---
+> No. of Cycles: 167
+7734c7734
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7740,7741c7740,7741
+< Instruction Retired : 15
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7750,7752c7750,7752
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7777c7777
+< No. of Cycles: 169
+---
+> No. of Cycles: 167
+7780c7780
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7786,7787c7786,7787
+< Instruction Retired : 16
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7796,7798c7796,7798
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7823c7823
+< No. of Cycles: 170
+---
+> No. of Cycles: 167
+7826c7826
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7832,7833c7832,7833
+< Instruction Retired : 17
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7842,7844c7842,7844
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7869c7869
+< No. of Cycles: 171
+---
+> No. of Cycles: 167
+7872c7872
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7878,7879c7878,7879
+< Instruction Retired : 18
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7888,7890c7888,7890
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7915c7915
+< No. of Cycles: 172
+---
+> No. of Cycles: 167
+7918c7918
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7924,7925c7924,7925
+< Instruction Retired : 19
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7934,7936c7934,7936
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+7961c7961
+< No. of Cycles: 173
+---
+> No. of Cycles: 167
+7964c7964
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+7970,7971c7970,7971
+< Instruction Retired : 20
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+7980,7982c7980,7982
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8007c8007
+< No. of Cycles: 174
+---
+> No. of Cycles: 167
+8010c8010
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8016,8017c8016,8017
+< Instruction Retired : 21
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8026,8028c8026,8028
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8053c8053
+< No. of Cycles: 175
+---
+> No. of Cycles: 167
+8056c8056
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8062,8063c8062,8063
+< Instruction Retired : 22
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8072,8074c8072,8074
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8099c8099
+< No. of Cycles: 176
+---
+> No. of Cycles: 167
+8102c8102
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8108,8109c8108,8109
+< Instruction Retired : 23
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8118,8120c8118,8120
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8145c8145
+< No. of Cycles: 177
+---
+> No. of Cycles: 167
+8148c8148
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8154,8155c8154,8155
+< Instruction Retired : 24
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8164,8166c8164,8166
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8191c8191
+< No. of Cycles: 178
+---
+> No. of Cycles: 167
+8194c8194
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8200,8201c8200,8201
+< Instruction Retired : 25
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8210,8212c8210,8212
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8237c8237
+< No. of Cycles: 179
+---
+> No. of Cycles: 167
+8240c8240
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8246,8247c8246,8247
+< Instruction Retired : 26
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8256,8258c8256,8258
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8283c8283
+< No. of Cycles: 180
+---
+> No. of Cycles: 167
+8286c8286
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8292,8293c8292,8293
+< Instruction Retired : 27
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8302,8304c8302,8304
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8329c8329
+< No. of Cycles: 181
+---
+> No. of Cycles: 167
+8332c8332
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8338,8339c8338,8339
+< Instruction Retired : 28
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8348,8350c8348,8350
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8375c8375
+< No. of Cycles: 182
+---
+> No. of Cycles: 167
+8378c8378
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8384,8385c8384,8385
+< Instruction Retired : 29
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8394,8396c8394,8396
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8421c8421
+< No. of Cycles: 183
+---
+> No. of Cycles: 167
+8424c8424
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8430,8431c8430,8431
+< Instruction Retired : 30
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8440,8442c8440,8442
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8467c8467
+< No. of Cycles: 184
+---
+> No. of Cycles: 167
+8470c8470
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8476,8477c8476,8477
+< Instruction Retired : 31
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8486,8488c8486,8488
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8513c8513
+< No. of Cycles: 185
+---
+> No. of Cycles: 167
+8516c8516
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8522,8523c8522,8523
+< Instruction Retired : 32
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8532,8534c8532,8534
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8559c8559
+< No. of Cycles: 186
+---
+> No. of Cycles: 167
+8562c8562
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8568,8569c8568,8569
+< Instruction Retired : 33
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8578,8580c8578,8580
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8605c8605
+< No. of Cycles: 187
+---
+> No. of Cycles: 167
+8608c8608
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8614,8615c8614,8615
+< Instruction Retired : 34
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8624,8626c8624,8626
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8651c8651
+< No. of Cycles: 188
+---
+> No. of Cycles: 167
+8654c8654
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8660,8661c8660,8661
+< Instruction Retired : 35
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8670,8672c8670,8672
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8697c8697
+< No. of Cycles: 189
+---
+> No. of Cycles: 167
+8700c8700
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8706,8707c8706,8707
+< Instruction Retired : 36
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8716,8718c8716,8718
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8743c8743
+< No. of Cycles: 190
+---
+> No. of Cycles: 167
+8746c8746
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8752,8753c8752,8753
+< Instruction Retired : 37
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8762,8764c8762,8764
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8789c8789
+< No. of Cycles: 191
+---
+> No. of Cycles: 167
+8792c8792
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8798,8799c8798,8799
+< Instruction Retired : 38
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8808,8810c8808,8810
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8835c8835
+< No. of Cycles: 192
+---
+> No. of Cycles: 167
+8838c8838
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8844,8845c8844,8845
+< Instruction Retired : 39
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8854,8856c8854,8856
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8881c8881
+< No. of Cycles: 193
+---
+> No. of Cycles: 167
+8884c8884
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8890,8891c8890,8891
+< Instruction Retired : 40
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8900,8902c8900,8902
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8927c8927
+< No. of Cycles: 194
+---
+> No. of Cycles: 167
+8930c8930
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8936,8937c8936,8937
+< Instruction Retired : 41
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8946,8948c8946,8948
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+8973c8973
+< No. of Cycles: 195
+---
+> No. of Cycles: 167
+8976c8976
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+8982,8983c8982,8983
+< Instruction Retired : 42
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+8992,8994c8992,8994
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+9019c9019
+< No. of Cycles: 196
+---
+> No. of Cycles: 167
+9022c9022
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+9028,9029c9028,9029
+< Instruction Retired : 43
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+9038,9040c9038,9040
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+9065c9065
+< No. of Cycles: 197
+---
+> No. of Cycles: 167
+9068c9068
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+9074,9075c9074,9075
+< Instruction Retired : 44
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+9084,9086c9084,9086
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+9111c9111
+< No. of Cycles: 198
+---
+> No. of Cycles: 167
+9114c9114
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+9120,9121c9120,9121
+< Instruction Retired : 45
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+9130,9132c9130,9132
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+9157c9157
+< No. of Cycles: 199
+---
+> No. of Cycles: 167
+9160c9160
+< Simulating for 1 cycles...
+---
+> Can't simulate, Simulator is halted
+9166,9167c9166,9167
+< Instruction Retired : 46
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x400034
+9176,9178c9176,9178
+< X7: 0x0
+< X8: 0x0
+< X9: 0x0
+---
+> X7: 0x400000003
+> X8: 0x4
+> X9: 0x400000007
+9203c9203
+< No. of Cycles: 200
+---
+> No. of Cycles: 167
+
+##########  TESTING FILE ../inputs/st_loop.x  ##########
+4981c4981
+< PC                : 0x400020
+---
+> PC                : 0x400024
+5027c5027
+< PC                : 0x400020
+---
+> PC                : 0x400028
+5073c5073
+< PC                : 0x400020
+---
+> PC                : 0x40002c
+5119c5119
+< PC                : 0x400020
+---
+> PC                : 0x400030
+5165c5165
+< PC                : 0x400020
+---
+> PC                : 0x400018
+5211c5211
+< PC                : 0x400020
+---
+> PC                : 0x40001c
+5302,5303c5302,5303
+< Instruction Retired : 12
+< PC                : 0x400020
+---
+> Instruction Retired : 11
+> PC                : 0x400024
+5348,5349c5348,5349
+< Instruction Retired : 13
+< PC                : 0x400020
+---
+> Instruction Retired : 11
+> PC                : 0x400028
+5394,5395c5394,5395
+< Instruction Retired : 14
+< PC                : 0x400020
+---
+> Instruction Retired : 12
+> PC                : 0x40002c
+5399c5399
+< X2: 0x1
+---
+> X2: 0x2
+5440,5441c5440,5441
+< Instruction Retired : 15
+< PC                : 0x400020
+---
+> Instruction Retired : 13
+> PC                : 0x400030
+5445c5445
+< X2: 0x1
+---
+> X2: 0x2
+5486,5487c5486,5487
+< Instruction Retired : 16
+< PC                : 0x400020
+---
+> Instruction Retired : 14
+> PC                : 0x400018
+5491c5491
+< X2: 0x1
+---
+> X2: 0x2
+5532,5533c5532,5533
+< Instruction Retired : 17
+< PC                : 0x400020
+---
+> Instruction Retired : 15
+> PC                : 0x40001c
+5537c5537
+< X2: 0x1
+---
+> X2: 0x2
+5578c5578
+< Instruction Retired : 18
+---
+> Instruction Retired : 16
+5583c5583
+< X2: 0x1
+---
+> X2: 0x2
+5624,5625c5624,5625
+< Instruction Retired : 19
+< PC                : 0x400020
+---
+> Instruction Retired : 16
+> PC                : 0x400024
+5629c5629
+< X2: 0x1
+---
+> X2: 0x2
+5670,5671c5670,5671
+< Instruction Retired : 20
+< PC                : 0x400020
+---
+> Instruction Retired : 16
+> PC                : 0x400028
+5675c5675
+< X2: 0x1
+---
+> X2: 0x2
+5716,5717c5716,5717
+< Instruction Retired : 21
+< PC                : 0x400020
+---
+> Instruction Retired : 17
+> PC                : 0x40002c
+5721c5721
+< X2: 0x1
+---
+> X2: 0x3
+5762,5763c5762,5763
+< Instruction Retired : 22
+< PC                : 0x400020
+---
+> Instruction Retired : 18
+> PC                : 0x400030
+5767c5767
+< X2: 0x1
+---
+> X2: 0x3
+5808,5809c5808,5809
+< Instruction Retired : 23
+< PC                : 0x400020
+---
+> Instruction Retired : 19
+> PC                : 0x400018
+5813c5813
+< X2: 0x1
+---
+> X2: 0x3
+5854,5855c5854,5855
+< Instruction Retired : 24
+< PC                : 0x400020
+---
+> Instruction Retired : 20
+> PC                : 0x40001c
+5859c5859
+< X2: 0x1
+---
+> X2: 0x3
+5900c5900
+< Instruction Retired : 25
+---
+> Instruction Retired : 21
+5905c5905
+< X2: 0x1
+---
+> X2: 0x3
+5946,5947c5946,5947
+< Instruction Retired : 26
+< PC                : 0x400020
+---
+> Instruction Retired : 21
+> PC                : 0x400024
+5951c5951
+< X2: 0x1
+---
+> X2: 0x3
+5992,5993c5992,5993
+< Instruction Retired : 27
+< PC                : 0x400020
+---
+> Instruction Retired : 21
+> PC                : 0x400028
+5997c5997
+< X2: 0x1
+---
+> X2: 0x3
+6038,6039c6038,6039
+< Instruction Retired : 28
+< PC                : 0x400020
+---
+> Instruction Retired : 22
+> PC                : 0x40002c
+6043c6043
+< X2: 0x1
+---
+> X2: 0x4
+6084,6085c6084,6085
+< Instruction Retired : 29
+< PC                : 0x400020
+---
+> Instruction Retired : 23
+> PC                : 0x400030
+6089c6089
+< X2: 0x1
+---
+> X2: 0x4
+6130,6131c6130,6131
+< Instruction Retired : 30
+< PC                : 0x400020
+---
+> Instruction Retired : 24
+> PC                : 0x400018
+6135c6135
+< X2: 0x1
+---
+> X2: 0x4
+6176,6177c6176,6177
+< Instruction Retired : 31
+< PC                : 0x400020
+---
+> Instruction Retired : 25
+> PC                : 0x40001c
+6181c6181
+< X2: 0x1
+---
+> X2: 0x4
+6222c6222
+< Instruction Retired : 32
+---
+> Instruction Retired : 26
+6227c6227
+< X2: 0x1
+---
+> X2: 0x4
+6268,6269c6268,6269
+< Instruction Retired : 33
+< PC                : 0x400020
+---
+> Instruction Retired : 26
+> PC                : 0x400024
+6273c6273
+< X2: 0x1
+---
+> X2: 0x4
+6314,6315c6314,6315
+< Instruction Retired : 34
+< PC                : 0x400020
+---
+> Instruction Retired : 26
+> PC                : 0x400028
+6319c6319
+< X2: 0x1
+---
+> X2: 0x4
+6360,6361c6360,6361
+< Instruction Retired : 35
+< PC                : 0x400020
+---
+> Instruction Retired : 27
+> PC                : 0x40002c
+6365c6365
+< X2: 0x1
+---
+> X2: 0x5
+6406,6407c6406,6407
+< Instruction Retired : 36
+< PC                : 0x400020
+---
+> Instruction Retired : 28
+> PC                : 0x400030
+6411c6411
+< X2: 0x1
+---
+> X2: 0x5
+6452,6453c6452,6453
+< Instruction Retired : 37
+< PC                : 0x400020
+---
+> Instruction Retired : 29
+> PC                : 0x400018
+6457c6457
+< X2: 0x1
+---
+> X2: 0x5
+6498,6499c6498,6499
+< Instruction Retired : 38
+< PC                : 0x400020
+---
+> Instruction Retired : 30
+> PC                : 0x40001c
+6503c6503
+< X2: 0x1
+---
+> X2: 0x5
+6544c6544
+< Instruction Retired : 39
+---
+> Instruction Retired : 31
+6549c6549
+< X2: 0x1
+---
+> X2: 0x5
+6590,6591c6590,6591
+< Instruction Retired : 40
+< PC                : 0x400020
+---
+> Instruction Retired : 31
+> PC                : 0x400024
+6595c6595
+< X2: 0x1
+---
+> X2: 0x5
+6636,6637c6636,6637
+< Instruction Retired : 41
+< PC                : 0x400020
+---
+> Instruction Retired : 31
+> PC                : 0x400028
+6641c6641
+< X2: 0x1
+---
+> X2: 0x5
+6682,6683c6682,6683
+< Instruction Retired : 42
+< PC                : 0x400020
+---
+> Instruction Retired : 32
+> PC                : 0x40002c
+6687c6687
+< X2: 0x1
+---
+> X2: 0x6
+6728,6729c6728,6729
+< Instruction Retired : 43
+< PC                : 0x400020
+---
+> Instruction Retired : 33
+> PC                : 0x400030
+6733c6733
+< X2: 0x1
+---
+> X2: 0x6
+6774,6775c6774,6775
+< Instruction Retired : 44
+< PC                : 0x400020
+---
+> Instruction Retired : 34
+> PC                : 0x400018
+6779c6779
+< X2: 0x1
+---
+> X2: 0x6
+6820,6821c6820,6821
+< Instruction Retired : 45
+< PC                : 0x400020
+---
+> Instruction Retired : 35
+> PC                : 0x40001c
+6825c6825
+< X2: 0x1
+---
+> X2: 0x6
+6866c6866
+< Instruction Retired : 46
+---
+> Instruction Retired : 36
+6871c6871
+< X2: 0x1
+---
+> X2: 0x6
+6912,6913c6912,6913
+< Instruction Retired : 47
+< PC                : 0x400020
+---
+> Instruction Retired : 36
+> PC                : 0x400024
+6917c6917
+< X2: 0x1
+---
+> X2: 0x6
+6958,6959c6958,6959
+< Instruction Retired : 48
+< PC                : 0x400020
+---
+> Instruction Retired : 36
+> PC                : 0x400028
+6963c6963
+< X2: 0x1
+---
+> X2: 0x6
+7004,7005c7004,7005
+< Instruction Retired : 49
+< PC                : 0x400020
+---
+> Instruction Retired : 37
+> PC                : 0x40002c
+7009c7009
+< X2: 0x1
+---
+> X2: 0x7
+7050,7051c7050,7051
+< Instruction Retired : 50
+< PC                : 0x400020
+---
+> Instruction Retired : 38
+> PC                : 0x400030
+7055c7055
+< X2: 0x1
+---
+> X2: 0x7
+7096,7097c7096,7097
+< Instruction Retired : 51
+< PC                : 0x400020
+---
+> Instruction Retired : 39
+> PC                : 0x400018
+7101c7101
+< X2: 0x1
+---
+> X2: 0x7
+7142,7143c7142,7143
+< Instruction Retired : 52
+< PC                : 0x400020
+---
+> Instruction Retired : 40
+> PC                : 0x40001c
+7147c7147
+< X2: 0x1
+---
+> X2: 0x7
+7188c7188
+< Instruction Retired : 53
+---
+> Instruction Retired : 41
+7193c7193
+< X2: 0x1
+---
+> X2: 0x7
+7234,7235c7234,7235
+< Instruction Retired : 54
+< PC                : 0x400020
+---
+> Instruction Retired : 41
+> PC                : 0x400024
+7239c7239
+< X2: 0x1
+---
+> X2: 0x7
+7280,7281c7280,7281
+< Instruction Retired : 55
+< PC                : 0x400024
+---
+> Instruction Retired : 41
+> PC                : 0x400028
+7285c7285
+< X2: 0x1
+---
+> X2: 0x7
+7326,7327c7326,7327
+< Instruction Retired : 56
+< PC                : 0x400028
+---
+> Instruction Retired : 42
+> PC                : 0x40002c
+7331c7331
+< X2: 0x1
+---
+> X2: 0x8
+7372,7373c7372,7373
+< Instruction Retired : 57
+< PC                : 0x40002c
+---
+> Instruction Retired : 43
+> PC                : 0x400030
+7377c7377
+< X2: 0x1
+---
+> X2: 0x8
+7418,7419c7418,7419
+< Instruction Retired : 58
+< PC                : 0x400030
+---
+> Instruction Retired : 44
+> PC                : 0x400018
+7423c7423
+< X2: 0x1
+---
+> X2: 0x8
+7464,7465c7464,7465
+< Instruction Retired : 59
+< PC                : 0x400018
+---
+> Instruction Retired : 45
+> PC                : 0x40001c
+7469c7469
+< X2: 0x1
+---
+> X2: 0x8
+7510,7511c7510,7511
+< Instruction Retired : 60
+< PC                : 0x40001c
+---
+> Instruction Retired : 46
+> PC                : 0x400020
+7515c7515
+< X2: 0x1
+---
+> X2: 0x8
+7556,7557c7556,7557
+< Instruction Retired : 61
+< PC                : 0x400020
+---
+> Instruction Retired : 46
+> PC                : 0x400024
+7561c7561
+< X2: 0x1
+---
+> X2: 0x8
+7602,7603c7602,7603
+< Instruction Retired : 61
+< PC                : 0x400024
+---
+> Instruction Retired : 46
+> PC                : 0x400028
+7607c7607
+< X2: 0x1
+---
+> X2: 0x8
+7648,7649c7648,7649
+< Instruction Retired : 61
+< PC                : 0x400028
+---
+> Instruction Retired : 47
+> PC                : 0x40002c
+7653c7653
+< X2: 0x1
+---
+> X2: 0x9
+7694,7695c7694,7695
+< Instruction Retired : 62
+< PC                : 0x40002c
+---
+> Instruction Retired : 48
+> PC                : 0x400030
+7699c7699
+< X2: 0x2
+---
+> X2: 0x9
+7740,7741c7740,7741
+< Instruction Retired : 63
+< PC                : 0x400030
+---
+> Instruction Retired : 49
+> PC                : 0x400018
+7745c7745
+< X2: 0x2
+---
+> X2: 0x9
+7786,7787c7786,7787
+< Instruction Retired : 64
+< PC                : 0x400018
+---
+> Instruction Retired : 50
+> PC                : 0x40001c
+7791c7791
+< X2: 0x2
+---
+> X2: 0x9
+7832,7833c7832,7833
+< Instruction Retired : 65
+< PC                : 0x40001c
+---
+> Instruction Retired : 51
+> PC                : 0x400020
+7837c7837
+< X2: 0x2
+---
+> X2: 0x9
+7878,7879c7878,7879
+< Instruction Retired : 66
+< PC                : 0x400020
+---
+> Instruction Retired : 51
+> PC                : 0x400024
+7883c7883
+< X2: 0x2
+---
+> X2: 0x9
+7924,7925c7924,7925
+< Instruction Retired : 66
+< PC                : 0x400024
+---
+> Instruction Retired : 51
+> PC                : 0x400028
+7929c7929
+< X2: 0x2
+---
+> X2: 0x9
+7970,7971c7970,7971
+< Instruction Retired : 66
+< PC                : 0x400028
+---
+> Instruction Retired : 52
+> PC                : 0x40002c
+7975c7975
+< X2: 0x2
+---
+> X2: 0xa
+8016,8017c8016,8017
+< Instruction Retired : 67
+< PC                : 0x40002c
+---
+> Instruction Retired : 53
+> PC                : 0x400030
+8021c8021
+< X2: 0x3
+---
+> X2: 0xa
+8062,8063c8062,8063
+< Instruction Retired : 68
+< PC                : 0x400030
+---
+> Instruction Retired : 54
+> PC                : 0x400018
+8067c8067
+< X2: 0x3
+---
+> X2: 0xa
+8108,8109c8108,8109
+< Instruction Retired : 69
+< PC                : 0x400018
+---
+> Instruction Retired : 55
+> PC                : 0x40001c
+8113c8113
+< X2: 0x3
+---
+> X2: 0xa
+8154,8155c8154,8155
+< Instruction Retired : 70
+< PC                : 0x40001c
+---
+> Instruction Retired : 56
+> PC                : 0x400020
+8159c8159
+< X2: 0x3
+---
+> X2: 0xa
+8200,8201c8200,8201
+< Instruction Retired : 71
+< PC                : 0x400020
+---
+> Instruction Retired : 56
+> PC                : 0x400024
+8205c8205
+< X2: 0x3
+---
+> X2: 0xa
+8246,8247c8246,8247
+< Instruction Retired : 71
+< PC                : 0x400024
+---
+> Instruction Retired : 56
+> PC                : 0x400028
+8251c8251
+< X2: 0x3
+---
+> X2: 0xa
+8292,8293c8292,8293
+< Instruction Retired : 71
+< PC                : 0x400028
+---
+> Instruction Retired : 57
+> PC                : 0x400018
+8297c8297
+< X2: 0x3
+---
+> X2: 0xb
+8338,8339c8338,8339
+< Instruction Retired : 72
+< PC                : 0x40002c
+---
+> Instruction Retired : 58
+> PC                : 0x40001c
+8343c8343
+< X2: 0x4
+---
+> X2: 0xb
+8384,8385c8384,8385
+< Instruction Retired : 73
+< PC                : 0x400030
+---
+> Instruction Retired : 59
+> PC                : 0x400020
+8389c8389
+< X2: 0x4
+---
+> X2: 0xb
+8430,8431c8430,8431
+< Instruction Retired : 74
+< PC                : 0x400018
+---
+> Instruction Retired : 60
+> PC                : 0x400024
+8435c8435
+< X2: 0x4
+---
+> X2: 0xb
+8476,8477c8476,8477
+< Instruction Retired : 75
+< PC                : 0x40001c
+---
+> Instruction Retired : 61
+> PC                : 0x400028
+8481c8481
+< X2: 0x4
+---
+> X2: 0xb
+8522,8523c8522,8523
+< Instruction Retired : 76
+< PC                : 0x400020
+---
+> Instruction Retired : 62
+> PC                : 0x400018
+8527c8527
+< X2: 0x4
+---
+> X2: 0xc
+8568,8569c8568,8569
+< Instruction Retired : 76
+< PC                : 0x400024
+---
+> Instruction Retired : 63
+> PC                : 0x40001c
+8573c8573
+< X2: 0x4
+---
+> X2: 0xc
+8614,8615c8614,8615
+< Instruction Retired : 76
+< PC                : 0x400028
+---
+> Instruction Retired : 64
+> PC                : 0x400020
+8619c8619
+< X2: 0x4
+---
+> X2: 0xc
+8660,8661c8660,8661
+< Instruction Retired : 77
+< PC                : 0x40002c
+---
+> Instruction Retired : 65
+> PC                : 0x400024
+8665c8665
+< X2: 0x5
+---
+> X2: 0xc
+8706,8707c8706,8707
+< Instruction Retired : 78
+< PC                : 0x400030
+---
+> Instruction Retired : 66
+> PC                : 0x400028
+8711c8711
+< X2: 0x5
+---
+> X2: 0xc
+8752c8752
+< Instruction Retired : 79
+---
+> Instruction Retired : 67
+8757c8757
+< X2: 0x5
+---
+> X2: 0xd
+8798c8798
+< Instruction Retired : 80
+---
+> Instruction Retired : 68
+8803c8803
+< X2: 0x5
+---
+> X2: 0xd
+8844c8844
+< Instruction Retired : 81
+---
+> Instruction Retired : 69
+8849c8849
+< X2: 0x5
+---
+> X2: 0xd
+8890c8890
+< Instruction Retired : 81
+---
+> Instruction Retired : 70
+8895c8895
+< X2: 0x5
+---
+> X2: 0xd
+8936c8936
+< Instruction Retired : 81
+---
+> Instruction Retired : 71
+8941c8941
+< X2: 0x5
+---
+> X2: 0xd
+8982,8983c8982,8983
+< Instruction Retired : 82
+< PC                : 0x40002c
+---
+> Instruction Retired : 72
+> PC                : 0x400018
+8987c8987
+< X2: 0x6
+---
+> X2: 0xe
+9028,9029c9028,9029
+< Instruction Retired : 83
+< PC                : 0x400030
+---
+> Instruction Retired : 73
+> PC                : 0x40001c
+9033c9033
+< X2: 0x6
+---
+> X2: 0xe
+9074,9075c9074,9075
+< Instruction Retired : 84
+< PC                : 0x400018
+---
+> Instruction Retired : 74
+> PC                : 0x400020
+9079c9079
+< X2: 0x6
+---
+> X2: 0xe
+9120,9121c9120,9121
+< Instruction Retired : 85
+< PC                : 0x40001c
+---
+> Instruction Retired : 75
+> PC                : 0x400024
+9125c9125
+< X2: 0x6
+---
+> X2: 0xe
+9166,9167c9166,9167
+< Instruction Retired : 86
+< PC                : 0x400020
+---
+> Instruction Retired : 76
+> PC                : 0x400028
+9171c9171
+< X2: 0x6
+---
+> X2: 0xe
