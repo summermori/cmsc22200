@@ -718,7 +718,7 @@ void pipe_stage_fetch()
       CURRENT_STATE.PC = Control.baddr;
       Control.baddr = -1;
       //IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      // printf("PC: %lx\n", CURRENT_STATE.PC);
+      printf("PC: %lx\n", CURRENT_STATE.PC);
       // printf("WORD in cond branch: %x\n",IFtoID.inst);
       // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
       Control.cond_branch = 0;
@@ -769,7 +769,12 @@ void pipe_stage_fetch()
   //same cycle do nothing for bubble
   if (Control.inst_cache_bubble == 50)
   {
+    printf("same cycle cache_bubble");
     Control.inst_cache_bubble -= 1;
+    struct Prediction temp;
+		temp.prediction_taken = 0;
+		temp.pc_before_prediction = CURRENT_STATE.PC;
+    enqueue(&q, temp);
     return;
   }
   //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
@@ -1399,6 +1404,7 @@ void B_Cond()
               //lab2 behavior
               if (branch_taken == 1)
               {
+                printf("pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);
                 Branch(offset, temp_entry->pred.pc_before_prediction);
                 Control.cond_branch = 1;
               }

@@ -69,7 +69,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   //if this is the instruction cache AND there is an upcoming branch AND that branch is not to this addr:
   if (n == 4 && check_branch_ahead(addr) == 1)
   {
-	return 0;
+    printf("BRANCH in ID\n");
   }
   
   //we are now guaranteed to be doing a read, and so we can signal the stall dependent on the type of miss
