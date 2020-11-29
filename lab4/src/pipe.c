@@ -722,10 +722,19 @@ void pipe_stage_fetch()
       // printf("WORD in cond branch: %x\n",IFtoID.inst);
       // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
       Control.cond_branch = 0;
+      if (Control.offsetlesshead_diff == 1)
+      {
+        printf("offsetlesshead_diff -> bubble cancel\n");
+        Control.inst_cache_bubble = 0;
+        Control.offsetlesshead_diff = 0;
+      }
       if (Control.inst_cache_bubble > 0)
       {
         Control.inst_cache_bubble -= 1;
       }
+      
+
+      //cancel bubble according to Control.branch_offset-less_head
       return;
   }
 

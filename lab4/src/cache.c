@@ -69,7 +69,13 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   //if this is the instruction cache AND there is an upcoming branch AND that branch is not to this addr:
   if (n == 4 && check_branch_ahead(addr) == 1)
   {
-    printf("BRANCHING in ID\n");
+    //diff offset less head returns 1 for check_branch_ahead
+    //if its diff still set bubble and set offsetlesshead_diff; but return right after
+    printf("offsetlesshead between branch and missed is different!\n");
+    Control.inst_cache_bubble = 50;
+    Control.offsetlesshead_diff = 1;
+    return 0;
+    //if its same we don't trigger if condition.
   }
   
   //we are now guaranteed to be doing a read, and so we can signal the stall dependent on the type of miss
@@ -219,9 +225,26 @@ void cache_write (uint64_t addr, uint64_t val) {
 }
 
 
+int check_offsetless_head(uint64_t one, uint64_t two)
+{
+    printf("missed target: %lx\n", two);
+    printf("branch addr: %lx\n", one);
+    printf("missed offsetless head: %lx\n", two & 0xffffffe0);
+    printf("branch offsetless head: %lx\n", one & 0xffffffe0);
+    if ((one & 0xffffffe0) == (two & 0xffffffe0))
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 int check_branch_ahead(uint64_t addr)
 {
     uint64_t base = CURRENT_STATE.PC - 4;
+    printf("base: %lx\n", base);
     int64_t offset;
 
     //cond
@@ -236,7 +259,7 @@ int check_branch_ahead(uint64_t addr)
             case(0):
                 if (Control.fz == 1)
                 {
-                    if ((base + offset) == addr)
+                    if (check_offsetless_head(base + (offset * 4), addr) == 1)
                     {
                         return 0;
                     }
@@ -253,7 +276,7 @@ int check_branch_ahead(uint64_t addr)
             case(1):
                 if (Control.fz == 0)
                 {
-                    if ((base + offset) == addr)
+                    if (check_offsetless_head(base + (offset * 4), addr) == 1)
                     {
                         return 0;
                     }
@@ -270,7 +293,7 @@ int check_branch_ahead(uint64_t addr)
             case(10):
                 if ((Control.fz == 1) || (Control.fn == 0))
                 {
-                    if ((base + offset) == addr)
+                    if (check_offsetless_head(base + (offset * 4), addr) == 1)
                     {
                         return 0;
                     }
@@ -287,7 +310,7 @@ int check_branch_ahead(uint64_t addr)
             case(11):
                 if ((Control.fn == 1) || (Control.fz == 0))
                 {
-                    if ((base + offset) == addr)
+                    if (check_offsetless_head(base + (offset * 4), addr) == 1)
                     {
                         return 0;
                     }
@@ -304,7 +327,7 @@ int check_branch_ahead(uint64_t addr)
             case(12):
                 if ((Control.fz == 0) || (Control.fn == 0))
                 {
-                    if ((base + offset) == addr)
+                    if (check_offsetless_head(base + (offset * 4), addr) == 1)
                     {
                         return 0;
                     }
@@ -321,7 +344,7 @@ int check_branch_ahead(uint64_t addr)
             case(13):
                 if ((Control.fz == 1) || (Control.fn == 1))
                 {
-                    if ((base + offset) == addr)
+                    if (check_offsetless_head(base + (offset * 4), addr) == 1)
                     {
                         return 0;
                     }
@@ -350,7 +373,7 @@ int check_branch_ahead(uint64_t addr)
             target = CURRENT_STATE.REGS[IDtoEX.n];
         }
 
-        if (target == addr)
+        if (check_offsetless_head(target, addr) == 1)
         {
             return 0;
         }
@@ -364,7 +387,7 @@ int check_branch_ahead(uint64_t addr)
     if (IDtoEX.op == 0x14000000)
     {
         offset = IDtoEX.addr;
-        if ((base + offset) == addr)
+        if (check_offsetless_head(base + (offset * 4), addr) == 1)
         {
             return 0;
         }
@@ -473,7 +496,7 @@ int check_branch_ahead(uint64_t addr)
         }
         if (((EXtoMEM.dnum == IDtoEX.dnum) && (EXtoMEM.res == 0) && (reg_load_ahead == 1)))
         {
-            if ((base + offset) == addr)
+            if (check_offsetless_head(base + (offset * 4), addr) == 1)
             {
                 return 0;
             }
@@ -488,7 +511,7 @@ int check_branch_ahead(uint64_t addr)
         }
         else if (CURRENT_STATE.REGS[IDtoEX.dnum] == 0)
         {
-            if ((base + offset) == addr)
+            if (check_offsetless_head(base + (offset * 4), addr) == 1)
             {
                 return 0;
             }
@@ -603,7 +626,7 @@ int check_branch_ahead(uint64_t addr)
         }
         if (((EXtoMEM.dnum == IDtoEX.dnum) && (EXtoMEM.res != 0) && (reg_load_ahead == 1)))
         {
-            if ((base + offset) == addr)
+            if (check_offsetless_head(base + (offset * 4), addr) == 1)
             {
                 return 0;
             }
@@ -618,7 +641,7 @@ int check_branch_ahead(uint64_t addr)
         }
         else if (CURRENT_STATE.REGS[IDtoEX.dnum] == 0)
         {
-            if ((base + offset) == addr)
+            if (check_offsetless_head(base + (offset * 4), addr) == 1)
             {
                 return 0;
             }

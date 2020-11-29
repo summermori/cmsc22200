@@ -36,4 +36,6 @@ void cache_write (uint64_t addr, uint64_t val);
 
 int check_branch_ahead(uint64_t addr);
 
+int check_offsetless_head(uint64_t one, uint64_t two);
+
 #endif
