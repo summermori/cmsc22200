@@ -698,10 +698,10 @@ void pipe_stage_fetch()
   {
     return;
   }
-
   //exception control
   if (Control.halt == 1)
   {
+    printf("halted\n");
     return;
   }
   //branch bubbling
@@ -739,16 +739,17 @@ void pipe_stage_fetch()
   }
   if (Control.restoration == 1)
   {
+    
     // printf("load store bubble restoring, not grabbing word from mem\n");
     Control.restoration = 0;
     return;
   }
   //handling branch after HLT
-  if (IDtoEX.op == 0xd4400000)
-  {
-    CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
-    return;
-  }
+  // if (IDtoEX.op == 0xd4400000)
+  // {
+  //   CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
+  //   return;
+  // }
 
   //inst cache bubble
   if (Control.inst_cache_bubble > 0)
@@ -787,10 +788,10 @@ void pipe_stage_fetch()
     printf("word: %x\n", word);
     IFtoID.inst = word;
     //cache_read returns 0 if there is a branch in ID, so we don't do anything, sending a zero to IFtoID.inst is equivalent to a flush.
-    if (word == 0)
-    {
-      return;
-    }
+    // if (word == 0)
+    // {
+    //   return;
+    // }
     //normal behavior
     bp_predict(CURRENT_STATE.PC);
   }
