@@ -23,7 +23,7 @@ function run_all_tests {
 }
 
 # loop to put it all together
-while getopts ":S:as:" opt; do
+while getopts ":c:af:" opt; do
   case ${opt} in
     S )
       create_input $OPTARG
