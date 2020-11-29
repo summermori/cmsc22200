@@ -69,7 +69,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   //if this is the instruction cache AND there is an upcoming branch AND that branch is not to this addr:
   if (n == 4 && check_branch_ahead(addr) == 1)
   {
-    printf("BRANCH in ID\n");
+    printf("BRANCHING in ID\n");
   }
   
   //we are now guaranteed to be doing a read, and so we can signal the stall dependent on the type of miss
@@ -154,18 +154,20 @@ void cache_write (uint64_t addr, uint64_t val) {
     block_t spec_block = cache[i];
 
     //prepare data for loading into an empty block or eviction
-    if (spec_block.empty) {
+    if (!spec_block.empty) {
       empty = i;
     }
     else if (spec_block.lru < min_val) {
       min_i = i;
       min_val = spec_block.lru;
     }
-
+    //if we hit we modify block and put modified block back into cache array and then return
     if (spec_block.valid && spec_block.tag == tag) {
       spec_block.lru = stat_cycles;
       spec_block.dirty = 1;
       spec_block.data[offset] = val;
+      cache[i] = spec_block;
+      return;
     }
   }
 
@@ -189,6 +191,7 @@ void cache_write (uint64_t addr, uint64_t val) {
 
     //write in the value to the correct segment
     new_block.data[offset] = val;
+    cache[empty] = new_block;
   }
   //if there isn't, we must evict, which is handled differently if the dirty bit is 1
   else {
@@ -211,6 +214,7 @@ void cache_write (uint64_t addr, uint64_t val) {
     //write in the value to the correct segment
     lru_block.dirty = 1;
     lru_block.data[offset] = val;
+    cache[min_i] = lru_block;
   }
 }
 
