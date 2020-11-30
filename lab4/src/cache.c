@@ -52,8 +52,15 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     }
 
     if (spec_block.valid && spec_block.tag == tag) {
-      printf("icache hit (%lx) at cycle %d\n", CURRENT_STATE.PC, stat_cycles + 1);
-      printf("cache hit idx: %d\n", i);
+      if (n == 4)
+      {
+        printf("icache hit (%lx) at cycle %d\n", CURRENT_STATE.PC, stat_cycles + 1);
+        printf("cache hit idx: %d\n", i);
+      }
+      else
+      {
+        printf("dcache hit (%lx) at cycle %d\n", addr, stat_cycles + 1);
+      }
     //   for (int j = 0; j < 8; j++)
     //   {
     //       printf("block data: %x - ",spec_block.data[j]);
@@ -88,7 +95,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   else
   {
     Control.data_cache_bubble = 50;
-    printf("dcache read miss at (%lx", CURRENT_STATE.PC);
+    printf("dcache read miss at (%lx", addr);
     printf(") at cycle %d\n", stat_cycles + 1);
   }
 
@@ -178,7 +185,9 @@ void cache_write (uint64_t addr, uint64_t val) {
   }
 
   //a miss has occured, and as such we have to read in the correct block.
-  Control.data_cache_bubble = 50;
+  printf("dcache write miss at (%lx", addr);
+  printf(") at cycle %d\n", stat_cycles + 1);
+  Control.data_cache_bubble = 51;
 
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {

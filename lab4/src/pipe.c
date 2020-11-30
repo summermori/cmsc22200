@@ -155,15 +155,14 @@ void pipe_stage_mem()
     //middle of cycle
     if (Control.data_cache_bubble > 1)
     {
-      Control.data_cache_bubble -= 1;
+      printf("dcache stall: %d\n", Control.data_cache_bubble);
       return;
     }
     //last cycle of bubble, data_cache_bubble == 1
-    else
+    else if (Control.data_cache_bubble == 1)
     {
       //last cycle do nothing, MEMtoWB already loaded from first cycle of bubble
-      Control.data_cache_bubble = 0;
-      return;
+      printf("dcache dismount only allowing mem to work\n");
     }
     
   }
@@ -214,7 +213,7 @@ void pipe_stage_mem()
     MEMtoWB.fn = EXtoMEM.fn;
     MEMtoWB.fz = EXtoMEM.fz;
     MEMtoWB.fmem = EXtoMEM.fmem;
-    //same cycle bubble_trigger do nothing
+    //same cycle as bubble_trigger do nothing
   } else {
     MEMtoWB = (MEMtoWB_t){ .op = EXtoMEM.op, .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
   }
@@ -224,11 +223,14 @@ void pipe_stage_mem()
 void pipe_stage_execute()
 {
   //first and middle cycles of data_cache bubble do nothing
-  if (Control.data_cache_bubble > 0)
+  if (Control.data_cache_bubble == 51)
+  {
+    printf("same_cycle dcache bubble in ex\n");
+  }
+  else if (Control.data_cache_bubble > 0)
   {
     return;
   }
-
   // we have modify implementations to write to EXtoMEM.res
   if (!(IDtoEX.fmem)) {
     switch(IDtoEX.op)
@@ -358,7 +360,11 @@ void pipe_stage_execute()
 void pipe_stage_decode()
 {
   //first and middle cycles of data_cache bubble do nothing
-  if (Control.data_cache_bubble > 0)
+  if (Control.data_cache_bubble == 51)
+  {
+    printf("same_cycle dcache bubble in id\n");
+  }
+  else if (Control.data_cache_bubble > 0)
   {
     return;
   }
@@ -694,8 +700,14 @@ void pipe_stage_fetch()
 {
   //data_cache bubbling
   //first and middle cycles of data_cache bubble do nothing
-  if (Control.data_cache_bubble > 0)
+  if (Control.data_cache_bubble == 51)
   {
+    Control.data_cache_bubble -= 1;
+    printf("same_cycle dcache bubble in if\n");
+  }
+  else if (Control.data_cache_bubble > 0)
+  {
+    Control.data_cache_bubble -= 1;
     return;
   }
   //exception control
