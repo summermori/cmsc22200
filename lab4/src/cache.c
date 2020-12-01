@@ -180,6 +180,8 @@ void cache_write (uint64_t addr, uint64_t val) {
       spec_block.dirty = 1;
       spec_block.data[offset] = val;
       cache[i] = spec_block;
+      printf("dcache write hit at (%lx", addr);
+      printf(") at cycle %d\n", stat_cycles + 1);
       return;
     }
   }

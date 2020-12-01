@@ -39,11 +39,19 @@ EXtoMEM_t EXtoMEM = { .n = 0, .dnum = 0, .dval = 0, .imm1 = 0, .res = 0, .fmem =
 MEMtoWB_t MEMtoWB = {.dnum = 0, .res = 0, .fwb = 0, .fn = 0, .fz = 0};
 //declaration in pipe.h so bp.c can access Control struct
 Control_t Control = {.baddr= -1, .branch_bubble_until = -1, .branch_grab = 0, .loadstore_bubble_until = -1, .restoration = -1, .fn = 0, .fz = 0, .halt = 0};
-IDtoEX_t temp_IDtoEX;
+EXtoMEM_t dcache_store_EXtoMEM;
 IFtoID_t temp_IFtoID;
+IDtoEX_t temp_IDtoEX;
 int loadstore_dependency = 0;
 queue q = {.maxlen = 2, .currlen = 0, .head = NULL, .tail = NULL};
 
+
+int64_t SIGNEXTEND(int64_t offset) {
+  if (offset & 0x0000000000000100) {
+    offset = (offset | 0xffffffffffffff00);
+  }
+  return offset;
+}
 
 void compareBubble(int64_t reg_val)
 {
@@ -161,8 +169,114 @@ void pipe_stage_mem()
     //last cycle of bubble, data_cache_bubble == 1
     else if (Control.data_cache_bubble == 1)
     {
-      //last cycle do nothing, MEMtoWB already loaded from first cycle of bubble
+      //stall dismount, hit on the same inst we missed on
       printf("dcache dismount only allowing mem to work\n");
+      int64_t t;
+      int64_t n;
+      int64_t offset;
+      int load;
+      int load2;
+      printf("d_cache_stored_op: %lx\n", dcache_store_EXtoMEM.op);
+      switch (dcache_store_EXtoMEM.op)
+      {
+        case 0xf8400000:
+          //printf("LDUR\n");
+          t = dcache_store_EXtoMEM.dnum;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          // printf("mem_loc base: %lx\n", n);
+          // printf("mem_loc offset: %lx\n", offset);
+          load = cache_read(n + offset, 8);
+          load2 = cache_read(n + offset + 4, 8);
+          load = load | (load2 << 32);
+          if (t != 31) {
+            MEMtoWB.res = load;
+          }
+          MEMtoWB.fwb = 1;
+          break;
+        case 0xb8400000:
+          //printf("LDUR\n");
+          t = dcache_store_EXtoMEM.dnum;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          load = cache_read(n + offset, 8);
+          if (t != 31) {
+            MEMtoWB.res = load;
+          }
+          MEMtoWB.fwb = 1;
+          break;
+        case 0x38400000:
+          //printf("LDURB\n");
+          t = dcache_store_EXtoMEM.dnum;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          load = cache_read(n + offset, 8);
+          load = (load & 0x000000ff);
+          if (t != 31) {
+            MEMtoWB.res = load;
+          }
+          MEMtoWB.fwb = 1;
+          break;
+        case 0x78400000:
+          //printf("LDURH\n");
+          t = dcache_store_EXtoMEM.dnum;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          load = cache_read(n + offset, 8);
+          load = (load & 0x0000ffff);
+          if (t != 31) {
+            MEMtoWB.res = load;
+          }
+          MEMtoWB.fwb = 1;
+          break;
+        case 0xf8000000:
+          //printf("STUR\n");
+          t = dcache_store_EXtoMEM.dval;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          cache_write(n + offset, (t & 0x00000000ffffffff));
+          cache_write(n + offset + 4, ((t & 0xffffffff00000000) >> 32));
+          MEMtoWB.fwb = 0;
+          break;
+        case 0xb8000000:
+          //printf("STUR\n");
+          t = dcache_store_EXtoMEM.dval;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          cache_write(n + offset, t);
+          MEMtoWB.fwb = 0;
+          break;
+        case 0x38000000:
+          //printf("STURB\n");
+          t = dcache_store_EXtoMEM.dval;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          load = cache_read(n + offset, 8);
+          load = (load & 0xffffff00) | (int)t;
+          cache_write(n + offset, load);
+          MEMtoWB.fwb = 0;
+          break;
+        case 0x78000000:
+          //printf("STURH\n");
+          t = dcache_store_EXtoMEM.dval;
+          n = dcache_store_EXtoMEM.n;
+          offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
+          load = cache_read(n + offset, 8);
+          // printf("first load: %x\n", (load & 0xffffff00));
+          // printf("second load: %x\n", (t & 0x0000ffff));
+          //original implementation
+          // load = (load & 0xffffff00) | (t & 0x0000ffff);
+          load = t & 0x0000ffff;
+          // printf("STURH load: %x\n", load);
+          cache_write(n + offset, load);
+          MEMtoWB.fwb = 0;
+          break;
+      }
+      MEMtoWB.dnum = EXtoMEM.dnum;
+      MEMtoWB.fn = EXtoMEM.fn;
+      MEMtoWB.fz = EXtoMEM.fz;
+      MEMtoWB.fmem = EXtoMEM.fmem;
+      return;
     }
     
   }
@@ -213,7 +327,11 @@ void pipe_stage_mem()
     MEMtoWB.fn = EXtoMEM.fn;
     MEMtoWB.fz = EXtoMEM.fz;
     MEMtoWB.fmem = EXtoMEM.fmem;
-    //same cycle as bubble_trigger do nothing
+    //same cycle as bubble_trigger save EXtoMEM in a temp struct
+    if (Control.data_cache_bubble == 51)
+    {
+      dcache_store_EXtoMEM = (EXtoMEM_t) {.op = EXtoMEM.op, .n = EXtoMEM.n, .dnum = EXtoMEM.dnum, .dval = EXtoMEM.dval, .imm1 = EXtoMEM.imm1, .res = EXtoMEM.res, .fmem = EXtoMEM.fmem, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz};
+    }
   } else {
     MEMtoWB = (MEMtoWB_t){ .op = EXtoMEM.op, .dnum = EXtoMEM.dnum, .res = EXtoMEM.res, .fwb = EXtoMEM.fwb, .fn = EXtoMEM.fn, .fz = EXtoMEM.fz, .branching = EXtoMEM.branching};
   }
@@ -230,6 +348,7 @@ void pipe_stage_execute()
   else if (Control.data_cache_bubble > 0)
   {
     return;
+    
   }
   // we have modify implementations to write to EXtoMEM.res
   if (!(IDtoEX.fmem)) {
@@ -367,6 +486,7 @@ void pipe_stage_decode()
   else if (Control.data_cache_bubble > 0)
   {
     return;
+    
   }
 
   //loadstore bubbling detection
@@ -1704,12 +1824,6 @@ void B_Cond()
     }
     //Branch Helper Function already sets .branching to 1
     return;
-}
-int64_t SIGNEXTEND(int64_t offset) {
-  if (offset & 0x0000000000000100) {
-    offset = (offset | 0xffffffffffffff00);
-  }
-  return offset;
 }
 void LDUR() {
   int64_t t = EXtoMEM.dnum;
