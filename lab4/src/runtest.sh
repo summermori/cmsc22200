@@ -25,14 +25,14 @@ function run_all_tests {
 # loop to put it all together
 while getopts ":c:af:" opt; do
   case ${opt} in
-    S )
+    c )
       create_input $OPTARG
       ;;
     a )
       run_all_tests
       exit 0
       ;;
-    s )
+    f )
       run_simulators $OPTARG
       diff -s simout.txt refout.txt > results.txt
       exit 0
