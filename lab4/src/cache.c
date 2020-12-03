@@ -54,18 +54,13 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     if (spec_block.valid && spec_block.tag == tag) {
       if (n == 4)
       {
-        printf("icache hit (%lx) at cycle %d\n", CURRENT_STATE.PC, stat_cycles + 1);
-        printf("cache hit idx: %d\n", i);
       }
       else
       {
-        printf("dcache hit (%lx) at cycle %d\n", addr, stat_cycles + 1);
       }
     //   for (int j = 0; j < 8; j++)
     //   {
-    //       printf("block data: %x - ",spec_block.data[j]);
     //   }
-      printf("offset: %ld\n", offset);
       spec_block.lru = stat_cycles;
       return spec_block.data[offset];
     }
@@ -78,25 +73,20 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   {
     //diff offset less head returns 1 for check_branch_ahead
     //if its diff still set bubble and set offsetlesshead_diff; but return right after
-    printf("offsetlesshead between branch and missed is different!\n");
     Control.inst_cache_bubble = 50;
     Control.offsetlesshead_diff = 1;
     return 0;
     //if its same we don't trigger if condition.
   }
-  
+
   //we are now guaranteed to be doing a read, and so we can signal the stall dependent on the type of miss
   if (n == 4)
   {
     Control.inst_cache_bubble = 50;
-    printf("icache miss at (%lx", CURRENT_STATE.PC);
-    printf(") at cycle %d\n", stat_cycles + 1);
   }
   else
   {
     Control.data_cache_bubble = 50;
-    printf("dcache read miss at (%lx", addr);
-    printf(") at cycle %d\n", stat_cycles + 1);
   }
 
 
@@ -116,8 +106,6 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     }
     //storing in cache
     cache[empty] = new_block;
-    printf("cache fill idx: %d\n", empty);
-    printf("cache fill valid: %d\n", cache[empty].valid);
     //return the newly-read address
     return new_block.data[offset];
   }
@@ -180,16 +168,12 @@ void cache_write (uint64_t addr, uint64_t val) {
       spec_block.dirty = 1;
       spec_block.data[offset] = val;
       cache[i] = spec_block;
-      printf("dcache write hit at (%lx", addr);
-      printf(") at cycle %d\n", stat_cycles + 1);
       return;
     }
   }
 
   //a miss has occured, and as such we have to read in the correct block.
-  printf("dcache write miss at (%lx", addr);
-  printf(") at cycle %d\n", stat_cycles + 1);
-  Control.data_cache_bubble = 51;
+  Control.data_cache_bubble = 50;
 
   //check if there's an empty block. If so, we load into there
   if (empty != -1) {
@@ -238,10 +222,6 @@ void cache_write (uint64_t addr, uint64_t val) {
 
 int check_offsetless_head(uint64_t one, uint64_t two)
 {
-    printf("missed target: %lx\n", two);
-    printf("branch addr: %lx\n", one);
-    printf("missed offsetless head: %lx\n", two & 0xffffffe0);
-    printf("branch offsetless head: %lx\n", one & 0xffffffe0);
     if ((one & 0xffffffe0) == (two & 0xffffffe0))
     {
         return 1;
@@ -255,7 +235,6 @@ int check_offsetless_head(uint64_t one, uint64_t two)
 int check_branch_ahead(uint64_t addr)
 {
     uint64_t base = CURRENT_STATE.PC - 4;
-    printf("base: %lx\n", base);
     int64_t offset;
 
     //cond
@@ -417,91 +396,70 @@ int check_branch_ahead(uint64_t addr)
         {
             // Add/Subtract immediate
             case 0x91000000:
-            //printf("ADD\n");
             reg_load_ahead = 1;
             break;
             case 0xb1000000:
-            //printf("ADDS\n");
             reg_load_ahead = 1;
             break;
             case 0xd1000000:
-            // printf("SUB\n");
             reg_load_ahead = 1;
             break;
             case 0xf1000000:
-            // printf("SUBS\n");
             reg_load_ahead = 1;
             break;
             // Compare and branch
             case 0xb4000000:
-            //printf("CBZ\n");
             break;
             case 0xb5000000:
-            //printf("CBNZ\n");
             break;
             // Move wide
             case 0xd2800000:
-            //printf("MOVZ\n");
             reg_load_ahead = 1;
             break;
             // Bitfield
             case 0xd3000000:
-            //printf("LSL or LSR\n"); //execution has to do the distinction
             break;
             // Conditional branch
             case 0x54000000:
-            //printf("B.cond\n");
             break;
             // Exceptions
             case 0xd4400000:
-            //printf("HLT\n");
             break;
             // Unconditional branch (register)
             case 0xd61f0000:
-            //printf("BR\n");
             break;
             // Unconditional branch (immediate)
             case 0x14000000:
-            //printf("B\n");
             break;
 
             // Logical (shifted register)
             case 0x8a000000:
-            //printf("AND\n");
             reg_load_ahead = 1;
             break;
             case 0xea000000:
-            //printf("ANDS\n");
             reg_load_ahead = 1;
             break;
             case 0xca000000:
-            //printf("EOR\n");
             reg_load_ahead = 1;
             break;
             case 0xaa000000:
-            //printf("ORR\n");
             reg_load_ahead = 1;
             break;
             // Add/subtract (extended)
             case 0x8b000000:
-            //printf("ADD\n");
             reg_load_ahead = 1;
             break;
             case 0xab000000:
-            //printf("ADDS\n");
             reg_load_ahead = 1;
             break;
             case 0xcb000000:
-            //printf("SUB\n");
             reg_load_ahead = 1;
             break;
             case 0xeb000000:
-            //printf("SUBS\n");
             reg_load_ahead = 1;
             break;
             // Data Processing (3 source)
             case 0x9b000000:
-            //printf("MUL\n");
             reg_load_ahead = 1;
             break;
         }
@@ -547,91 +505,70 @@ int check_branch_ahead(uint64_t addr)
         {
             // Add/Subtract immediate
             case 0x91000000:
-            //printf("ADD\n");
             reg_load_ahead = 1;
             break;
             case 0xb1000000:
-            //printf("ADDS\n");
             reg_load_ahead = 1;
             break;
             case 0xd1000000:
-            // printf("SUB\n");
             reg_load_ahead = 1;
             break;
             case 0xf1000000:
-            // printf("SUBS\n");
             reg_load_ahead = 1;
             break;
             // Compare and branch
             case 0xb4000000:
-            //printf("CBZ\n");
             break;
             case 0xb5000000:
-            //printf("CBNZ\n");
             break;
             // Move wide
             case 0xd2800000:
-            //printf("MOVZ\n");
             reg_load_ahead = 1;
             break;
             // Bitfield
             case 0xd3000000:
-            //printf("LSL or LSR\n"); //execution has to do the distinction
             break;
             // Conditional branch
             case 0x54000000:
-            //printf("B.cond\n");
             break;
             // Exceptions
             case 0xd4400000:
-            //printf("HLT\n");
             break;
             // Unconditional branch (register)
             case 0xd61f0000:
-            //printf("BR\n");
             break;
             // Unconditional branch (immediate)
             case 0x14000000:
-            //printf("B\n");
             break;
 
             // Logical (shifted register)
             case 0x8a000000:
-            //printf("AND\n");
             reg_load_ahead = 1;
             break;
             case 0xea000000:
-            //printf("ANDS\n");
             reg_load_ahead = 1;
             break;
             case 0xca000000:
-            //printf("EOR\n");
             reg_load_ahead = 1;
             break;
             case 0xaa000000:
-            //printf("ORR\n");
             reg_load_ahead = 1;
             break;
             // Add/subtract (extended)
             case 0x8b000000:
-            //printf("ADD\n");
             reg_load_ahead = 1;
             break;
             case 0xab000000:
-            //printf("ADDS\n");
             reg_load_ahead = 1;
             break;
             case 0xcb000000:
-            //printf("SUB\n");
             reg_load_ahead = 1;
             break;
             case 0xeb000000:
-            //printf("SUBS\n");
             reg_load_ahead = 1;
             break;
             // Data Processing (3 source)
             case 0x9b000000:
-            //printf("MUL\n");
             reg_load_ahead = 1;
             break;
         }

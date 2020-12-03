@@ -1,1431 +1,610 @@
-8,12c8,9
-< base: 3ffffc
-< icache miss at (400000) at cycle 1
-< cache fill idx: 3
-< cache fill valid: 1
-< same cycle cache_bubbleARM-SIM> 
----
-> icache miss (0x400000) at cycle 1
-> ARM-SIM> 
-58c55
-< icache bubble
----
-> icache bubble (49)
-105c102
-< icache bubble
----
-> icache bubble (48)
-152c149
-< icache bubble
----
-> icache bubble (47)
-199c196
-< icache bubble
----
-> icache bubble (46)
-246c243
-< icache bubble
----
-> icache bubble (45)
-293c290
-< icache bubble
----
-> icache bubble (44)
-340c337
-< icache bubble
----
-> icache bubble (43)
-387c384
-< icache bubble
----
-> icache bubble (42)
-434c431
-< icache bubble
----
-> icache bubble (41)
-481c478
-< icache bubble
----
-> icache bubble (40)
-528c525
-< icache bubble
----
-> icache bubble (39)
-575c572
-< icache bubble
----
-> icache bubble (38)
-622c619
-< icache bubble
----
-> icache bubble (37)
-669c666
-< icache bubble
----
-> icache bubble (36)
-716c713
-< icache bubble
----
-> icache bubble (35)
-763c760
-< icache bubble
----
-> icache bubble (34)
-810c807
-< icache bubble
----
-> icache bubble (33)
-857c854
-< icache bubble
----
-> icache bubble (32)
-904c901
-< icache bubble
----
-> icache bubble (31)
-951c948
-< icache bubble
----
-> icache bubble (30)
-998c995
-< icache bubble
----
-> icache bubble (29)
-1045c1042
-< icache bubble
----
-> icache bubble (28)
-1092c1089
-< icache bubble
----
-> icache bubble (27)
-1139c1136
-< icache bubble
----
-> icache bubble (26)
-1186c1183
-< icache bubble
----
-> icache bubble (25)
-1233c1230
-< icache bubble
----
-> icache bubble (24)
-1280c1277
-< icache bubble
----
-> icache bubble (23)
-1327c1324
-< icache bubble
----
-> icache bubble (22)
-1374c1371
-< icache bubble
----
-> icache bubble (21)
-1421c1418
-< icache bubble
----
-> icache bubble (20)
-1468c1465
-< icache bubble
----
-> icache bubble (19)
-1515c1512
-< icache bubble
----
-> icache bubble (18)
-1562c1559
-< icache bubble
----
-> icache bubble (17)
-1609c1606
-< icache bubble
----
-> icache bubble (16)
-1656c1653
-< icache bubble
----
-> icache bubble (15)
-1703c1700
-< icache bubble
----
-> icache bubble (14)
-1750c1747
-< icache bubble
----
-> icache bubble (13)
-1797c1794
-< icache bubble
----
-> icache bubble (12)
-1844c1841
-< icache bubble
----
-> icache bubble (11)
-1891c1888
-< icache bubble
----
-> icache bubble (10)
-1938c1935
-< icache bubble
----
-> icache bubble (9)
-1985c1982
-< icache bubble
----
-> icache bubble (8)
-2032c2029
-< icache bubble
----
-> icache bubble (7)
-2079c2076
-< icache bubble
----
-> icache bubble (6)
-2126c2123
-< icache bubble
----
-> icache bubble (5)
-2173c2170
-< icache bubble
----
-> icache bubble (4)
-2220c2217
-< icache bubble
----
-> icache bubble (3)
-2267c2264
-< icache bubble
----
-> icache bubble (2)
-2314c2311,2312
-< icache bubble dismount
----
-> icache bubble (1)
-> icache fill at cycle 50
-2361,2366c2359
-< icache hit (400000) at cycle 51
-< cache hit idx: 3
-< offset: 0
-< word: d2820001
-< CURRENT_STATE.PC in bp_predict: 400000
-< plus 4 in bp_predict
----
-> icache hit (0x400000) at cycle 51
-2413,2418c2406
-< icache hit (400004) at cycle 52
-< cache hit idx: 3
-< offset: 1
-< word: d2800064
-< CURRENT_STATE.PC in bp_predict: 400004
-< plus 4 in bp_predict
----
-> icache hit (0x400004) at cycle 52
-2465,2470c2453
-< icache hit (400008) at cycle 53
-< cache hit idx: 3
-< offset: 2
-< word: d2800085
-< CURRENT_STATE.PC in bp_predict: 400008
-< plus 4 in bp_predict
----
-> icache hit (0x400008) at cycle 53
-2517,2522c2500
-< icache hit (40000c) at cycle 54
-< cache hit idx: 3
-< offset: 3
-< word: d370bc21
-< CURRENT_STATE.PC in bp_predict: 40000c
-< plus 4 in bp_predict
----
-> icache hit (0x40000c) at cycle 54
-2569,2574c2547
-< icache hit (400010) at cycle 55
-< cache hit idx: 3
-< offset: 4
-< word: f8000024
-< CURRENT_STATE.PC in bp_predict: 400010
-< plus 4 in bp_predict
----
-> icache hit (0x400010) at cycle 55
-2621,2626c2594
-< icache hit (400014) at cycle 56
-< cache hit idx: 3
-< offset: 5
-< word: f8400026
-< CURRENT_STATE.PC in bp_predict: 400014
-< plus 4 in bp_predict
----
-> icache hit (0x400014) at cycle 56
-2673,2678c2641
-< icache hit (400018) at cycle 57
-< cache hit idx: 3
-< offset: 6
-< word: f8020024
-< CURRENT_STATE.PC in bp_predict: 400018
-< plus 4 in bp_predict
----
-> icache hit (0x400018) at cycle 57
-2725,2735c2688,2689
-< dcache write miss at (10000000) at cycle 58
-< dcache write hit at (10000004) at cycle 58
-< same_cycle dcache bubble in ex
-< same_cycle dcache bubble in id
-< same_cycle dcache bubble in if
-< icache hit (40001c) at cycle 58
-< cache hit idx: 3
-< offset: 7
-< word: f8024025
-< CURRENT_STATE.PC in bp_predict: 40001c
-< plus 4 in bp_predict
----
-> dcache miss (0x10000000) at cycle 58
-> icache hit (0x40001c) at cycle 58
-2782c2736
-< dcache stall: 50
----
-> dcache stall (49)
-2829c2783
-< dcache stall: 49
----
-> dcache stall (48)
-2876c2830
-< dcache stall: 48
----
-> dcache stall (47)
-2923c2877
-< dcache stall: 47
----
-> dcache stall (46)
-2970c2924
-< dcache stall: 46
----
-> dcache stall (45)
-3017c2971
-< dcache stall: 45
----
-> dcache stall (44)
-3064c3018
-< dcache stall: 44
----
-> dcache stall (43)
-3111c3065
-< dcache stall: 43
----
-> dcache stall (42)
-3158c3112
-< dcache stall: 42
----
-> dcache stall (41)
-3205c3159
-< dcache stall: 41
----
-> dcache stall (40)
-3252c3206
-< dcache stall: 40
----
-> dcache stall (39)
-3299c3253
-< dcache stall: 39
----
-> dcache stall (38)
-3346c3300
-< dcache stall: 38
----
-> dcache stall (37)
-3393c3347
-< dcache stall: 37
----
-> dcache stall (36)
-3440c3394
-< dcache stall: 36
----
-> dcache stall (35)
-3487c3441
-< dcache stall: 35
----
-> dcache stall (34)
-3534c3488
-< dcache stall: 34
----
-> dcache stall (33)
-3581c3535
-< dcache stall: 33
----
-> dcache stall (32)
-3628c3582
-< dcache stall: 32
----
-> dcache stall (31)
-3675c3629
-< dcache stall: 31
----
-> dcache stall (30)
-3722c3676
-< dcache stall: 30
----
-> dcache stall (29)
-3769c3723
-< dcache stall: 29
----
-> dcache stall (28)
-3816c3770
-< dcache stall: 28
----
-> dcache stall (27)
-3863c3817
-< dcache stall: 27
----
-> dcache stall (26)
-3910c3864
-< dcache stall: 26
----
-> dcache stall (25)
-3957c3911
-< dcache stall: 25
----
-> dcache stall (24)
-4004c3958
-< dcache stall: 24
----
-> dcache stall (23)
-4051c4005
-< dcache stall: 23
----
-> dcache stall (22)
-4098c4052
-< dcache stall: 22
----
-> dcache stall (21)
-4145c4099
-< dcache stall: 21
----
-> dcache stall (20)
-4192c4146
-< dcache stall: 20
----
-> dcache stall (19)
-4239c4193
-< dcache stall: 19
----
-> dcache stall (18)
-4286c4240
-< dcache stall: 18
----
-> dcache stall (17)
-4333c4287
-< dcache stall: 17
----
-> dcache stall (16)
-4380c4334
-< dcache stall: 16
----
-> dcache stall (15)
-4427c4381
-< dcache stall: 15
----
-> dcache stall (14)
-4474c4428
-< dcache stall: 14
----
-> dcache stall (13)
-4521c4475
-< dcache stall: 13
----
-> dcache stall (12)
-4568c4522
-< dcache stall: 12
----
-> dcache stall (11)
-4615c4569
-< dcache stall: 11
----
-> dcache stall (10)
-4662c4616
-< dcache stall: 10
----
-> dcache stall (9)
-4709c4663
-< dcache stall: 9
----
-> dcache stall (8)
-4756c4710
-< dcache stall: 8
----
-> dcache stall (7)
-4803c4757
-< dcache stall: 7
----
-> dcache stall (6)
-4850c4804
-< dcache stall: 6
----
-> dcache stall (5)
-4897c4851
-< dcache stall: 5
----
-> dcache stall (4)
-4944c4898
-< dcache stall: 4
----
-> dcache stall (3)
-4991c4945
-< dcache stall: 3
----
-> dcache stall (2)
-5038c4992,4993
-< dcache stall: 2
----
-> dcache stall (1)
-> dcache fill at cycle 107
-5085,5088c5040
-< dcache dismount only allowing mem to work
-< d_cache_stored_op: f8000000
-< dcache write hit at (10000000) at cycle 108
-< dcache write hit at (10000004) at cycle 108
----
-> dcache hit (0x10000000) at cycle 108
-5135,5143c5087,5089
-< dcache hit (10000000) at cycle 109
-< offset: 0
-< dcache hit (10000004) at cycle 109
-< offset: 1
-< base: 40001c
-< icache miss at (400020) at cycle 109
-< cache fill idx: 7
-< cache fill valid: 1
-< same cycle cache_bubbleARM-SIM> 
----
-> dcache hit (0x10000000) at cycle 109
-> icache miss (0x400020) at cycle 109
-> ARM-SIM> 
-5189,5194c5135,5136
-< dcache write miss at (10000020) at cycle 110
-< dcache write hit at (10000024) at cycle 110
-< same_cycle dcache bubble in ex
-< same_cycle dcache bubble in id
-< same_cycle dcache bubble in if
-< icache bubble
----
-> dcache miss (0x10000020) at cycle 110
-> icache bubble (49)
-5241c5183,5184
-< dcache stall: 50
----
-> dcache stall (49)
-> icache bubble (48)
-5288c5231,5232
-< dcache stall: 49
----
-> dcache stall (48)
-> icache bubble (47)
-5335c5279,5280
-< dcache stall: 48
----
-> dcache stall (47)
-> icache bubble (46)
-5382c5327,5328
-< dcache stall: 47
----
-> dcache stall (46)
-> icache bubble (45)
-5429c5375,5376
-< dcache stall: 46
----
-> dcache stall (45)
-> icache bubble (44)
-5476c5423,5424
-< dcache stall: 45
----
-> dcache stall (44)
-> icache bubble (43)
-5523c5471,5472
-< dcache stall: 44
----
-> dcache stall (43)
-> icache bubble (42)
-5570c5519,5520
-< dcache stall: 43
----
-> dcache stall (42)
-> icache bubble (41)
-5617c5567,5568
-< dcache stall: 42
----
-> dcache stall (41)
-> icache bubble (40)
-5664c5615,5616
-< dcache stall: 41
----
-> dcache stall (40)
-> icache bubble (39)
-5711c5663,5664
-< dcache stall: 40
----
-> dcache stall (39)
-> icache bubble (38)
-5758c5711,5712
-< dcache stall: 39
----
-> dcache stall (38)
-> icache bubble (37)
-5805c5759,5760
-< dcache stall: 38
----
-> dcache stall (37)
-> icache bubble (36)
-5852c5807,5808
-< dcache stall: 37
----
-> dcache stall (36)
-> icache bubble (35)
-5899c5855,5856
-< dcache stall: 36
----
-> dcache stall (35)
-> icache bubble (34)
-5946c5903,5904
-< dcache stall: 35
----
-> dcache stall (34)
-> icache bubble (33)
-5993c5951,5952
-< dcache stall: 34
----
-> dcache stall (33)
-> icache bubble (32)
-6040c5999,6000
-< dcache stall: 33
----
-> dcache stall (32)
-> icache bubble (31)
-6087c6047,6048
-< dcache stall: 32
----
-> dcache stall (31)
-> icache bubble (30)
-6134c6095,6096
-< dcache stall: 31
----
-> dcache stall (30)
-> icache bubble (29)
-6181c6143,6144
-< dcache stall: 30
----
-> dcache stall (29)
-> icache bubble (28)
-6228c6191,6192
-< dcache stall: 29
----
-> dcache stall (28)
-> icache bubble (27)
-6275c6239,6240
-< dcache stall: 28
----
-> dcache stall (27)
-> icache bubble (26)
-6322c6287,6288
-< dcache stall: 27
----
-> dcache stall (26)
-> icache bubble (25)
-6369c6335,6336
-< dcache stall: 26
----
-> dcache stall (25)
-> icache bubble (24)
-6416c6383,6384
-< dcache stall: 25
----
-> dcache stall (24)
-> icache bubble (23)
-6463c6431,6432
-< dcache stall: 24
----
-> dcache stall (23)
-> icache bubble (22)
-6510c6479,6480
-< dcache stall: 23
----
-> dcache stall (22)
-> icache bubble (21)
-6557c6527,6528
-< dcache stall: 22
----
-> dcache stall (21)
-> icache bubble (20)
-6604c6575,6576
-< dcache stall: 21
----
-> dcache stall (20)
-> icache bubble (19)
-6651c6623,6624
-< dcache stall: 20
----
-> dcache stall (19)
-> icache bubble (18)
-6698c6671,6672
-< dcache stall: 19
----
-> dcache stall (18)
-> icache bubble (17)
-6745c6719,6720
-< dcache stall: 18
----
-> dcache stall (17)
-> icache bubble (16)
-6792c6767,6768
-< dcache stall: 17
----
-> dcache stall (16)
-> icache bubble (15)
-6839c6815,6816
-< dcache stall: 16
----
-> dcache stall (15)
-> icache bubble (14)
-6886c6863,6864
-< dcache stall: 15
----
-> dcache stall (14)
-> icache bubble (13)
-6933c6911,6912
-< dcache stall: 14
----
-> dcache stall (13)
-> icache bubble (12)
-6980c6959,6960
-< dcache stall: 13
----
-> dcache stall (12)
-> icache bubble (11)
-7027c7007,7008
-< dcache stall: 12
----
-> dcache stall (11)
-> icache bubble (10)
-7074c7055,7056
-< dcache stall: 11
----
-> dcache stall (10)
-> icache bubble (9)
-7121c7103,7104
-< dcache stall: 10
----
-> dcache stall (9)
-> icache bubble (8)
-7168c7151,7152
-< dcache stall: 9
----
-> dcache stall (8)
-> icache bubble (7)
-7215c7199,7200
-< dcache stall: 8
----
-> dcache stall (7)
-> icache bubble (6)
-7262c7247,7248
-< dcache stall: 7
----
-> dcache stall (6)
-> icache bubble (5)
-7309c7295,7296
-< dcache stall: 6
----
-> dcache stall (5)
-> icache bubble (4)
-7356c7343,7344
-< dcache stall: 5
----
-> dcache stall (4)
-> icache bubble (3)
-7403c7391,7392
-< dcache stall: 4
----
-> dcache stall (3)
-> icache bubble (2)
-7450c7439,7441
-< dcache stall: 3
----
-> dcache stall (2)
-> icache bubble (1)
-> icache fill at cycle 158
-7497c7488,7490
-< dcache stall: 2
----
-> dcache stall (1)
-> dcache fill at cycle 159
-> icache hit (0x400020) at cycle 159
-7503c7496
+4981c4981
 < PC                : 0x400020
 ---
 > PC                : 0x400024
-7544,7547c7537,7538
-< dcache dismount only allowing mem to work
-< d_cache_stored_op: f8000000
-< dcache write hit at (10000020) at cycle 160
-< dcache write hit at (10000024) at cycle 160
----
-> dcache hit (0x10000020) at cycle 160
-> icache hit (0x400024) at cycle 160
-7553c7544
+5027c5027
 < PC                : 0x400020
 ---
 > PC                : 0x400028
-7594,7601c7585,7586
-< dcache write hit at (10000024) at cycle 161
-< dcache write hit at (10000028) at cycle 161
-< icache hit (400020) at cycle 161
-< cache hit idx: 7
-< offset: 0
-< word: f8420027
-< CURRENT_STATE.PC in bp_predict: 400020
-< plus 4 in bp_predict
----
-> dcache hit (0x10000024) at cycle 161
-> icache hit (0x400028) at cycle 161
-7607c7592
+5073c5073
 < PC                : 0x400024
 ---
 > PC                : 0x40002c
-7648,7655c7633,7634
-< dcache write hit at (10000024) at cycle 162
-< dcache write hit at (10000028) at cycle 162
-< icache hit (400024) at cycle 162
-< cache hit idx: 7
-< offset: 1
-< word: f8424028
-< CURRENT_STATE.PC in bp_predict: 400024
-< plus 4 in bp_predict
----
-> dcache hit (0x10000020) at cycle 162
-> icache hit (0x40002c) at cycle 162
-7661c7640
+5118,5119c5118,5119
+< Instruction Retired : 7
 < PC                : 0x400028
 ---
+> Instruction Retired : 8
 > PC                : 0x400030
-7702,7709c7681
-< dcache write hit at (10000024) at cycle 163
-< dcache write hit at (10000028) at cycle 163
-< icache hit (400028) at cycle 163
-< cache hit idx: 7
-< offset: 2
-< word: 8b0800e9
-< CURRENT_STATE.PC in bp_predict: 400028
-< plus 4 in bp_predict
----
-> dcache hit (0x10000024) at cycle 163
-7715c7687
+5164,5165c5164,5165
+< Instruction Retired : 8
 < PC                : 0x40002c
 ---
-> PC                : 0x400030
-7724c7696
-< X7: 0x0
----
-> X7: 0x400000003
-7756,7761c7728
-< dcache hit (10000020) at cycle 164
-< offset: 0
-< dcache hit (10000024) at cycle 164
-< offset: 1
-< CURRENT_STATE.PC in bp_predict: 40002c
-< plus 4 in bp_predict
----
-> icache hit (0x400030) at cycle 164
-7767c7734
-< PC                : 0x400030
----
-> PC                : 0x400034
-7776,7777c7743,7744
-< X7: 0x0
-< X8: 0x0
----
-> X7: 0x400000003
-> X8: 0x4
-7808,7811d7774
-< dcache hit (10000024) at cycle 165
-< offset: 1
-< dcache hit (10000028) at cycle 165
-< offset: 2
-7816,7817c7779,7780
-< Instruction Retired : 11
+> Instruction Retired : 9
+> PC                : 0x400018
+5210,5211c5210,5211
+< Instruction Retired : 9
 < PC                : 0x400030
 ---
 > Instruction Retired : 10
-> PC                : 0x400034
-7826,7827c7789,7790
-< X7: 0x3
-< X8: 0x0
----
-> X7: 0x400000003
-> X8: 0x4
-7858,7863d7820
-< icache hit (400030) at cycle 166
-< cache hit idx: 7
-< offset: 4
-< word: 0
-< CURRENT_STATE.PC in bp_predict: 400030
-< plus 4 in bp_predict
-7868c7825
-< Instruction Retired : 12
+> PC                : 0x40001c
+5256,5257c5256,5257
+< Instruction Retired : 10
+< PC                : 0x400018
 ---
 > Instruction Retired : 11
-7878,7880c7835,7837
-< X7: 0x3
-< X8: 0x0
-< X9: 0x0
+> PC                : 0x400020
+5303c5303
+< PC                : 0x40001c
 ---
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-7910d7866
-< halted
-7925,7927c7881,7883
-< X7: 0x3
-< X8: 0x0
-< X9: 0x0
+> PC                : 0x400024
+5348,5349c5348,5349
+< Instruction Retired : 12
+< PC                : 0x400020
 ---
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-7955c7911
-< Simulating for 1 cycles...
+> Instruction Retired : 11
+> PC                : 0x400028
+5395c5395
+< PC                : 0x400024
 ---
-> Can't simulate, Simulator is halted
-7957d7912
-< halted
-7962c7917
+> PC                : 0x40002c
+5399c5399
+< X2: 0x1
+---
+> X2: 0x2
+5440,5441c5440,5441
+< Instruction Retired : 12
+< PC                : 0x400028
+---
+> Instruction Retired : 13
+> PC                : 0x400030
+5445c5445
+< X2: 0x1
+---
+> X2: 0x2
+5486,5487c5486,5487
 < Instruction Retired : 13
+< PC                : 0x40002c
 ---
-> Instruction Retired : 12
-7972,7974c7927,7929
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-7999c7954
-< No. of Cycles: 168
----
-> No. of Cycles: 167
-8002c7957
-< Simulating for 1 cycles...
----
-> Can't simulate, Simulator is halted
-8004d7958
-< halted
-8009c7963
+> Instruction Retired : 14
+> PC                : 0x400018
+5532,5533c5532,5533
 < Instruction Retired : 14
----
-> Instruction Retired : 12
-8019,8021c7973,7975
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8046c8000
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8055c8009
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8065,8067c8019,8021
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8092c8046
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8101c8055
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8111,8113c8065,8067
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8138c8092
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8147c8101
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8157,8159c8111,8113
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8184c8138
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8193c8147
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8203,8205c8157,8159
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8230c8184
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8239c8193
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8249,8251c8203,8205
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8276c8230
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8285c8239
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8295,8297c8249,8251
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8322c8276
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8331c8285
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8341,8343c8295,8297
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8368c8322
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8377c8331
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8387,8389c8341,8343
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8414c8368
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8423c8377
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8433,8435c8387,8389
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8460c8414
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8469c8423
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8479,8481c8433,8435
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8506c8460
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8515c8469
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8525,8527c8479,8481
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8552c8506
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8561c8515
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8571,8573c8525,8527
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8598c8552
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8607c8561
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8617,8619c8571,8573
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8644c8598
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8653c8607
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8663,8665c8617,8619
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8690c8644
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8699c8653
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8709,8711c8663,8665
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8736c8690
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8745c8699
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8755,8757c8709,8711
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8782c8736
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8791c8745
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8801,8803c8755,8757
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8828c8782
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8837c8791
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8847,8849c8801,8803
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8874c8828
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8883c8837
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8893,8895c8847,8849
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8920c8874
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8929c8883
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8939,8941c8893,8895
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-8966c8920
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-8975c8929
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-8985,8987c8939,8941
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9012c8966
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9021c8975
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9031,9033c8985,8987
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9058c9012
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9067c9021
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9077,9079c9031,9033
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9104c9058
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9113c9067
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9123,9125c9077,9079
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9150c9104
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9159c9113
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9169,9171c9123,9125
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9196c9150
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9205c9159
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9215,9217c9169,9171
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9242c9196
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9251c9205
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9261,9263c9215,9217
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9288c9242
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9297c9251
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9307,9309c9261,9263
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9334c9288
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9343c9297
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9353,9355c9307,9309
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9380c9334
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9389c9343
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9399,9401c9353,9355
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9426c9380
-< No. of Cycles: 169
----
-> No. of Cycles: 167
-9435c9389
-< Instruction Retired : 14
----
-> Instruction Retired : 12
-9445,9447c9399,9401
-< X7: 0x3
-< X8: 0x0
-< X9: 0x3
----
-> X7: 0x400000003
-> X8: 0x4
-> X9: 0x400000007
-9472c9426
-< No. of Cycles: 169
----
-> No. of Cycles: 167
+< PC                : 0x400030
+---
+> Instruction Retired : 15
+> PC                : 0x40001c
+5578,5579c5578,5579
+< Instruction Retired : 15
+< PC                : 0x400018
+---
+> Instruction Retired : 16
+> PC                : 0x400020
+5625c5625
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+5670,5671c5670,5671
+< Instruction Retired : 17
+< PC                : 0x400020
+---
+> Instruction Retired : 16
+> PC                : 0x400028
+5717c5717
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+5721c5721
+< X2: 0x2
+---
+> X2: 0x3
+5762,5763c5762,5763
+< Instruction Retired : 17
+< PC                : 0x400028
+---
+> Instruction Retired : 18
+> PC                : 0x400030
+5767c5767
+< X2: 0x2
+---
+> X2: 0x3
+5808,5809c5808,5809
+< Instruction Retired : 18
+< PC                : 0x40002c
+---
+> Instruction Retired : 19
+> PC                : 0x400018
+5854,5855c5854,5855
+< Instruction Retired : 19
+< PC                : 0x400030
+---
+> Instruction Retired : 20
+> PC                : 0x40001c
+5900,5901c5900,5901
+< Instruction Retired : 20
+< PC                : 0x400018
+---
+> Instruction Retired : 21
+> PC                : 0x400020
+5947c5947
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+5992,5993c5992,5993
+< Instruction Retired : 22
+< PC                : 0x400020
+---
+> Instruction Retired : 21
+> PC                : 0x400028
+6039c6039
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+6043c6043
+< X2: 0x3
+---
+> X2: 0x4
+6084,6085c6084,6085
+< Instruction Retired : 22
+< PC                : 0x400028
+---
+> Instruction Retired : 23
+> PC                : 0x400030
+6089c6089
+< X2: 0x3
+---
+> X2: 0x4
+6130,6131c6130,6131
+< Instruction Retired : 23
+< PC                : 0x40002c
+---
+> Instruction Retired : 24
+> PC                : 0x400018
+6176,6177c6176,6177
+< Instruction Retired : 24
+< PC                : 0x400030
+---
+> Instruction Retired : 25
+> PC                : 0x40001c
+6222,6223c6222,6223
+< Instruction Retired : 25
+< PC                : 0x400018
+---
+> Instruction Retired : 26
+> PC                : 0x400020
+6269c6269
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+6314,6315c6314,6315
+< Instruction Retired : 27
+< PC                : 0x400020
+---
+> Instruction Retired : 26
+> PC                : 0x400028
+6361c6361
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+6365c6365
+< X2: 0x4
+---
+> X2: 0x5
+6406,6407c6406,6407
+< Instruction Retired : 27
+< PC                : 0x400028
+---
+> Instruction Retired : 28
+> PC                : 0x400030
+6411c6411
+< X2: 0x4
+---
+> X2: 0x5
+6452,6453c6452,6453
+< Instruction Retired : 28
+< PC                : 0x40002c
+---
+> Instruction Retired : 29
+> PC                : 0x400018
+6498,6499c6498,6499
+< Instruction Retired : 29
+< PC                : 0x400030
+---
+> Instruction Retired : 30
+> PC                : 0x40001c
+6544,6545c6544,6545
+< Instruction Retired : 30
+< PC                : 0x400018
+---
+> Instruction Retired : 31
+> PC                : 0x400020
+6591c6591
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+6636,6637c6636,6637
+< Instruction Retired : 32
+< PC                : 0x400020
+---
+> Instruction Retired : 31
+> PC                : 0x400028
+6683c6683
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+6687c6687
+< X2: 0x5
+---
+> X2: 0x6
+6728,6729c6728,6729
+< Instruction Retired : 32
+< PC                : 0x400028
+---
+> Instruction Retired : 33
+> PC                : 0x400030
+6733c6733
+< X2: 0x5
+---
+> X2: 0x6
+6774,6775c6774,6775
+< Instruction Retired : 33
+< PC                : 0x40002c
+---
+> Instruction Retired : 34
+> PC                : 0x400018
+6820,6821c6820,6821
+< Instruction Retired : 34
+< PC                : 0x400030
+---
+> Instruction Retired : 35
+> PC                : 0x40001c
+6866,6867c6866,6867
+< Instruction Retired : 35
+< PC                : 0x400018
+---
+> Instruction Retired : 36
+> PC                : 0x400020
+6913c6913
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+6958,6959c6958,6959
+< Instruction Retired : 37
+< PC                : 0x400020
+---
+> Instruction Retired : 36
+> PC                : 0x400028
+7005c7005
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+7009c7009
+< X2: 0x6
+---
+> X2: 0x7
+7050,7051c7050,7051
+< Instruction Retired : 37
+< PC                : 0x400028
+---
+> Instruction Retired : 38
+> PC                : 0x400030
+7055c7055
+< X2: 0x6
+---
+> X2: 0x7
+7096,7097c7096,7097
+< Instruction Retired : 38
+< PC                : 0x40002c
+---
+> Instruction Retired : 39
+> PC                : 0x400018
+7142,7143c7142,7143
+< Instruction Retired : 39
+< PC                : 0x400030
+---
+> Instruction Retired : 40
+> PC                : 0x40001c
+7188,7189c7188,7189
+< Instruction Retired : 40
+< PC                : 0x400018
+---
+> Instruction Retired : 41
+> PC                : 0x400020
+7235c7235
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+7280,7281c7280,7281
+< Instruction Retired : 42
+< PC                : 0x400020
+---
+> Instruction Retired : 41
+> PC                : 0x400028
+7327c7327
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+7331c7331
+< X2: 0x7
+---
+> X2: 0x8
+7372,7373c7372,7373
+< Instruction Retired : 42
+< PC                : 0x400028
+---
+> Instruction Retired : 43
+> PC                : 0x400030
+7377c7377
+< X2: 0x7
+---
+> X2: 0x8
+7418,7419c7418,7419
+< Instruction Retired : 43
+< PC                : 0x40002c
+---
+> Instruction Retired : 44
+> PC                : 0x400018
+7464,7465c7464,7465
+< Instruction Retired : 44
+< PC                : 0x400030
+---
+> Instruction Retired : 45
+> PC                : 0x40001c
+7510,7511c7510,7511
+< Instruction Retired : 45
+< PC                : 0x400018
+---
+> Instruction Retired : 46
+> PC                : 0x400020
+7557c7557
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+7602,7603c7602,7603
+< Instruction Retired : 47
+< PC                : 0x400020
+---
+> Instruction Retired : 46
+> PC                : 0x400028
+7649c7649
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+7653c7653
+< X2: 0x8
+---
+> X2: 0x9
+7694,7695c7694,7695
+< Instruction Retired : 47
+< PC                : 0x400028
+---
+> Instruction Retired : 48
+> PC                : 0x400030
+7699c7699
+< X2: 0x8
+---
+> X2: 0x9
+7740,7741c7740,7741
+< Instruction Retired : 48
+< PC                : 0x40002c
+---
+> Instruction Retired : 49
+> PC                : 0x400018
+7786,7787c7786,7787
+< Instruction Retired : 49
+< PC                : 0x400030
+---
+> Instruction Retired : 50
+> PC                : 0x40001c
+7832,7833c7832,7833
+< Instruction Retired : 50
+< PC                : 0x400018
+---
+> Instruction Retired : 51
+> PC                : 0x400020
+7879c7879
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+7924,7925c7924,7925
+< Instruction Retired : 52
+< PC                : 0x400020
+---
+> Instruction Retired : 51
+> PC                : 0x400028
+7971c7971
+< PC                : 0x400024
+---
+> PC                : 0x40002c
+7975c7975
+< X2: 0x9
+---
+> X2: 0xa
+8016,8017c8016,8017
+< Instruction Retired : 52
+< PC                : 0x400028
+---
+> Instruction Retired : 53
+> PC                : 0x400030
+8021c8021
+< X2: 0x9
+---
+> X2: 0xa
+8062,8063c8062,8063
+< Instruction Retired : 53
+< PC                : 0x40002c
+---
+> Instruction Retired : 54
+> PC                : 0x400018
+8108,8109c8108,8109
+< Instruction Retired : 54
+< PC                : 0x400030
+---
+> Instruction Retired : 55
+> PC                : 0x40001c
+8154,8155c8154,8155
+< Instruction Retired : 55
+< PC                : 0x400018
+---
+> Instruction Retired : 56
+> PC                : 0x400020
+8201c8201
+< PC                : 0x40001c
+---
+> PC                : 0x400024
+8246,8247c8246,8247
+< Instruction Retired : 57
+< PC                : 0x400020
+---
+> Instruction Retired : 56
+> PC                : 0x400028
+8293c8293
+< PC                : 0x400024
+---
+> PC                : 0x400018
+8297c8297
+< X2: 0xa
+---
+> X2: 0xb
+8338,8339c8338,8339
+< Instruction Retired : 57
+< PC                : 0x400028
+---
+> Instruction Retired : 58
+> PC                : 0x40001c
+8343c8343
+< X2: 0xa
+---
+> X2: 0xb
+8384,8385c8384,8385
+< Instruction Retired : 58
+< PC                : 0x400018
+---
+> Instruction Retired : 59
+> PC                : 0x400020
+8430,8431c8430,8431
+< Instruction Retired : 59
+< PC                : 0x40001c
+---
+> Instruction Retired : 60
+> PC                : 0x400024
+8476,8477c8476,8477
+< Instruction Retired : 60
+< PC                : 0x400020
+---
+> Instruction Retired : 61
+> PC                : 0x400028
+8522,8523c8522,8523
+< Instruction Retired : 61
+< PC                : 0x400024
+---
+> Instruction Retired : 62
+> PC                : 0x400018
+8527c8527
+< X2: 0xb
+---
+> X2: 0xc
+8568,8569c8568,8569
+< Instruction Retired : 62
+< PC                : 0x400028
+---
+> Instruction Retired : 63
+> PC                : 0x40001c
+8573c8573
+< X2: 0xb
+---
+> X2: 0xc
+8614,8615c8614,8615
+< Instruction Retired : 63
+< PC                : 0x400018
+---
+> Instruction Retired : 64
+> PC                : 0x400020
+8660,8661c8660,8661
+< Instruction Retired : 64
+< PC                : 0x40001c
+---
+> Instruction Retired : 65
+> PC                : 0x400024
+8706,8707c8706,8707
+< Instruction Retired : 65
+< PC                : 0x400020
+---
+> Instruction Retired : 66
+> PC                : 0x400028
+8752,8753c8752,8753
+< Instruction Retired : 66
+< PC                : 0x400024
+---
+> Instruction Retired : 67
+> PC                : 0x400018
+8757c8757
+< X2: 0xc
+---
+> X2: 0xd
+8798,8799c8798,8799
+< Instruction Retired : 67
+< PC                : 0x400028
+---
+> Instruction Retired : 68
+> PC                : 0x40001c
+8803c8803
+< X2: 0xc
+---
+> X2: 0xd
+8844,8845c8844,8845
+< Instruction Retired : 68
+< PC                : 0x400018
+---
+> Instruction Retired : 69
+> PC                : 0x400020
+8890,8891c8890,8891
+< Instruction Retired : 69
+< PC                : 0x40001c
+---
+> Instruction Retired : 70
+> PC                : 0x400024
+8936,8937c8936,8937
+< Instruction Retired : 70
+< PC                : 0x400020
+---
+> Instruction Retired : 71
+> PC                : 0x400028
+8982,8983c8982,8983
+< Instruction Retired : 71
+< PC                : 0x400024
+---
+> Instruction Retired : 72
+> PC                : 0x400018
+8987c8987
+< X2: 0xd
+---
+> X2: 0xe
+9028,9029c9028,9029
+< Instruction Retired : 72
+< PC                : 0x400028
+---
+> Instruction Retired : 73
+> PC                : 0x40001c
+9033c9033
+< X2: 0xd
+---
+> X2: 0xe
+9074,9075c9074,9075
+< Instruction Retired : 73
+< PC                : 0x400018
+---
+> Instruction Retired : 74
+> PC                : 0x400020
+9120,9121c9120,9121
+< Instruction Retired : 74
+< PC                : 0x40001c
+---
+> Instruction Retired : 75
+> PC                : 0x400024
+9166,9167c9166,9167
+< Instruction Retired : 75
+< PC                : 0x400020
+---
+> Instruction Retired : 76
+> PC                : 0x400028

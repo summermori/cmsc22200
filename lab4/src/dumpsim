@@ -2273,7 +2273,7 @@ Instruction Retired : 1
 PC                : 0x400014
 Registers:
 X0: 0x0
-X1: 0x1000
+X1: 0x0
 X2: 0x0
 X3: 0x0
 X4: 0x0
@@ -2315,10 +2315,10 @@ Instruction Retired : 2
 PC                : 0x400018
 Registers:
 X0: 0x0
-X1: 0x1000
+X1: 0x0
 X2: 0x0
-X3: 0x0
-X4: 0x3
+X3: 0x64
+X4: 0x0
 X5: 0x0
 X6: 0x0
 X7: 0x0
@@ -2359,9 +2359,9 @@ Registers:
 X0: 0x0
 X1: 0x1000
 X2: 0x0
-X3: 0x0
-X4: 0x3
-X5: 0x4
+X3: 0x64
+X4: 0x0
+X5: 0x0
 X6: 0x0
 X7: 0x0
 X8: 0x0
@@ -2401,9 +2401,9 @@ Registers:
 X0: 0x0
 X1: 0x10000000
 X2: 0x0
-X3: 0x0
-X4: 0x3
-X5: 0x4
+X3: 0x64
+X4: 0x0
+X5: 0x0
 X6: 0x0
 X7: 0x0
 X8: 0x0
@@ -2437,15 +2437,15 @@ No. of Cycles: 58
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 5
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
 X2: 0x0
-X3: 0x0
+X3: 0x64
 X4: 0x3
-X5: 0x4
+X5: 0x0
 X6: 0x0
 X7: 0x0
 X8: 0x0
@@ -2479,13 +2479,13 @@ No. of Cycles: 59
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 6
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
 X2: 0x0
-X3: 0x0
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2521,13 +2521,13 @@ No. of Cycles: 60
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2563,13 +2563,13 @@ No. of Cycles: 61
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2605,13 +2605,13 @@ No. of Cycles: 62
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2647,13 +2647,13 @@ No. of Cycles: 63
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2689,13 +2689,13 @@ No. of Cycles: 64
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2731,13 +2731,13 @@ No. of Cycles: 65
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2773,13 +2773,13 @@ No. of Cycles: 66
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2815,13 +2815,13 @@ No. of Cycles: 67
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2857,13 +2857,13 @@ No. of Cycles: 68
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2899,13 +2899,13 @@ No. of Cycles: 69
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2941,13 +2941,13 @@ No. of Cycles: 70
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2983,13 +2983,13 @@ No. of Cycles: 71
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3025,13 +3025,13 @@ No. of Cycles: 72
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3067,13 +3067,13 @@ No. of Cycles: 73
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3109,13 +3109,13 @@ No. of Cycles: 74
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3151,13 +3151,13 @@ No. of Cycles: 75
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3193,13 +3193,13 @@ No. of Cycles: 76
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3235,13 +3235,13 @@ No. of Cycles: 77
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3277,13 +3277,13 @@ No. of Cycles: 78
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3319,13 +3319,13 @@ No. of Cycles: 79
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3361,13 +3361,13 @@ No. of Cycles: 80
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3403,13 +3403,13 @@ No. of Cycles: 81
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3445,13 +3445,13 @@ No. of Cycles: 82
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3487,13 +3487,13 @@ No. of Cycles: 83
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3529,13 +3529,13 @@ No. of Cycles: 84
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3571,13 +3571,13 @@ No. of Cycles: 85
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3613,13 +3613,13 @@ No. of Cycles: 86
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3655,13 +3655,13 @@ No. of Cycles: 87
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3697,13 +3697,13 @@ No. of Cycles: 88
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3739,13 +3739,13 @@ No. of Cycles: 89
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3781,13 +3781,13 @@ No. of Cycles: 90
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3823,13 +3823,13 @@ No. of Cycles: 91
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3865,13 +3865,13 @@ No. of Cycles: 92
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3907,13 +3907,13 @@ No. of Cycles: 93
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3949,13 +3949,13 @@ No. of Cycles: 94
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3991,13 +3991,13 @@ No. of Cycles: 95
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4033,13 +4033,13 @@ No. of Cycles: 96
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4075,13 +4075,13 @@ No. of Cycles: 97
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4117,13 +4117,13 @@ No. of Cycles: 98
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4159,13 +4159,13 @@ No. of Cycles: 99
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4201,13 +4201,13 @@ No. of Cycles: 100
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4243,13 +4243,13 @@ No. of Cycles: 101
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4285,13 +4285,13 @@ No. of Cycles: 102
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4327,13 +4327,13 @@ No. of Cycles: 103
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4369,13 +4369,13 @@ No. of Cycles: 104
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4411,13 +4411,13 @@ No. of Cycles: 105
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4453,13 +4453,13 @@ No. of Cycles: 106
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4495,13 +4495,13 @@ No. of Cycles: 107
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4537,13 +4537,13 @@ No. of Cycles: 108
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 5
-PC                : 0x400020
+Instruction Retired : 7
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4579,16 +4579,16 @@ No. of Cycles: 109
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 7
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4621,16 +4621,16 @@ No. of Cycles: 110
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 7
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4663,16 +4663,16 @@ No. of Cycles: 111
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 8
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4705,16 +4705,16 @@ No. of Cycles: 112
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 9
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4747,16 +4747,16 @@ No. of Cycles: 113
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 10
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4789,16 +4789,16 @@ No. of Cycles: 114
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 11
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4831,16 +4831,16 @@ No. of Cycles: 115
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 11
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4873,16 +4873,16 @@ No. of Cycles: 116
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 11
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4915,16 +4915,16 @@ No. of Cycles: 117
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 12
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4957,16 +4957,16 @@ No. of Cycles: 118
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 13
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -4999,16 +4999,16 @@ No. of Cycles: 119
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 14
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5041,16 +5041,16 @@ No. of Cycles: 120
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 15
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5083,16 +5083,16 @@ No. of Cycles: 121
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 16
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5125,16 +5125,16 @@ No. of Cycles: 122
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 16
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5167,16 +5167,16 @@ No. of Cycles: 123
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 16
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5209,16 +5209,16 @@ No. of Cycles: 124
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 17
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5251,16 +5251,16 @@ No. of Cycles: 125
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 18
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5293,16 +5293,16 @@ No. of Cycles: 126
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 19
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5335,16 +5335,16 @@ No. of Cycles: 127
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 20
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5377,16 +5377,16 @@ No. of Cycles: 128
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 21
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5419,16 +5419,16 @@ No. of Cycles: 129
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 21
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5461,16 +5461,16 @@ No. of Cycles: 130
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 21
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5503,16 +5503,16 @@ No. of Cycles: 131
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 22
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5545,16 +5545,16 @@ No. of Cycles: 132
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 23
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5587,16 +5587,16 @@ No. of Cycles: 133
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 24
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5629,16 +5629,16 @@ No. of Cycles: 134
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 25
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5671,16 +5671,16 @@ No. of Cycles: 135
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 26
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5713,16 +5713,16 @@ No. of Cycles: 136
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 26
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5755,16 +5755,16 @@ No. of Cycles: 137
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 26
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5797,16 +5797,16 @@ No. of Cycles: 138
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 27
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5839,16 +5839,16 @@ No. of Cycles: 139
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 28
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5881,16 +5881,16 @@ No. of Cycles: 140
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 29
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5923,16 +5923,16 @@ No. of Cycles: 141
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 30
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5965,16 +5965,16 @@ No. of Cycles: 142
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 31
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6007,16 +6007,16 @@ No. of Cycles: 143
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 31
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6049,16 +6049,16 @@ No. of Cycles: 144
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 31
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6091,16 +6091,16 @@ No. of Cycles: 145
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 32
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6133,16 +6133,16 @@ No. of Cycles: 146
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 33
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6175,16 +6175,16 @@ No. of Cycles: 147
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 34
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6217,16 +6217,16 @@ No. of Cycles: 148
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 35
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6259,16 +6259,16 @@ No. of Cycles: 149
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 36
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6301,16 +6301,16 @@ No. of Cycles: 150
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 36
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6343,16 +6343,16 @@ No. of Cycles: 151
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 36
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6385,16 +6385,16 @@ No. of Cycles: 152
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 37
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6427,16 +6427,16 @@ No. of Cycles: 153
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 38
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6469,16 +6469,16 @@ No. of Cycles: 154
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 39
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6511,16 +6511,16 @@ No. of Cycles: 155
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 40
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6553,16 +6553,16 @@ No. of Cycles: 156
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 41
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6595,16 +6595,16 @@ No. of Cycles: 157
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 41
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6637,16 +6637,16 @@ No. of Cycles: 158
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400024
+Instruction Retired : 41
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6679,16 +6679,16 @@ No. of Cycles: 159
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400028
+Instruction Retired : 42
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6721,16 +6721,16 @@ No. of Cycles: 160
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 7
-PC                : 0x40002c
+Instruction Retired : 43
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6763,16 +6763,16 @@ No. of Cycles: 161
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 8
-PC                : 0x400030
+Instruction Retired : 44
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6805,17 +6805,17 @@ No. of Cycles: 162
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 9
-PC                : 0x400030
+Instruction Retired : 45
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
+X6: 0x0
+X7: 0x0
 X8: 0x0
 X9: 0x0
 X10: 0x0
@@ -6847,18 +6847,18 @@ No. of Cycles: 163
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 10
-PC                : 0x400034
+Instruction Retired : 46
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
+X6: 0x0
+X7: 0x0
+X8: 0x0
 X9: 0x0
 X10: 0x0
 X11: 0x0
@@ -6889,18 +6889,18 @@ No. of Cycles: 164
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 10
-PC                : 0x400034
+Instruction Retired : 46
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
+X6: 0x0
+X7: 0x0
+X8: 0x0
 X9: 0x0
 X10: 0x0
 X11: 0x0
@@ -6931,19 +6931,19 @@ No. of Cycles: 165
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 11
-PC                : 0x400034
+Instruction Retired : 46
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -6973,19 +6973,19 @@ No. of Cycles: 166
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 47
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7015,19 +7015,19 @@ No. of Cycles: 167
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 48
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7052,24 +7052,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 168
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 49
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7094,24 +7094,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 169
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 50
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7136,24 +7136,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 170
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 51
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7178,24 +7178,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 171
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 51
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7220,24 +7220,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 172
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 51
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7262,24 +7262,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 173
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 52
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7304,24 +7304,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 174
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 53
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7346,24 +7346,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 175
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 54
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7388,24 +7388,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 176
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 55
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7430,24 +7430,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 177
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 56
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7472,24 +7472,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 178
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 56
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7514,24 +7514,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 179
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 56
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7556,24 +7556,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 180
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 57
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7598,24 +7598,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 181
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 58
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7640,24 +7640,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 182
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 59
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7682,24 +7682,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 183
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 60
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7724,24 +7724,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 184
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 61
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7766,24 +7766,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 185
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 62
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7808,24 +7808,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 186
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 63
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7850,24 +7850,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 187
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 64
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7892,24 +7892,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 188
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 65
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7934,24 +7934,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 189
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 66
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -7976,24 +7976,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 190
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 67
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8018,24 +8018,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 191
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 68
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8060,24 +8060,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 192
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 69
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8102,24 +8102,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 193
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 70
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8144,24 +8144,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 194
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 71
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8186,24 +8186,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 195
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 72
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8228,24 +8228,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 196
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 73
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8270,24 +8270,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 197
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 74
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8312,24 +8312,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 198
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 75
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8354,24 +8354,24 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 199
 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 76
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x400000003
-X8: 0x4
-X9: 0x400000007
+X6: 0x0
+X7: 0x0
+X8: 0x0
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8396,5 +8396,5 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 167
+No. of Cycles: 200
 

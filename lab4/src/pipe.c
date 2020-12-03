@@ -55,11 +55,9 @@ int64_t SIGNEXTEND(int64_t offset) {
 
 void compareBubble(int64_t reg_val)
 {
-  // printf("EXtoMEM.dnum: %ld\n", EXtoMEM.dnum);
   //only bubble on cbnz
   if ((EXtoMEM.dnum != reg_val) && (IDtoEX.op == 0xb5000000) && (CURRENT_STATE.REGS[reg_val] == 0))
   {
-    // printf("CompareBubble Trigger\n");
     TriggerBubble_Branch((int) stat_cycles + 2);
   }
   return;
@@ -67,8 +65,6 @@ void compareBubble(int64_t reg_val)
 
 void condBubble(int64_t cond) // a helper to determine when conditional branching should bubble
 {
-  // printf("FN: %d\n", Control.fn);
-  // printf("FZ: %d\n", Control.fz);
   switch(cond)
   {
       //BEQ
@@ -107,13 +103,10 @@ void condBubble(int64_t cond) // a helper to determine when conditional branchin
 int64_t reg_call(int64_t addr) {
         //for the exe struct
         if (addr != 31) {
-		//printf("addr is %ld, x/m d is %ld, x/m fmem is %d, m/w d is %ld, and m/w fwb is %d\n", addr, EXtoMEM.dnum, EXtoMEM.fmem, MEMtoWB.dnum, MEMtoWB.fwb);
                 if ((EXtoMEM.dnum == addr) && !(isSturBranch(addr)) && (EXtoMEM.fmem == 0)) {
-			//printf("x/m hit, returning %ld\n", EXtoMEM.res);
                         return EXtoMEM.res;
                 }
                 else if ((MEMtoWB.dnum == addr) && !(isSturBranch(addr)) && (MEMtoWB.fwb == 1)) {
-			//printf("m/w hit, returning %ld\n", MEMtoWB.res);
                         return MEMtoWB.res;
                 }
         }
@@ -163,29 +156,23 @@ void pipe_stage_mem()
     //middle of cycle
     if (Control.data_cache_bubble > 1)
     {
-      printf("dcache stall: %d\n", Control.data_cache_bubble);
       return;
     }
     //last cycle of bubble, data_cache_bubble == 1
     else if (Control.data_cache_bubble == 1)
     {
       //stall dismount, hit on the same inst we missed on
-      printf("dcache dismount only allowing mem to work\n");
       int64_t t;
       int64_t n;
       int64_t offset;
       uint64_t load;
       uint64_t load2;
-      printf("d_cache_stored_op: %lx\n", dcache_store_EXtoMEM.op);
       switch (dcache_store_EXtoMEM.op)
       {
         case 0xf8400000:
-          //printf("LDUR\n");
           t = dcache_store_EXtoMEM.dnum;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
-          // printf("mem_loc base: %lx\n", n);
-          // printf("mem_loc offset: %lx\n", offset);
           load = cache_read(n + offset, 8);
           load2 = cache_read(n + offset + 4, 8);
           load = load | (load2 << 32);
@@ -195,7 +182,6 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 1;
           break;
         case 0xb8400000:
-          //printf("LDUR\n");
           t = dcache_store_EXtoMEM.dnum;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
@@ -206,7 +192,6 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 1;
           break;
         case 0x38400000:
-          //printf("LDURB\n");
           t = dcache_store_EXtoMEM.dnum;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
@@ -218,7 +203,6 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 1;
           break;
         case 0x78400000:
-          //printf("LDURH\n");
           t = dcache_store_EXtoMEM.dnum;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
@@ -230,7 +214,6 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 1;
           break;
         case 0xf8000000:
-          //printf("STUR\n");
           t = dcache_store_EXtoMEM.dval;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
@@ -239,7 +222,6 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 0;
           break;
         case 0xb8000000:
-          //printf("STUR\n");
           t = dcache_store_EXtoMEM.dval;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
@@ -247,7 +229,6 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 0;
           break;
         case 0x38000000:
-          //printf("STURB\n");
           t = dcache_store_EXtoMEM.dval;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
@@ -257,17 +238,13 @@ void pipe_stage_mem()
           MEMtoWB.fwb = 0;
           break;
         case 0x78000000:
-          //printf("STURH\n");
           t = dcache_store_EXtoMEM.dval;
           n = dcache_store_EXtoMEM.n;
           offset = SIGNEXTEND(dcache_store_EXtoMEM.imm1);
           load = cache_read(n + offset, 8);
-          // printf("first load: %x\n", (load & 0xffffff00));
-          // printf("second load: %x\n", (t & 0x0000ffff));
           //original implementation
           // load = (load & 0xffffff00) | (t & 0x0000ffff);
           load = t & 0x0000ffff;
-          // printf("STURH load: %x\n", load);
           cache_write(n + offset, load);
           MEMtoWB.fwb = 0;
           break;
@@ -291,35 +268,27 @@ void pipe_stage_mem()
     switch (EXtoMEM.op)
     {
       case 0xf8400000:
-        //printf("LDUR\n");
         LDUR();
         break;
       case 0xb8400000:
-        //printf("LDUR\n");
         LDUR2();
         break;
       case 0x38400000:
-        //printf("LDURB\n");
         LDURB();
         break;
       case 0x78400000:
-        //printf("LDURH\n");
         LDURH();
         break;
       case 0xf8000000:
-        //printf("STUR\n");
         STUR();
         break;
       case 0xb8000000:
-        //printf("STUR\n");
         STUR2();
         break;
       case 0x38000000:
-        //printf("STURB\n");
         STURB();
         break;
       case 0x78000000:
-        //printf("STURH\n");
         STURH();
         break;
     }
@@ -343,7 +312,6 @@ void pipe_stage_execute()
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
   {
-    printf("same_cycle dcache bubble in ex\n");
   }
   else if (Control.data_cache_bubble > 0)
   {
@@ -356,98 +324,77 @@ void pipe_stage_execute()
     {
         // Add/Subtract immediate
         case 0x91000000:
-          //printf("ADD\n");
           ADD_Immediate();
           break;
         case 0xb1000000:
-          //printf("ADDS\n");
           ADDS_Immediate();
           break;
         case 0xd1000000:
-          //printf("SUB\n");
           SUB_Immediate();
           break;
         case 0xf1000000:
-          //printf("SUBS\n");
           SUBS_Immediate();
           break;
         // Compare and branch
         case 0xb4000000:
-          //printf("CBZ\n");
           CBZ();
           break;
         case 0xb5000000:
-          //printf("CBNZ\n");
           CBNZ();
           break;
         // Move wide
         case 0xd2800000:
-          //printf("MOVZ\n");
           MOVZ();
           break;
         // Bitfield
         case 0xd3000000:
-          //printf("LSL or LSR\n"); //execution has to do the distinction
           BITSHIFT();
           break;
         // Conditional branch
         case 0x54000000:
-          //printf("B.cond\n");
           B_Cond();
           break;
         // Exceptions
         case 0xd4400000:
-          //printf("HLT\n");
           HLT();
           break;
         // Unconditional branch (register)
         case 0xd61f0000:
-          //printf("BR\n");
           BR();
           break;
         // Unconditional branch (immediate)
         case 0x14000000:
-          //printf("B\n");
           B();
           break;
 
         // Logical (shifted register)
         case 0x8a000000:
-          //printf("AND\n");
           AND();
           break;
         case 0xea000000:
-          //printf("ANDS\n");
           ANDS();
           break;
         case 0xca000000:
-          //printf("EOR\n");
           EOR();
           break;
         case 0xaa000000:
-          //printf("ORR\n");
           ORR();
           break;
         // Add/subtract (extended)
         case 0x8b000000:
-          //printf("ADD\n");
           ADD_Extended();
           break;
         case 0xab000000:
-          //printf("ADDS\n");
           ADDS_Extended();
           break;
         case 0xcb000000:
-          //printf("SUB\n");
           SUB_Extended();
           break;
         case 0xeb000000:
-          //printf("SUBS\n");
           SUBS_Extended();
           break;
         // Data Processing (3 source)
         case 0x9b000000:
-          //printf("MUL\n");
           MUL();
           break;
     }
@@ -481,7 +428,6 @@ void pipe_stage_decode()
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
   {
-    printf("same_cycle dcache bubble in id\n");
   }
   else if (Control.data_cache_bubble > 0)
   {
@@ -494,7 +440,6 @@ void pipe_stage_decode()
   {
     loadstore_dependency = 1;
   }
-  // printf("loadstore_dependency: %d\n", loadstore_dependency);
   //in loadstore bubble rn
   if ((int)stat_cycles < Control.loadstore_bubble_until)
   {
@@ -503,24 +448,19 @@ void pipe_stage_decode()
   //loadstore bubbling restore to pipeline
   if ((int) stat_cycles == Control.loadstore_bubble_until)
   {
-    // printf("restoration\n");
     Control.loadstore_bubble_until = -1;
     Control.restoration = 1;
     IDtoEX = (IDtoEX_t){.op = temp_IDtoEX.op, .m = temp_IDtoEX.m, .n = temp_IDtoEX.n, .dnum = temp_IDtoEX.dnum, .imm1 = temp_IDtoEX.imm1, .imm2 = temp_IDtoEX.imm2, .addr = temp_IDtoEX.addr, .fmem = temp_IDtoEX.fmem, .fwb = temp_IDtoEX.fwb};
     IDtoEX.n = reg_call(IDtoEX.n);
     IDtoEX.m = reg_call(IDtoEX.m);
     IFtoID = (IFtoID_t){.inst = temp_IFtoID.inst};
-    //printf("temp_IFtoID.inst: %x\n", temp_IFtoID.inst);
-    //printf("IFtoID.inst: %x\n", IFtoID.inst);
     return;
   }
 
   uint32_t word = IFtoID.inst;
-  // printf("DECODE WORD: %x\n", word);
   int temp = word & 0x1E000000;
   // Data Processing - Immediate
   if ((temp == 0x10000000) || (temp == 0x12000000)) {
-    // printf("Data Processing - Immediate, ");
     int temp2 = word & 0x03800000;
     // Add/subtract (immediate)
     if ((temp2 == 0x01000000) || (temp2 == 0x01800000)) {
@@ -534,8 +474,6 @@ void pipe_stage_decode()
         IDtoEX.n = ((word & 0x000003e0) >> 5);
         if (IDtoEX.n == EXtoMEM.dnum)
         {
-          //printf("IDtoEX.n: %ld", IDtoEX.n);
-          // printf("bubble trigger");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -550,7 +488,6 @@ void pipe_stage_decode()
       {
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
       }
-      // printf("Add/subtraction (immediate), ");
     }
     // Move wide (immediate)
     else if (temp2 == 0x02800000) {
@@ -558,7 +495,6 @@ void pipe_stage_decode()
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.dnum = (word & 0x0000001f);
       IDtoEX.fwb = 1;
-      // printf("Move wide (immediate), ");
     }
     // Bitfield
     else if (temp2 == 0x03000000) {
@@ -575,8 +511,6 @@ void pipe_stage_decode()
         IDtoEX.n = ((word & 0x000003e0) >> 5);
         if (IDtoEX.n == EXtoMEM.dnum)
         {
-          //printf("IDtoEX.n: %ld", IDtoEX.n);
-          // printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -591,16 +525,13 @@ void pipe_stage_decode()
       {
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
       }
-      // printf("Bitfield, ");
     }
     else {
-      //printf("Failure to match subtype0\n");
     }
   }
 
   // Branches and Exceptions
   else if ((temp == 0x14000000) || (temp == 0x16000000)) {
-    //printf("Branches and Exceptions, ");
     // Conditional branch
     if ((word & 0xfe000000) == 0x54000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -609,11 +540,9 @@ void pipe_stage_decode()
       //IDtoEX.imm = (word & 0x00ffffe0) >> 5;
       IDtoEX.addr = ((word & 0x00FFFFE0) | ((word & 0x800000) ? 0xFFFFFFFFFFF80000 : 0));
       IDtoEX.branching = 1;
-      // printf("CONDITIONAL BRANCH\n");
       // TriggerBubble_Branch((int) stat_cycles + 2);
       // if (Control.prediction_taken != 1)
       // {condBubble(IDtoEX.dnum);}
-      //printf("Conditional branch, ");
     }
     // Exception
     else if ((word & 0xff000000) == 0xd4000000) {
@@ -621,7 +550,6 @@ void pipe_stage_decode()
       IDtoEX.imm1 = (word & 0x001fffe0) >> 5;
       IDtoEX.branching = 1;
       // IFtoID.pc_halt = 1;
-      //printf("Exception, ");
     }
     // Unconditional branch (register)
     else if ((word & 0xfe000000) == 0xd6000000) {
@@ -629,10 +557,8 @@ void pipe_stage_decode()
       //IDtoEX.n = reg_call((word & 0x000003e0) >> 5);
       IDtoEX.n = (word & 0x000003e0) >> 5;
       IDtoEX.branching = 1;
-      // printf("UNCONDITIONAL BRANCH REGISTER\n");
       // if (Control.prediction_taken != 1)
       // {TriggerBubble_Branch((int) stat_cycles + 2);}
-      //printf("Unconditional branch (register), ");
     }
     // Unconditional branch (immediate)
     else if ((word & 0x60000000) == 0) {
@@ -640,10 +566,8 @@ void pipe_stage_decode()
       //sign extending to 64 bits
       IDtoEX.addr = (word & 0x03ffffff) | ((word & 0x2000000) ? 0xFFFFFFFFFC000000 : 0);
       IDtoEX.branching = 1;
-      // printf("UNCONDITIONAL BRANCH IMMEDIATE\n");
       // if (Control.prediction_taken != 1)
       // {TriggerBubble_Branch((int) stat_cycles + 2);}
-      //printf("Unconditional branch (immediate), ");
     }
     // Compare and branch
     else if ((word & 0x7e000000) == 0x34000000) {
@@ -653,13 +577,10 @@ void pipe_stage_decode()
       IDtoEX.dval = CURRENT_STATE.REGS[(IDtoEX.dnum)];
       IDtoEX.addr = (word & 0x00ffffe0) | ((word & 0x800000) ? 0xFFFFFFFFFF000000 : 0);
       IDtoEX.branching = 1;
-      // printf("COMPARE AND BRANCH\n");
       // if (Control.prediction_taken != 1)
       // compareBubble(IDtoEX.dnum);
-      //printf("Compare and branch, ");
     }
     else {
-      //printf("Failure to match subtype1\n");
     }
   }
 
@@ -675,13 +596,8 @@ void pipe_stage_decode()
     if (loadstore_dependency == 1)
     {
       IDtoEX.n = ((word & 0x000003e0) >> 5);
-      // printf("Decode Reg: %ld\n", IDtoEX.dnum);
-      // printf("IDtoEX.n: %ld\n", IDtoEX.n);
-      // printf("Execute Reg: %ld\n", EXtoMEM.dnum);
       if (IDtoEX.dnum == EXtoMEM.dnum)
       {
-        // printf("IDtoEX.n: %ld\n", IDtoEX.n);
-        // printf("bubble trigger\n");
         TriggerBubble_LoadStore((int) stat_cycles + 1);
         loadstore_dependency = 0;
       }
@@ -696,11 +612,9 @@ void pipe_stage_decode()
     {
       IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
     }
-    // printf("Loads and Stores, Load/store (unscaled immediate), ");
   }
   // Data Processing - Register
   else if ((word & 0x0e000000) == 0x0a000000) {
-    // printf("Data Processing - Register, ");
     // Logical (shifted register)
     if ((word & 0x1f000000) == 0x0a000000) {
       IDtoEX.op = (word & 0xff000000);
@@ -716,8 +630,6 @@ void pipe_stage_decode()
         IDtoEX.m = ((word & 0x001f0000) >> 16);
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
-          //printf("IDtoEX.n: %ld", IDtoEX.n);
-          // printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -734,7 +646,6 @@ void pipe_stage_decode()
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
       }
-      // printf("Logical (shifted register), ");
     }
     // Add/subtract (extended register)
     else if ((word & 0x1f200000) == 0x0b000000) {
@@ -750,8 +661,6 @@ void pipe_stage_decode()
         IDtoEX.m = ((word & 0x001f0000) >> 16);
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
-          //printf("IDtoEX.n: %ld", IDtoEX.n);
-          // printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -768,7 +677,6 @@ void pipe_stage_decode()
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
       }
-      // printf("Add/subtract (extended register), ");
     }
     // Data processing (3 source)
     else if ((word & 0x1f000000) == 0x1b000000) {
@@ -784,8 +692,6 @@ void pipe_stage_decode()
         IDtoEX.m = ((word & 0x001f0000) >> 16);
         if (IDtoEX.n == EXtoMEM.dnum || IDtoEX.m == EXtoMEM.dnum)
         {
-          //printf("IDtoEX.n: %ld", IDtoEX.n);
-          // printf("bubble trigger\n");
           TriggerBubble_LoadStore((int) stat_cycles + 1);
           loadstore_dependency = 0;
         }
@@ -802,14 +708,11 @@ void pipe_stage_decode()
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
       }
-      // printf("Data processing (3 source), ");
     }
     else {
-      //printf("Failure to match subtype2\n");
     }
   }
   else {
-    //printf("Failure to match subtype3\n");
   }
   // IFtoID = (IFtoID_t){ .inst = 0};
   loadstore_dependency = 0;
@@ -820,14 +723,13 @@ void pipe_stage_fetch()
 {
   //data_cache bubbling
   //first and middle cycles of data_cache bubble do nothing
-  if (Control.data_cache_bubble == 51)
+  if (Control.data_cache_bubble == 50)
   {
     if (Control.inst_cache_bubble > 0)
     {
       Control.inst_cache_bubble -= 1;
     }
     Control.data_cache_bubble -= 1;
-    printf("same_cycle dcache bubble in if\n");
   }
   else if (Control.data_cache_bubble > 0)
   {
@@ -841,14 +743,12 @@ void pipe_stage_fetch()
   //exception control
   if (Control.halt == 1)
   {
-    printf("halted\n");
     return;
   }
   //branch bubbling
   //lab3 bubble: one cycle halt on fetch
   if (Control.lab3_bubble == 1)
   {
-    //  printf("lab3_bubble\n");
     Control.lab3_bubble = 0;
     return;
   }
@@ -858,13 +758,10 @@ void pipe_stage_fetch()
       CURRENT_STATE.PC = Control.baddr;
       Control.baddr = -1;
       //IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("PC: %lx\n", CURRENT_STATE.PC);
-      // printf("WORD in cond branch: %x\n",IFtoID.inst);
       // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
       Control.cond_branch = 0;
       if (Control.offsetlesshead_diff == 1)
       {
-        printf("offsetlesshead_diff -> bubble cancel\n");
         Control.inst_cache_bubble = 0;
         Control.offsetlesshead_diff = 0;
       }
@@ -882,14 +779,12 @@ void pipe_stage_fetch()
   //loadstore bubbling stop pc
   if ((int) stat_cycles <= Control.loadstore_bubble_until)
   {
-    // printf("in loadstore bubble not fetching!\n");
     bp_predict(CURRENT_STATE.PC);
     return;
   }
   if (Control.restoration == 1)
   {
 
-    // printf("load store bubble restoring, not grabbing word from mem\n");
     Control.restoration = 0;
     return;
   }
@@ -906,14 +801,12 @@ void pipe_stage_fetch()
     //not last cycle of bubble
     if (Control.inst_cache_bubble > 1)
     {
-      printf("icache bubble\n");
       Control.inst_cache_bubble -= 1;
       return;
     }
     //last cycle, restore to pipeline
     else
     {
-      printf("icache bubble dismount\n");
       Control.inst_cache_bubble = 0;
       return;
     }
@@ -923,7 +816,6 @@ void pipe_stage_fetch()
   //same cycle do nothing for bubble
   if (Control.inst_cache_bubble == 50)
   {
-    printf("same cycle cache_bubble");
     Control.inst_cache_bubble -= 1;
     struct Prediction temp;
 		temp.prediction_taken = 0;
@@ -934,7 +826,6 @@ void pipe_stage_fetch()
   //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
   else
   {
-    printf("word: %x\n", word);
     IFtoID.inst = word;
     //cache_read returns 0 if there is a branch in ID, so we don't do anything, sending a zero to IFtoID.inst is equivalent to a flush.
     // if (word == 0)
@@ -944,7 +835,6 @@ void pipe_stage_fetch()
     //normal behavior
     bp_predict(CURRENT_STATE.PC);
   }
-  // printf("WORD in general: %x\n",word);
 }
 
 void TriggerBubble_Branch(int bubble_until)
@@ -960,7 +850,6 @@ void TriggerBubble_LoadStore(int bubble_until)
   temp_IDtoEX = (IDtoEX_t){.op = IDtoEX.op, .m = IDtoEX.m, .n = IDtoEX.n, .dnum = IDtoEX.dnum, .imm1 = IDtoEX.imm1, .imm2 = IDtoEX.imm2, .addr = IDtoEX.addr, .fmem = IDtoEX.fmem, .fwb = IDtoEX.fwb};
   IDtoEX = (IDtoEX_t){ .op = 0, .m = 0, .n = 0, .dnum = 0, .imm1 = 0, .imm2 = 0, .addr = 0, .fmem = 0, .fwb = 0};
   temp_IFtoID = (IFtoID_t){.inst = mem_read_32(CURRENT_STATE.PC)};
-  //printf("temp_IFtoTD inst: %x\n", temp_IFtoID.inst);
   IFtoID = (IFtoID_t){ .inst = 0};
   return;
 }
@@ -1050,34 +939,28 @@ void Branch(int64_t offset, int64_t base)
 {
 
     // uint64_t temp = CURRENT_STATE.PC - 8;
-    // printf("Branch Base: %lx\n", temp);
     Control.baddr = base + (offset * 4);
 
 
     // grab then squash, will need to restore to pipeline if PC + 4
-    // printf("SQUASHING in Branch: %x\n", IFtoID.inst);
     Control.squashed = IFtoID.inst;
     IFtoID = (IFtoID_t){ .inst = 0};
 
-    // printf("baddr in Branch: %x\n", Control.baddr);
     return;
 }
 /*restore and flush function for lab3 */
 void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint32_t pc_before_prediction, uint64_t taken_target)
 {
-  // printf("pred_taken: %d\n", pred_taken);
   if (pred_taken == 0)
   {
     if ((real_target == pc_before_prediction + 4) && (branch_taken == 1))
     {
       //prediction was correct, do nothing to pipeline but remember to reset lab3 control struct fields
-      // printf("prediction taken misprediction\n");
       return;
     }
     else
     {
       //misprediction on PC + 4, don't do shit
-      // printf("prediction not taken misprediction\n");
       // CURRENT_STATE.PC = real_target;
       // IFtoID = (IFtoID_t){ .inst = 0};
       // Control.lab3_bubble = 1;
@@ -1087,9 +970,6 @@ void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint3
   }
   else if (pred_taken == 1)
   {
-    // printf("real target: %x\n", real_target);
-    // printf("taken target: %lx\n", taken_target);
-    // printf("branch_taken: %d\n", branch_taken);
     // branch prediction success, don't do anything
     if ((real_target == taken_target) && (branch_taken == 1))
     {
@@ -1099,7 +979,6 @@ void Restore_Flush(uint32_t real_target, int pred_taken, int branch_taken, uint3
     {
       // this aint working
       //misprediction, reset pc to pc before prediction, flush, and bubble
-      // printf("misprediciton resolution: %x\n", pc_before_prediction);
       CURRENT_STATE.PC = pc_before_prediction + 4;
       IFtoID = (IFtoID_t){ .inst = 0};
       Control.lab3_bubble = 1;
@@ -1113,126 +992,97 @@ void CBNZ()
     int64_t offset = IDtoEX.addr/32;
     struct entry* temp_entry = dequeue(&q);
     int branch_taken;
-    // printf("MEMtoWB.dnum: %ld\n", MEMtoWB.dnum);
-    // printf("MEMtoWB.res: %ld\n", MEMtoWB.res);
-    // printf("Reg value: %ld\n", CURRENT_STATE.REGS[IDtoEX.dnum]);
     int reg_load_ahead = 0;
     //seeing if function ahead is a reg load
     switch(MEMtoWB.op)
     {
       // Add/Subtract immediate
         case 0x91000000:
-          //printf("ADD\n");
           reg_load_ahead = 1;
           break;
         case 0xb1000000:
-          //printf("ADDS\n");
           reg_load_ahead = 1;
           break;
         case 0xd1000000:
-          //printf("SUB\n");
           reg_load_ahead = 1;
           break;
         case 0xf1000000:
-          //printf("SUBS\n");
           reg_load_ahead = 1;
           break;
         // Compare and branch
         case 0xb4000000:
-          //printf("CBZ\n");
           break;
         case 0xb5000000:
-          //printf("CBNZ\n");
           break;
         // Move wide
         case 0xd2800000:
-          //printf("MOVZ\n");
           reg_load_ahead = 1;
           break;
         // Bitfield
         case 0xd3000000:
-          //printf("LSL or LSR\n"); //execution has to do the distinction
           break;
         // Conditional branch
         case 0x54000000:
-          //printf("B.cond\n");
           break;
         // Exceptions
         case 0xd4400000:
-          //printf("HLT\n");
           break;
         // Unconditional branch (register)
         case 0xd61f0000:
-          //printf("BR\n");
           break;
         // Unconditional branch (immediate)
         case 0x14000000:
-          //printf("B\n");
           break;
 
         // Logical (shifted register)
         case 0x8a000000:
-          //printf("AND\n");
           reg_load_ahead = 1;
           break;
         case 0xea000000:
-          //printf("ANDS\n");
           reg_load_ahead = 1;
           break;
         case 0xca000000:
-          //printf("EOR\n");
           reg_load_ahead = 1;
           break;
         case 0xaa000000:
-          //printf("ORR\n");
           reg_load_ahead = 1;
           break;
         // Add/subtract (extended)
         case 0x8b000000:
-          //printf("ADD\n");
           reg_load_ahead = 1;
           break;
         case 0xab000000:
-          //printf("ADDS\n");
           reg_load_ahead = 1;
           break;
         case 0xcb000000:
-          //printf("SUB\n");
           reg_load_ahead = 1;
           break;
         case 0xeb000000:
-          //printf("SUBS\n");
           reg_load_ahead = 1;
           break;
         // Data Processing (3 source)
         case 0x9b000000:
-          //printf("MUL\n");
           reg_load_ahead = 1;
           break;
     }
 
     if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0) && (reg_load_ahead == 1)))
     {
-      // printf("1\n");
       branch_taken = 1;
     }
     else if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0) && (reg_load_ahead == 1)))
     {
-      // printf("2\n");
       branch_taken = 0;
     }
     else if (CURRENT_STATE.REGS[IDtoEX.dnum] != 0)
     {
-      // printf("3\n");
       branch_taken = 1;
     }
     else
     {
-      // printf("4\n");
       branch_taken = 0;
     }
 
-    // printf("branch_taken: %d\n", branch_taken);
 
     //lab2 behavior
     if (temp_entry->pred.prediction_taken == 0)
@@ -1240,7 +1090,6 @@ void CBNZ()
       if (branch_taken == 0)
       {
         //don't branch
-        // printf("SQUASHING: %x\n", IFtoID.inst);
         // // grab then squash, will need to restore to pipeline if PC + 4
         // Control.not_taken = 1;
         // Control.squashed = IFtoID.inst;
@@ -1249,15 +1098,12 @@ void CBNZ()
       else
       {
         //branch
-        // printf("MEMtoWB.res = %ld\n", MEMtoWB.res);
-        // printf("triggering cond_branch\n");
         Control.cond_branch = 1;
         Branch(offset, temp_entry->pred.pc_before_prediction);
       }
       //bp_update
       int inc;
       (branch_taken == 1) ? (inc = 1) : (inc = -1);
-      // printf("EX func inc: %d\n", inc);
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1284,125 +1130,94 @@ void CBZ()
     struct entry* temp_entry = dequeue(&q);
     int branch_taken;
     int reg_load_ahead = 0;
-    // printf("MEMtoWB.op: %lx\n", MEMtoWB.op);
     switch(MEMtoWB.op)
     {
       // Add/Subtract immediate
         case 0x91000000:
-          //printf("ADD\n");
           reg_load_ahead = 1;
           break;
         case 0xb1000000:
-          //printf("ADDS\n");
           reg_load_ahead = 1;
           break;
         case 0xd1000000:
-          // printf("SUB\n");
           reg_load_ahead = 1;
           break;
         case 0xf1000000:
-          // printf("SUBS\n");
           reg_load_ahead = 1;
           break;
         // Compare and branch
         case 0xb4000000:
-          //printf("CBZ\n");
           break;
         case 0xb5000000:
-          //printf("CBNZ\n");
           break;
         // Move wide
         case 0xd2800000:
-          //printf("MOVZ\n");
           reg_load_ahead = 1;
           break;
         // Bitfield
         case 0xd3000000:
-          //printf("LSL or LSR\n"); //execution has to do the distinction
           break;
         // Conditional branch
         case 0x54000000:
-          //printf("B.cond\n");
           break;
         // Exceptions
         case 0xd4400000:
-          //printf("HLT\n");
           break;
         // Unconditional branch (register)
         case 0xd61f0000:
-          //printf("BR\n");
           break;
         // Unconditional branch (immediate)
         case 0x14000000:
-          //printf("B\n");
           break;
 
         // Logical (shifted register)
         case 0x8a000000:
-          //printf("AND\n");
           reg_load_ahead = 1;
           break;
         case 0xea000000:
-          //printf("ANDS\n");
           reg_load_ahead = 1;
           break;
         case 0xca000000:
-          //printf("EOR\n");
           reg_load_ahead = 1;
           break;
         case 0xaa000000:
-          //printf("ORR\n");
           reg_load_ahead = 1;
           break;
         // Add/subtract (extended)
         case 0x8b000000:
-          //printf("ADD\n");
           reg_load_ahead = 1;
           break;
         case 0xab000000:
-          //printf("ADDS\n");
           reg_load_ahead = 1;
           break;
         case 0xcb000000:
-          //printf("SUB\n");
           reg_load_ahead = 1;
           break;
         case 0xeb000000:
-          //printf("SUBS\n");
           reg_load_ahead = 1;
           break;
         // Data Processing (3 source)
         case 0x9b000000:
-          //printf("MUL\n");
           reg_load_ahead = 1;
           break;
     }
-    // printf("MEMtoWB.dnum: %ld\n", MEMtoWB.dnum);
-    // printf("MEMtoWB.res: %ld\n", MEMtoWB.res);
-    // printf("IDtoEX: %ld\n", IDtoEX.dnum);
-    // printf("reg_load_ahead: %d\n", reg_load_ahead);
 
     if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res == 0) && (reg_load_ahead == 1)))
     {
-      // printf("1\n");
       branch_taken = 1;
     }
     else if (((MEMtoWB.dnum == IDtoEX.dnum) && (MEMtoWB.res != 0) && (reg_load_ahead == 1)))
     {
-      // printf("2\n");
       branch_taken = 0;
     }
     else if (CURRENT_STATE.REGS[IDtoEX.dnum] == 0)
     {
-      // printf("3\n");
       branch_taken = 1;
     }
     else
     {
-      // printf("4\n");
       branch_taken = 0;
     }
-    // printf("branch_taken: %d\n", branch_taken);
 
     //lab2 behavior
     if (temp_entry->pred.prediction_taken == 0)
@@ -1410,7 +1225,6 @@ void CBZ()
       if (branch_taken == 0)
       {
         //don't branch
-        // printf("SQUASHING: %x\n", IFtoID.inst);
         // // grab then squash, will need to restore to pipeline if PC + 4
         // Control.not_taken = 1;
         // Control.squashed = IFtoID.inst;
@@ -1419,15 +1233,12 @@ void CBZ()
       else
       {
         //branch
-        // printf("MEMtoWB.res = %ld\n", MEMtoWB.res);
-        // printf("triggering cond_branch\n");
         Control.cond_branch = 1;
         Branch(offset, temp_entry->pred.pc_before_prediction);
       }
       //bp_update
       int inc;
       (branch_taken == 1) ? (inc = 1) : (inc = -1);
-      // printf("EX func inc: %d\n", inc);
       uint64_t temp = CURRENT_STATE.PC - 8;
       //(pc where argument was fetched, cond_bit, target addr, inc)
       bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1486,7 +1297,6 @@ void BR()
       // this is the branch part, can't use Branch() tho cause that one assumes input is an offset
       Control.baddr = direct_target;
       // grab then squash, will need to restore to pipeline if PC + 4
-      // printf("SQUASHING in Branch: %x\n", IFtoID.inst);
       Control.squashed = IFtoID.inst;
       IFtoID = (IFtoID_t){ .inst = 0};
 
@@ -1508,15 +1318,12 @@ void B()
 
     int64_t offset = IDtoEX.addr;
     struct entry* temp_entry = dequeue(&q);
-    // printf("EX temp_entry pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);
     if (temp_entry->pred.prediction_taken == 0)
     {
       Control.cond_branch = 1;
       Branch(offset, temp_entry->pred.pc_before_prediction);
       uint64_t temp = CURRENT_STATE.PC - 8;
-      // printf("temp: %lx\n", temp);
       //(pc where argument was fetched, cond_bit, target addr, inc)
-      // printf("branch target: %lx\n", temp + (offset * 4));
       bp_update(temp_entry->pred.pc_before_prediction, 0, (temp_entry->pred.pc_before_prediction + (offset * 4)), 1);
       // real target, pred_taken, branch_taken
       Restore_Flush(temp_entry->pred.pc_before_prediction + (offset * 4), 0, 1, temp_entry->pred.pc_before_prediction, temp_entry->pred.taken_target);
@@ -1533,7 +1340,6 @@ void B()
 void B_Cond()
 {
     //b_cond
-    // printf("B_Cond\n");
     int64_t cond = IDtoEX.dnum;
     int64_t offset = IDtoEX.addr >> 5;
     struct entry* temp_entry = dequeue(&q);
@@ -1542,8 +1348,6 @@ void B_Cond()
     {
         //BEQ
         case(0):
-            // printf("BEQ\n");
-            // printf("offset: %ld", offset);
             if (Control.fz == 1)
             {
               branch_taken = 1;
@@ -1558,14 +1362,12 @@ void B_Cond()
               //lab2 behavior
               if (branch_taken == 1)
               {
-                printf("pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);
                 Branch(offset, temp_entry->pred.pc_before_prediction);
                 Control.cond_branch = 1;
               }
               else if (Control.branch_bubble_until != -1)
               {
                 Control.not_taken = 1;
-                // printf("SQUASHING: %x\n", IFtoID.inst);
                 // grab then squash, will need to restore to pipeline if PC + 4
                 Control.squashed = IFtoID.inst;
                 IFtoID = (IFtoID_t){ .inst = 0};
@@ -1573,7 +1375,6 @@ void B_Cond()
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              // printf("EX func inc: %d\n", inc);
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1600,7 +1401,6 @@ void B_Cond()
             {
               branch_taken = 0;
             }
-            // printf("BNE\n");
 
             if (temp_entry->pred.prediction_taken == 0)
             {
@@ -1613,7 +1413,6 @@ void B_Cond()
               else if (Control.branch_bubble_until != -1)
               {
                 Control.not_taken = 1;
-                // printf("SQUASHING: %x\n", IFtoID.inst);
                 // grab then squash, will need to restore to pipeline if PC + 4
                 Control.squashed = IFtoID.inst;
                 IFtoID = (IFtoID_t){ .inst = 0};
@@ -1621,7 +1420,6 @@ void B_Cond()
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              // printf("EX func inc: %d\n", inc);
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1650,7 +1448,6 @@ void B_Cond()
             {
               branch_taken = 0;
             }
-            // printf("BGE\n");
             if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
@@ -1662,7 +1459,6 @@ void B_Cond()
               else if (Control.branch_bubble_until != -1)
               {
                 Control.not_taken = 1;
-                // printf("SQUASHING: %x\n", IFtoID.inst);
                 // grab then squash, will need to restore to pipeline if PC + 4
                 Control.squashed = IFtoID.inst;
                 IFtoID = (IFtoID_t){ .inst = 0};
@@ -1670,7 +1466,6 @@ void B_Cond()
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              // printf("EX func inc: %d\n", inc);
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1697,7 +1492,6 @@ void B_Cond()
             {
               branch_taken = 0;
             }
-            // printf("BLT\n");
             if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
@@ -1709,7 +1503,6 @@ void B_Cond()
               else if (Control.branch_bubble_until != -1)
               {
                 Control.not_taken = 1;
-                // printf("SQUASHING: %x\n", IFtoID.inst);
                 // grab then squash, will need to restore to pipeline if PC + 4
                 Control.squashed = IFtoID.inst;
                 IFtoID = (IFtoID_t){ .inst = 0};
@@ -1717,7 +1510,6 @@ void B_Cond()
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              // printf("EX func inc: %d\n", inc);
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1744,8 +1536,6 @@ void B_Cond()
             {
               branch_taken = 0;
             }
-            // printf("temp_entry->pred.prediction_taken: %d\n", temp_entry->pred.prediction_taken);
-            // printf("BGT\n");
             if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
@@ -1757,7 +1547,6 @@ void B_Cond()
               else if (Control.branch_bubble_until != -1)
               {
                 Control.not_taken = 1;
-                // printf("SQUASHING: %x\n", IFtoID.inst);
                 // grab then squash, will need to restore to pipeline if PC + 4
                 Control.squashed = IFtoID.inst;
                 IFtoID = (IFtoID_t){ .inst = 0};
@@ -1765,7 +1554,6 @@ void B_Cond()
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              // printf("EX func inc: %d\n", inc);
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1792,7 +1580,6 @@ void B_Cond()
             {
               branch_taken = 0;
             }
-            // printf("BLE\n");
             if (temp_entry->pred.prediction_taken == 0)
             {
               //lab2 behavior
@@ -1804,7 +1591,6 @@ void B_Cond()
               else if (Control.branch_bubble_until != -1)
               {
                 Control.not_taken = 1;
-                // printf("SQUASHING: %x\n", IFtoID.inst);
                 // grab then squash, will need to restore to pipeline if PC + 4
                 Control.squashed = IFtoID.inst;
                 IFtoID = (IFtoID_t){ .inst = 0};
@@ -1812,7 +1598,6 @@ void B_Cond()
               //bp update and flush
               int inc;
               (branch_taken == 1) ? (inc = 1) : (inc = -1);
-              // printf("EX func inc: %d\n", inc);
               uint64_t temp = CURRENT_STATE.PC - 8;
               //(pc where argument was fetched, cond_bit, target addr, inc)
               bp_update(temp_entry->pred.pc_before_prediction, 1, (temp_entry->pred.pc_before_prediction + (offset * 4)), inc);
@@ -1837,8 +1622,6 @@ void LDUR() {
   int64_t t = EXtoMEM.dnum;
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
-  // printf("mem_loc base: %lx\n", n);
-  // printf("mem_loc offset: %lx\n", offset);
   int64_t load = cache_read(n + offset, 8);
   int64_t load2 = cache_read(n + offset + 4, 8);
   load = load | (load2 << 32);
@@ -1915,12 +1698,9 @@ void STURH() {
   int64_t n = EXtoMEM.n;
   int64_t offset = SIGNEXTEND(EXtoMEM.imm1);
   int load = cache_read(n + offset, 8);
-  // printf("first load: %x\n", (load & 0xffffff00));
-  // printf("second load: %x\n", (t & 0x0000ffff));
   //original implementation
   // load = (load & 0xffffff00) | (t & 0x0000ffff);
   load = t & 0x0000ffff;
-  // printf("STURH load: %x\n", load);
   cache_write(n + offset, load);
   MEMtoWB.fwb = 0;
 

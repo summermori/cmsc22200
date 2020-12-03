@@ -1,15 +1,11 @@
 ARM Simulator
 
-Read 12 words from program into memory.
+Read 16 words from program into memory.
 
 ARM-SIM> 
 Simulating for 1 cycles...
 
-base: 3ffffc
-icache miss at (400000) at cycle 1
-cache fill idx: 3
-cache fill valid: 1
-same cycle cache_bubbleARM-SIM> 
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
@@ -55,7 +51,6 @@ No. of Cycles: 1
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -102,7 +97,6 @@ No. of Cycles: 2
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -149,7 +143,6 @@ No. of Cycles: 3
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -196,7 +189,6 @@ No. of Cycles: 4
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -243,7 +235,6 @@ No. of Cycles: 5
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -290,7 +281,6 @@ No. of Cycles: 6
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -337,7 +327,6 @@ No. of Cycles: 7
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -384,7 +373,6 @@ No. of Cycles: 8
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -431,7 +419,6 @@ No. of Cycles: 9
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -478,7 +465,6 @@ No. of Cycles: 10
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -525,7 +511,6 @@ No. of Cycles: 11
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -572,7 +557,6 @@ No. of Cycles: 12
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -619,7 +603,6 @@ No. of Cycles: 13
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -666,7 +649,6 @@ No. of Cycles: 14
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -713,7 +695,6 @@ No. of Cycles: 15
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -760,7 +741,6 @@ No. of Cycles: 16
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -807,7 +787,6 @@ No. of Cycles: 17
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -854,7 +833,6 @@ No. of Cycles: 18
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -901,7 +879,6 @@ No. of Cycles: 19
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -948,7 +925,6 @@ No. of Cycles: 20
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -995,7 +971,6 @@ No. of Cycles: 21
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1042,7 +1017,6 @@ No. of Cycles: 22
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1089,7 +1063,6 @@ No. of Cycles: 23
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1136,7 +1109,6 @@ No. of Cycles: 24
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1183,7 +1155,6 @@ No. of Cycles: 25
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1230,7 +1201,6 @@ No. of Cycles: 26
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1277,7 +1247,6 @@ No. of Cycles: 27
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1324,7 +1293,6 @@ No. of Cycles: 28
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1371,7 +1339,6 @@ No. of Cycles: 29
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1418,7 +1385,6 @@ No. of Cycles: 30
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1465,7 +1431,6 @@ No. of Cycles: 31
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1512,7 +1477,6 @@ No. of Cycles: 32
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1559,7 +1523,6 @@ No. of Cycles: 33
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1606,7 +1569,6 @@ No. of Cycles: 34
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1653,7 +1615,6 @@ No. of Cycles: 35
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1700,7 +1661,6 @@ No. of Cycles: 36
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1747,7 +1707,6 @@ No. of Cycles: 37
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1794,7 +1753,6 @@ No. of Cycles: 38
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1841,7 +1799,6 @@ No. of Cycles: 39
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1888,7 +1845,6 @@ No. of Cycles: 40
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1935,7 +1891,6 @@ No. of Cycles: 41
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -1982,7 +1937,6 @@ No. of Cycles: 42
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2029,7 +1983,6 @@ No. of Cycles: 43
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2076,7 +2029,6 @@ No. of Cycles: 44
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2123,7 +2075,6 @@ No. of Cycles: 45
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2170,7 +2121,6 @@ No. of Cycles: 46
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2217,7 +2167,6 @@ No. of Cycles: 47
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2264,7 +2213,6 @@ No. of Cycles: 48
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
@@ -2311,7 +2259,6 @@ No. of Cycles: 49
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache bubble dismount
 ARM-SIM> 
 
 Current register/bus values :
@@ -2358,12 +2305,6 @@ No. of Cycles: 50
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400000) at cycle 51
-cache hit idx: 3
-offset: 0
-word: d2820001
-CURRENT_STATE.PC in bp_predict: 400000
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2410,12 +2351,6 @@ No. of Cycles: 51
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400004) at cycle 52
-cache hit idx: 3
-offset: 1
-word: d2800064
-CURRENT_STATE.PC in bp_predict: 400004
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2462,12 +2397,6 @@ No. of Cycles: 52
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400008) at cycle 53
-cache hit idx: 3
-offset: 2
-word: d2800085
-CURRENT_STATE.PC in bp_predict: 400008
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2514,12 +2443,6 @@ No. of Cycles: 53
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (40000c) at cycle 54
-cache hit idx: 3
-offset: 3
-word: d370bc21
-CURRENT_STATE.PC in bp_predict: 40000c
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2566,12 +2489,6 @@ No. of Cycles: 54
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400010) at cycle 55
-cache hit idx: 3
-offset: 4
-word: f8000024
-CURRENT_STATE.PC in bp_predict: 400010
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2580,7 +2497,7 @@ Instruction Retired : 1
 PC                : 0x400014
 Registers:
 X0: 0x0
-X1: 0x1000
+X1: 0x0
 X2: 0x0
 X3: 0x0
 X4: 0x0
@@ -2618,12 +2535,6 @@ No. of Cycles: 55
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400014) at cycle 56
-cache hit idx: 3
-offset: 5
-word: f8400026
-CURRENT_STATE.PC in bp_predict: 400014
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2632,10 +2543,10 @@ Instruction Retired : 2
 PC                : 0x400018
 Registers:
 X0: 0x0
-X1: 0x1000
+X1: 0x0
 X2: 0x0
-X3: 0x0
-X4: 0x3
+X3: 0x64
+X4: 0x0
 X5: 0x0
 X6: 0x0
 X7: 0x0
@@ -2670,12 +2581,6 @@ No. of Cycles: 56
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400018) at cycle 57
-cache hit idx: 3
-offset: 6
-word: f8020024
-CURRENT_STATE.PC in bp_predict: 400018
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2686,9 +2591,9 @@ Registers:
 X0: 0x0
 X1: 0x1000
 X2: 0x0
-X3: 0x0
-X4: 0x3
-X5: 0x4
+X3: 0x64
+X4: 0x0
+X5: 0x0
 X6: 0x0
 X7: 0x0
 X8: 0x0
@@ -2722,17 +2627,6 @@ No. of Cycles: 57
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache write miss at (10000000) at cycle 58
-dcache write hit at (10000004) at cycle 58
-same_cycle dcache bubble in ex
-same_cycle dcache bubble in id
-same_cycle dcache bubble in if
-icache hit (40001c) at cycle 58
-cache hit idx: 3
-offset: 7
-word: f8024025
-CURRENT_STATE.PC in bp_predict: 40001c
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
@@ -2743,9 +2637,9 @@ Registers:
 X0: 0x0
 X1: 0x10000000
 X2: 0x0
-X3: 0x0
-X4: 0x3
-X5: 0x4
+X3: 0x64
+X4: 0x0
+X5: 0x0
 X6: 0x0
 X7: 0x0
 X8: 0x0
@@ -2779,20 +2673,19 @@ No. of Cycles: 58
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 50
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 5
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
 X2: 0x0
-X3: 0x0
+X3: 0x64
 X4: 0x3
-X5: 0x4
+X5: 0x0
 X6: 0x0
 X7: 0x0
 X8: 0x0
@@ -2826,18 +2719,17 @@ No. of Cycles: 59
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 49
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 6
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
 X2: 0x0
-X3: 0x0
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2873,18 +2765,17 @@ No. of Cycles: 60
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 48
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2920,18 +2811,17 @@ No. of Cycles: 61
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 47
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -2967,18 +2857,17 @@ No. of Cycles: 62
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 46
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3014,18 +2903,17 @@ No. of Cycles: 63
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 45
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3061,18 +2949,17 @@ No. of Cycles: 64
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 44
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3108,18 +2995,17 @@ No. of Cycles: 65
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 43
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3155,18 +3041,17 @@ No. of Cycles: 66
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 42
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3202,18 +3087,17 @@ No. of Cycles: 67
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 41
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3249,18 +3133,17 @@ No. of Cycles: 68
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 40
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3296,18 +3179,17 @@ No. of Cycles: 69
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 39
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3343,18 +3225,17 @@ No. of Cycles: 70
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 38
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3390,18 +3271,17 @@ No. of Cycles: 71
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 37
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3437,18 +3317,17 @@ No. of Cycles: 72
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 36
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3484,18 +3363,17 @@ No. of Cycles: 73
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 35
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3531,18 +3409,17 @@ No. of Cycles: 74
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 34
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3578,18 +3455,17 @@ No. of Cycles: 75
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 33
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3625,18 +3501,17 @@ No. of Cycles: 76
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 32
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3672,18 +3547,17 @@ No. of Cycles: 77
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 31
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3719,18 +3593,17 @@ No. of Cycles: 78
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 30
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3766,18 +3639,17 @@ No. of Cycles: 79
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 29
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3813,18 +3685,17 @@ No. of Cycles: 80
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 28
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3860,18 +3731,17 @@ No. of Cycles: 81
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 27
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3907,18 +3777,17 @@ No. of Cycles: 82
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 26
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -3954,18 +3823,17 @@ No. of Cycles: 83
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 25
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4001,18 +3869,17 @@ No. of Cycles: 84
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 24
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4048,18 +3915,17 @@ No. of Cycles: 85
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 23
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4095,18 +3961,17 @@ No. of Cycles: 86
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 22
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4142,18 +4007,17 @@ No. of Cycles: 87
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 21
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4189,18 +4053,17 @@ No. of Cycles: 88
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 20
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4236,18 +4099,17 @@ No. of Cycles: 89
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 19
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4283,18 +4145,17 @@ No. of Cycles: 90
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 18
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4330,18 +4191,17 @@ No. of Cycles: 91
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 17
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4377,18 +4237,17 @@ No. of Cycles: 92
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 16
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4424,18 +4283,17 @@ No. of Cycles: 93
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 15
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4471,18 +4329,17 @@ No. of Cycles: 94
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 14
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4518,18 +4375,17 @@ No. of Cycles: 95
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 13
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4565,18 +4421,17 @@ No. of Cycles: 96
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 12
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4612,18 +4467,17 @@ No. of Cycles: 97
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 11
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4659,18 +4513,17 @@ No. of Cycles: 98
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 10
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4706,18 +4559,17 @@ No. of Cycles: 99
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 9
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4753,18 +4605,17 @@ No. of Cycles: 100
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 8
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4800,18 +4651,17 @@ No. of Cycles: 101
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 7
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4847,18 +4697,17 @@ No. of Cycles: 102
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 6
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4894,18 +4743,17 @@ No. of Cycles: 103
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 5
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4941,18 +4789,17 @@ No. of Cycles: 104
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 4
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -4988,18 +4835,17 @@ No. of Cycles: 105
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 3
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -5035,18 +4881,17 @@ No. of Cycles: 106
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 2
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -5082,21 +4927,17 @@ No. of Cycles: 107
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache dismount only allowing mem to work
-d_cache_stored_op: f8000000
-dcache write hit at (10000000) at cycle 108
-dcache write hit at (10000004) at cycle 108
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 4
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -5132,25 +4973,17 @@ No. of Cycles: 108
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache hit (10000000) at cycle 109
-offset: 0
-dcache hit (10000004) at cycle 109
-offset: 1
-base: 40001c
-icache miss at (400020) at cycle 109
-cache fill idx: 7
-cache fill valid: 1
-same cycle cache_bubbleARM-SIM> 
+ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 5
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
 X6: 0x0
@@ -5186,26 +5019,20 @@ No. of Cycles: 109
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache write miss at (10000020) at cycle 110
-dcache write hit at (10000024) at cycle 110
-same_cycle dcache bubble in ex
-same_cycle dcache bubble in id
-same_cycle dcache bubble in if
-icache bubble
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 7
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5238,21 +5065,20 @@ No. of Cycles: 110
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 50
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 7
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5285,21 +5111,20 @@ No. of Cycles: 111
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 49
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 7
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5332,21 +5157,20 @@ No. of Cycles: 112
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 48
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 8
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5379,21 +5203,20 @@ No. of Cycles: 113
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 47
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 9
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5426,21 +5249,20 @@ No. of Cycles: 114
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 46
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 10
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5473,21 +5295,20 @@ No. of Cycles: 115
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 45
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 11
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5520,21 +5341,20 @@ No. of Cycles: 116
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 44
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 12
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5567,21 +5387,20 @@ No. of Cycles: 117
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 43
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 12
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5614,21 +5433,20 @@ No. of Cycles: 118
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 42
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 12
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x1
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5661,21 +5479,20 @@ No. of Cycles: 119
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 41
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 13
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5708,21 +5525,20 @@ No. of Cycles: 120
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 40
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 14
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5755,21 +5571,20 @@ No. of Cycles: 121
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 39
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 15
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5802,21 +5617,20 @@ No. of Cycles: 122
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 38
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 16
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5849,21 +5663,20 @@ No. of Cycles: 123
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 37
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 17
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5896,21 +5709,20 @@ No. of Cycles: 124
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 36
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 17
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5943,21 +5755,20 @@ No. of Cycles: 125
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 35
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 17
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x2
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -5990,21 +5801,20 @@ No. of Cycles: 126
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 34
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 18
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6037,21 +5847,20 @@ No. of Cycles: 127
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 33
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 19
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6084,21 +5893,20 @@ No. of Cycles: 128
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 32
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 20
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6131,21 +5939,20 @@ No. of Cycles: 129
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 31
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 21
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6178,21 +5985,20 @@ No. of Cycles: 130
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 30
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 22
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6225,21 +6031,20 @@ No. of Cycles: 131
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 29
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 22
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6272,21 +6077,20 @@ No. of Cycles: 132
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 28
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 22
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x3
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6319,21 +6123,20 @@ No. of Cycles: 133
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 27
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 23
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6366,21 +6169,20 @@ No. of Cycles: 134
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 26
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 24
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6413,21 +6215,20 @@ No. of Cycles: 135
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 25
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 25
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6460,21 +6261,20 @@ No. of Cycles: 136
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 24
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 26
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6507,21 +6307,20 @@ No. of Cycles: 137
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 23
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 27
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6554,21 +6353,20 @@ No. of Cycles: 138
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 22
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 27
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6601,21 +6399,20 @@ No. of Cycles: 139
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 21
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 27
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x4
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6648,21 +6445,20 @@ No. of Cycles: 140
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 20
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 28
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6695,21 +6491,20 @@ No. of Cycles: 141
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 19
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 29
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6742,21 +6537,20 @@ No. of Cycles: 142
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 18
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 30
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6789,21 +6583,20 @@ No. of Cycles: 143
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 17
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 31
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6836,21 +6629,20 @@ No. of Cycles: 144
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 16
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 32
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6883,21 +6675,20 @@ No. of Cycles: 145
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 15
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 32
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6930,21 +6721,20 @@ No. of Cycles: 146
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 14
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 32
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x5
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -6977,21 +6767,20 @@ No. of Cycles: 147
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 13
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 33
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7024,21 +6813,20 @@ No. of Cycles: 148
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 12
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 34
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7071,21 +6859,20 @@ No. of Cycles: 149
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 11
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 35
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7118,21 +6905,20 @@ No. of Cycles: 150
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 10
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 36
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7165,21 +6951,20 @@ No. of Cycles: 151
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 9
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 37
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7212,21 +6997,20 @@ No. of Cycles: 152
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 8
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 37
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7259,21 +7043,20 @@ No. of Cycles: 153
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 7
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 37
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x6
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7306,21 +7089,20 @@ No. of Cycles: 154
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 6
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 38
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7353,21 +7135,20 @@ No. of Cycles: 155
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 5
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 39
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7400,21 +7181,20 @@ No. of Cycles: 156
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 4
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 40
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7447,21 +7227,20 @@ No. of Cycles: 157
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 3
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 41
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7494,21 +7273,20 @@ No. of Cycles: 158
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache stall: 2
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
+Instruction Retired : 42
 PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7541,24 +7319,20 @@ No. of Cycles: 159
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache dismount only allowing mem to work
-d_cache_stored_op: f8000000
-dcache write hit at (10000020) at cycle 160
-dcache write hit at (10000024) at cycle 160
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 6
-PC                : 0x400020
+Instruction Retired : 42
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7591,28 +7365,20 @@ No. of Cycles: 160
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache write hit at (10000024) at cycle 161
-dcache write hit at (10000028) at cycle 161
-icache hit (400020) at cycle 161
-cache hit idx: 7
-offset: 0
-word: f8420027
-CURRENT_STATE.PC in bp_predict: 400020
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 7
-PC                : 0x400024
+Instruction Retired : 42
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x7
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7645,28 +7411,20 @@ No. of Cycles: 161
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache write hit at (10000024) at cycle 162
-dcache write hit at (10000028) at cycle 162
-icache hit (400024) at cycle 162
-cache hit idx: 7
-offset: 1
-word: f8424028
-CURRENT_STATE.PC in bp_predict: 400024
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 8
-PC                : 0x400028
+Instruction Retired : 43
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7699,28 +7457,20 @@ No. of Cycles: 162
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache write hit at (10000024) at cycle 163
-dcache write hit at (10000028) at cycle 163
-icache hit (400028) at cycle 163
-cache hit idx: 7
-offset: 2
-word: 8b0800e9
-CURRENT_STATE.PC in bp_predict: 400028
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 9
-PC                : 0x40002c
+Instruction Retired : 44
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7753,26 +7503,20 @@ No. of Cycles: 163
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache hit (10000020) at cycle 164
-offset: 0
-dcache hit (10000024) at cycle 164
-offset: 1
-CURRENT_STATE.PC in bp_predict: 40002c
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 10
-PC                : 0x400030
+Instruction Retired : 45
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
+X6: 0x0
 X7: 0x0
 X8: 0x0
 X9: 0x0
@@ -7805,25 +7549,21 @@ No. of Cycles: 164
 ARM-SIM> 
 Simulating for 1 cycles...
 
-dcache hit (10000024) at cycle 165
-offset: 1
-dcache hit (10000028) at cycle 165
-offset: 2
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 11
-PC                : 0x400030
+Instruction Retired : 46
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
 X9: 0x0
 X10: 0x0
@@ -7855,27 +7595,21 @@ No. of Cycles: 165
 ARM-SIM> 
 Simulating for 1 cycles...
 
-icache hit (400030) at cycle 166
-cache hit idx: 7
-offset: 4
-word: 0
-CURRENT_STATE.PC in bp_predict: 400030
-plus 4 in bp_predict
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 47
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
 X9: 0x0
 X10: 0x0
@@ -7907,22 +7641,21 @@ No. of Cycles: 166
 ARM-SIM> 
 Simulating for 1 cycles...
 
-halted
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 12
-PC                : 0x400034
+Instruction Retired : 47
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
 X9: 0x0
 X10: 0x0
@@ -7954,24 +7687,23 @@ No. of Cycles: 167
 ARM-SIM> 
 Simulating for 1 cycles...
 
-halted
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 13
-PC                : 0x400034
+Instruction Retired : 47
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x8
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8001,24 +7733,23 @@ No. of Cycles: 168
 ARM-SIM> 
 Simulating for 1 cycles...
 
-halted
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 48
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8046,25 +7777,25 @@ FLAG_Z: 0
 No. of Cycles: 169
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 49
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8089,28 +7820,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 170
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 50
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8135,28 +7866,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 171
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 51
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8181,28 +7912,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 172
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 52
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8227,28 +7958,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 173
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 52
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8273,28 +8004,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 174
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 52
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0x9
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8319,28 +8050,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 175
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 53
+PC                : 0x40002c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8365,28 +8096,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 176
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 54
+PC                : 0x400030
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8411,28 +8142,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 177
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 55
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8457,28 +8188,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 178
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 56
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8503,28 +8234,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 179
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 57
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8549,28 +8280,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 180
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 57
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8595,28 +8326,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 181
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 57
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xa
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8641,28 +8372,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 182
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 58
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8687,28 +8418,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 183
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 59
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8733,28 +8464,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 184
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 60
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8779,28 +8510,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 185
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 61
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8825,28 +8556,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 186
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 62
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xb
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8871,28 +8602,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 187
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 63
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8917,28 +8648,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 188
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 64
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -8963,28 +8694,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 189
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 65
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9009,28 +8740,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 190
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 66
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9055,28 +8786,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 191
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 67
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xc
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9101,28 +8832,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 192
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 68
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9147,28 +8878,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 193
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 69
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9193,28 +8924,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 194
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 70
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9239,28 +8970,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 195
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 71
+PC                : 0x400024
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9285,28 +9016,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 196
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 72
+PC                : 0x400028
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xd
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9331,28 +9062,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 197
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 73
+PC                : 0x400018
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9377,28 +9108,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 198
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 74
+PC                : 0x40001c
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9423,28 +9154,28 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 199
 
 ARM-SIM> 
-Can't simulate, Simulator is halted
+Simulating for 1 cycles...
 
 ARM-SIM> 
 
 Current register/bus values :
 -------------------------------------
-Instruction Retired : 14
-PC                : 0x400034
+Instruction Retired : 75
+PC                : 0x400020
 Registers:
 X0: 0x0
 X1: 0x10000000
-X2: 0x0
-X3: 0x0
+X2: 0xe
+X3: 0x64
 X4: 0x3
 X5: 0x4
-X6: 0x3
-X7: 0x3
+X6: 0x0
+X7: 0x0
 X8: 0x0
-X9: 0x3
+X9: 0x0
 X10: 0x0
 X11: 0x0
 X12: 0x0
@@ -9469,6 +9200,6 @@ X30: 0x0
 X31: 0x0
 FLAG_N: 0
 FLAG_Z: 0
-No. of Cycles: 169
+No. of Cycles: 200
 
 ARM-SIM> 

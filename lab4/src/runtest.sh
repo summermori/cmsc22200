@@ -6,7 +6,7 @@ function create_input {
 # function to step through both sim and ref
 function run_simulators {
   cat input.txt | ./sim $1 > simout.txt
-  cat input.txt | ./icache_sim $1 > refout.txt
+  cat input.txt | ./ref_sim $1 > refout.txt
 }
 
 # function to run all tests
