@@ -1,6 +1,6 @@
 # function to create input file
 function create_input {
-  yes run 1 rdum | head -n $1 > input.txt
+  yes run 1 rdum mdum 0x0 0x24 | head -n $1 > input.txt
 }
 
 # function to step through both sim and ref
