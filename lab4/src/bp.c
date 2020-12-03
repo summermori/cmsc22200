@@ -35,8 +35,8 @@ void change_counter (unsigned char pc_tag, int inc) {
 	unsigned char index = (BP.gshare ^ pc_tag);
 	unsigned char temp = BP.pht[index];
 	BP.pht[index] = temp + inc;
-	// //printf("PHT index: %d\n", index);
-	// //printf("PHT counter: %d\n", BP.pht[index]);
+	// printf("PHT index: %d\n", index);
+	// printf("PHT counter: %d\n", BP.pht[index]);
 }
 
 btb_entry_t get_btb_entry(unsigned char pc_index) {
@@ -56,7 +56,7 @@ void update_btb_entry(unsigned char pc_index, uint64_t fetch_pc, unsigned char v
 // important functions
 // we will have to make CURRENT_STATE a pointer to avoid undeclared variable issues
 void bp_predict(uint64_t fetch_pc) {
-	// //printf("fetch_pc in bp_predict: %lx\n", fetch_pc);
+	// printf("fetch_pc in bp_predict: %lx\n", fetch_pc);
 	// unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 1;
 	// unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
 	unsigned char gshare_tag = (0x000001fe & fetch_pc) >> 2;
@@ -64,53 +64,53 @@ void bp_predict(uint64_t fetch_pc) {
 	unsigned char counter = pht_check(gshare_tag);
 	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
 	//no hit BTB miss
-	// //printf("indexed entry valid bit: %d\n", indexed_entry.valid_bit);
-	//printf("CURRENT_STATE.PC in bp_predict: %lx\n", CURRENT_STATE.PC);
+	// printf("indexed entry valid bit: %d\n", indexed_entry.valid_bit);
+	printf("CURRENT_STATE.PC in bp_predict: %lx\n", CURRENT_STATE.PC);
 	if ((indexed_entry.addr_tag != fetch_pc) || (indexed_entry.valid_bit == 0)) {
 		struct Prediction temp;
 		temp.prediction_taken = 0;
 		temp.pc_before_prediction = CURRENT_STATE.PC;
-		// //printf("loaded_pc in bp_predict BTB miss: %x\n", temp.pc_before_prediction);
+		// printf("loaded_pc in bp_predict BTB miss: %x\n", temp.pc_before_prediction);
 		enqueue(&q, temp);
 		// if (q.head == NULL)
 		// {
-		// 	//printf("predict head is null\n");
+		// 	printf("predict head is null\n");
 		// }
 		// else
 		// {
-		// 	//printf("predict pc_before_prediction in bp_predict head: %x\n", q.head->pred.pc_before_prediction);
+		// 	printf("predict pc_before_prediction in bp_predict head: %x\n", q.head->pred.pc_before_prediction);
 		// }
 		// if (q.tail == NULL)
 		// {
-		// 	//printf("predict tail is null\n");
+		// 	printf("predict tail is null\n");
 		// }
 		// else
 		// {
-		// 	//printf("predict pc_before_prediction in bp_predict tail: %x\n", q.tail->pred.pc_before_prediction);
+		// 	printf("predict pc_before_prediction in bp_predict tail: %x\n", q.tail->pred.pc_before_prediction);
 		// }
 		// Control.prediction_taken = 0;
 		// Control.pc_before_prediction = CURRENT_STATE.PC;
-		//printf("plus 4 in bp_predict\n");
+		printf("plus 4 in bp_predict\n");
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}
-	//hit
+	//hit 
 	else if ((indexed_entry.cond_bit == 0) || (counter > 1)) {
-		// //printf("prediction hit!\n");
+		// printf("prediction hit!\n");
 		struct Prediction temp;
 		temp.prediction_taken = 1;
 		temp.pc_before_prediction = CURRENT_STATE.PC;
 		temp.taken_target = indexed_entry.target;
 		enqueue(&q, temp);
-
+		
 		//no bubble on hit rn;
 		CURRENT_STATE.PC = indexed_entry.target;
 	}
 	else {
-		//printf("plus 4 in bp_predict\n");
+		printf("plus 4 in bp_predict\n");
 		struct Prediction temp;
 		temp.prediction_taken = 0;
 		temp.pc_before_prediction = CURRENT_STATE.PC;
-		// //printf("loaded_pc in bp_predict BTB hit but cond miss: %x\n", temp.pc_before_prediction);
+		// printf("loaded_pc in bp_predict BTB hit but cond miss: %x\n", temp.pc_before_prediction);
 		enqueue(&q, temp);
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}
@@ -132,17 +132,17 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 		unsigned char valid_bit;
 		(inc > 0) ? (valid_bit = 1) : (valid_bit = 0);
 		gshare_set(valid_bit);
-		// //printf("gshare: %x\n", BP.gshare);
+		// printf("gshare: %x\n", BP.gshare);
 		// 3 update the btb
 		// unsigned char btb_tag = (0x000007fe & fetch_pc) >> 1;
 		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 2;
 
 		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
-		// //printf("btb_entry index: %d\n", btb_tag);
-		// //printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
-		// //printf("updated btb_entry dest: %lx\n", BP.btb_table[btb_tag].target);
-		// //printf("updated btb_entry valid bit: %d\n", BP.btb_table[btb_tag].valid_bit);
-		// //printf("updated btb_entry cond bit: %d\n", BP.btb_table[btb_tag].cond_bit);
+		// printf("btb_entry index: %d\n", btb_tag);
+		// printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
+		// printf("updated btb_entry dest: %lx\n", BP.btb_table[btb_tag].target);
+		// printf("updated btb_entry valid bit: %d\n", BP.btb_table[btb_tag].valid_bit);
+		// printf("updated btb_entry cond bit: %d\n", BP.btb_table[btb_tag].cond_bit);
 	}
 	else if (cond_bit == 0)
 	{
@@ -150,11 +150,11 @@ void bp_update(uint64_t fetch_pc, unsigned char cond_bit, uint64_t target, int i
 		unsigned char btb_tag = (0x000007fe & fetch_pc) >> 2;
 		update_btb_entry(btb_tag, fetch_pc, 1, cond_bit, target);
 
-		// //printf("btb_entry index: %d\n", btb_tag);
-		// //printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
-		// //printf("updated btb_entry dest: %lx\n", BP.btb_table[btb_tag].target);
-		// //printf("updated btb_entry valid bit: %d\n", BP.btb_table[btb_tag].valid_bit);
-		// //printf("updated btb_entry cond bit: %d\n", BP.btb_table[btb_tag].cond_bit);
+		// printf("btb_entry index: %d\n", btb_tag);
+		// printf("updated btb_entry pc: %lx\n", BP.btb_table[btb_tag].addr_tag);
+		// printf("updated btb_entry dest: %lx\n", BP.btb_table[btb_tag].target);
+		// printf("updated btb_entry valid bit: %d\n", BP.btb_table[btb_tag].valid_bit);
+		// printf("updated btb_entry cond bit: %d\n", BP.btb_table[btb_tag].cond_bit);
 	}
 	return;
 }
