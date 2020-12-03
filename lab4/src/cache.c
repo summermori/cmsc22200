@@ -66,6 +66,8 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     //       printf("block data: %x - ",spec_block.data[j]);
     //   }
     //   printf("offset: %ld\n", offset);
+      printf("CACHE READ II: %d\n", i);
+      printf("OFFSET in data[]: %ld\n", offset);
       spec_block.lru = stat_cycles;
       return spec_block.data[offset];
     }
@@ -148,7 +150,7 @@ void cache_write (uint64_t addr, uint64_t val) {
 
   uint64_t tag = (addr & 0xffffe000) >> 13;		//the tag used for matching data blocks
   uint64_t index = (addr & 0x00001fe0) >> 5;		//the specific set for the data
-  uint64_t offset = addr & 0x1f;		//the specific segment of the matching block
+  uint64_t offset = (addr & 0x1f) >> 2;		//the specific segment of the matching block
   block_t *cache = DATA_CACHE;
 
   uint64_t head = (index * 8);
@@ -178,6 +180,11 @@ void cache_write (uint64_t addr, uint64_t val) {
       spec_block.dirty = 1;
       spec_block.data[offset] = val;
       cache[i] = spec_block;
+      printf("II: %d\n", i);
+      for (int x = 0; x < 8; x++)
+      {
+          printf("%d: %x\n", x, cache[i].data[x]);
+      }
       printf("dcache write hit at (%lx", addr);
       printf(") at cycle %d\n", stat_cycles + 1);
       return;
