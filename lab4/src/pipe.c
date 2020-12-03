@@ -112,7 +112,7 @@ int64_t reg_call(int64_t addr) {
 			//printf("x/m hit, returning %ld\n", EXtoMEM.res);
                         return EXtoMEM.res;
                 }
-                else if ((MEMtoWB.op != 0) && (MEMtoWB.dnum == addr) && !(isSturBranch(addr)) && (MEMtoWB.fwb == 1)) {
+                else if ((MEMtoWB.dnum == addr) && !(isSturBranch(addr)) && (MEMtoWB.fwb == 1)) {
 			//printf("m/w hit, returning %ld\n", MEMtoWB.res);
                         return MEMtoWB.res;
                 }
