@@ -116,8 +116,6 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     }
     //storing in cache
     cache[empty] = new_block;
-    printf("cache fill idx: %d\n", empty);
-    printf("cache fill valid: %d\n", cache[empty].valid);
     //return the newly-read address
     return new_block.data[offset];
   }

@@ -351,6 +351,7 @@ void pipe_stage_execute()
   }
   else if (Control.data_cache_bubble > 0)
   {
+
     return;
     
   }
@@ -497,6 +498,12 @@ void pipe_stage_decode()
   // }
  else if (Control.data_cache_bubble > 1)
  {
+   
+   if (Control.icache_recent_dismount != 0)
+   {
+     printf("clearing IFtoID\n");
+     IFtoID = (IFtoID_t){ .inst = 0};
+   }
    return;
  }
  else if (Control.data_cache_bubble == 1)
@@ -833,6 +840,7 @@ void pipe_stage_decode()
   else {
     //printf("Failure to match subtype3\n");
   }
+  printf("Control.data_cache_bubble in ID: %d\n", Control.data_cache_bubble);
   if (Control.data_cache_bubble > 0 || Control.icache_recent_dismount > 0)
   {
     printf("clearing IFtoID\n");
@@ -858,6 +866,7 @@ void pipe_stage_fetch()
   else if (Control.data_cache_bubble > 0)
   {
     Control.data_cache_bubble -= 1;
+    printf("Control.icache_recent_dismount: %d\n", Control.icache_recent_dismount);
     //be able to do icache stuff in dcache stall
     if (Control.icache_recent_dismount > 0)
     {
@@ -888,14 +897,11 @@ void pipe_stage_fetch()
         Control.icache_recent_dismount = 0;
       }
     }
-    if (Control.data_cache_bubble == 2 || Control.data_cache_bubble == 1 )
+    if (Control.icache_recent_dismount > 0)
     {
-      if (Control.icache_recent_dismount > 0)
-      {
-        Control.icache_recent_dismount -= 1;
-      }
+      Control.icache_recent_dismount -= 1;
     }
-
+    
     //still want to continue icache bubble behavior in stall
     if (Control.inst_cache_bubble > 0)
     {
@@ -908,7 +914,8 @@ void pipe_stage_fetch()
       {
         printf("icache bubble dismount\n");
         Control.inst_cache_bubble = 0;
-        Control.icache_recent_dismount = 2;
+        Control.icache_recent_dismount = Control.data_cache_bubble;
+        printf("dismount icache_recent_dismount: %d\n", Control.icache_recent_dismount);
         return;
       }
     }
@@ -1918,6 +1925,8 @@ void LDUR() {
   // printf("mem_loc offset: %lx\n", offset);
   int64_t load = cache_read(n + offset, 8);
   int64_t load2 = cache_read(n + offset + 4, 8);
+  printf("LOAD ONE: %lx\n", load);
+  printf("LOAD TWO: %lx\n", load2);
   load = load | (load2 << 32);
   if (t != 31) {
     MEMtoWB.res = load;
