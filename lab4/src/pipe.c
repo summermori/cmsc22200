@@ -108,11 +108,11 @@ int64_t reg_call(int64_t addr) {
         //for the exe struct
         if (addr != 31) {
 		//printf("addr is %ld, x/m d is %ld, x/m fmem is %d, m/w d is %ld, and m/w fwb is %d\n", addr, EXtoMEM.dnum, EXtoMEM.fmem, MEMtoWB.dnum, MEMtoWB.fwb);
-                if ((EXtoMEM.dnum == addr) && !(isSturBranch(addr)) && (EXtoMEM.fmem == 0)) {
+                if ((EXtoMEM.op != 0) && (EXtoMEM.dnum == addr) && !(isSturBranch(addr)) && (EXtoMEM.fmem == 0)) {
 			//printf("x/m hit, returning %ld\n", EXtoMEM.res);
                         return EXtoMEM.res;
                 }
-                else if ((MEMtoWB.dnum == addr) && !(isSturBranch(addr)) && (MEMtoWB.fwb == 1)) {
+                else if ((MEMtoWB.op != 0) && (MEMtoWB.dnum == addr) && !(isSturBranch(addr)) && (MEMtoWB.fwb == 1)) {
 			//printf("m/w hit, returning %ld\n", MEMtoWB.res);
                         return MEMtoWB.res;
                 }
@@ -794,8 +794,11 @@ void pipe_stage_decode()
       }
       else
       {
+        
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
+        printf("ADD OP 1 in IF: %lx\n", IDtoEX.n);
+        printf("ADD OP 2 in IF: %lx\n", IDtoEX.m);
       }
       // printf("Add/subtract (extended register), ");
     }
@@ -901,7 +904,7 @@ void pipe_stage_fetch()
     {
       Control.icache_recent_dismount -= 1;
     }
-    
+
     //still want to continue icache bubble behavior in stall
     if (Control.inst_cache_bubble > 0)
     {
@@ -2015,6 +2018,8 @@ void ADD_Extended()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
+    printf("OP1: %lx\n", n);
+    printf("OP2: %lx\n", m);
     EXtoMEM.res = n + m;
 
 }
