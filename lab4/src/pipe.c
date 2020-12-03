@@ -136,6 +136,8 @@ void pipe_stage_wb()
   {
     return;
   }
+  // printf("wb reg: %lx\n", MEMtoWB.dnum);
+  // printf("wb res: %lx\n", MEMtoWB.res);
 
   //exception
   if (MEMtoWB.halt == 1)
@@ -157,7 +159,8 @@ void pipe_stage_wb()
 
 void pipe_stage_mem()
 {
-  //middle or last cycle of bubble
+  // printf("mem reg: %lx\n", EXtoMEM.dnum);
+  //middle mor last cycle of bubble
   if (Control.data_cache_bubble > 0)
   {
     //middle of cycle
@@ -174,8 +177,8 @@ void pipe_stage_mem()
       int64_t t;
       int64_t n;
       int64_t offset;
-      int load;
-      int load2;
+      int64_t load;
+      int64_t load2;
       printf("d_cache_stored_op: %lx\n", dcache_store_EXtoMEM.op);
       switch (dcache_store_EXtoMEM.op)
       {
@@ -340,6 +343,7 @@ void pipe_stage_mem()
 
 void pipe_stage_execute()
 {
+  printf("IDtoEX.op: %lx\n", IDtoEX.op);
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
   {
@@ -478,16 +482,34 @@ void pipe_stage_execute()
 
 void pipe_stage_decode()
 {
+  printf("IFtoID.inst: %x\n", IFtoID.inst);
+  
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
   {
     printf("same_cycle dcache bubble in id\n");
   }
-  else if (Control.data_cache_bubble > 0)
-  {
-    return;
+  //old dcache dismount behavior do nothing
+  // else if (Control.data_cache_bubble > 0)
+  // {
+  //   return;
     
-  }
+  // }
+ else if (Control.data_cache_bubble > 1)
+ {
+   return;
+ }
+ else if (Control.data_cache_bubble == 1)
+ {
+   if (Control.icache_recent_dismount == 0)
+   {
+     return;
+   }
+   else
+   {
+     printf("dcache dismount allow ID to work\n");
+   }
+ }
 
   //loadstore bubbling detection
   if (EXtoMEM.op == 0xf8400000)
@@ -811,13 +833,21 @@ void pipe_stage_decode()
   else {
     //printf("Failure to match subtype3\n");
   }
-  // IFtoID = (IFtoID_t){ .inst = 0};
+  if (Control.data_cache_bubble > 0 || Control.icache_recent_dismount > 0)
+  {
+    printf("clearing IFtoID\n");
+    IFtoID = (IFtoID_t){ .inst = 0};
+  }
   loadstore_dependency = 0;
 
 }
 
 void pipe_stage_fetch()
 {
+  // printf("EXtoMEM.op: %lx\n", EXtoMEM.op);
+  // printf("IDtoEX.op: %lx\n", IDtoEX.op);
+  // printf("IFtoID.inst: %x\n", IFtoID.inst);
+
   //data_cache bubbling
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
@@ -828,6 +858,61 @@ void pipe_stage_fetch()
   else if (Control.data_cache_bubble > 0)
   {
     Control.data_cache_bubble -= 1;
+    //be able to do icache stuff in dcache stall
+    if (Control.icache_recent_dismount > 0)
+    {
+      if (IFtoID.inst == 0)
+      {
+        uint32_t word = cache_read(CURRENT_STATE.PC, 4);
+        //same cycle do nothing for bubble
+        if (Control.inst_cache_bubble == 50)
+        {
+          printf("same cycle cache_bubble");
+          Control.inst_cache_bubble -= 1;
+          struct Prediction temp;
+          temp.prediction_taken = 0;
+          temp.pc_before_prediction = CURRENT_STATE.PC;
+          enqueue(&q, temp);
+          return;
+        }
+        //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
+        else
+        {
+          printf("word: %x\n", word);
+          IFtoID.inst = word;
+          bp_predict(CURRENT_STATE.PC);
+        }
+      }
+      if (Control.icache_recent_dismount == 1)
+      {
+        Control.icache_recent_dismount = 0;
+      }
+    }
+    if (Control.data_cache_bubble == 2 || Control.data_cache_bubble == 1 )
+    {
+      if (Control.icache_recent_dismount > 0)
+      {
+        Control.icache_recent_dismount -= 1;
+      }
+    }
+
+    //still want to continue icache bubble behavior in stall
+    if (Control.inst_cache_bubble > 0)
+    {
+      if (Control.inst_cache_bubble != 1)
+      {
+        printf("icache bubble: %d\n", Control.inst_cache_bubble);
+        Control.inst_cache_bubble -= 1;
+      }
+      else
+      {
+        printf("icache bubble dismount\n");
+        Control.inst_cache_bubble = 0;
+        Control.icache_recent_dismount = 2;
+        return;
+      }
+    }
+
     return;
   }
   //exception control

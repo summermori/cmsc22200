@@ -65,7 +65,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     //   {
     //       printf("block data: %x - ",spec_block.data[j]);
     //   }
-      printf("offset: %ld\n", offset);
+    //   printf("offset: %ld\n", offset);
       spec_block.lru = stat_cycles;
       return spec_block.data[offset];
     }
@@ -255,7 +255,7 @@ int check_offsetless_head(uint64_t one, uint64_t two)
 int check_branch_ahead(uint64_t addr)
 {
     uint64_t base = CURRENT_STATE.PC - 4;
-    printf("base: %lx\n", base);
+    // printf("base: %lx\n", base);
     int64_t offset;
 
     //cond

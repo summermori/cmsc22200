@@ -126,6 +126,7 @@ typedef struct Control_t {
 	//lab4 cache bubbling
 	int inst_cache_bubble;
 	uint32_t inst_store_word;
+	int icache_recent_dismount;
 	int offsetlesshead_diff;
 	int data_cache_bubble;
 	//halt, flags, and baddr
