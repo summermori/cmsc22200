@@ -1,9 +1,10 @@
 /*
  * ARM pipeline timing simulator
  *
- * CMSC 22200, Fall 2016
- * Gushu Li and Reza Jokar
+ * 
+ *
  */
+//GROUP MEMBERS: Sam Sagawa(ssagawa), Jesus Almarez-Argueta(jesusaa), Ryan Li(rli3)
 
 #include "bp.h"
 #include "pipe.h"

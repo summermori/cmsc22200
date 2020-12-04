@@ -4,6 +4,7 @@
  * ARM pipeline timing simulator
  *
  */
+//GROUP MEMBERS: Sam Sagawa(ssagawa), Jesus Almarez-Argueta(jesusaa), Ryan Li(rli3)
 
 #include "cache.h"
 #include "shell.h"
