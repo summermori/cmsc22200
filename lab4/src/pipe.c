@@ -3,6 +3,7 @@
  *
  * ARM pipeline timing simulator
  */
+//GROUP MEMBERS: 
 
 #include "pipe.h"
 #include "shell.h"
@@ -166,20 +167,20 @@ void pipe_stage_mem()
     //middle of cycle
     if (Control.data_cache_bubble > 1)
     {
-      printf("dcache stall: %d\n", Control.data_cache_bubble);
+      // printf("dcache stall: %d\n", Control.data_cache_bubble);
       return;
     }
     //last cycle of bubble, data_cache_bubble == 1
     else if (Control.data_cache_bubble == 1)
     {
       //stall dismount, hit on the same inst we missed on
-      printf("dcache dismount only allowing mem to work\n");
+      // printf("dcache dismount only allowing mem to work\n");
       int64_t t;
       int64_t n;
       int64_t offset;
       int64_t load;
       int64_t load2;
-      printf("d_cache_stored_op: %lx\n", dcache_store_EXtoMEM.op);
+      // printf("d_cache_stored_op: %lx\n", dcache_store_EXtoMEM.op);
       switch (dcache_store_EXtoMEM.op)
       {
         case 0xf8400000:
@@ -343,11 +344,11 @@ void pipe_stage_mem()
 
 void pipe_stage_execute()
 {
-  printf("IDtoEX.op: %lx\n", IDtoEX.op);
+  // printf("IDtoEX.op: %lx\n", IDtoEX.op);
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
   {
-    printf("same_cycle dcache bubble in ex\n");
+    // printf("same_cycle dcache bubble in ex\n");
   }
   else if (Control.data_cache_bubble > 0)
   {
@@ -483,12 +484,12 @@ void pipe_stage_execute()
 
 void pipe_stage_decode()
 {
-  printf("IFtoID.inst: %x\n", IFtoID.inst);
+  // printf("IFtoID.inst: %x\n", IFtoID.inst);
   
   //first and middle cycles of data_cache bubble do nothing
   if (Control.data_cache_bubble == 51)
   {
-    printf("same_cycle dcache bubble in id\n");
+    // printf("same_cycle dcache bubble in id\n");
   }
   //old dcache dismount behavior do nothing
   // else if (Control.data_cache_bubble > 0)
@@ -501,7 +502,7 @@ void pipe_stage_decode()
    
    if (Control.icache_recent_dismount != 0)
    {
-     printf("clearing IFtoID\n");
+    //  printf("clearing IFtoID\n");
      IFtoID = (IFtoID_t){ .inst = 0};
    }
    return;
@@ -514,7 +515,7 @@ void pipe_stage_decode()
    }
    else
    {
-     printf("dcache dismount allow ID to work\n");
+    //  printf("dcache dismount allow ID to work\n");
    }
  }
 
@@ -797,8 +798,8 @@ void pipe_stage_decode()
         
         IDtoEX.n = reg_call(((word & 0x000003e0) >> 5));
         IDtoEX.m = reg_call((word & 0x001f0000) >> 16);
-        printf("ADD OP 1 in IF: %lx\n", IDtoEX.n);
-        printf("ADD OP 2 in IF: %lx\n", IDtoEX.m);
+        // printf("ADD OP 1 in IF: %lx\n", IDtoEX.n);
+        // printf("ADD OP 2 in IF: %lx\n", IDtoEX.m);
       }
       // printf("Add/subtract (extended register), ");
     }
@@ -843,10 +844,10 @@ void pipe_stage_decode()
   else {
     //printf("Failure to match subtype3\n");
   }
-  printf("Control.data_cache_bubble in ID: %d\n", Control.data_cache_bubble);
+  // printf("Control.data_cache_bubble in ID: %d\n", Control.data_cache_bubble);
   if (Control.data_cache_bubble > 0 || Control.icache_recent_dismount > 0)
   {
-    printf("clearing IFtoID\n");
+    // printf("clearing IFtoID\n");
     IFtoID = (IFtoID_t){ .inst = 0};
   }
   loadstore_dependency = 0;
@@ -864,12 +865,12 @@ void pipe_stage_fetch()
   if (Control.data_cache_bubble == 51)
   {
     Control.data_cache_bubble -= 1;
-    printf("same_cycle dcache bubble in if\n");
+    // printf("same_cycle dcache bubble in if\n");
   }
   else if (Control.data_cache_bubble > 0)
   {
     Control.data_cache_bubble -= 1;
-    printf("Control.icache_recent_dismount: %d\n", Control.icache_recent_dismount);
+    // printf("Control.icache_recent_dismount: %d\n", Control.icache_recent_dismount);
     //be able to do icache stuff in dcache stall
     if (Control.icache_recent_dismount > 0)
     {
@@ -879,7 +880,7 @@ void pipe_stage_fetch()
         //same cycle do nothing for bubble
         if (Control.inst_cache_bubble == 50)
         {
-          printf("same cycle cache_bubble");
+          // printf("same cycle cache_bubble");
           Control.inst_cache_bubble -= 1;
           struct Prediction temp;
           temp.prediction_taken = 0;
@@ -890,7 +891,7 @@ void pipe_stage_fetch()
         //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
         else
         {
-          printf("word: %x\n", word);
+          // printf("word: %x\n", word);
           IFtoID.inst = word;
           bp_predict(CURRENT_STATE.PC);
         }
@@ -910,15 +911,15 @@ void pipe_stage_fetch()
     {
       if (Control.inst_cache_bubble != 1)
       {
-        printf("icache bubble: %d\n", Control.inst_cache_bubble);
+        // printf("icache bubble: %d\n", Control.inst_cache_bubble);
         Control.inst_cache_bubble -= 1;
       }
       else
       {
-        printf("icache bubble dismount\n");
+        // printf("icache bubble dismount\n");
         Control.inst_cache_bubble = 0;
         Control.icache_recent_dismount = Control.data_cache_bubble;
-        printf("dismount icache_recent_dismount: %d\n", Control.icache_recent_dismount);
+        // printf("dismount icache_recent_dismount: %d\n", Control.icache_recent_dismount);
         return;
       }
     }
@@ -928,7 +929,7 @@ void pipe_stage_fetch()
   //exception control
   if (Control.halt == 1)
   {
-    printf("halted\n");
+    // printf("halted\n");
     return;
   }
   //branch bubbling
@@ -945,13 +946,13 @@ void pipe_stage_fetch()
       CURRENT_STATE.PC = Control.baddr;
       Control.baddr = -1;
       //IFtoID.inst = mem_read_32(CURRENT_STATE.PC);
-      printf("PC: %lx\n", CURRENT_STATE.PC);
+      // printf("PC: %lx\n", CURRENT_STATE.PC);
       // printf("WORD in cond branch: %x\n",IFtoID.inst);
       // CURRENT_STATE.PC = CURRENT_STATE.PC + 4;
       Control.cond_branch = 0;
       if (Control.offsetlesshead_diff == 1)
       {
-        printf("offsetlesshead_diff -> bubble cancel\n");
+        // printf("offsetlesshead_diff -> bubble cancel\n");
         Control.inst_cache_bubble = 0;
         Control.offsetlesshead_diff = 0;
       }
@@ -993,14 +994,14 @@ void pipe_stage_fetch()
     //not last cycle of bubble
     if (Control.inst_cache_bubble > 1)
     {
-      printf("icache bubble\n");
+      // printf("icache bubble\n");
       Control.inst_cache_bubble -= 1;
       return;
     }
     //last cycle, restore to pipeline
     else
     {
-      printf("icache bubble dismount\n");
+      // printf("icache bubble dismount\n");
       Control.inst_cache_bubble = 0;
       return;
     }
@@ -1010,7 +1011,7 @@ void pipe_stage_fetch()
   //same cycle do nothing for bubble
   if (Control.inst_cache_bubble == 50)
   {
-    printf("same cycle cache_bubble");
+    // printf("same cycle cache_bubble");
     Control.inst_cache_bubble -= 1;
     struct Prediction temp;
 		temp.prediction_taken = 0;
@@ -1021,7 +1022,7 @@ void pipe_stage_fetch()
   //not in bubble(first cycle or mid-bubble or last-cycle) load word into struct to continue pipeline
   else
   {
-    printf("word: %x\n", word);
+    // printf("word: %x\n", word);
     IFtoID.inst = word;
     //cache_read returns 0 if there is a branch in ID, so we don't do anything, sending a zero to IFtoID.inst is equivalent to a flush.
     // if (word == 0)
@@ -1645,7 +1646,7 @@ void B_Cond()
               //lab2 behavior
               if (branch_taken == 1)
               {
-                printf("pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);
+                // printf("pc_before_prediction: %x\n", temp_entry->pred.pc_before_prediction);
                 Branch(offset, temp_entry->pred.pc_before_prediction);
                 Control.cond_branch = 1;
               }
@@ -1928,8 +1929,8 @@ void LDUR() {
   // printf("mem_loc offset: %lx\n", offset);
   int64_t load = cache_read(n + offset, 8);
   int64_t load2 = cache_read(n + offset + 4, 8);
-  printf("LOAD ONE: %lx\n", load);
-  printf("LOAD TWO: %lx\n", load2);
+  // printf("LOAD ONE: %lx\n", load);
+  // printf("LOAD TWO: %lx\n", load2);
   load = load | (load2 << 32);
   if (t != 31) {
     MEMtoWB.res = load;
@@ -2018,8 +2019,8 @@ void ADD_Extended()
 {
     int64_t n = IDtoEX.n;
     int64_t m = IDtoEX.m;
-    printf("OP1: %lx\n", n);
-    printf("OP2: %lx\n", m);
+    // printf("OP1: %lx\n", n);
+    // printf("OP2: %lx\n", m);
     EXtoMEM.res = n + m;
 
 }

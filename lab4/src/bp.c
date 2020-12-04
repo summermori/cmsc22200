@@ -65,7 +65,7 @@ void bp_predict(uint64_t fetch_pc) {
 	btb_entry_t indexed_entry = get_btb_entry(btb_tag);
 	//no hit BTB miss
 	// printf("indexed entry valid bit: %d\n", indexed_entry.valid_bit);
-	printf("CURRENT_STATE.PC in bp_predict: %lx\n", CURRENT_STATE.PC);
+	// printf("CURRENT_STATE.PC in bp_predict: %lx\n", CURRENT_STATE.PC);
 	if ((indexed_entry.addr_tag != fetch_pc) || (indexed_entry.valid_bit == 0)) {
 		struct Prediction temp;
 		temp.prediction_taken = 0;
@@ -90,7 +90,7 @@ void bp_predict(uint64_t fetch_pc) {
 		// }
 		// Control.prediction_taken = 0;
 		// Control.pc_before_prediction = CURRENT_STATE.PC;
-		printf("plus 4 in bp_predict\n");
+		// printf("plus 4 in bp_predict\n");
 		CURRENT_STATE.PC = fetch_pc + 4;
 	}
 	//hit 
@@ -106,7 +106,7 @@ void bp_predict(uint64_t fetch_pc) {
 		CURRENT_STATE.PC = indexed_entry.target;
 	}
 	else {
-		printf("plus 4 in bp_predict\n");
+		// printf("plus 4 in bp_predict\n");
 		struct Prediction temp;
 		temp.prediction_taken = 0;
 		temp.pc_before_prediction = CURRENT_STATE.PC;

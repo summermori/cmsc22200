@@ -52,22 +52,6 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
     }
 
     if (spec_block.valid && spec_block.tag == tag) {
-      if (n == 4)
-      {
-        printf("icache hit (%lx) at cycle %d\n", CURRENT_STATE.PC, stat_cycles + 1);
-        printf("cache hit idx: %d\n", i);
-      }
-      else
-      {
-        printf("dcache hit (%lx) at cycle %d\n", addr, stat_cycles + 1);
-      }
-    //   for (int j = 0; j < 8; j++)
-    //   {
-    //       printf("block data: %x - ",spec_block.data[j]);
-    //   }
-    //   printf("offset: %ld\n", offset);
-      printf("CACHE READ II: %d\n", i);
-      printf("OFFSET in data[]: %ld\n", offset);
       spec_block.lru = stat_cycles;
       return spec_block.data[offset];
     }
@@ -80,7 +64,7 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   {
     //diff offset less head returns 1 for check_branch_ahead
     //if its diff still set bubble and set offsetlesshead_diff; but return right after
-    printf("offsetlesshead between branch and missed is different!\n");
+    // printf("offsetlesshead between branch and missed is different!\n");
     Control.inst_cache_bubble = 50;
     Control.offsetlesshead_diff = 1;
     return 0;
@@ -91,14 +75,14 @@ uint32_t cache_read(uint64_t addr, int n) //cache_read takes the read location a
   if (n == 4)
   {
     Control.inst_cache_bubble = 50;
-    printf("icache miss at (%lx", CURRENT_STATE.PC);
-    printf(") at cycle %d\n", stat_cycles + 1);
+    // printf("icache miss at (%lx", CURRENT_STATE.PC);
+    // printf(") at cycle %d\n", stat_cycles + 1);
   }
   else
   {
     Control.data_cache_bubble = 50;
-    printf("dcache read miss at (%lx", addr);
-    printf(") at cycle %d\n", stat_cycles + 1);
+    // printf("dcache read miss at (%lx", addr);
+    // printf(") at cycle %d\n", stat_cycles + 1);
   }
 
 
@@ -180,20 +164,13 @@ void cache_write (uint64_t addr, uint64_t val) {
       spec_block.dirty = 1;
       spec_block.data[offset] = val;
       cache[i] = spec_block;
-      printf("II: %d\n", i);
-      for (int x = 0; x < 8; x++)
-      {
-          printf("%d: %x\n", x, cache[i].data[x]);
-      }
-      printf("dcache write hit at (%lx", addr);
-      printf(") at cycle %d\n", stat_cycles + 1);
       return;
     }
   }
 
   //a miss has occured, and as such we have to read in the correct block.
-  printf("dcache write miss at (%lx", addr);
-  printf(") at cycle %d\n", stat_cycles + 1);
+//   printf("dcache write miss at (%lx", addr);
+//   printf(") at cycle %d\n", stat_cycles + 1);
   Control.data_cache_bubble = 51;
 
   //check if there's an empty block. If so, we load into there
@@ -243,10 +220,10 @@ void cache_write (uint64_t addr, uint64_t val) {
 
 int check_offsetless_head(uint64_t one, uint64_t two)
 {
-    printf("missed target: %lx\n", two);
-    printf("branch addr: %lx\n", one);
-    printf("missed offsetless head: %lx\n", two & 0xffffffe0);
-    printf("branch offsetless head: %lx\n", one & 0xffffffe0);
+    // printf("missed target: %lx\n", two);
+    // printf("branch addr: %lx\n", one);
+    // printf("missed offsetless head: %lx\n", two & 0xffffffe0);
+    // printf("branch offsetless head: %lx\n", one & 0xffffffe0);
     if ((one & 0xffffffe0) == (two & 0xffffffe0))
     {
         return 1;
